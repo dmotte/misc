@@ -1,7 +1,8 @@
 # resize-vids
 
-Small **bash script** to resize mp4 videos using the ffmpeg utility.
+Small **Bash script** to **resize videos** using the `ffmpeg` utility.
 
-Run ./resize-vids.sh --help for usage information.
+## Usage examples
 
-TODO
+- `./resize-vids.sh vid01.mp4`
+- `./resize-vids.sh *.mp4` (in a Bash shell)
