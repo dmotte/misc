@@ -16,4 +16,5 @@ These rules should be but in the *uBlock Dashboard* &rarr; **My filters** sectio
 
 The result is the following:
 
-TODO
+![](img/screen-02.png)
+![](img/screen-03.png)
