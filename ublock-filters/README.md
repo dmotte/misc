@@ -13,12 +13,12 @@ www.youtube.com##.grid-disabled.grid.ytd-browse.style-scope > .ytd-two-column-br
 stackoverflow.com###hot-network-questions
 ```
 
-These rules should be but in the *uBlock Dashboard* &rarr; **My filters** section, as shown below:
+These rules should be put in the *uBlock Dashboard* &rarr; **My filters** section, as shown below:
 
 ![](img/screen-01.png)
 
 The results are the following:
 
-![](img/screen-02.png)
-![](img/screen-03.png)
-![](img/screen-04.png)
+![](img/results-01.png)
+![](img/results-02.png)
+![](img/results-03.png)
