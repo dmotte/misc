@@ -2,14 +2,20 @@
 
 set -e
 
-#OUTPUT_WIDTH=854; OUTPUT_HEIGHT=480
-OUTPUT_WIDTH=640; OUTPUT_HEIGHT=360
+# Parameters
+p_outw=640  # Output width
+p_outh=360  # Output height
+#p_outw=854
+#p_outh=480
+
+# Create a directory in which to save the output files
+mkdir -p resized/
 
 for i in "$@"; do
-    INPUT_FILENAME="$i"
-    OUTPUT_FILENAME="${i}-resized.mp4"
+    bn="$(basename "$i")"  # Basename
+    o="resized/$bn"        # Output filename
 
-    ffmpeg -i "$INPUT_FILENAME" \
-        -vf "scale=$OUTPUT_WIDTH:$OUTPUT_HEIGHT:force_original_aspect_ratio=decrease,pad=$OUTPUT_WIDTH:$OUTPUT_HEIGHT:(ow-iw)/2:(oh-ih)/2" \
-        "$OUTPUT_FILENAME"
+    ffmpeg -i "$i" \
+        -vf "scale=$p_outw:$p_outh:force_original_aspect_ratio=decrease,pad=$p_outw:$p_outh:(ow-iw)/2:(oh-ih)/2" \
+        "$o"
 done
