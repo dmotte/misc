@@ -5,9 +5,9 @@
 Here is my personal filters list to avoid distractions:
 
 ```
-! 2021-05-21 https://www.youtube.com - disable video suggestions
-www.youtube.com##ytd-watch-next-secondary-results-renderer.ytd-watch-flexy.style-scope > .ytd-watch-next-secondary-results-renderer.style-scope
-www.youtube.com##.grid-disabled.grid.ytd-browse.style-scope > .ytd-two-column-browse-results-renderer.style-scope
+! 2022-01-27 https://www.youtube.com - disable video suggestions
+www.youtube.com##ytd-watch-next-secondary-results-renderer
+www.youtube.com##.grid-disabled.ytd-browse.style-scope
 
 ! 2021-07-26 https://stackoverflow.com - disable hot network questions
 stackoverflow.com###hot-network-questions
