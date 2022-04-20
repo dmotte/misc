@@ -1,6 +1,6 @@
 # ublock-filters
 
-[**uBlock Origin**](https://github.com/gorhill/uBlock) is an extremely useful **ad-blocker** browser extension for *Google Chrome* (and other browsers). Among other things, it lets the user block **specific content** on websites by defining a list of custom filter rules.
+[**uBlock Origin**](https://github.com/gorhill/uBlock) is an extremely useful **ad-blocker** browser extension for _Google Chrome_ (and other browsers). Among other things, it lets the user block **specific content** on websites by defining a list of custom filter rules.
 
 Here is my personal filters list to avoid distractions:
 
@@ -13,12 +13,12 @@ www.youtube.com##.grid-disabled.ytd-browse.style-scope
 stackoverflow.com###hot-network-questions
 ```
 
-These rules should be put in the *uBlock Dashboard* &rarr; **My filters** section, as shown below:
+These rules should be put in the _uBlock Dashboard_ &rarr; **My filters** section, as shown below:
 
-![](img/screen-01.png)
+![screen-01](img/screen-01.png)
 
 The results are the following:
 
-![](img/results-01.png)
-![](img/results-02.png)
-![](img/results-03.png)
+![results-01](img/results-01.png)
+![results-02](img/results-02.png)
+![results-03](img/results-03.png)
