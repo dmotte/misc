@@ -1,0 +1,13 @@
+{
+    "name": "mybox",
+    "description": "This is a slightly modified Debian box",
+    "versions": [{
+        "version": "2022.04.21",
+        "providers": [{
+            "name": "virtualbox",
+            "url": "file:///full/path/to/mybox/package.box",
+            "checksum_type": "sha256",
+            "checksum": "1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d"
+        }]
+    }]
+}
