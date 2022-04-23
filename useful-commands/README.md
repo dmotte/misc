@@ -14,9 +14,33 @@ Some commands I want to remember for some reason.
 - `curl -o target.zip https://...`
 - `top` and then press `xcV`. Then `W` to save the config
 - `cd "$(dirname "$0")"` useful in a _Bash_ script
+- `export $(grep -e '^[^#]' secret.env | tr -d '\r' | xargs)` parses a `.env` (_dotenv_) file in _Bash_ ignoring comments and handling newlines properly
+- `git diff --no-index dir1/ dir2/`
+- `sudo blkid`
+- `ffmpeg -ss 97 -i input.mp4 -t 10 output.mp4`
+- `watch -n.2 date`
+- `git fsck`
+- `scp myfile.txt user@hostname:/home/user/myfile.txt`
+- `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
+- `find -printf "%p %s %T@\n"`
+- `rclone lsf -R --format pst myremote: | LC_ALL=C sort`
+- `tree -paugh`
+- `find | grep -i pattern`
+- `cp -Rv /media/sorcedisk/folder /media/destdisk`
+- `ss -tl`
+- `df -h`
+- `du -sh`
+- `zip -r archive.zip folder/`
+- `echo $(date +%Y-%m-%d-%H%M%S)`
+- `less myfile.txt`
+- `last`, `lastb`, `lastlog`
+- `read -p "Password: " -s MYPASSWORD && export MYPASSWORD`
 
 ## Git Bash on Windows
 
 - `export MSYS_NO_PATHCONV=1`
 - `winpty rclone ncdu .`
 - `wsl -e ansible-playbook -Kk -i hosts.yml playbook.yml -l hostname -t tags --list-tasks`
+- `choco list --local-only`
+- `sudo choco upgrade all -y`
+- `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
