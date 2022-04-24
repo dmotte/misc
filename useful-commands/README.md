@@ -8,6 +8,9 @@ Some commands I want to remember for some reason.
 - `tmux setw -g mouse on`
 - `eval $(ssh-agent)`, `ssh-add -t 1800` (30 minutes), `eval $(ssh-agent -k)`
 - `git log --graph --oneline`
+- `git fsck`
+- `git clone ... --depth 1`
+- `git diff --no-index dir1/ dir2/`
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
 - `tar -cvzf archive.tar.gz folder/`, `tar -xvzf archive.tar.gz`
@@ -15,11 +18,9 @@ Some commands I want to remember for some reason.
 - `top` and then press `xcV`. Then `W` to save the config
 - `cd "$(dirname "$0")"` useful in a _Bash_ script
 - `export $(grep -e '^[^#]' secret.env | tr -d '\r' | xargs)` parses a `.env` (_dotenv_) file in _Bash_ ignoring comments and handling newlines properly
-- `git diff --no-index dir1/ dir2/`
 - `sudo blkid`
 - `ffmpeg -ss 97 -i input.mp4 -t 10 output.mp4`
 - `watch -n.2 date`
-- `git fsck`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `find -printf "%p %s %T@\n"`
