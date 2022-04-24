@@ -42,5 +42,5 @@ Some commands I want to remember for some reason.
 - `winpty rclone ncdu .`
 - `wsl -e ansible-playbook -Kk -i hosts.yml playbook.yml -l hostname -t tags --list-tasks`
 - `choco list --local-only`
-- `sudo choco upgrade all -y`
+- `sudo choco upgrade -y all`
 - `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
