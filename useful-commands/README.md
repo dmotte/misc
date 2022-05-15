@@ -23,6 +23,7 @@ Some commands I want to remember for some reason.
 - `watch -n.2 date`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
+- `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
 - `find -printf "%p %s %T@\n"`
 - `rclone lsf -R --format pst myremote: | LC_ALL=C sort`
 - `tree -paugh`
