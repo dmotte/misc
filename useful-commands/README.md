@@ -37,6 +37,7 @@ Some commands I want to remember for some reason.
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
 - `read -p "Password: " -s MYPASSWORD && export MYPASSWORD`
+- `diff <(ls -l) <(ls -la)`
 
 ## Git Bash on Windows
 
