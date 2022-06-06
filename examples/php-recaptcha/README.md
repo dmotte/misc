@@ -14,4 +14,4 @@ Remember to add the desired **domains** to the list.
 
 ## Step 2: Use it
 
-See the `index.php` file for an example. Remember to replace the **site key** and the **secret key** with yours.
+See the [`index.php`](index.php) file for an example. Remember to replace the **site key** and the **secret key** with yours.
