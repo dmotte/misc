@@ -38,6 +38,7 @@ Some commands I want to remember for some reason.
 - `last`, `lastb`, `lastlog`
 - `read -p "Password: " -s MYPASSWORD && export MYPASSWORD`
 - `diff <(ls -l) <(ls -la)`
+- `docker ps -a --format {{.Names}}`
 
 ## Git Bash on Windows
 
