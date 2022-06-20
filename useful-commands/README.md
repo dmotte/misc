@@ -39,6 +39,7 @@ Some commands I want to remember for some reason.
 - `read -p "Password: " -s MYPASSWORD && export MYPASSWORD`
 - `diff <(ls -l) <(ls -la)`
 - `docker ps -a --format {{.Names}}`
+- `ps -aux --sort -pcpu | head -10`
 
 ## Git Bash on Windows
 
