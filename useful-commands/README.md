@@ -40,6 +40,7 @@ Some commands I want to remember for some reason.
 - `diff <(ls -l) <(ls -la)`
 - `docker ps -a --format {{.Names}}`
 - `ps -aux --sort -pcpu | head -10`
+- `export SSH_AUTH_SOCK="$(echo /run/user/*/keyring/ssh)"`
 
 ## Git Bash on Windows
 
