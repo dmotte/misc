@@ -1,0 +1,28 @@
+---
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    # Disable modules config reloading
+    reload.enabled: false
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      # Enable reading labels from containers
+      hints.enabled: true
+      # Disable sending container logs into Elastic by default. In this way,
+      # only logs from containers with the "co.elastic.logs/enabled" label set
+      # to "true" will be sent to Elastic
+      hints.default_config.enabled: false
+
+# The following section is an example of how to monitor log files
+# filebeat.inputs:
+#   - type: filestream
+#     enabled: true
+#     paths:
+#       - /var/log/*.log
+
+output.elasticsearch:
+  hosts: elasticsearch:9200
+  username: ""
+  password: ""
