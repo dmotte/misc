@@ -43,6 +43,7 @@ Some commands I want to remember for some reason.
 - `export SSH_AUTH_SOCK="$(echo /run/user/*/keyring/ssh)"`
 - `docker run -v my-volume:/volume --rm --log-driver none loomchild/volume-backup backup - > my-backup.tar.gz`
 - `docker run -i -v my-volume:/volume --rm loomchild/volume-backup restore - < my-backup.tar.gz`
+- `python3 -m http.server`
 
 ## Git Bash on Windows
 
