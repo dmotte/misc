@@ -1,0 +1,20 @@
+---
+version: "3"
+
+services:
+  ngrok:
+    image: ngrok/ngrok
+    restart: always
+    ports:
+      - 4040:4040 # Web inspector
+    command: http webserver01:8080
+    # The ngrok service also works without authtoken (with some limitations) but
+    # if you have an ngrok account just uncomment the section below
+    # environment:
+    #   NGROK_AUTHTOKEN: put_your_token_here
+
+  webserver01:
+    image: traefik/whoami
+    restart: always
+    hostname: webserver01
+    command: -port 8080
