@@ -47,7 +47,7 @@ services:
     command: metricbeat -e -strict.perms=false
 
   webserver01:
-    image: nginx
+    image: nginx:1.23
     restart: always
     ports: [ 8081:80 ]
     volumes:
@@ -65,7 +65,7 @@ services:
       co.elastic.metrics/hosts: $${data.host}:$${data.port}
 
   webserver02:
-    image: nginx
+    image: nginx:1.23
     restart: always
     ports: [ 8082:80 ]
     labels:
