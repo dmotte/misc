@@ -1,0 +1,24 @@
+---
+version: "3"
+
+services:
+  haproxy:
+    image: haproxy:2.6
+    restart: always
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - 8080:80
+    depends_on:
+      - webserver01
+      - webserver02
+
+  webserver01:
+    image: traefik/whoami:v1.8.1
+    restart: always
+    hostname: webserver01
+
+  webserver02:
+    image: traefik/whoami:v1.8.1
+    restart: always
+    hostname: webserver02
