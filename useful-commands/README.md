@@ -14,7 +14,7 @@ Some commands I want to remember for some reason.
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
 - `tar -cvzf archive.tar.gz folder/`, `tar -xvzf archive.tar.gz`
-- `curl -o target.zip https://...`
+- `curl -LO https://...`, `curl -Lo target.zip https://...`
 - `top` and then press `xcV`. Then `W` to save the config
 - `cd "$(dirname "$0")"` useful in a _Bash_ script
 - `export $(grep -e '^[^#]' secret.env | tr -d '\r' | xargs)` parses a `.env` (_dotenv_) file in _Bash_ ignoring comments and handling newlines properly
