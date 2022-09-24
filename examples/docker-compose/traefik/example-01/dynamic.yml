@@ -1,0 +1,31 @@
+---
+http:
+  routers:
+    dashboard:
+      rule: Host(`dashboard.lvh.me`)
+      service: api@internal
+      middlewares:
+        - auth-dashboard
+    foo:
+      rule: Host(`foo.lvh.me`)
+      service: foo
+    bar:
+      rule: Host(`bar.lvh.me`)
+      service: bar
+
+  middlewares:
+    auth-dashboard:
+      digestAuth:
+        removeHeader: true
+        users:
+          - admin:traefik:817374111f31cc282162486425ee5e9e
+
+  services:
+    foo:
+      loadBalancer:
+        servers:
+          - url: http://foo/
+    bar:
+      loadBalancer:
+        servers:
+          - url: http://bar/

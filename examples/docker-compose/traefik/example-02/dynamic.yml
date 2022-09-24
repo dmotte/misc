@@ -1,0 +1,34 @@
+---
+http:
+  routers:
+    dashboard:
+      rule: Host(`dashboard.example.com`)
+      service: api@internal
+      entryPoints: [websecure]
+      middlewares:
+        - auth-dashboard
+    main:
+      rule: Host(`example.com`)
+      service: noop@internal
+      entryPoints: [websecure]
+      middlewares:
+        - redirect-www
+
+  middlewares:
+    auth-dashboard:
+      digestAuth:
+        removeHeader: true
+        users:
+          - admin:traefik:817374111f31cc282162486425ee5e9e
+    redirect-www:
+      redirectRegex:
+        regex: "^https://example.com/(.*)"
+        replacement: "https://www.example.com/${1}"
+        permanent: true
+
+tls:
+  certificates:
+    # Traefik automatically assigns the certificate to the corresponding routers
+    # based on the SSL "CommonName" attribute
+    - certFile: /etc/traefik/server.crt
+      keyFile: /etc/traefik/server.key

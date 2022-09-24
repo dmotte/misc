@@ -1,0 +1,20 @@
+---
+# Enable the Traefik API (api@internal service)
+api: {}
+
+# Enable access logging to stdout
+accessLog: {}
+
+providers:
+  # Use the dynamic.yml file as dynamic configuration provider
+  file:
+    directory: /etc/traefik/dynamic
+  # Use Docker (container labels) as dynamic configuration provider
+  docker:
+    exposedByDefault: false
+
+entryPoints:
+  web:
+    address: ":80"
+  dashboard:
+    address: ":8080"

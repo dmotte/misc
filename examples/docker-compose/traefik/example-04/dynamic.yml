@@ -1,0 +1,7 @@
+---
+http:
+  routers:
+    dashboard:
+      rule: PathPrefix(`/`) # Match everything
+      service: api@internal
+      entryPoints: [dashboard] # As you can see, the dashboard has its own entrypoint

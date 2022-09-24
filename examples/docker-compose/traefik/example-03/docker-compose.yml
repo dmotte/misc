@@ -1,0 +1,38 @@
+---
+version: "3"
+
+services:
+  traefik:
+    image: traefik:v2.4
+    restart: always
+    network_mode: bridge
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./acme.json:/etc/traefik/acme.json
+
+  foo:
+    image: traefik/whoami:v1.8.1
+    restart: always
+    network_mode: bridge
+    hostname: foo
+    command: -port 8080
+    labels:
+      traefik.enable: true
+      traefik.http.services.foo.loadbalancer.server.port: 8080
+      traefik.http.routers.foo.entryPoints: websecure
+
+  bar:
+    image: traefik/whoami:v1.8.1
+    restart: always
+    network_mode: bridge
+    hostname: bar
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bar.entryPoints: websecure

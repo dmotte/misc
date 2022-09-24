@@ -1,0 +1,39 @@
+---
+version: "3"
+
+services:
+  traefik:
+    image: traefik:v2.4
+    restart: always
+    network_mode: bridge
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./server.crt:/etc/traefik/server.crt:ro
+      - ./server.key:/etc/traefik/server.key:ro
+
+  foo:
+    image: traefik/whoami:v1.8.1
+    restart: always
+    network_mode: bridge
+    hostname: foo
+    labels:
+      traefik.enable: true
+      traefik.http.routers.foo.rule: Host(`foo.example.com`)
+      traefik.http.routers.foo.entryPoints: websecure
+
+  bar:
+    image: traefik/whoami:v1.8.1
+    restart: always
+    network_mode: bridge
+    hostname: bar
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bar.rule: Host(`bar.example.com`)
+      traefik.http.routers.bar.entryPoints: websecure
