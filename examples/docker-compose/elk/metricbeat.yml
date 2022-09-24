@@ -18,16 +18,16 @@ metricbeat.autodiscover:
 # The following section is to monitor all Docker containers
 metricbeat.modules:
   - module: docker
-    hosts: ["unix:///var/run/docker.sock"]
+    hosts: [unix:///var/run/docker.sock]
     metricsets:
-      - "container"
-      - "cpu"
-      - "diskio"
-      - "healthcheck"
-      - "info"
-      #- "image"
-      - "memory"
-      - "network"
+      - container
+      - cpu
+      - diskio
+      - healthcheck
+      - info
+      #- image
+      - memory
+      - network
     period: 10s
     enabled: true
 
