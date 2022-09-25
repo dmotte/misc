@@ -45,6 +45,7 @@ Some commands I want to remember for some reason.
 - `docker run -i -v my-volume:/volume --rm loomchild/volume-backup restore - < my-backup.tar.gz`
 - `python3 -m http.server`
 - `sleep infinity`
+- `dig @ns1.example.com www.example.com`
 
 ## Git Bash on Windows
 
