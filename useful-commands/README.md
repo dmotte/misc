@@ -46,6 +46,7 @@ Some commands I want to remember for some reason.
 - `python3 -m http.server`
 - `sleep infinity`
 - `dig @ns1.example.com www.example.com`
+- `git checkout dev && git merge main && git push && git checkout main`
 
 ## Git Bash on Windows
 
