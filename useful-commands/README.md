@@ -47,6 +47,7 @@ Some commands I want to remember for some reason.
 - `sleep infinity`
 - `dig @ns1.example.com www.example.com`
 - `git checkout dev && git merge main && git push && git checkout main`
+- `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
 
 ## Git Bash on Windows
 
