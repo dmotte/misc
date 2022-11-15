@@ -25,7 +25,7 @@ metricbeat.modules:
       - diskio
       - healthcheck
       - info
-      #- image
+      # - image
       - memory
       - network
     period: 10s
