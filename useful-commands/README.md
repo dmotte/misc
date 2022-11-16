@@ -48,12 +48,12 @@ Some commands I want to remember for some reason.
 - `dig @ns1.example.com www.example.com`
 - `git checkout dev && git merge main && git push && git checkout main`
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
+- `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
 
 ## Git Bash on Windows
 
 - `export MSYS_NO_PATHCONV=1`
 - `winpty rclone ncdu .`
-- `wsl -e ansible-playbook -Kk -i hosts.yml playbook.yml -l hostname -t tags --list-tasks`
 - `choco list --local-only`
 - `sudo choco upgrade -y all`
 - `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
