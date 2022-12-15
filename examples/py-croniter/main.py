@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 import time
 from datetime import datetime as dt
 
@@ -28,4 +29,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
