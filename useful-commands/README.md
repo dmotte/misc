@@ -50,6 +50,9 @@ Some commands I want to remember for some reason.
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
 - `ls | while read -r i; do echo "---$i---"; done`
+- `echo Message | mail -s Subject recipient@example.com`
+- `iostat -o JSON`
+- `S_COLORS=always watch -d -n.5 --color iostat`
 
 ## Git Bash on Windows
 
