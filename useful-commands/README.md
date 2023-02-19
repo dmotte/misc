@@ -53,6 +53,7 @@ Some commands I want to remember for some reason.
 - `echo Message | mail -s Subject recipient@example.com`
 - `iostat -o JSON`
 - `S_COLORS=always watch -d -n.5 --color iostat`
+- `systemctl -a | grep -i myunit`
 
 ## Git Bash on Windows
 
