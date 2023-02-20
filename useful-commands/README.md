@@ -29,7 +29,7 @@ Some commands I want to remember for some reason.
 - `tree -paugh`
 - `find | grep -i pattern`
 - `cp -Rv /media/sorcedisk/folder /media/destdisk`
-- `ss -tl`
+- `ss -tulpn`
 - `df -h`
 - `du -sh`
 - `zip -r archive.zip folder/`
