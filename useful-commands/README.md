@@ -54,6 +54,7 @@ Some commands I want to remember for some reason.
 - `iostat -o JSON`
 - `S_COLORS=always watch -d -n.5 --color iostat`
 - `systemctl -a | grep -i myunit`
+- `: "${MYVAR:=myvalue}"`
 
 ## Git Bash on Windows
 
