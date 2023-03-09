@@ -55,6 +55,7 @@ Some commands I want to remember for some reason.
 - `S_COLORS=always watch -d -n.5 --color iostat`
 - `systemctl -a | grep -i myunit`
 - `: "${MYVAR:=myvalue}"`
+- `ssh-keygen -R [myserver.example.com]:2001`
 
 ## Git Bash on Windows
 
