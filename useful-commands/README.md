@@ -53,7 +53,7 @@ Some commands I want to remember for some reason.
 - `echo Message | mail -s Subject recipient@example.com`
 - `iostat -o JSON`
 - `S_COLORS=always watch -d -n.5 --color iostat`
-- `systemctl -a | grep -i myunit`
+- `systemctl -a | grep -i myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -i myunit` (also disabled ones)
 - `: "${MYVAR:=myvalue}"`
 - `ssh-keygen -R [myserver.example.com]:2001`
 
