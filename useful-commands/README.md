@@ -56,6 +56,7 @@ Some commands I want to remember for some reason.
 - `systemctl -a | grep -i myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -i myunit` (also disabled ones)
 - `: "${MYVAR:=myvalue}"`
 - `ssh-keygen -R [myserver.example.com]:2001`
+- `socat - tcp:example.com:80`
 
 ## Git Bash on Windows
 
