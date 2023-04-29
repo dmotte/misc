@@ -33,6 +33,6 @@ entryPoints:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: fakeemailaddress@fakedomain.com
+      email: myemailaddress@mydomain.com
       storage: /etc/traefik/acme.json
       tlsChallenge: {}
