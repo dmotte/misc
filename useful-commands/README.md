@@ -40,7 +40,7 @@ Some commands I want to remember for some reason.
 - `diff <(ls -l) <(ls -la)`
 - `docker ps -a --format {{.Names}}`
 - `ps -aux --sort -pcpu | head -10`
-- `export SSH_AUTH_SOCK="$(echo /run/user/*/keyring/ssh)"`
+- `export SSH_AUTH_SOCK=$(echo /run/user/$UID/keyring/ssh)`
 - `docker run -v my-volume:/volume --rm --log-driver none loomchild/volume-backup backup - > my-backup.tar.gz`
 - `docker run -i -v my-volume:/volume --rm loomchild/volume-backup restore - < my-backup.tar.gz`
 - `python3 -m http.server`
