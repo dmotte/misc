@@ -57,7 +57,7 @@ Some commands I want to remember for some reason.
 - `: "${MYVAR:=myvalue}"`
 - `ssh-keygen -R [myserver.example.com]:2001`
 - `socat - tcp:example.com:80`
-- `export XDG_RUNTIME_DIR=/run/user/$(id -u)` to use systemctl as a linger-enabled user
+- `export XDG_RUNTIME_DIR=/run/user/$UID` to use systemctl as a linger-enabled user
 
 ## Git Bash on Windows
 
