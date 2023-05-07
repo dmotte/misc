@@ -2,24 +2,21 @@
 http:
   routers:
     dashboard:
+      entryPoints: [websecure]
       rule: Host(`dashboard.example.com`)
+      middlewares: [auth-dashboard]
       service: api@internal
-      entryPoints: [websecure]
-      middlewares:
-        - auth-dashboard
     main:
-      rule: Host(`example.com`)
-      service: noop@internal
       entryPoints: [websecure]
-      middlewares:
-        - redirect-www
+      rule: Host(`example.com`)
+      middlewares: [redirect-www]
+      service: noop@internal
 
   middlewares:
     auth-dashboard:
       digestAuth:
         removeHeader: true
-        users:
-          - admin:traefik:817374111f31cc282162486425ee5e9e
+        users: [admin:traefik:817374111f31cc282162486425ee5e9e]
     redirect-www:
       redirectRegex:
         regex: "^https://example.com/(.*)"

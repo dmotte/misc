@@ -2,6 +2,6 @@
 http:
   routers:
     dashboard:
+      entryPoints: [dashboard] # As you can see, the dashboard has its own entrypoint
       rule: PathPrefix(`/`) # Match everything
       service: api@internal
-      entryPoints: [dashboard] # As you can see, the dashboard has its own entrypoint

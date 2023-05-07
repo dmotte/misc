@@ -3,9 +3,8 @@ http:
   routers:
     dashboard:
       rule: Host(`dashboard.lvh.me`)
+      middlewares: [auth-dashboard]
       service: api@internal
-      middlewares:
-        - auth-dashboard
     foo:
       rule: Host(`foo.lvh.me`)
       service: foo
@@ -17,8 +16,7 @@ http:
     auth-dashboard:
       digestAuth:
         removeHeader: true
-        users:
-          - admin:traefik:817374111f31cc282162486425ee5e9e
+        users: [admin:traefik:817374111f31cc282162486425ee5e9e]
 
   services:
     foo:
