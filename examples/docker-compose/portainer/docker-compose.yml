@@ -16,7 +16,7 @@ services:
       - data-portainer:/data
 
   debian01:
-    image: debian:11
+    image: debian:12
     restart: always
     hostname: debian01
     stdin_open: true
