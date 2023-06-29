@@ -36,7 +36,7 @@ Some commands I want to remember for some reason.
 - `echo $(date +%Y-%m-%d-%H%M%S)`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
-- `read -p "Password: " -s MYPASSWORD && export MYPASSWORD`
+- `read -rsp "Password: " MYPASSWORD && export MYPASSWORD`
 - `diff <(ls -l) <(ls -la)`
 - `docker ps -a --format {{.Names}}`
 - `ps -aux --sort -pcpu | head -10`
