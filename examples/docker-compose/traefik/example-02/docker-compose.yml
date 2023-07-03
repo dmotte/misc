@@ -3,7 +3,7 @@ version: "3"
 
 services:
   traefik:
-    image: traefik:v2.4
+    image: docker.io/library/traefik:v2.4
     restart: always
     network_mode: bridge
     ports:
@@ -19,7 +19,7 @@ services:
       - ./server.key:/etc/traefik/server.key:ro
 
   foo:
-    image: traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.8.1
     restart: always
     network_mode: bridge
     hostname: foo
@@ -29,7 +29,7 @@ services:
       traefik.http.routers.foo.entryPoints: websecure
 
   bar:
-    image: traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.8.1
     restart: always
     network_mode: bridge
     hostname: bar

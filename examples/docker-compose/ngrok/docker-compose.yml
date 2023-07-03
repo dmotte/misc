@@ -3,7 +3,7 @@ version: "3"
 
 services:
   ngrok:
-    image: ngrok/ngrok:3.0.6-debian
+    image: docker.io/ngrok/ngrok:3.0.6-debian
     restart: always
     ports:
       - 4040:4040 # Web inspector
@@ -14,7 +14,7 @@ services:
     #   NGROK_AUTHTOKEN: put_your_token_here
 
   webserver01:
-    image: traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.8.1
     restart: always
     hostname: webserver01
     command: -port 8080

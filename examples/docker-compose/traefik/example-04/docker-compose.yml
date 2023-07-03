@@ -3,7 +3,7 @@ version: "3"
 
 services:
   traefik:
-    image: traefik:v2.4
+    image: docker.io/library/traefik:v2.4
     restart: always
     ports:
       - 80:80
@@ -16,7 +16,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   foo:
-    image: traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.8.1
     restart: always
     hostname: foo
     labels:
@@ -25,7 +25,7 @@ services:
       traefik.http.routers.foo.entryPoints: web
 
   bar:
-    image: traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.8.1
     restart: always
     hostname: bar
     labels:

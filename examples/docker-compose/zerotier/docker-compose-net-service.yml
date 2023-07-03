@@ -3,7 +3,7 @@ version: "3"
 
 services:
   zerotier:
-    image: zerotier/zerotier:1.10.1
+    image: docker.io/zerotier/zerotier:1.10.1
     restart: always
     cap_add: [ NET_ADMIN ]
     devices: [ /dev/net/tun ]
@@ -17,7 +17,7 @@ services:
     command: <put-network-id-here> # ZeroTier network ID
 
   webserver:
-    image: traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.8.1
     restart: always
     depends_on: [ zerotier ]
     network_mode: service:zerotier

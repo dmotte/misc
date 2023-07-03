@@ -3,7 +3,7 @@ version: "3"
 
 services:
   traefik:
-    image: traefik:v2.4
+    image: docker.io/library/traefik:v2.4
     restart: always
     depends_on:
       - foo
@@ -17,11 +17,11 @@ services:
       - ./dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
 
   foo:
-    image: traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.8.1
     restart: always
     hostname: foo
 
   bar:
-    image: traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.8.1
     restart: always
     hostname: bar

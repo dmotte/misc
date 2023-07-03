@@ -3,7 +3,7 @@ version: "3"
 
 services:
   portainer:
-    image: portainer/portainer-ce:2.14.2
+    image: docker.io/portainer/portainer-ce:2.14.2
     restart: always
     command:
       - --admin-password=$$2y$$05$$Gdu0dsEZFmy34/gkHNDIfeAQQFPu7.5LrhtQpwuPK5hRjjA.nGLq.
@@ -16,7 +16,7 @@ services:
       - data-portainer:/data
 
   debian01:
-    image: debian:12
+    image: docker.io/library/debian:12
     restart: always
     hostname: debian01
     stdin_open: true
