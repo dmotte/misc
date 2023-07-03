@@ -68,6 +68,7 @@ Some commands I want to remember for some reason.
 - `systemctl --user status podman-kube@$(systemd-escape ~/kube.yaml)`
 - `journalctl --user -u podman-kube@$(systemd-escape ~/kube.yaml)`
 - `ls -la ~/.local/share/containers/storage/volumes`
+- `(read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64)\"}") | podman secret create mypassword -`
 
 ## Git Bash on Windows
 
