@@ -61,6 +61,14 @@ Some commands I want to remember for some reason.
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use systemctl as a linger-enabled user
 - `nano -\$v filename`, `vim -R filename`
 
+## Podman
+
+- `sudo XDG_RUNTIME_DIR=/run/user/1001 -iu myuser`
+- `podman ps -ap`
+- `systemctl --user status podman-kube@$(systemd-escape ~/kube.yaml)`
+- `journalctl --user -u podman-kube@$(systemd-escape ~/kube.yaml)`
+- `ls -la ~/.local/share/containers/storage/volumes`
+
 ## Git Bash on Windows
 
 - `export MSYS_NO_PATHCONV=1`
