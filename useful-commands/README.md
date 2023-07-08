@@ -58,6 +58,7 @@ Some commands I want to remember for some reason.
 - `: "${MYVAR:=myvalue}"`
 - `ssh-keygen -R [myserver.example.com]:2001`
 - `socat - tcp:example.com:80`
+- `socat UNIX-LISTEN:/tmp/my.sock,fork STDOUT`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use systemctl as a linger-enabled user
 - `nano -\$v filename`, `vim -R filename`
 
