@@ -61,6 +61,7 @@ Some commands I want to remember for some reason.
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=777,fork STDOUT`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use systemctl as a linger-enabled user
 - `nano -\$v filename`, `vim -R filename`
+- `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$(echo "$i")"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
 
 ## Podman
 
