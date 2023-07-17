@@ -4,7 +4,7 @@ Some commands I want to remember for some reason.
 
 ## Linux
 
-- `tmux new-session -Asmain`
+- `tmux new-session -As0`
 - `tmux setw -g mouse on`
 - `eval $(ssh-agent)`, `ssh-add -t 1800` (30 minutes), `eval $(ssh-agent -k)`
 - `git log --graph --oneline`
