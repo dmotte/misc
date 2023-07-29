@@ -46,6 +46,7 @@ Some commands I want to remember for some reason.
 - `python3 -m http.server`
 - `sleep infinity`
 - `dig @ns1.example.com www.example.com`
+- `git pull --no-edit && git add . && { git commit "-m$(date +%s)" || :; } && git push`
 - `git checkout dev && git merge main && git push && git checkout main`
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
