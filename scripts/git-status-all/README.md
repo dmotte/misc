@@ -37,7 +37,7 @@ To install or update _git-status-all_ you just have to execute the following com
 
 ```bash
 curl -Lo "/usr/local/bin/git-status-all" \
-    https://github.com/dmotte/git-status-all/releases/latest/download/git-status-all
+    https://raw.githubusercontent.com/dmotte/utils/main/scripts/git-status-all/git-status-all
 chmod +x "/usr/local/bin/git-status-all"
 ```
 

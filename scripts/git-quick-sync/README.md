@@ -23,7 +23,7 @@ To install or update _git-quick-sync_ you just have to execute the following com
 
 ```bash
 curl -Lo "/usr/local/bin/git-quick-sync" \
-    https://github.com/dmotte/git-quick-sync/releases/latest/download/git-quick-sync
+    https://raw.githubusercontent.com/dmotte/utils/main/scripts/git-quick-sync/git-quick-sync
 chmod +x "/usr/local/bin/git-quick-sync"
 ```
 
