@@ -2,13 +2,12 @@
 
 set -e
 
-# Parameters
 p_outw=640  # Output width
 p_outh=360  # Output height
 #p_outw=854
 #p_outh=480
 
-# Create a directory in which to save the output files
+# Create a directory for the output files
 mkdir -p resized/
 
 for i in "$@"; do
