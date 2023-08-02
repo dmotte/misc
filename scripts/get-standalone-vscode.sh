@@ -32,6 +32,7 @@ tar -xzf "$VSCODE_ARCHIVE_PATH" -C "$VSCODE_DIR_PATH"
 echo 'Installed app version:'
 "$VSCODE_DIR_PATH/VSCode-linux-x64/bin/code" -v
 
+echo "Creating launcher file in $VSCODE_LAUNCHER_PATH"
 cat << EOF >> "$VSCODE_LAUNCHER_PATH"
 [Desktop Entry]
 Name=Visual Studio Code
