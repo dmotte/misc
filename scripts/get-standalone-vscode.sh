@@ -14,11 +14,9 @@ if [ -d "$VSCODE_DIR_PATH" ]; then
     echo "Directory $VSCODE_DIR_PATH already exists. Installed app version:"
     "$VSCODE_DIR_PATH/VSCode-linux-x64/bin/code" -v
 
-    read -rp 'Overwrite? [yes/NO] '
-    if [ "$(echo "$REPLY" | tr '[:upper:]' '[:lower:]')" != 'yes' ]; then
-        echo Aborting 1>&2
-        exit 1
-    fi
+    VSCODE_OLD_DIR_PATH="$VSCODE_DIR_PATH-old-$(date +%Y-%m-%d-%H%M%S)"
+    echo "Moving $VSCODE_DIR_PATH to $VSCODE_OLD_DIR_PATH"
+    mv "$VSCODE_DIR_PATH" "$VSCODE_OLD_DIR_PATH"
 fi
 
 mkdir -p "$VSCODE_DIR_PATH"
