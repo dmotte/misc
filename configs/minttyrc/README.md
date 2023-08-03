@@ -2,14 +2,14 @@
 
 Custom `.minttyrc` file for _Git Bash_.
 
-You just have to put this file at `$HOME/.minttyrc` to get a nice _Git Bash_ terminal with nice settings.
+You just have to put this file at `~/.minttyrc` to get a nice _Git Bash_ terminal with nice settings.
 
 > :warning: **Warning**: please make a backup of your existing `.minttyrc` before, if you don't know what you're doing.
 
 In alternative, you can use the following _Bash_ command:
 
 ```bash
-curl -o "$HOME/.minttyrc" https://raw.githubusercontent.com/dmotte/utils/main/minttyrc/.minttyrc
+curl -o ~/.minttyrc https://raw.githubusercontent.com/dmotte/utils/main/configs/minttyrc/.minttyrc
 ```
 
 ## Git Bash installation advice
