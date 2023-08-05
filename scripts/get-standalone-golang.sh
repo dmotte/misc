@@ -23,7 +23,7 @@ curl -SLo "$GOLANG_ARCHIVE_PATH" "$GOLANG_ARCHIVE_URL"
 echo "Extracting $GOLANG_ARCHIVE_PATH to $GOLANG_DIR_PATH"
 tar -xzf "$GOLANG_ARCHIVE_PATH" -C "$GOLANG_DIR_PATH"
 
-echo -n 'Installed app version:'
+echo -n 'Installed app version: '
 "$GOLANG_DIR_PATH/go/bin/go" version
 
 if [ -e ~/go ]; then
