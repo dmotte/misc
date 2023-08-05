@@ -23,7 +23,7 @@ curl -SLo "$GOLANG_ARCHIVE_PATH" "$GOLANG_ARCHIVE_URL"
 echo "Extracting $GOLANG_ARCHIVE_PATH to $GOLANG_DIR_PATH"
 tar -xzf "$GOLANG_ARCHIVE_PATH" -C "$GOLANG_DIR_PATH"
 
-echo 'Installed app version:'
+echo -n 'Installed app version:'
 "$GOLANG_DIR_PATH/go/bin/go" version
 
 if [ -e ~/go ]; then
@@ -34,10 +34,10 @@ else
 fi
 
 line='export PATH="$PATH:$HOME/go/bin"'
-if grep "$line" ~/.profile 2>/dev/null; then
+if grep "$line" ~/.profile >/dev/null; then
     echo 'Skipping PATH addition in ~/.profile as it seems already present'
 else
-    echo 'Adding ~/go/bin to PATH in ~/.profile'
+    echo "Adding $line to ~/.profile"
     echo "$line" >> ~/.profile
     echo 'You may have to log out and back in for it to take effect'
 fi
