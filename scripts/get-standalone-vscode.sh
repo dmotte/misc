@@ -3,7 +3,7 @@
 set -e
 
 # To run this script without downloading it:
-# bash <(curl -sSL https://raw.githubusercontent.com/dmotte/utils/main/scripts/get-standalone-vscode.sh)
+# bash <(curl -sSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/get-standalone-vscode.sh)
 
 VSCODE_DIR_PATH="$HOME/apps/vscode"
 VSCODE_ARCHIVE_URL='https://code.visualstudio.com/sha/download?build=stable&os=linux-x64'

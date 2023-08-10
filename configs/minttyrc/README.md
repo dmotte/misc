@@ -9,7 +9,7 @@ You just have to put this file at `~/.minttyrc` to get a nice _Git Bash_ termina
 In alternative, you can use the following _Bash_ command:
 
 ```bash
-curl -o ~/.minttyrc https://raw.githubusercontent.com/dmotte/utils/main/configs/minttyrc/.minttyrc
+curl -o ~/.minttyrc https://raw.githubusercontent.com/dmotte/misc/main/configs/minttyrc/.minttyrc
 ```
 
 ## Git Bash installation advice

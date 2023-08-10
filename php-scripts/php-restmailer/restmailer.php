@@ -3,7 +3,7 @@
 /**
  * php-restmailer v1.1.2
  * by dmotte
- * https://github.com/dmotte/utils/tree/main/php-scripts/php-restmailer
+ * https://github.com/dmotte/misc/tree/main/php-scripts/php-restmailer
  */
 
 //////////////////// BEGIN CONFIGURATION ////////////////////

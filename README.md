@@ -1,4 +1,4 @@
-# utils
+# misc
 
 This repository contains:
 
