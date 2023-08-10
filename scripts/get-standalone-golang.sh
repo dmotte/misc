@@ -3,7 +3,7 @@
 set -e
 
 # To run this script without downloading it:
-# bash <(curl -sSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/get-standalone-golang.sh) amd64 1.20.7
+# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/get-standalone-golang.sh) amd64 1.20.7
 
 GOLANG_DIR_PATH="$HOME/apps/go$2"
 GOLANG_ARCHIVE_URL="https://go.dev/dl/go$2.linux-$1.tar.gz"
