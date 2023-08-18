@@ -5,6 +5,9 @@ set -e
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/get-standalone-golang.sh) amd64 1.20.7
 
+# To change Go environment via the ~/go symlink (if you have multiple Go environments installed):
+# rm ~/go && ln -s ~/apps/go1.20.7/go ~/go
+
 GOLANG_DIR_PATH="$HOME/apps/go$2"
 GOLANG_ARCHIVE_URL="https://go.dev/dl/go$2.linux-$1.tar.gz"
 GOLANG_ARCHIVE_PATH="$GOLANG_DIR_PATH/archive.tar.gz"
