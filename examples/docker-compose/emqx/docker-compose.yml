@@ -1,0 +1,18 @@
+---
+version: "3"
+
+services:
+  emqx:
+    image: docker.io/emqx/emqx:5.1.5
+    restart: always
+    ports:
+      - "1883:1883" # MQTT over TCP
+      - "8083:8083" # MQTT over WebSocket
+      - "8084:8084" # MQTT over WebSocket Secure
+      - "8883:8883" # MQTT over SSL/TLS
+      - "18083:18083" # Dashboard (default login admin:public)
+
+  mqttx-web:
+    image: docker.io/emqx/mqttx-web:v1.9.5
+    restart: always
+    ports: ["8080:80"]
