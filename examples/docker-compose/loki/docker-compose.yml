@@ -1,0 +1,39 @@
+---
+version: "3"
+
+services:
+  loki:
+    image: docker.io/grafana/loki:2.8.4
+    restart: always
+
+  promtail:
+    image: docker.io/grafana/promtail:2.8.4
+    restart: always
+    volumes:
+      - ./promtail.yml:/etc/promtail/config.yml:ro
+      - /var/log:/var/log:ro
+
+  grafana:
+    image: docker.io/grafana/grafana-oss:10.1.1
+    restart: always
+    ports: [ "3000:3000" ]
+    volumes:
+      - data-grafana:/var/lib/grafana
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    entrypoint:
+      - /bin/sh
+      - -ec
+      - |
+        mkdir -p /etc/grafana/provisioning/datasources
+        cat << 'EOF' > /etc/grafana/provisioning/datasources/loki.yml
+        ---
+        apiVersion: 1
+        datasources:
+          - { name: Loki, type: loki, url: http://loki:3100/ }
+        EOF
+        /run.sh
+
+volumes:
+  data-grafana: {}
