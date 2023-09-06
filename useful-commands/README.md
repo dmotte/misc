@@ -9,7 +9,7 @@ Some commands I want to remember for some reason.
 - `eval $(ssh-agent)`, `ssh-add -t 1800` (30 minutes), `eval $(ssh-agent -k)`
 - `git log --graph --oneline`
 - `git fsck`
-- `git clone ... --depth 1`
+- `git clone --depth=1 ...`
 - `git diff --no-index dir1/ dir2/`
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
