@@ -65,6 +65,7 @@ Some commands I want to remember for some reason.
 - `nano -\$v filename`, `vim -R filename`
 - `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
+- `echo 'Hello $USER!' | envsubst`
 
 ## Podman
 
