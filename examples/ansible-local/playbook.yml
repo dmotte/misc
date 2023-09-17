@@ -1,0 +1,15 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Main play
+  hosts: localhost
+  connection: local
+
+  pre_tasks:
+    - name: Check Ansible version
+      ansible.builtin.assert:
+        that: ansible_version.full is version_compare('2.9', '>=')
+        msg: The Ansible version is too old for this playbook
+
+  tasks:
+    - debug:
+        msg: "Hello world!"
