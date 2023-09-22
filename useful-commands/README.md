@@ -66,6 +66,7 @@ Some commands I want to remember for some reason.
 - `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
 - `echo 'Hello $USER!' | envsubst`
+- `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
 
 ## Podman
 
