@@ -19,6 +19,13 @@ Write-Output 'Installing required Chocolatey packages'
 
 choco install -y gsudo git
 
+Write-Output 'Configuring Git environment variables'
+
+# This is needed to be able to use the Windows OpenSSH Authentication Agent with
+# Git; basically it tells Git to always use the SSH executable from Windows
+# instead of the one from Git Bash
+[Environment]::SetEnvironmentVariable('GIT_SSH', "$((Get-Command ssh).Source)", [System.EnvironmentVariableTarget]::User)
+
 Write-Output 'Running embedded Bash script'
 
 Write-Output @'
