@@ -1,7 +1,8 @@
 #Requires -Version 5.1
 
-# To run this script without downloading it, run the following in an elevated (Administrator) PowerShell window:
+# To run this script without downloading it, run the following line in an elevated (Administrator) PowerShell window:
 # Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/dmotte/misc/main/scripts/setup-gitbash-environment/main.ps1'))
+# After the installation completes, you will be able to open Git Bash from the Windows Start menu --> Git --> Git Bash
 
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     Write-Error 'This script requires administrator privileges'
@@ -55,7 +56,7 @@ curl -o ~/.minttyrc https://raw.githubusercontent.com/dmotte/misc/main/scripts/s
 echo 'Setting Git options'
 /mingw64/bin/git config --global core.autocrlf input
 
-# The last line of the embedded Bash script must be a comment to avoid https://stackoverflow.com/a/36218934
+# Please ignore this line; the last line of the embedded Bash script must be a comment to avoid https://stackoverflow.com/a/36218934
 '@ | & "$env:ProgramFiles\Git\usr\bin\bash.exe" --login -s
 
 Write-Output 'Setup completed successfully'
