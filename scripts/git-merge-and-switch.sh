@@ -9,7 +9,7 @@ for i in "$@"; do
     echo -e "### \033[0;35m$i\033[0m:"
 
     ( # Subshell
-        cd $i
+        cd "$i"
 
         branch_final="$(git rev-parse --abbrev-ref HEAD)"
 
