@@ -36,6 +36,7 @@ else
     ln -s "$GOLANG_DIR_PATH/go" ~/go
 fi
 
+# shellcheck disable=SC2016
 line='export PATH="$PATH:$HOME/go/bin"'
 if grep "$line" ~/.profile >/dev/null; then
     echo 'Skipping PATH addition in ~/.profile as it seems already present'
