@@ -3,7 +3,7 @@
 set -e
 
 for i in "$@"; do
-    echo -e "### \033[0;35m$i\033[0m:"
+    echo -e "### $i:"
 
     ( # Subshell
         cd "$i"
