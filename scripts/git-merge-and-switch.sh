@@ -2,8 +2,8 @@
 
 set -e
 
-branch_from=dev
-branch_to=main
+: "${BRANCH_SRC:=main}"
+: "${BRANCH_DST:=dev}"
 
 for i in "$@"; do
     echo -e "### \033[0;35m$i\033[0m:"
@@ -13,8 +13,8 @@ for i in "$@"; do
 
         branch_final="$(git rev-parse --abbrev-ref HEAD)"
 
-        if git switch "$branch_from"; then
-            git merge "$branch_to"
+        if git switch "$BRANCH_DST"; then
+            git merge "$BRANCH_SRC"
             # git push
             git switch "$branch_final"
         fi
