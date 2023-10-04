@@ -3,9 +3,12 @@
 set -e
 
 # Example usage:
-# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/github-get-all-repos.sh) users/octocat | while read -r i; do git clone --depth=1 "git@github.com:$i.git" || git -C "$(basename "$i")" pull; done
+# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/github-get-all-repos.sh) users/octocat '.archived == false and .fork == false' | while read -r i; do git clone --depth=1 "git@github.com:$i.git" || git -C "$(basename "$i")" pull; done
 
-if [ "$1" = "${1#users/}" ] && [ "$1" = "${1#orgs/}" ]; then
+owner="$1"
+filter="${2:-true}"
+
+if [ "$owner" = "${owner#users/}" ] && [ "$owner" = "${owner#orgs/}" ]; then
     echo 'Invalid owner specified' 1>&2
     exit 1
 fi
@@ -19,16 +22,15 @@ while :; do
         -H 'Accept: application/vnd.github+json' \
         -H "Authorization: $header_auth" \
         -H 'X-GitHub-Api-Version: 2022-11-28' \
-        "https://api.github.com/$1/repos?per_page=100&page=$page")
+        "https://api.github.com/$owner/repos?per_page=100&page=$page")
 
-    repos="$(echo "$response" | grep -i '"full_name":' | \
-        sed -E 's/^ +"full_name": "(.+)",$/\1/')"
+    count="$(echo "$response" | jq length)"
 
-    [ -n "$repos" ] || break
+    [ "$count" -ne 0 ] || break
 
-    echo "$repos"
+    echo "$response" | jq -r ".[] | select($filter) | .full_name"
 
-    [ "$(echo "$repos" | wc -l)" -eq 100 ] || break
+    [ "$count" -eq 100 ] || break
 
     page=$((page + 1))
 done
