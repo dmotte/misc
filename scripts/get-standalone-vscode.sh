@@ -5,39 +5,39 @@ set -e
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/get-standalone-vscode.sh)
 
-VSCODE_DIR_PATH="$HOME/apps/vscode"
-VSCODE_ARCHIVE_URL='https://code.visualstudio.com/sha/download?build=stable&os=linux-x64'
-VSCODE_ARCHIVE_PATH="$VSCODE_DIR_PATH/archive.tar.gz"
-VSCODE_LAUNCHER_PATH="$HOME/.local/share/applications/vscode.desktop"
+vscode_dir_path="$HOME/apps/vscode"
+vscode_archive_url='https://code.visualstudio.com/sha/download?build=stable&os=linux-x64'
+vscode_archive_path="$vscode_dir_path/archive.tar.gz"
+vscode_launcher_path="$HOME/.local/share/applications/vscode.desktop"
 
-if [ -d "$VSCODE_DIR_PATH" ]; then
-    echo "Directory $VSCODE_DIR_PATH already exists. Installed app version:"
-    "$VSCODE_DIR_PATH/VSCode-linux-x64/bin/code" -v
+if [ -d "$vscode_dir_path" ]; then
+    echo "Directory $vscode_dir_path already exists. Installed app version:"
+    "$vscode_dir_path/VSCode-linux-x64/bin/code" -v
 
-    VSCODE_OLD_DIR_PATH="$VSCODE_DIR_PATH-old-$(date +%Y-%m-%d-%H%M%S)"
-    echo "Moving $VSCODE_DIR_PATH to $VSCODE_OLD_DIR_PATH"
-    mv "$VSCODE_DIR_PATH" "$VSCODE_OLD_DIR_PATH"
+    vscode_old_dir_path="$vscode_dir_path-old-$(date +%Y-%m-%d-%H%M%S)"
+    echo "Moving $vscode_dir_path to $vscode_old_dir_path"
+    mv "$vscode_dir_path" "$vscode_old_dir_path"
 fi
 
-mkdir -p "$VSCODE_DIR_PATH"
+mkdir -p "$vscode_dir_path"
 
-echo "Downloading $VSCODE_ARCHIVE_URL to $VSCODE_ARCHIVE_PATH"
-curl -SLo "$VSCODE_ARCHIVE_PATH" "$VSCODE_ARCHIVE_URL"
+echo "Downloading $vscode_archive_url to $vscode_archive_path"
+curl -SLo "$vscode_archive_path" "$vscode_archive_url"
 
-echo "Extracting $VSCODE_ARCHIVE_PATH to $VSCODE_DIR_PATH"
-tar -xzf "$VSCODE_ARCHIVE_PATH" -C "$VSCODE_DIR_PATH"
+echo "Extracting $vscode_archive_path to $vscode_dir_path"
+tar -xzf "$vscode_archive_path" -C "$vscode_dir_path"
 
 echo 'Installed app version:'
-"$VSCODE_DIR_PATH/VSCode-linux-x64/bin/code" -v
+"$vscode_dir_path/VSCode-linux-x64/bin/code" -v
 
-echo "Creating launcher file in $VSCODE_LAUNCHER_PATH"
-cat << EOF >> "$VSCODE_LAUNCHER_PATH"
+echo "Creating launcher file in $vscode_launcher_path"
+cat << EOF >> "$vscode_launcher_path"
 [Desktop Entry]
 Name=Visual Studio Code
-Exec=$VSCODE_DIR_PATH/VSCode-linux-x64/code %f
+Exec=$vscode_dir_path/VSCode-linux-x64/code %f
 Comment=Visual Studio Code
 Terminal=false
-Icon=$VSCODE_DIR_PATH/VSCode-linux-x64/resources/app/resources/linux/code.png
+Icon=$vscode_dir_path/VSCode-linux-x64/resources/app/resources/linux/code.png
 Type=Application
 EOF
 
