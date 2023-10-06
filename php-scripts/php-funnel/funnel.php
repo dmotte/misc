@@ -16,7 +16,7 @@ $cfg['auth_password'] = 'changeme';
 $cfg['uploads_dir'] = 'uploads';
 $cfg['hta_protection'] = true;
 
-$cfg['mail_to'] = false;
+$cfg['mail_to'] = false; // string or false
 $cfg['mail_msg_prefix'] = '';
 $cfg['mail_msg_suffix'] = '';
 
