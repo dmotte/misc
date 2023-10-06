@@ -1,7 +1,7 @@
 <?php
 
 /**
- * php-funnel v1.0.0
+ * php-funnel v1.0.1
  * by dmotte
  * https://github.com/dmotte/misc/tree/main/php-scripts/php-funnel
  */
@@ -65,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     foreach ($files as $f) {
+        // See https://www.php.net/manual/en/features.file-upload.errors.php
         if ($f['error'] != UPLOAD_ERR_OK)
             diemsg('Upload aborted because file ' . $f['name'] .
                 ' has error code ' . $f['error']);
@@ -88,10 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $summary = '';
 
     foreach ($files as $f) {
-        if (move_uploaded_file(
-            $f['tmp_name'],
-            $dir . '/' . $f['name'],
-        ))
+        if (move_uploaded_file($f['tmp_name'], $dir . '/' . $f['name']))
             $summary .= 'Successfully uploaded ' . $f['name'] . PHP_EOL;
         else
             $summary .= 'Warning: move_uploaded_file failed for ' .
@@ -133,33 +131,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script type="text/javascript">
         function ui_submit() {
             const formMain = document.getElementById('formMain');
-            const preResponse = document.getElementById('preResponse');
+            const preStatus = document.getElementById('preStatus');
 
             const xhr = new XMLHttpRequest();
 
             xhr.addEventListener('loadstart', () => {
-                preResponse.textContent = 'Request started';
+                preStatus.textContent = 'Request started';
             });
 
             xhr.upload.addEventListener('progress', (event) => {
-                preResponse.textContent = 'Uploading: ' + (
+                preStatus.textContent = 'Uploading: ' + (
                     (event.loaded / event.total) * 100
                 ).toFixed(2) + '%';
             });
 
             xhr.addEventListener('load', () => {
-                preResponse.textContent = 'Response: ' + xhr.status + ' ' +
+                preStatus.textContent = 'Response: ' + xhr.status + ' ' +
                     xhr.statusText + '\n\n' + xhr.responseText;
             });
 
             xhr.addEventListener('abort', () => {
-                preResponse.textContent = 'Request aborted';
+                preStatus.textContent = 'Request aborted';
             });
             xhr.addEventListener('error', () => {
-                preResponse.textContent = 'Request error';
+                preStatus.textContent = 'Request error';
             });
             xhr.addEventListener('timeout', () => {
-                preResponse.textContent = 'Request timeout';
+                preStatus.textContent = 'Request timeout';
             });
 
             xhr.open('POST', '', true);
@@ -179,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </p>
 
     <p>
-    <pre id="preResponse">Ready</pre>
+    <pre id="preStatus">Ready</pre>
     </p>
 </body>
 
