@@ -15,7 +15,7 @@ script_content="$(curl -fsSL "$script_url")"
 if [ "$(echo "$script_content" | sha256sum | cut -d' ' -f1)" \
     != '1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d' ]
     then
-    echo "Checksum verification failed for remote script $script_url" 1>&2
+    echo "Checksum verification failed for remote script $script_url" >&2
     exit 1
 fi
 

@@ -9,13 +9,13 @@ owner="$1"
 filter="${2:-true}"
 
 if [ "$owner" = "${owner#users/}" ] && [ "$owner" = "${owner#orgs/}" ]; then
-    echo 'Invalid owner specified' 1>&2
+    echo 'Invalid owner specified' >&2
     exit 1
 fi
 
 page=1
 while :; do
-    # echo "Downloading page $page" 1>&2 # For debugging purposes
+    # echo "Downloading page $page" >&2 # For debugging purposes
 
     if [ -n "$GITHUB_TOKEN" ]; then header_auth="Bearer $GITHUB_TOKEN"; fi
     response=$(curl -fsSL \
