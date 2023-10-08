@@ -16,7 +16,7 @@ script_content="$(fetch_and_check \
     'https://.../myscript.sh' \
     '1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d')"
 
-script_content="$(echo "$script_content" | sed 's/my-old-text/my-new-text/')"
+script_content="${script_content//my-old-text/my-new-text}"
 
 echo "$script_content"
 # . <(echo "$script_content") # To run the script in the current environment
