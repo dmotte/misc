@@ -7,6 +7,6 @@ This is only an example. You should modify these scripts to suit your needs.
 ## Usage
 
 ```bash
-read -rsp "Password: " SSHPASS && export SSHPASS
+read -rsp 'Password: ' SSHPASS && export SSHPASS
 ./main.sh | tee output.txt
 ```

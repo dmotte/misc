@@ -24,7 +24,7 @@ Some commands I want to remember for some reason.
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
-- `find -printf "%p %s %T@\n"`
+- `find -printf '%p %s %T@\n'`
 - `rclone lsf -R --format pst myremote: | LC_ALL=C sort`
 - `tree -paugh`
 - `find | grep -i pattern`
@@ -36,7 +36,7 @@ Some commands I want to remember for some reason.
 - `echo $(date +%Y-%m-%d-%H%M%S)`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
-- `read -rsp "Password: " MYPASSWORD && export MYPASSWORD`
+- `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`
 - `diff <(ls -l) <(ls -la)`
 - `docker ps -a --format {{.Names}}`
 - `ps -aux --sort -pcpu | head -10`
