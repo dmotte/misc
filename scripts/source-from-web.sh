@@ -4,8 +4,8 @@ set -e
 
 fetch_and_check() {
     local content; content="$(curl -fsSL "$1")" && \
-    if [ "$(echo "$content" | sha256sum | cut -d' ' -f1)" = "$2" ]
-        then echo "$content"
+    if [ "$(echo -n "$content" | sha256sum | cut -d' ' -f1)" = "$2" ]
+        then echo -n "$content"
         else echo "Checksum verification failed for $1" >&2; return 1
     fi
 }
