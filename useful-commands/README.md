@@ -66,6 +66,7 @@ Some commands I want to remember for some reason.
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
 - `echo 'Hello $USER!' | envsubst`
 - `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
+- `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`
 
 ## Podman
 
