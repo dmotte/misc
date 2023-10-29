@@ -2,7 +2,7 @@
 
 set -e
 
-# Example usage:
+# Usage example:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/gitlab-get-all-repos.sh) users/diaspora '(has("forked_from_project") | not) and .archived == false' | while read -r i; do git -C "$(basename "$i")" pull || git clone --depth=1 "git@gitlab.com:$i.git"; done
 
 : "${GITLAB_URL:=https://gitlab.com/}"

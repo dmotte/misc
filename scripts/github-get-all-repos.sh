@@ -2,7 +2,7 @@
 
 set -e
 
-# Example usage:
+# Usage example:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/github-get-all-repos.sh) users/octocat '.archived == false and .fork == false' | while read -r i; do git -C "$(basename "$i")" pull || git clone --depth=1 "git@github.com:$i.git"; done
 
 owner="$1"
