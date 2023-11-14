@@ -10,10 +10,10 @@ set -e
 # Create a directory for the output files
 mkdir -p resized/
 
-for i in "$@"; do
-    o="resized/$(basename "$i")" # Output filename
+for fin; do
+    fout="resized/$(basename "$fin")" # Output filename
 
-    ffmpeg -i "$i" \
+    ffmpeg -i "$fin" \
         -vf "scale=$OUTW:$OUTH:force_original_aspect_ratio=decrease,pad=$OUTW:$OUTH:(ow-iw)/2:(oh-ih)/2" \
-        "$o"
+        "$fout"
 done

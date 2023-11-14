@@ -2,11 +2,11 @@
 
 set -e
 
-for i in "$@"; do
-    echo -e "### $i:"
+for arg; do
+    echo -e "### $arg:"
 
     ( # Subshell
-        cd "$i"
+        cd "$arg"
 
         branch_final="$(git rev-parse --abbrev-ref HEAD)"
 

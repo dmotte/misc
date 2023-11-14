@@ -7,8 +7,8 @@ set -e
 # Create a directory for the output files
 mkdir -p resized/
 
-for i in "$@"; do
-    o="resized/$(basename "$i")" # Output filename
+for fin; do
+    fout="resized/$(basename "$fin")" # Output filename
 
-    ffmpeg -i "$i" -vf "scale=iw*$RATIO:ih*$RATIO" "$o"
+    ffmpeg -i "$fin" -vf "scale=iw*$RATIO:ih*$RATIO" "$fout"
 done
