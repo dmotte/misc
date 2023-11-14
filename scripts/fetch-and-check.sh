@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This Bash file is meant to be sourced with "source fetch-and-check.sh"
+# This Bash file is meant to be sourced with ". fetch-and-check.sh"
 
 # This function aims to be as compact as possible, and compatible with the Dash
 # shell (/bin/sh)
@@ -28,5 +28,5 @@ fetch_and_check() {
 # script_content="${script_content//my-old-text/my-new-text}"
 #
 # echo "$script_content" # To view the script's code
-# source <(echo "$script_content") # To run it in the current environment
+# . <(echo "$script_content") # To run it in the current environment
 # bash <(echo "$script_content") # To run it in a separate shell
