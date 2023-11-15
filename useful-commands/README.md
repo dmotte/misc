@@ -69,6 +69,7 @@ Some commands I want to remember for some reason.
 - `echo 'Hello $USER!' | envsubst`
 - `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
 - `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`
+- `mkfifo mypipe; while :; do date | tee mypipe; done`
 
 ## Podman
 
