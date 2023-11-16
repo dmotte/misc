@@ -21,6 +21,9 @@ Then you can use the script in the following manner:
 ```bash
 curl -F 'files[]=@img01.jpg' -F 'files[]=@img02.jpg' \
     'https://admin:changeme@my-host.example.com/funnel.php'
+
+date | curl -F 'files[]=@-;filename=date.txt' \
+    'https://admin:changeme@my-host.example.com/funnel.php'
 ```
 
 Or, in alternative, you can upload files manually from the **built-in Web UI**. To do that, just visit the script page with a web browser.
