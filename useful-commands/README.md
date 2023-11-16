@@ -70,6 +70,7 @@ Some commands I want to remember for some reason.
 - `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
 - `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`
 - `mkfifo mypipe; while :; do date | tee mypipe; done`
+- `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" -d chat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
 
 ## Podman
 
