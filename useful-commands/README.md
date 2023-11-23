@@ -10,6 +10,7 @@ Some commands I want to remember for some reason.
 - `git log --graph --oneline`
 - `git fsck`
 - `git clone --depth=1 ...`
+- `git tag v1.2.3 && git push --tags`
 - `git diff --no-index dir1/ dir2/`
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
