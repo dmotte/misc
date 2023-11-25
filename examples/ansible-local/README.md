@@ -8,7 +8,9 @@ FROM docker.io/library/debian:12
 RUN apt-get update && \
     apt-get install -y ansible && \
     rm -rf /var/lib/apt/lists/*
+VOLUME /pwd
+WORKDIR /pwd
 EOF
 
-docker run -it --rm -v "$PWD:/pwd" img-debian-ansible ansible-playbook /pwd/playbook.yml
+docker run -it --rm -v "$PWD:/pwd" img-debian-ansible ansible-playbook playbook.yml
 ```
