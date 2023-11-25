@@ -1,0 +1,54 @@
+---
+name: cicd-with-script
+
+on:
+  workflow_call:
+    inputs:
+      path: { type: string, required: false, default: "" }
+      args: { type: string, required: false, default: "" }
+      env: { type: string, required: false, default: ">/dev/null" }
+    secrets:
+      secret01: { required: false }
+      secret02: { required: false }
+      secret03: { required: false }
+      secret04: { required: false }
+      secret05: { required: false }
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dmotte/misc/actions/invoke-cicd-script@main
+        with: { path: scripts/cicd/generic-prettier.sh }
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dmotte/misc/actions/invoke-cicd-script@main
+        with: { path: scripts/cicd/generic-shellcheck.sh }
+
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dmotte/misc/actions/invoke-cicd-script@main
+        with: { path: scripts/cicd/generic-trivy.sh }
+
+  specific:
+    runs-on: ubuntu-latest
+    if: inputs.path != ''
+    needs: [prettier, shellcheck, trivy]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dmotte/misc/actions/invoke-cicd-script@main
+        with:
+          path: ${{ inputs.path }}
+          args: ${{ inputs.args }}
+          env: ${{ inputs.env }}
+          secret01: ${{ secrets.secret01 }}
+          secret02: ${{ secrets.secret02 }}
+          secret03: ${{ secrets.secret03 }}
+          secret04: ${{ secrets.secret04 }}
+          secret05: ${{ secrets.secret05 }}

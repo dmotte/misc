@@ -1,0 +1,70 @@
+---
+name: invoke-cicd-script
+description: invoke-cicd-script
+
+inputs:
+  path:
+    description: Path of the script to invoke
+    required: true
+  args:
+    description: Arguments to be passed to the script, separated by spaces
+    required: false
+    default: ""
+  env:
+    description: Environment variables to be passed to the script
+    required: false
+    default: ">/dev/null"
+  secret01: { description: Secret, required: false, default: "" }
+  secret02: { description: Secret, required: false, default: "" }
+  secret03: { description: Secret, required: false, default: "" }
+  secret04: { description: Secret, required: false, default: "" }
+  secret05: { description: Secret, required: false, default: "" }
+
+runs:
+  using: composite
+  steps:
+    - id: invocation
+      shell: bash
+      env:
+        # Cron expression that triggered the workflow (if any)
+        CICD_CRON_EXPR: ${{ github.event.schedule }}
+        CICD_SECRET01: ${{ inputs.secret01 }}
+        CICD_SECRET02: ${{ inputs.secret02 }}
+        CICD_SECRET03: ${{ inputs.secret03 }}
+        CICD_SECRET04: ${{ inputs.secret04 }}
+        CICD_SECRET05: ${{ inputs.secret05 }}
+      run: |
+        set -ex
+
+        # Name of the Git ref that triggered the workflow (if any)
+        export CICD_GIT_REF="$GITHUB_REF"
+        # Path of the file in which to write the output variables
+        export CICD_OUTPUT="$GITHUB_OUTPUT"
+        # Path of the file in which to write the Markdown summary
+        export CICD_SUMMARY="$GITHUB_STEP_SUMMARY"
+
+        export ${{ inputs.env }}
+
+        bash \
+          "$(realpath "${{ github.action_path }}/../../${{ inputs.path }}")" \
+          ${{ inputs.args }}
+
+    - uses: actions/upload-artifact@v3
+      if: steps.invocation.outputs.artifact-name != ''
+      with:
+        name: ${{ steps.invocation.outputs.artifact-name }}
+        path: ${{ steps.invocation.outputs.artifact-path }}
+        if-no-files-found: error
+
+    - uses: softprops/action-gh-release@v1
+      # Note: this requires the contents:write permission to work
+      # Note: if the release already exists, this step just uploads the assets
+      if: steps.invocation.outputs.release-name != ''
+      with:
+        name: ${{ steps.invocation.outputs.release-name }}
+        tag_name: ${{ steps.invocation.outputs.release-tag-name }}
+        draft: ${{ steps.invocation.outputs.release-draft }}
+        prerelease: ${{ steps.invocation.outputs.release-prerelease }}
+        files: ${{ steps.invocation.outputs.release-files }}
+        fail_on_unmatched_files: true
+        generate_release_notes: true
