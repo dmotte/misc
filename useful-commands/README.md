@@ -91,3 +91,19 @@ Some commands I want to remember for some reason.
 - `choco list --local-only`
 - `sudo choco upgrade -y all`
 - `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
+
+## On-the-fly Docker image snippets
+
+```bash
+docker build -t img-sshsrv01:latest - << 'EOF'
+FROM docker.io/library/alpine:latest
+RUN apk add --no-cache openssh-server
+RUN ssh-keygen -A # Warning: embedding host keys!
+EXPOSE 22
+RUN addgroup -S mainuser && adduser -S mainuser -G mainuser -s /bin/ash && \
+    echo mainuser:changeme | chpasswd # Warning: very bad password!
+ENTRYPOINT ["/usr/sbin/sshd", "-De"]
+EOF
+
+docker run -it --rm -p2222:22 img-sshsrv01:latest
+```
