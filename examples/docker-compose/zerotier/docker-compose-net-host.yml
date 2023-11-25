@@ -5,8 +5,8 @@ services:
   zerotier:
     image: docker.io/zerotier/zerotier:1.10.1
     restart: always
-    cap_add: [ NET_ADMIN ]
-    devices: [ /dev/net/tun ]
+    cap_add: [NET_ADMIN]
+    devices: [/dev/net/tun]
     network_mode: host
     environment:
       ZEROTIER_IDENTITY_SECRET: <put-identity-secret-here>

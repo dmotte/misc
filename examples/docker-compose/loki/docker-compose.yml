@@ -16,7 +16,7 @@ services:
   grafana:
     image: docker.io/grafana/grafana-oss:10.1.1
     restart: always
-    ports: [ "3000:3000" ]
+    ports: ["3000:3000"]
     volumes:
       - data-grafana:/var/lib/grafana
     environment:

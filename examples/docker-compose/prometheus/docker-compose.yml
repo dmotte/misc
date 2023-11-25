@@ -5,14 +5,14 @@ services:
   prometheus:
     image: docker.io/prom/prometheus:v2.46.0
     restart: always
-    ports: [ "9090:9090" ]
+    ports: ["9090:9090"]
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
 
   grafana:
     image: docker.io/grafana/grafana-oss:10.1.1
     restart: always
-    ports: [ "3000:3000" ]
+    ports: ["3000:3000"]
     volumes:
       - data-grafana:/var/lib/grafana
     environment:

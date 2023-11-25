@@ -2,7 +2,7 @@
 
 Simple example of how to use **Google reCAPTCHA v2** with **PHP**.
 
-:video_camera: Useful video tutorial (_not mine_): https://www.youtube.com/watch?v=xyOu0b6R3m0
+Useful video tutorial (_not mine_): https://www.youtube.com/watch?v=xyOu0b6R3m0
 
 ## Step 1: Create the key pair
 

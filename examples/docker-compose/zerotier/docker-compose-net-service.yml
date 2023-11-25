@@ -5,8 +5,8 @@ services:
   zerotier:
     image: docker.io/zerotier/zerotier:1.10.1
     restart: always
-    cap_add: [ NET_ADMIN ]
-    devices: [ /dev/net/tun ]
+    cap_add: [NET_ADMIN]
+    devices: [/dev/net/tun]
     ports:
       # Optional port forwardings (but recommended for highly trafficked
       # services)
@@ -19,5 +19,5 @@ services:
   webserver:
     image: docker.io/traefik/whoami:v1.8.1
     restart: always
-    depends_on: [ zerotier ]
+    depends_on: [zerotier]
     network_mode: service:zerotier
