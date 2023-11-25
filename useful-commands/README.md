@@ -96,14 +96,19 @@ Some commands I want to remember for some reason.
 
 ```bash
 docker build -t img-sshsrv01:latest - << 'EOF'
-FROM docker.io/library/alpine:latest
-RUN apk add --no-cache openssh-server
-RUN ssh-keygen -A # Warning: embedding host keys!
+FROM docker.io/library/debian:12
+RUN apt-get update && \
+    apt-get install -y sudo openssh-server && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/run/sshd
+# Warning: leaving the generated host keys in place!
 EXPOSE 22
-RUN addgroup -S mainuser && adduser -S mainuser -G mainuser -s /bin/ash && \
+RUN useradd -UGsudo -ms/bin/bash mainuser && \
+    bash -c 'install -m440 <(echo "mainuser ALL=(ALL) NOPASSWD: ALL") \
+        /etc/sudoers.d/mainuser-nopassword' && \
     echo mainuser:changeme | chpasswd # Warning: very bad password!
 ENTRYPOINT ["/usr/sbin/sshd", "-De"]
 EOF
 
-docker run -it --rm -p2222:22 img-sshsrv01:latest
+docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 ```
