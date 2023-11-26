@@ -96,7 +96,7 @@ echo "::group::$0: Artifact"
     for src in target/*/release/"$proj_name"; do
         target="${src#target/}"
         target="${target%"/release/$proj_name"}"
-        file_basename="$proj_name-$proj_ver-$target"
+        file_basename="$proj_name-$target"
         dst="cicd-artifact/$file_basename"
 
         echo "Copying $src to $dst"
