@@ -45,9 +45,7 @@ runs:
 
         export ${{ inputs.env }}
 
-        bash \
-          "$(realpath "${{ github.action_path }}/../../${{ inputs.path }}")" \
-          ${{ inputs.args }}
+        bash "$(realpath "${{ inputs.path }}")" ${{ inputs.args }}
 
     - uses: actions/upload-artifact@v3
       if: steps.invocation.outputs.artifact-name != ''

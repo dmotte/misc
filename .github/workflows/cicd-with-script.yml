@@ -20,21 +20,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dmotte/misc/actions/invoke-cicd-script@main
-        with: { path: scripts/cicd/generic-prettier.sh }
+        with:
+          path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-prettier.sh
 
   shellcheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dmotte/misc/actions/invoke-cicd-script@main
-        with: { path: scripts/cicd/generic-shellcheck.sh }
+        with:
+          path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-shellcheck.sh
 
   trivy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dmotte/misc/actions/invoke-cicd-script@main
-        with: { path: scripts/cicd/generic-trivy.sh }
+        with:
+          path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-trivy.sh
 
   specific:
     runs-on: ubuntu-latest
