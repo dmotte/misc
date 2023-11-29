@@ -51,6 +51,7 @@ Some commands I want to remember for some reason.
 - `find -type d -name .git | while read -r i; do echo "${i:0:-5}"; done`
 - `git describe --tags --exact-match`, `git describe --tags --dirty`
 - `[ "$(git status -s)" == '' ]`
+- `git log --follow --format=%H myfile.txt | while read -r i; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git show "$i:./myfile.txt"); done`
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
 - `withprefix() { while read -r i; do echo "$1$i"; done }`
