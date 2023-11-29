@@ -17,6 +17,9 @@ on:
       secret04: { required: false }
       secret05: { required: false }
 
+# Note: the "if: inputs.run-*" conditions are defined on the steps instead of
+# the jobs to let the "specific" job run even if some of the others are skipped
+
 jobs:
   prettier:
     runs-on: ubuntu-latest
