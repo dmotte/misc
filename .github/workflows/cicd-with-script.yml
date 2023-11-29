@@ -20,28 +20,31 @@ on:
 jobs:
   prettier:
     runs-on: ubuntu-latest
-    if: inputs.run-prettier
     steps:
-      - uses: actions/checkout@v4
-      - uses: dmotte/misc/actions/invoke-cicd-script@main
+      - if: inputs.run-prettier
+        uses: actions/checkout@v4
+      - if: inputs.run-prettier
+        uses: dmotte/misc/actions/invoke-cicd-script@main
         with:
           path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-prettier.sh
 
   shellcheck:
     runs-on: ubuntu-latest
-    if: inputs.run-shellcheck
     steps:
-      - uses: actions/checkout@v4
-      - uses: dmotte/misc/actions/invoke-cicd-script@main
+      - if: inputs.run-shellcheck
+        uses: actions/checkout@v4
+      - if: inputs.run-shellcheck
+        uses: dmotte/misc/actions/invoke-cicd-script@main
         with:
           path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-shellcheck.sh
 
   trivy:
     runs-on: ubuntu-latest
-    if: inputs.run-trivy
     steps:
-      - uses: actions/checkout@v4
-      - uses: dmotte/misc/actions/invoke-cicd-script@main
+      - if: inputs.run-trivy
+        uses: actions/checkout@v4
+      - if: inputs.run-trivy
+        uses: dmotte/misc/actions/invoke-cicd-script@main
         with:
           path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-trivy.sh
 
