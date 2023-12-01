@@ -12,11 +12,13 @@ for arg; do
 
         git fetch --all # Fetches all branches from all remotes
 
-        git for-each-ref --format='%(refname:short)' refs/remotes | \
+        git for-each-ref --format='%(refname)' refs/remotes | \
             while read -r i; do
 
-            j="$(echo "$i" | cut -d/ -f2-)"
-            if [ "$j" = 'HEAD' ]; then continue; fi
+            j="${i#refs/remotes/origin/}"
+            if [ "$j" = 'HEAD' ] || [ "$j" = "$i" ] || [ "$j" = '' ]; then
+                continue
+            fi
 
             git switch -q "$j"
             git status -bs
