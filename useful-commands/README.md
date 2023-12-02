@@ -44,6 +44,7 @@ Some commands I want to remember for some reason.
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
 - `docker run -v my-volume:/volume --rm --log-driver none loomchild/volume-backup backup - > my-backup.tar.gz`
 - `docker run -i -v my-volume:/volume --rm loomchild/volume-backup restore - < my-backup.tar.gz`
+- `docker run -it --rm -p8080:8080 -v "$PWD:/pwd" php:8 -S '0.0.0.0:8080' -t /pwd`
 - `python3 -m http.server`
 - `sleep infinity`
 - `dig @ns1.example.com www.example.com`
