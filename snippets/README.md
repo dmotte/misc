@@ -1,8 +1,8 @@
-# useful-commands
+# snippets
 
-Some commands I want to remember for some reason.
+Some pieces of code I find useful for some reason.
 
-## Linux
+## Bash
 
 - `tmux new-session -As0`
 - `tmux setw -g mouse on`
@@ -39,12 +39,8 @@ Some commands I want to remember for some reason.
 - `last`, `lastb`, `lastlog`
 - `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`
 - `diff <(ls -l) <(ls -la)`
-- `docker ps -a --format {{.Names}}`
 - `ps -aux --sort -pcpu | head -10`
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
-- `docker run -v my-volume:/volume --rm --log-driver none loomchild/volume-backup backup - > my-backup.tar.gz`
-- `docker run -i -v my-volume:/volume --rm loomchild/volume-backup restore - < my-backup.tar.gz`
-- `docker run -it --rm -p8080:8080 -v "$PWD:/pwd" php:8 -S '0.0.0.0:8080' -t /pwd`
 - `python3 -m http.server`
 - `sleep infinity`
 - `dig @ns1.example.com www.example.com`
@@ -76,25 +72,12 @@ Some commands I want to remember for some reason.
 - `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" -dchat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
 - `for i in 192.168.1.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
 
-## Podman
+## Shell snippets for Docker
 
-- `sudo XDG_RUNTIME_DIR=/run/user/1001 -iu myuser`
-- `podman ps -ap`
-- `systemctl --user status podman-kube@$(systemd-escape ~/kube.yaml)`
-- `journalctl --user -u podman-kube@$(systemd-escape ~/kube.yaml)`
-- `ls -la ~/.local/share/containers/storage/volumes`
-- `(read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
-- `echo -e "{\"main\":\"$(base64 -w0 < mykey.pem)\"}" | podman secret create mykey -`
-
-## Git Bash on Windows
-
-- `export MSYS_NO_PATHCONV=1`
-- `winpty rclone ncdu .`
-- `choco list --local-only`
-- `sudo choco upgrade -y all`
-- `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
-
-## On-the-fly Docker image snippets
+- `docker ps -a --format {{.Names}}`
+- `docker run -v my-volume:/volume --rm --log-driver none loomchild/volume-backup backup - > my-backup.tar.gz`
+- `docker run -i -v my-volume:/volume --rm loomchild/volume-backup restore - < my-backup.tar.gz`
+- `docker run -it --rm -p8080:8080 -v "$PWD:/pwd" php:8 -S '0.0.0.0:8080' -t /pwd`
 
 ```bash
 docker build -t img-sshsrv01:latest - << 'EOF'
@@ -114,3 +97,25 @@ EOF
 
 docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 ```
+
+## Shell snippets for Podman
+
+- `sudo XDG_RUNTIME_DIR=/run/user/1001 -iu myuser`
+- `podman ps -ap`
+- `systemctl --user status podman-kube@$(systemd-escape ~/kube.yaml)`
+- `journalctl --user -u podman-kube@$(systemd-escape ~/kube.yaml)`
+- `ls -la ~/.local/share/containers/storage/volumes`
+- `(read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
+- `echo -e "{\"main\":\"$(base64 -w0 < mykey.pem)\"}" | podman secret create mykey -`
+
+## Git Bash (Windows)
+
+- `export MSYS_NO_PATHCONV=1`
+- `winpty rclone ncdu .`
+- `choco list --local-only`
+- `sudo choco upgrade -y all`
+- `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
+
+## Prometheus queries
+
+- `abs(mymetric - mymetric offset 1m)`
