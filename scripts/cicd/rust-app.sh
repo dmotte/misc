@@ -111,7 +111,7 @@ echo "::group::$0: Artifact"
     } | tee -a "$CICD_OUTPUT"
 echo '::endgroup::'
 
-echo "::group::$0: Release"
+echo "::group::$0: Release (GitHub)"
     if [ -n "$proj_ver" ]; then
         {
             echo "release-name=$proj_ver"
