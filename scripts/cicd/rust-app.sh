@@ -19,21 +19,21 @@ echo "::group::$0: Preparation"
     fi
     rustc --version; cargo --version
 
-    echo '## :rocket: Rust app CI/CD summary' | tee -a "$CICD_SUMMARY"
+    echo '## &#x1F680; Rust app CI/CD summary' | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
 
 echo "::group::$0: Project metadata"
     proj_name="$(sed -En 's/^name = "(.+)"$/\1/p' Cargo.toml | head -1)"
-    echo "- :deciduous_tree: Project name: \`$proj_name\`" | \
+    echo "- &#x1F333; Project name: \`$proj_name\`" | \
         tee -a "$CICD_SUMMARY"
 
     proj_ver="${CICD_GIT_REF#refs/tags/}"
     [ "$proj_ver" != "$CICD_GIT_REF" ] || unset proj_ver
     {
         if [ -n "$proj_ver" ]; then
-            echo "- :pushpin: Project version: \`$proj_ver\`"
+            echo "- &#x1F4CC; Project version: \`$proj_ver\`"
         else
-            echo "- :pushpin: Project version: (_none_)"
+            echo "- &#x1F4CC; Project version: (_none_)"
         fi
     } | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
@@ -104,7 +104,7 @@ echo "::group::$0: Artifact"
 
         echo "Copying $src to $dst"
         cp "$src" "$dst"
-        echo "- :package: Artifact file: \`$file_basename\`" | \
+        echo "- &#x1F4E6; Artifact file: \`$file_basename\`" | \
             tee -a "$CICD_SUMMARY"
     done
 
@@ -121,7 +121,7 @@ echo "::group::$0: Release (GitHub)"
             echo "release-files=cicd-artifact/*"
         } | tee -a "$CICD_OUTPUT"
 
-        echo "- :ship: Release name: \`$proj_ver\`" | tee -a "$CICD_SUMMARY"
+        echo "- &#x1F6A2; Release name: \`$proj_ver\`" | tee -a "$CICD_SUMMARY"
     else
         echo 'Will not create the release because the version variable is' \
             'empty or not defined'
