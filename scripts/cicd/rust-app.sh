@@ -62,12 +62,15 @@ echo "::group::$0: End-to-end tests (test/main.sh)"
     fi
 echo '::endgroup::'
 
-echo "::group::$0: Build (cargo build)"
+echo "::group::$0: Set the right version"
     if [ -n "$proj_ver" ]; then
         sed -i "s/^version = \"0.0.0\"$/version = \"${proj_ver#v}\"/" \
             Cargo.toml
     fi
+    grep '^version = ' Cargo.toml
+echo '::endgroup::'
 
+echo "::group::$0: Build (cargo build)"
     sed -En 's/^\[target\.(.+)\]$/\1/p' .cargo/config.toml | \
         while read -r i; do
             case "$i" in
