@@ -2,6 +2,12 @@
 
 set -e
 
+apt_update_if_old() {
+    if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
+        sudo apt-get update
+    fi
+}
+
 echo "::group::$0: Preparation"
     if [ ! -e "$CICD_OUTPUT" ]; then
         echo 'The CICD_OUTPUT file does not exist' >&2
@@ -75,15 +81,15 @@ echo "::group::$0: Build (cargo build)"
         while read -r i; do
             case "$i" in
             aarch64-unknown-linux-gnu)
-                sudo apt-get update
+                apt_update_if_old
                 sudo apt-get install -y gcc-aarch64-linux-gnu
                 ;;
             i686-unknown-linux-gnu)
-                sudo apt-get update
+                apt_update_if_old
                 sudo apt-get install -y gcc-i686-linux-gnu
                 ;;
             x86_64-unknown-linux-gnu)
-                sudo apt-get update
+                apt_update_if_old
                 sudo apt-get install -y gcc-x86-64-linux-gnu
                 ;;
             esac
