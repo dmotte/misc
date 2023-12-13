@@ -9,5 +9,11 @@ echo "::group::$0: Preparation"
     shellcheck --version
 echo '::endgroup::'
 
-# shellcheck disable=SC2046
-shellcheck $(find . -name \*.sh)
+scripts="$(find . -name \*.sh)"
+
+echo 'Scripts to check:'; echo "$scripts"
+
+if [ -n "$scripts" ]; then
+    # shellcheck disable=SC2086
+    shellcheck $scripts
+fi
