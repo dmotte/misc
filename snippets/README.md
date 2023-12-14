@@ -109,6 +109,12 @@ docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 - `(read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
 - `echo -e "{\"main\":\"$(base64 -w0 < mykey.pem)\"}" | podman secret create mykey -`
 
+## Kubectl
+
+- `kubectl run mypod --image=docker.io/library/debian:12 sleep infinity`
+- `kubectl exec -it mypod -- bash`
+- `kubectl delete pod/mypod`
+
 ## Git Bash (Windows)
 
 - `export MSYS_NO_PATHCONV=1`
