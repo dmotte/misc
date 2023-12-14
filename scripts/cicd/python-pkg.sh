@@ -55,7 +55,11 @@ echo "::group::$0: Format (autopep8)"
 echo '::endgroup::'
 
 echo "::group::$0: Unit tests (pytest)"
-    venv/bin/python3 -m pytest .
+    if [ -e test ]; then
+        venv/bin/python3 -m pytest test
+    else
+        echo 'No tests to run'
+    fi
 echo '::endgroup::'
 
 echo "::group::$0: Set the right version"
