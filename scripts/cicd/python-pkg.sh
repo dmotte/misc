@@ -2,13 +2,11 @@
 
 set -e
 
-echo "::group::$0: Secrets"
-    if [ -z "$CICD_SECRET01" ]; then
-        echo 'CICD_SECRET01 (pypi_api_token) is not defined' >&2
-        exit 1
-    fi
-    pypi_api_token="$CICD_SECRET01"; unset CICD_SECRET01
-echo '::endgroup::'
+if [ -z "$CICD_SECRET01" ]; then
+    echo 'CICD_SECRET01 (pypi_api_token) is not defined' >&2
+    exit 1
+fi
+pypi_api_token="$CICD_SECRET01"; unset CICD_SECRET01
 
 echo "::group::$0: Preparation"
     if [ ! -e "$CICD_OUTPUT" ]; then
@@ -46,7 +44,7 @@ echo "::group::$0: Project metadata"
     } | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
 
-echo "::group::$0: Install package in editable mode"
+echo "::group::$0: Install package in editable mode" # Needed for the next steps
     venv/bin/python3 -m pip install -e .
 echo '::endgroup::'
 
