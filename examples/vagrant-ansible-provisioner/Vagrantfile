@@ -1,0 +1,39 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "dmotte/dockerbox"
+
+    config.vm.hostname = "myvm"
+
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = 4096
+        vb.cpus = 4
+    end
+
+    ENV["VAGRANT_EXPERIMENTAL"] = "disks"
+    config.vm.disk :disk, size: "120GB", primary: true
+
+    config.vm.provision "shell", inline: <<-SHELL
+        echo -e "d\nn\np\n\n\n\nw" | fdisk /dev/sda
+        resize2fs /dev/sda1
+    SHELL
+
+    config.vm.network "private_network", ip: "192.168.56.100"
+
+    config.vm.synced_folder "~/git", "/home/vagrant/git"
+
+    config.vm.provision "ansible" do |ansible|
+        # ansible.galaxy_role_file = "requirements.yml"
+        ansible.playbook = "playbook.yml"
+        ansible.extra_vars = { ansible_python_interpreter: "/usr/bin/python3" }
+    end
+
+    # Ping the default route once (without even waiting for a reply) to fix a
+    # known network issue. See
+    # https://weisser-zwerg.dev/posts/local-discourse-on-vagrant/#vagrant-up
+    # for more information
+    config.vm.provision "shell", run: "always", inline: <<-SHELL
+        ping '192.168.56.1' -c1 -W.1 || :
+    SHELL
+end

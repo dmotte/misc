@@ -1,0 +1,46 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Main play
+  hosts: all
+
+  pre_tasks:
+    - name: Check Ansible version
+      ansible.builtin.assert:
+        that: ansible_version.full is version_compare('2.9', '>=')
+        msg: The Ansible version is too old for this playbook
+
+  tasks:
+    - name: Execute apt update if the last one is more than 1 hour ago
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_pkg_mgr == "apt"
+
+    - name: Ensure some packages are installed
+      become: true
+      ansible.builtin.package:
+        name:
+          - rsync # Needed by the "ansible.posix.synchronize" Ansible module
+          - git
+          - nano
+          - tmux
+          - tree
+          - wget
+          - zip
+          - curl
+          - socat
+          - jq
+
+    - name: Pull the nginx Docker image
+      community.docker.docker_image:
+        name: nginx
+        source: pull
+
+    - name: Main container
+      community.docker.docker_container:
+        name: nginx-example
+        image: docker.io/library/nginx:latest
+        keep_volumes: false # Do not retain **anonymous** volumes when the container is removed
+        restart_policy: always
+        ports: ["80:80"]

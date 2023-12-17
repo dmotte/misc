@@ -1,0 +1,7 @@
+---
+strict: true
+exclude_paths:
+  - .vagrant/
+mock_modules:
+  - community.docker.docker_image
+  - community.docker.docker_container
