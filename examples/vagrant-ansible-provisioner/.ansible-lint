@@ -2,6 +2,7 @@
 strict: true
 exclude_paths:
   - .vagrant/
+  - roles/
 mock_modules:
   - community.docker.docker_image
   - community.docker.docker_container

@@ -20,7 +20,7 @@ From the `~/myvm` directory, run the following command to **bring up your VM**:
 vagrant up
 ```
 
-You can also the following **alias** to your `~/.bashrc` file (replacing the script path with the correct one for your case):
+You can also add the following **alias** to your `~/.bashrc` file (replacing the script path with the correct one for your case):
 
 ```bash
 alias myvmssh="$HOME/myvm/myvmssh.sh"
