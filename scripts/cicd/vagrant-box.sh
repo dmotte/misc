@@ -72,7 +72,6 @@ echo "::group::$0: Release (Vagrant Cloud)"
             echo -n "This version has been released automatically with GitHub" \
                 "Actions, commit "; git rev-parse --short HEAD
         )"
-        echo "TODO $version_description"
         vagrant cloud publish -s "$BOX_DESCRIPTION" \
             --version-description "$version_description" \
             --no-private --release --force \
