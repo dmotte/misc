@@ -7,6 +7,7 @@ on:
       run-prettier: { type: boolean, required: false, default: true }
       run-shellcheck: { type: boolean, required: false, default: true }
       run-trivy: { type: boolean, required: false, default: true }
+      runs-on: { type: string, required: false, default: ubuntu-latest }
       path: { type: string, required: false, default: "" }
       args: { type: string, required: false, default: "" }
       env: { type: string, required: false, default: ">/dev/null" }
@@ -52,7 +53,7 @@ jobs:
           path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-trivy.sh
 
   specific:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runs-on }}
     if: inputs.path != ''
     needs: [prettier, shellcheck, trivy]
     steps:
