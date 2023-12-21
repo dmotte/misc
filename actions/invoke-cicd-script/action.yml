@@ -3,6 +3,10 @@ name: invoke-cicd-script
 description: invoke-cicd-script
 
 inputs:
+  env:
+    description: Environment variables to be passed to the script
+    required: false
+    default: ">/dev/null"
   path:
     description: Path of the script to invoke
     required: true
@@ -10,10 +14,6 @@ inputs:
     description: Arguments to be passed to the script, separated by spaces
     required: false
     default: ""
-  env:
-    description: Environment variables to be passed to the script
-    required: false
-    default: ">/dev/null"
   secret01: { description: Secret, required: false, default: "" }
   secret02: { description: Secret, required: false, default: "" }
   secret03: { description: Secret, required: false, default: "" }

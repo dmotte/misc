@@ -8,9 +8,9 @@ on:
       run-shellcheck: { type: boolean, required: false, default: true }
       run-trivy: { type: boolean, required: false, default: true }
       runs-on: { type: string, required: false, default: ubuntu-latest }
+      env: { type: string, required: false, default: ">/dev/null" }
       path: { type: string, required: false, default: "" }
       args: { type: string, required: false, default: "" }
-      env: { type: string, required: false, default: ">/dev/null" }
     secrets:
       secret01: { required: false }
       secret02: { required: false }
@@ -62,9 +62,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dmotte/misc/actions/invoke-cicd-script@main
         with:
+          env: ${{ inputs.env }}
           path: ${{ inputs.path }}
           args: ${{ inputs.args }}
-          env: ${{ inputs.env }}
           secret01: ${{ secrets.secret01 }}
           secret02: ${{ secrets.secret02 }}
           secret03: ${{ secrets.secret03 }}
