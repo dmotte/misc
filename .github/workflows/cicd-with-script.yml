@@ -57,6 +57,8 @@ jobs:
     if: inputs.path != ''
     needs: [prettier, shellcheck, trivy]
     steps:
+      - if: startsWith(inputs.runs-on, 'macos-')
+        run: brew install coreutils
       - uses: actions/checkout@v4
       - uses: dmotte/misc/actions/invoke-cicd-script@main
         with:
