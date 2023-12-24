@@ -77,9 +77,9 @@ echo "::group::$0: Release (Vagrant Cloud)"
             --no-private --release --force \
             "$BOX_AUTHOR/$BOX_NAME" "${proj_ver#v}" virtualbox package.box
 
-        link_vagrantcloud="https://app.vagrantup.com/$BOX_AUTHOR/boxes/$BOX_NAME/versions/${proj_ver#v}"
+        link_release="https://app.vagrantup.com/$BOX_AUTHOR/boxes/$BOX_NAME/versions/${proj_ver#v}"
         echo "- &#x1F30D; Release on Vagrant Cloud:" \
-            "[\`${proj_ver#v}\`]($link_vagrantcloud)" | tee -a "$CICD_SUMMARY"
+            "[\`${proj_ver#v}\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
         echo 'Will not create the release because the version variable is' \
             'empty or not defined'

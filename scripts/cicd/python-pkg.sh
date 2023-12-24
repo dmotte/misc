@@ -86,9 +86,9 @@ echo "::group::$0: Release (PyPI)"
         TWINE_USERNAME=__token__ TWINE_PASSWORD="$pypi_api_token" \
             venv/bin/python3 -m twine upload dist/*
 
-        link_pypi="https://pypi.org/project/$proj_name/${proj_ver#v}/"
-        echo "- &#x1F30D; Release on PyPI: [\`${proj_ver#v}\`]($link_pypi)" | \
-            tee -a "$CICD_SUMMARY"
+        link_release="https://pypi.org/project/$proj_name/${proj_ver#v}/"
+        echo "- &#x1F30D; Release on PyPI:" \
+            "[\`${proj_ver#v}\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
         echo 'Will not create the release because the version variable is' \
             'empty or not defined'
