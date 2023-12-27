@@ -66,7 +66,9 @@ echo "::group::$0: Release (GitHub)"
     if [ -n "$proj_ver" ]; then
         echo "release-name=$proj_ver" | tee -a "$CICD_OUTPUT"
 
-        echo "- &#x1F6A2; Release name: \`$proj_ver\`" | tee -a "$CICD_SUMMARY"
+        link_release="$CICD_REPO_URL/releases/tag/$proj_ver"
+        echo "- &#x1F6A2; Release on GitHub:" \
+            "[\`$proj_ver\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
         echo 'Will not create the release because the version variable is' \
             'empty or not defined'
