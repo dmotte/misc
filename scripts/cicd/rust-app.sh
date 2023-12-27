@@ -12,7 +12,7 @@ ensure_defined() {
     "The $arg env var is not defined" >&2; return 1; fi; done
 }
 
-ensure_defined CICD_{OUTPUT,SUMMARY}
+ensure_defined CICD_{REPO_URL,OUTPUT,SUMMARY}
 
 echo "::group::$0: Preparation"
     if ! command -v cargo; then
