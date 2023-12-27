@@ -2,22 +2,15 @@
 
 set -e
 
-if [ -z "$CICD_SECRET01" ]; then
-    echo 'CICD_SECRET01 (pypi_api_token) is not defined' >&2
-    exit 1
-fi
+ensure_defined() {
+    for arg; do if [ -z "${!arg}" ]; then echo \
+    "The $arg env var is not defined" >&2; return 1; fi; done
+}
+
+ensure_defined CICD_{SECRET01,OUTPUT,SUMMARY}
 pypi_api_token="$CICD_SECRET01"; unset CICD_SECRET01
 
 echo "::group::$0: Preparation"
-    if [ ! -e "$CICD_OUTPUT" ]; then
-        echo 'The CICD_OUTPUT file does not exist' >&2
-        exit 1
-    fi
-    if [ ! -e "$CICD_SUMMARY" ]; then
-        echo 'The CICD_SUMMARY file does not exist' >&2
-        exit 1
-    fi
-
     sudo apt-get update; sudo apt-get install -y python3-pip python3-venv
     python3 -m venv venv
     venv/bin/python3 -m pip install autopep8 pytest build twine

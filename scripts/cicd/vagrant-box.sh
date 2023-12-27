@@ -2,31 +2,15 @@
 
 set -e
 
-if [ -z "$BOX_AUTHOR" ]; then
-    echo 'BOX_AUTHOR is not defined' >&2
-    exit 1
-fi
-if [ -z "$BOX_NAME" ]; then
-    echo 'BOX_NAME is not defined' >&2
-    exit 1
-fi
-if [ -z "$BOX_DESCRIPTION" ]; then
-    echo 'BOX_DESCRIPTION is not defined' >&2
-    exit 1
-fi
+ensure_defined() {
+    for arg; do if [ -z "${!arg}" ]; then echo \
+    "The $arg env var is not defined" >&2; return 1; fi; done
+}
 
-if [ -z "$CICD_SECRET01" ]; then
-    echo 'CICD_SECRET01 (vagrantcloud_token) is not defined' >&2
-    exit 1
-fi
+ensure_defined BOX_{AUTHOR,NAME,DESCRIPTION} CICD_{SECRET01,SUMMARY}
 vagrantcloud_token="$CICD_SECRET01"; unset CICD_SECRET01
 
 echo "::group::$0: Preparation"
-    if [ ! -e "$CICD_SUMMARY" ]; then
-        echo 'The CICD_SUMMARY file does not exist' >&2
-        exit 1
-    fi
-
     echo '## &#x1F680; Vagrant box CI/CD summary' | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
 

@@ -13,7 +13,7 @@ set -e
 # keepassxc-cli sshpass
 
 if [ -z "$KP_FILENAME" ]; then
-    echo 'The KP_FILENAME env var is not set' >&2
+    echo 'The KP_FILENAME env var is not defined' >&2
     exit 1
 fi
 

@@ -7,17 +7,14 @@ apt_update_if_old() {
         sudo apt-get update
     fi
 }
+ensure_defined() {
+    for arg; do if [ -z "${!arg}" ]; then echo \
+    "The $arg env var is not defined" >&2; return 1; fi; done
+}
+
+ensure_defined CICD_{OUTPUT,SUMMARY}
 
 echo "::group::$0: Preparation"
-    if [ ! -e "$CICD_OUTPUT" ]; then
-        echo 'The CICD_OUTPUT file does not exist' >&2
-        exit 1
-    fi
-    if [ ! -e "$CICD_SUMMARY" ]; then
-        echo 'The CICD_SUMMARY file does not exist' >&2
-        exit 1
-    fi
-
     if ! command -v cargo; then
         bash <(curl -fsSL https://sh.rustup.rs/) -y
         # shellcheck source=/dev/null
