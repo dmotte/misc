@@ -22,10 +22,6 @@ fi
 vagrantcloud_token="$CICD_SECRET01"; unset CICD_SECRET01
 
 echo "::group::$0: Preparation"
-    if [ ! -e "$CICD_OUTPUT" ]; then
-        echo 'The CICD_OUTPUT file does not exist' >&2
-        exit 1
-    fi
     if [ ! -e "$CICD_SUMMARY" ]; then
         echo 'The CICD_SUMMARY file does not exist' >&2
         exit 1
