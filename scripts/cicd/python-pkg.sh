@@ -32,7 +32,7 @@ echo "::group::$0: Project metadata"
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"
         else
-            echo "- &#x1F4CC; Project version: (_none_)"
+            echo '- &#x1F4CC; Project version: (_none_)'
         fi
     } | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
@@ -67,7 +67,7 @@ echo "::group::$0: Release (GitHub)"
         echo "release-name=$proj_ver" | tee -a "$CICD_OUTPUT"
 
         link_release="$CICD_REPO_URL/releases/tag/$proj_ver"
-        echo "- &#x1F6A2; Release on GitHub:" \
+        echo '- &#x1F6A2; Release on GitHub:' \
             "[\`$proj_ver\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
         echo 'Will not create the release because the version variable is' \
@@ -82,7 +82,7 @@ echo "::group::$0: Release (PyPI)"
             venv/bin/python3 -m twine upload dist/*
 
         link_release="https://pypi.org/project/$proj_name/${proj_ver#v}/"
-        echo "- &#x1F30D; Release on PyPI:" \
+        echo '- &#x1F30D; Release on PyPI:' \
             "[\`${proj_ver#v}\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
         echo 'Will not create the release because the version variable is' \

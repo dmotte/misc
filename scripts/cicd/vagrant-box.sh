@@ -27,7 +27,7 @@ echo "::group::$0: Project metadata"
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"
         else
-            echo "- &#x1F4CC; Project version: (_none_)"
+            echo '- &#x1F4CC; Project version: (_none_)'
         fi
     } | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
@@ -49,8 +49,8 @@ echo "::group::$0: Release (Vagrant Cloud)"
         vagrant cloud auth login --token "$vagrantcloud_token"
 
         version_description="$(
-            echo -n "This version has been released automatically with GitHub" \
-                "Actions, commit "; git rev-parse --short HEAD
+            echo -n 'This version has been released automatically with GitHub' \
+                'Actions, commit '; git rev-parse --short HEAD
         )"
         vagrant cloud publish -s "$BOX_DESCRIPTION" \
             --version-description "$version_description" \
@@ -58,7 +58,7 @@ echo "::group::$0: Release (Vagrant Cloud)"
             "$BOX_AUTHOR/$BOX_NAME" "${proj_ver#v}" virtualbox package.box
 
         link_release="https://app.vagrantup.com/$BOX_AUTHOR/boxes/$BOX_NAME/versions/${proj_ver#v}"
-        echo "- &#x1F30D; Release on Vagrant Cloud:" \
+        echo '- &#x1F30D; Release on Vagrant Cloud:' \
             "[\`${proj_ver#v}\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
         echo 'Will not create the release because the version variable is' \

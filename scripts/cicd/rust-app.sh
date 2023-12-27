@@ -36,7 +36,7 @@ echo "::group::$0: Project metadata"
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"
         else
-            echo "- &#x1F4CC; Project version: (_none_)"
+            echo '- &#x1F4CC; Project version: (_none_)'
         fi
     } | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
@@ -121,11 +121,11 @@ echo "::group::$0: Release (GitHub)"
     if [ -n "$proj_ver" ]; then
         {
             echo "release-name=$proj_ver"
-            echo "release-files=cicd-artifact/*"
+            echo 'release-files=cicd-artifact/*'
         } | tee -a "$CICD_OUTPUT"
 
         link_release="$CICD_REPO_URL/releases/tag/$proj_ver"
-        echo "- &#x1F6A2; Release on GitHub:" \
+        echo '- &#x1F6A2; Release on GitHub:' \
             "[\`$proj_ver\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
         echo 'Will not create the release because the version variable is' \
