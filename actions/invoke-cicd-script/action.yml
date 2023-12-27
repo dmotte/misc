@@ -42,6 +42,9 @@ runs:
         export CICD_OUTPUT="$GITHUB_OUTPUT"
         # Path of the file in which to write the Markdown summary
         export CICD_SUMMARY="$GITHUB_STEP_SUMMARY"
+        export CICD_REPO_URL="https://github.com/$GITHUB_REPOSITORY"
+        export CICD_REPO_OWNER="$GITHUB_REPOSITORY_OWNER"
+        export CICD_REPO_NAME="${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}"
 
         export ${{ inputs.env }}
 
