@@ -7,7 +7,7 @@ ensure_defined() {
     "The $arg env var is not defined" >&2; return 1; fi; done
 }
 
-ensure_defined BOX_{AUTHOR,NAME,DESCRIPTION} CICD_{SECRET01,SUMMARY}
+ensure_defined BOX_{AUTHOR,NAME,DESCRIPTION} CICD_{SECRET01,GIT_REF,SUMMARY}
 vagrantcloud_token="$CICD_SECRET01"; unset CICD_SECRET01
 
 echo "::group::$0: Preparation"
