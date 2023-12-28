@@ -15,10 +15,11 @@ echo "::group::$0: Preparation"
 echo '::endgroup::'
 
 echo "::group::$0: Project metadata"
-    echo "- &#x1F9D1; Project author: \`$BOX_AUTHOR\`" | tee -a "$CICD_SUMMARY"
-    echo "- &#x1F333; Project name: \`$BOX_NAME\`" | tee -a "$CICD_SUMMARY"
-    echo "- &#x1F4CB; Project description: \`$BOX_DESCRIPTION\`" | \
-        tee -a "$CICD_SUMMARY"
+    {
+        echo "- &#x1F9D1; Project author: \`$BOX_AUTHOR\`"
+        echo "- &#x1F333; Project name: \`$BOX_NAME\`"
+        echo "- &#x1F4CB; Project description: \`$BOX_DESCRIPTION\`"
+    } | tee -a "$CICD_SUMMARY"
 
     if [ "$CICD_GIT_REF" = 'refs/heads/main' ]; then
         proj_ver="v$(date +%Y.%m.%d.%H%M)"
