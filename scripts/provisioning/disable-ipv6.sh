@@ -14,8 +14,8 @@ reload=y
 
 while :; do
     case "$1" in
-    -n|--no-reload) reload=n;;
-    --) shift; break;;
+        -n|--no-reload) reload=n;;
+        --) shift; break;;
     esac
     shift
 done
