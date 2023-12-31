@@ -85,7 +85,7 @@ echo "::group::$0: Release (PyPI)"
         echo '- &#x1F30D; Release on PyPI:' \
             "[\`${proj_ver#v}\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
-        echo 'Will not create the release because the version variable is' \
+        echo 'Not creating the release because the version variable is' \
             'empty or not defined'
     fi
 echo '::endgroup::'
