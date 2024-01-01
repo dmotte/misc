@@ -25,11 +25,11 @@ set -e
 
 cd "$(dirname "$0")"
 
-target-prepare() { sudo apt-get update; sudo apt-get install -y docker.io; }
-target-lint() { npx prettier -c .; }
-target-build-docker() { target-lint; docker build -t "$1" .; }
+target_prepare() { sudo apt-get update; sudo apt-get install -y docker.io; }
+target_lint() { npx prettier -c .; }
+target_build_docker() { target_lint; docker build -t "$1" .; }
 
-echo "$1" | tr , '\n' | while read -r i; do "target-$i" "${@:2}"; done
+echo "$1" | tr , '\n' | while read -r i; do "target_$i" "${@:2}"; done
 ```
 
 Then we can save it in the root of our project and invoke it like this:
