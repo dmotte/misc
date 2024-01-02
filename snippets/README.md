@@ -18,7 +18,6 @@ Some pieces of code I find useful for some reason.
 - `curl -LO https://...`, `curl -Lo target.zip https://...`
 - `top` and then press `xcV`. Then `W` to save the config
 - `cd "$(dirname "$0")"` useful in a _Bash_ script
-- `export $(grep '^[^#]' secret.env | tr -d '\r' | xargs)` parses a `.env` (_dotenv_) file in _Bash_ ignoring comments and handling newlines properly
 - `sudo blkid`
 - `ffmpeg -ss 97 -i input.mp4 -t 10 output.mp4`
 - `watch -n.2 date`
