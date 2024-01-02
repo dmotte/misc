@@ -2,6 +2,9 @@
 
 set -e
 
+# shellcheck source=/dev/null
+. "$(dirname "$0")/helpers/version.sh"
+
 ensure_defined() {
     for arg; do if [ -z "${!arg}" ]; then echo \
     "The $arg env var is not defined" >&2; return 1; fi; done
@@ -9,6 +12,9 @@ ensure_defined() {
 
 ensure_defined BOX_{AUTHOR,NAME,DESCRIPTION} CICD_{SECRET01,GIT_REF,SUMMARY}
 vagrantcloud_token="$CICD_SECRET01"; unset CICD_SECRET01
+
+export CICD_VERSION_EXPR="${CICD_VERSION_EXPR:-version_by_datetime \
+    $CICD_GIT_REF}"
 
 echo "::group::$0: Preparation"
     echo '## &#x1F680; Vagrant box CI/CD summary' | tee -a "$CICD_SUMMARY"
@@ -21,9 +27,8 @@ echo "::group::$0: Project metadata"
         echo "- &#x1F4CB; Project description: \`$BOX_DESCRIPTION\`"
     } | tee -a "$CICD_SUMMARY"
 
-    if [ "$CICD_GIT_REF" = 'refs/heads/main' ]; then
-        proj_ver="v$(date +%Y.%m.%d.%H%M)"
-    fi
+    echo "Version expression: $CICD_VERSION_EXPR"
+    proj_ver="$(eval "$CICD_VERSION_EXPR")"
     {
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"

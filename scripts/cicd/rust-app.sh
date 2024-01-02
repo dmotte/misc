@@ -2,6 +2,9 @@
 
 set -e
 
+# shellcheck source=/dev/null
+. "$(dirname "$0")/helpers/version.sh"
+
 apt_update_if_old() {
     if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
         sudo apt-get update
@@ -13,6 +16,9 @@ ensure_defined() {
 }
 
 ensure_defined CICD_{GIT_REF,REPO_URL,OUTPUT,SUMMARY}
+
+export CICD_VERSION_EXPR="${CICD_VERSION_EXPR:-version_by_tag \
+    $CICD_GIT_REF}"
 
 echo "::group::$0: Preparation"
     if ! command -v cargo; then
@@ -30,8 +36,8 @@ echo "::group::$0: Project metadata"
     echo "- &#x1F333; Project name: \`$proj_name\`" | \
         tee -a "$CICD_SUMMARY"
 
-    proj_ver="${CICD_GIT_REF#refs/tags/}"
-    [ "$proj_ver" != "$CICD_GIT_REF" ] || unset proj_ver
+    echo "Version expression: $CICD_VERSION_EXPR"
+    proj_ver="$(eval "$CICD_VERSION_EXPR")"
     {
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"

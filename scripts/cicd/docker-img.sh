@@ -4,6 +4,9 @@ set -e
 
 readonly TMP_IMG=tmp:latest
 
+# shellcheck source=/dev/null
+. "$(dirname "$0")/helpers/version.sh"
+
 ensure_defined() {
     for arg; do if [ -z "${!arg}" ]; then echo \
     "The $arg env var is not defined" >&2; return 1; fi; done
@@ -13,7 +16,8 @@ ensure_defined DOCKERHUB_USERNAME IMG_{AUTHOR,NAME,PLATFORMS} \
     CICD_{SECRET01,GIT_REF,SUMMARY}
 dockerhub_password="$CICD_SECRET01"; unset CICD_SECRET01
 
-export IMG_VERSION_MODE="${IMG_VERSION_MODE:-datetime}"
+export CICD_VERSION_EXPR="${CICD_VERSION_EXPR:-version_by_datetime \
+    $CICD_GIT_REF}"
 
 echo "::group::$0: Preparation"
     sudo apt-get update; sudo apt-get install -y curl jq
@@ -55,33 +59,8 @@ echo "::group::$0: Preliminary build"
 echo '::endgroup::'
 
 echo "::group::$0: Version"
-    echo "Version mode: $IMG_VERSION_MODE"
-
-    case "$IMG_VERSION_MODE" in
-    cmd:*)
-        if [ "$CICD_GIT_REF" = 'refs/heads/main' ]; then
-            proj_ver="$(eval "$(echo "$IMG_VERSION_MODE" | cut -d: -f2-)")"
-            if ! [[ "$proj_ver" =~ ^v[0-9]+(\.[0-9]+)*$ ]]; then
-                echo "Got invalid version: $proj_ver" >&2
-                exit 1
-            fi
-        fi
-        ;;
-    datetime)
-        if [ "$CICD_GIT_REF" = 'refs/heads/main' ]; then
-            proj_ver="v$(date +%Y.%m.%d.%H%M)"
-        fi
-        ;;
-    tag)
-        proj_ver="${CICD_GIT_REF#refs/tags/}"
-        [ "$proj_ver" != "$CICD_GIT_REF" ] || unset proj_ver
-        ;;
-    *)
-        echo 'Invalid version mode' >&2
-        exit 1
-        ;;
-    esac
-
+    echo "Version expression: $CICD_VERSION_EXPR"
+    proj_ver="$(eval "$CICD_VERSION_EXPR")"
     {
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"

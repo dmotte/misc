@@ -2,6 +2,9 @@
 
 set -e
 
+# shellcheck source=/dev/null
+. "$(dirname "$0")/helpers/version.sh"
+
 ensure_defined() {
     for arg; do if [ -z "${!arg}" ]; then echo \
     "The $arg env var is not defined" >&2; return 1; fi; done
@@ -9,6 +12,9 @@ ensure_defined() {
 
 ensure_defined CICD_{SECRET01,GIT_REF,REPO_URL,OUTPUT,SUMMARY}
 pypi_api_token="$CICD_SECRET01"; unset CICD_SECRET01
+
+export CICD_VERSION_EXPR="${CICD_VERSION_EXPR:-version_by_tag \
+    $CICD_GIT_REF}"
 
 echo "::group::$0: Preparation"
     sudo apt-get update; sudo apt-get install -y python3-pip python3-venv
@@ -26,8 +32,8 @@ echo "::group::$0: Project metadata"
     echo "- &#x1F333; Project name: \`$proj_name\`" | \
         tee -a "$CICD_SUMMARY"
 
-    proj_ver="${CICD_GIT_REF#refs/tags/}"
-    [ "$proj_ver" != "$CICD_GIT_REF" ] || unset proj_ver
+    echo "Version expression: $CICD_VERSION_EXPR"
+    proj_ver="$(eval "$CICD_VERSION_EXPR")"
     {
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"
