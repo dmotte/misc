@@ -1,19 +1,11 @@
 ---
-name: invoke-cicd-script
-description: invoke-cicd-script
+name: run-cicd-script
+description: run-cicd-script
 
 inputs:
-  env:
-    description: Environment variables to be passed to the script
-    required: false
-    default: ">/dev/null"
-  path:
-    description: Path of the script to invoke
+  script:
+    description: Content of the script to run
     required: true
-  args:
-    description: Arguments to be passed to the script, separated by spaces
-    required: false
-    default: ""
   secret01: { description: Secret, required: false, default: "" }
   secret02: { description: Secret, required: false, default: "" }
   secret03: { description: Secret, required: false, default: "" }
@@ -46,9 +38,7 @@ runs:
         export CICD_REPO_OWNER="$GITHUB_REPOSITORY_OWNER"
         export CICD_REPO_NAME="${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}"
 
-        export ${{ inputs.env }}
-
-        bash "$(realpath "${{ inputs.path }}")" ${{ inputs.args }}
+        ${{ inputs.script }}
 
     - uses: actions/upload-artifact@v3
       if: steps.invocation.outputs.artifact-name != ''

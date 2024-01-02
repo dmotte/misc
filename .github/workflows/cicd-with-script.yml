@@ -8,9 +8,7 @@ on:
       run-shellcheck: { type: boolean, required: false, default: true }
       run-trivy: { type: boolean, required: false, default: true }
       runs-on: { type: string, required: false, default: ubuntu-latest }
-      env: { type: string, required: false, default: ">/dev/null" }
-      path: { type: string, required: false, default: "" }
-      args: { type: string, required: false, default: "" }
+      script: { type: string, required: false, default: "" }
     secrets:
       secret01: { required: false }
       secret02: { required: false }
@@ -28,9 +26,9 @@ jobs:
       - if: inputs.run-prettier
         uses: actions/checkout@v4
       - if: inputs.run-prettier
-        uses: dmotte/misc/actions/invoke-cicd-script@main
+        uses: dmotte/misc/actions/run-cicd-script@main
         with:
-          path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-prettier.sh
+          script: bash "$(realpath "$GITHUB_ACTION_PATH/../../scripts/cicd/generic-prettier.sh")"
 
   shellcheck:
     runs-on: ubuntu-latest
@@ -38,9 +36,9 @@ jobs:
       - if: inputs.run-shellcheck
         uses: actions/checkout@v4
       - if: inputs.run-shellcheck
-        uses: dmotte/misc/actions/invoke-cicd-script@main
+        uses: dmotte/misc/actions/run-cicd-script@main
         with:
-          path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-shellcheck.sh
+          script: bash "$(realpath "$GITHUB_ACTION_PATH/../../scripts/cicd/generic-shellcheck.sh")"
 
   trivy:
     runs-on: ubuntu-latest
@@ -48,23 +46,19 @@ jobs:
       - if: inputs.run-trivy
         uses: actions/checkout@v4
       - if: inputs.run-trivy
-        uses: dmotte/misc/actions/invoke-cicd-script@main
+        uses: dmotte/misc/actions/run-cicd-script@main
         with:
-          path: $GITHUB_ACTION_PATH/../../scripts/cicd/generic-trivy.sh
+          script: bash "$(realpath "$GITHUB_ACTION_PATH/../../scripts/cicd/generic-trivy.sh")"
 
   specific:
     runs-on: ${{ inputs.runs-on }}
-    if: inputs.path != ''
+    if: inputs.script != ''
     needs: [prettier, shellcheck, trivy]
     steps:
-      - if: startsWith(inputs.runs-on, 'macos-')
-        run: brew install coreutils
       - uses: actions/checkout@v4
-      - uses: dmotte/misc/actions/invoke-cicd-script@main
+      - uses: dmotte/misc/actions/run-cicd-script@main
         with:
-          env: ${{ inputs.env }}
-          path: ${{ inputs.path }}
-          args: ${{ inputs.args }}
+          script: ${{ inputs.script }}
           secret01: ${{ secrets.secret01 }}
           secret02: ${{ secrets.secret02 }}
           secret03: ${{ secrets.secret03 }}
