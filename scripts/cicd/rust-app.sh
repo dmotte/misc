@@ -21,6 +21,10 @@ if [ -z "$CICD_VERSION_EXPR" ]; then
     # shellcheck disable=SC2016
     export CICD_VERSION_EXPR='version_by_tag $CICD_GIT_REF'
 fi
+if [ -z "$CICD_SUMMARY_TITLE" ]; then
+    # shellcheck disable=SC2016
+    export CICD_SUMMARY_TITLE='## &#x1F680; Rust app CI/CD summary'
+fi
 
 echo "::group::$0: Preparation"
     if ! command -v cargo; then
@@ -30,7 +34,7 @@ echo "::group::$0: Preparation"
     fi
     rustc --version; cargo --version
 
-    echo '## &#x1F680; Rust app CI/CD summary' | tee -a "$CICD_SUMMARY"
+    echo "$CICD_SUMMARY_TITLE" | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
 
 echo "::group::$0: Project metadata"

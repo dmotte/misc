@@ -17,9 +17,15 @@ if [ -z "$CICD_VERSION_EXPR" ]; then
     # shellcheck disable=SC2016
     export CICD_VERSION_EXPR='version_by_datetime $CICD_GIT_REF'
 fi
+if [ -z "$CICD_SUMMARY_TITLE" ]; then
+    # shellcheck disable=SC2016
+    export CICD_SUMMARY_TITLE='## &#x1F680; Vagrant box CI/CD summary'
+fi
 
 echo "::group::$0: Preparation"
-    echo '## &#x1F680; Vagrant box CI/CD summary' | tee -a "$CICD_SUMMARY"
+    vagrant --version
+
+    echo "$CICD_SUMMARY_TITLE" | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
 
 echo "::group::$0: Project metadata"

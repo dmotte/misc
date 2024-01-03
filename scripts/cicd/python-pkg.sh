@@ -17,6 +17,10 @@ if [ -z "$CICD_VERSION_EXPR" ]; then
     # shellcheck disable=SC2016
     export CICD_VERSION_EXPR='version_by_tag $CICD_GIT_REF'
 fi
+if [ -z "$CICD_SUMMARY_TITLE" ]; then
+    # shellcheck disable=SC2016
+    export CICD_SUMMARY_TITLE='## &#x1F680; Python package CI/CD summary'
+fi
 
 echo "::group::$0: Preparation"
     sudo apt-get update; sudo apt-get install -y python3-pip python3-venv
@@ -26,7 +30,7 @@ echo "::group::$0: Preparation"
     python3 --version
     venv/bin/python3 -m pip show pip autopep8 pytest build twine
 
-    echo '## &#x1F680; Python package CI/CD summary' | tee -a "$CICD_SUMMARY"
+    echo "$CICD_SUMMARY_TITLE" | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
 
 echo "::group::$0: Project metadata"

@@ -20,6 +20,10 @@ if [ -z "$CICD_VERSION_EXPR" ]; then
     # shellcheck disable=SC2016
     export CICD_VERSION_EXPR='version_by_datetime $CICD_GIT_REF'
 fi
+if [ -z "$CICD_SUMMARY_TITLE" ]; then
+    # shellcheck disable=SC2016
+    export CICD_SUMMARY_TITLE='## &#x1F680; Docker image CI/CD summary'
+fi
 
 echo "::group::$0: Preparation"
     sudo apt-get update; sudo apt-get install -y curl jq
@@ -31,7 +35,7 @@ echo "::group::$0: Preparation"
     docker run --rm --privileged docker.io/tonistiigi/binfmt:latest \
         --install "$IMG_PLATFORMS"
 
-    echo '## &#x1F680; Docker image CI/CD summary' | tee -a "$CICD_SUMMARY"
+    echo "$CICD_SUMMARY_TITLE" | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
 
 echo "::group::$0: Project metadata"
