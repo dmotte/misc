@@ -13,8 +13,10 @@ ensure_defined() {
 ensure_defined CICD_{SECRET01,GIT_REF,REPO_URL,OUTPUT,SUMMARY}
 pypi_api_token="$CICD_SECRET01"; unset CICD_SECRET01
 
-export CICD_VERSION_EXPR="${CICD_VERSION_EXPR:-version_by_tag \
-    $CICD_GIT_REF}"
+if [ -z "$CICD_VERSION_EXPR" ]; then
+    # shellcheck disable=SC2016
+    export CICD_VERSION_EXPR='version_by_tag $CICD_GIT_REF'
+fi
 
 echo "::group::$0: Preparation"
     sudo apt-get update; sudo apt-get install -y python3-pip python3-venv

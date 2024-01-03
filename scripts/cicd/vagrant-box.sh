@@ -13,8 +13,10 @@ ensure_defined() {
 ensure_defined BOX_{AUTHOR,NAME,DESCRIPTION} CICD_{SECRET01,GIT_REF,SUMMARY}
 vagrantcloud_token="$CICD_SECRET01"; unset CICD_SECRET01
 
-export CICD_VERSION_EXPR="${CICD_VERSION_EXPR:-version_by_datetime \
-    $CICD_GIT_REF}"
+if [ -z "$CICD_VERSION_EXPR" ]; then
+    # shellcheck disable=SC2016
+    export CICD_VERSION_EXPR='version_by_datetime $CICD_GIT_REF'
+fi
 
 echo "::group::$0: Preparation"
     echo '## &#x1F680; Vagrant box CI/CD summary' | tee -a "$CICD_SUMMARY"
