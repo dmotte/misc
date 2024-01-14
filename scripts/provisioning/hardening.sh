@@ -2,6 +2,11 @@
 
 set -e
 
+# Tested on Debian 12 (bookworm)
+
+# Warning: this is only a partial hardening and it should only serve as
+# inspiration to make your own real hardening based on your specific environment
+
 if [ "$EUID" != '0' ]; then
     echo 'This script must be run as root' >&2
     exit 1

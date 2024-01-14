@@ -2,6 +2,15 @@
 
 set -e
 
+# This script turns your Linux device into a web kiosk (i.e. a device whose sole
+# purpose is to display a web page and consent minimal user interaction). This
+# can be useful e.g. to display information on a large screen or similar
+
+# To make the system as lightweight as possible, only Xorg and a full-screen
+# Chromium browser instance are started. No window manager needed!
+
+# Tested on Debian 12 (bookworm)
+
 if [ "$EUID" != '0' ]; then
     echo 'This script must be run as root' >&2
     exit 1
