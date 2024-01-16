@@ -11,6 +11,10 @@ set -e
 
 # Tested on Debian 12 (bookworm)
 
+# Usage example:
+#   sudo SYSTEMCTL_DAEMON_RELOAD=true KIOSK_RESTART=true \
+#     bash webkiosk.sh https://play.grafana.org/
+
 if [ "$EUID" != '0' ]; then
     echo 'This script must be run as root' >&2
     exit 1
