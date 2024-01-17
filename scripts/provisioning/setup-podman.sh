@@ -2,6 +2,9 @@
 
 set -e
 
+# This script can be used to install and configure Podman on Linux at system
+# level, or to configure Podman for a single user
+
 # Tested on Debian 12 (bookworm)
 
 # Usage example:
