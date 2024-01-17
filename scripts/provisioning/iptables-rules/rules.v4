@@ -1,0 +1,118 @@
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0] # Do not touch the FORWARD chain! Only Docker can do so
+:OUTPUT ACCEPT [0:0]
+:DOCKER-USER - [0:0]
+
+################################################################################
+##################################### INPUT ####################################
+################################################################################
+
+# Allow all incoming packets from localhost
+-A INPUT -i lo -j ACCEPT
+
+# Allow all incoming packets for already established connections
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# Allow packets to the DHCP client from the eth* network interfaces
+-A INPUT -i eth+ -p udp --dport 68 -j ACCEPT
+
+# Allow incoming SSH from the allowed network interfaces
+-A INPUT -i eth+ -p tcp --dport 22 -j ACCEPT
+-A INPUT -i zt+ -p tcp --dport 22 -j ACCEPT
+
+# Allow incoming ZeroTier (default port number) from the eth* network interfaces
+-A INPUT -i eth+ -p tcp --dport 9993 -j ACCEPT
+-A INPUT -i eth+ -p udp --dport 9993 -j ACCEPT
+
+# Default policy: DROP
+
+################################################################################
+#################################### OUTPUT ####################################
+################################################################################
+
+# Allow all outgoing packets to localhost
+-A OUTPUT -o lo -j ACCEPT
+
+# Allow all outgoing packets for already established connections
+-A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# Allow packets to DHCP servers for the eth* network interfaces
+-A OUTPUT -o eth+ -p udp --dport 67 -j ACCEPT
+
+# Allow outgoing DNS to the eth* network interfaces
+-A OUTPUT -o eth+ -p tcp --dport 53 -j ACCEPT
+-A OUTPUT -o eth+ -p udp --dport 53 -j ACCEPT
+
+# Allow outgoing ZeroTier (default port number) to the eth* network interfaces
+-A OUTPUT -o eth+ -p tcp --dport 9993 -j ACCEPT
+-A OUTPUT -o eth+ -p udp --dport 9993 -j ACCEPT
+
+# Block other (non-established) outgoing packets to Bogon ranges
+# See https://ipgeolocation.io/resources/bogon.html
+# See https://en.wikipedia.org/wiki/Reserved_IP_addresses
+-A OUTPUT -d 0.0.0.0/8 -j DROP
+-A OUTPUT -d 10.0.0.0/8 -j DROP
+-A OUTPUT -d 100.64.0.0/10 -j DROP
+-A OUTPUT -d 127.0.0.0/8 -j DROP
+-A OUTPUT -d 169.254.0.0/16 -j DROP
+-A OUTPUT -d 172.16.0.0/12 -j DROP
+-A OUTPUT -d 192.0.0.0/24 -j DROP
+-A OUTPUT -d 192.0.2.0/24 -j DROP
+-A OUTPUT -d 192.168.0.0/16 -j DROP
+-A OUTPUT -d 198.18.0.0/15 -j DROP
+-A OUTPUT -d 198.51.100.0/24 -j DROP
+-A OUTPUT -d 203.0.113.0/24 -j DROP
+-A OUTPUT -d 224.0.0.0/4 -j DROP
+-A OUTPUT -d 240.0.0.0/4 -j DROP
+-A OUTPUT -d 255.255.255.255/32 -j DROP
+
+# Default policy: ACCEPT
+
+################################################################################
+################################## DOCKER-USER #################################
+################################################################################
+
+# Allow all packets for already established connections
+-A DOCKER-USER -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# Allow all packets from a specific physical device
+-A DOCKER-USER -m mac --mac-source 12:34:56:78:9A:BC -j ACCEPT
+
+# Block communication between containers and Bogon ranges
+# See https://ipgeolocation.io/resources/bogon.html
+# See https://en.wikipedia.org/wiki/Reserved_IP_addresses
+-A DOCKER-USER -s 0.0.0.0/8 -j DROP
+-A DOCKER-USER -s 10.0.0.0/8 -j DROP
+-A DOCKER-USER -s 100.64.0.0/10 -j DROP
+-A DOCKER-USER -s 127.0.0.0/8 -j DROP
+-A DOCKER-USER -s 169.254.0.0/16 -j DROP
+-A DOCKER-USER -s 172.16.0.0/12 -j DROP
+-A DOCKER-USER -s 192.0.0.0/24 -j DROP
+-A DOCKER-USER -s 192.0.2.0/24 -j DROP
+-A DOCKER-USER -s 192.168.0.0/16 -j DROP
+-A DOCKER-USER -s 198.18.0.0/15 -j DROP
+-A DOCKER-USER -s 198.51.100.0/24 -j DROP
+-A DOCKER-USER -s 203.0.113.0/24 -j DROP
+-A DOCKER-USER -s 224.0.0.0/4 -j DROP
+-A DOCKER-USER -s 240.0.0.0/4 -j DROP
+-A DOCKER-USER -s 255.255.255.255/32 -j DROP
+-A DOCKER-USER -d 0.0.0.0/8 -j DROP
+-A DOCKER-USER -d 10.0.0.0/8 -j DROP
+-A DOCKER-USER -d 100.64.0.0/10 -j DROP
+-A DOCKER-USER -d 127.0.0.0/8 -j DROP
+-A DOCKER-USER -d 169.254.0.0/16 -j DROP
+-A DOCKER-USER -d 172.16.0.0/12 -j DROP
+-A DOCKER-USER -d 192.0.0.0/24 -j DROP
+-A DOCKER-USER -d 192.0.2.0/24 -j DROP
+-A DOCKER-USER -d 192.168.0.0/16 -j DROP
+-A DOCKER-USER -d 198.18.0.0/15 -j DROP
+-A DOCKER-USER -d 198.51.100.0/24 -j DROP
+-A DOCKER-USER -d 203.0.113.0/24 -j DROP
+-A DOCKER-USER -d 224.0.0.0/4 -j DROP
+-A DOCKER-USER -d 240.0.0.0/4 -j DROP
+-A DOCKER-USER -d 255.255.255.255/32 -j DROP
+
+# Default policy: (none) (RETURN to parent chain)
+
+COMMIT

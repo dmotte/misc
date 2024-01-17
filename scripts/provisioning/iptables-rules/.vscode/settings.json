@@ -1,0 +1,5 @@
+{
+  "files.associations": {
+    "rules.v4": "properties" // A sort of syntax highlighting for rules.v4 files
+  }
+}
