@@ -21,7 +21,7 @@ apt_update_if_old() {
     fi
 }
 
-options=$(getopt -o '4:6:' -l rules-v4: -l rules-v6: -- "$@")
+options=$(getopt -o '4:6:' -l rules-v4:,rules-v6: -- "$@")
 eval set -- "$options"
 
 rules_v4=''
