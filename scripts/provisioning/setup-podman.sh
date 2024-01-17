@@ -90,7 +90,7 @@ fi
 if [ "$auto_update" = never ]; then
     echo 'Disabling Podman auto-update'
     scoped_systemctl disable --now podman-auto-update.timer
-elif [ "$auto_update" != '' ]; then
+elif [ -n "$auto_update" ]; then
     echo 'Enabling Podman auto-update'
     install -d "$systemd_units_dir/podman-auto-update.timer.d"
     tee "$systemd_units_dir/podman-auto-update.timer.d/override.conf" << EOF
@@ -105,7 +105,7 @@ EOF
     scoped_systemctl restart podman-auto-update.timer
 fi
 
-if [ "$kube_extra_args" != '' ]; then
+if [ -n "$kube_extra_args" ]; then
     echo 'Setting Podman kube extra args'
     install -d "$systemd_units_dir/podman-kube@.service.d"
     tee "$systemd_units_dir/podman-kube@.service.d/override.conf" << EOF
@@ -118,7 +118,7 @@ EOF
     scoped_systemctl daemon-reload
 fi
 
-if [ "$mode" = system ] && [ "$unprivileged_port_start" != '' ]; then
+if [ "$mode" = system ] && [ -n "$unprivileged_port_start" ]; then
     echo "net.ipv4.ip_unprivileged_port_start=$unprivileged_port_start" | \
         tee /etc/sysctl.d/99-unprivileged-port-start.conf
 fi

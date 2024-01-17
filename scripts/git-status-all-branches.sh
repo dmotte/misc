@@ -16,7 +16,7 @@ for arg; do
             while read -r i; do
 
             j="${i#refs/remotes/origin/}"
-            if [ "$j" = 'HEAD' ] || [ "$j" = "$i" ] || [ "$j" = '' ]; then
+            if [ "$j" = HEAD ] || [ "$j" = "$i" ] || [ -z "$j" ]; then
                 continue
             fi
 
