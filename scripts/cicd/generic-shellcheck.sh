@@ -9,11 +9,6 @@ echo "::group::$0: Preparation"
     shellcheck --version
 echo '::endgroup::'
 
-scripts="$(find . -name \*.sh)"
-
+scripts=$(find . -name \*.sh)
 echo 'Scripts to check:'; echo "$scripts"
-
-if [ -n "$scripts" ]; then
-    # shellcheck disable=SC2086
-    shellcheck $scripts
-fi
+echo -n "$scripts" | xargs -rd\\n shellcheck
