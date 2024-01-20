@@ -25,10 +25,10 @@ fi
 entryname="$1"; shift
 
 if [ -n "$KP_PASSWORD" ]; then
-    entrypass="$(echo "$KP_PASSWORD" | \
-        keepassxc-cli show -qaPassword "$KP_FILENAME" "$entryname")"
+    entrypass=$(echo "$KP_PASSWORD" | \
+        keepassxc-cli show -qaPassword "$KP_FILENAME" "$entryname")
 else
-    entrypass="$(keepassxc-cli show -aPassword "$KP_FILENAME" "$entryname")"
+    entrypass=$(keepassxc-cli show -aPassword "$KP_FILENAME" "$entryname")
 fi
 
 unset KP_FILENAME KP_PASSWORD

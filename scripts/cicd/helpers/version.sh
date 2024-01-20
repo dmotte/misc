@@ -7,7 +7,7 @@ version_by_expr() {
     local expr; expr="$2"
 
     if [ "$git_ref" = 'refs/heads/main' ]; then
-        local version; version="$(eval "$expr")"
+        local version; version=$(eval "$expr")
         if ! [[ "$version" =~ ^v[0-9]+(\.[0-9]+)*$ ]]; then
             echo "Got invalid version: $version" >&2
             return 1

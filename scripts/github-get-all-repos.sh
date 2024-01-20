@@ -24,7 +24,7 @@ while :; do
         -H 'X-GitHub-Api-Version: 2022-11-28' \
         "https://api.github.com/$owner/repos?per_page=100&page=$page")
 
-    count="$(echo "$response" | jq length)"
+    count=$(echo "$response" | jq length)
 
     [ "$count" -ne 0 ] || break
 

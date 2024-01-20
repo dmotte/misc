@@ -36,7 +36,7 @@ echo "::group::$0: Project metadata"
     } | tee -a "$CICD_SUMMARY"
 
     echo "Version expression: $CICD_VERSION_EXPR"
-    proj_ver="$(eval "$CICD_VERSION_EXPR")"
+    proj_ver=$(eval "$CICD_VERSION_EXPR")
     {
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"
@@ -62,10 +62,10 @@ echo "::group::$0: Release (Vagrant Cloud)"
     if [ -n "$proj_ver" ]; then
         vagrant cloud auth login --token "$vagrantcloud_token"
 
-        version_description="$(
+        version_description=$(
             echo -n 'This version has been released automatically with GitHub' \
                 'Actions, commit '; git rev-parse --short HEAD
-        )"
+        )
         vagrant cloud publish -s "$BOX_DESCRIPTION" \
             --version-description "$version_description" \
             --no-private --release --force \

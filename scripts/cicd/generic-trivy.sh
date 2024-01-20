@@ -5,7 +5,7 @@ set -e
 # shellcheck source=/dev/null
 . "$(dirname "$0")/../fetch-and-check.sh"
 
-codename="$(grep VERSION_CODENAME /etc/os-release | cut -d= -f2)"
+codename=$(grep VERSION_CODENAME /etc/os-release | cut -d= -f2)
 
 echo "::group::$0: Preparation"
     if ! command -v trivy; then

@@ -23,7 +23,7 @@ while :; do
         -H "Private-Token: $GITLAB_TOKEN" \
         "$GITLAB_URL/api/v4/$owner/projects?per_page=100&page=$page")
 
-    count="$(echo "$response" | jq length)"
+    count=$(echo "$response" | jq length)
 
     [ "$count" -ne 0 ] || break
 

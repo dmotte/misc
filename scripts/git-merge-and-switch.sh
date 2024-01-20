@@ -11,7 +11,7 @@ for arg; do
     ( # Subshell
         cd "$arg"
 
-        branch_final="$(git rev-parse --abbrev-ref HEAD)"
+        branch_final=$(git rev-parse --abbrev-ref HEAD)
 
         if git switch "$BRANCH_DST"; then
             git merge "$BRANCH_SRC"

@@ -34,12 +34,12 @@ echo "::group::$0: Preparation"
 echo '::endgroup::'
 
 echo "::group::$0: Project metadata"
-    proj_name="$(sed -En 's/^name = (.+)$/\1/p' setup.cfg | head -1)"
+    proj_name=$(sed -En 's/^name = (.+)$/\1/p' setup.cfg | head -1)
     echo "- &#x1F333; Project name: \`$proj_name\`" | \
         tee -a "$CICD_SUMMARY"
 
     echo "Version expression: $CICD_VERSION_EXPR"
-    proj_ver="$(eval "$CICD_VERSION_EXPR")"
+    proj_ver=$(eval "$CICD_VERSION_EXPR")
     {
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"

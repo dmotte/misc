@@ -66,7 +66,7 @@ echo '::endgroup::'
 
 echo "::group::$0: Version"
     echo "Version expression: $CICD_VERSION_EXPR"
-    proj_ver="$(eval "$CICD_VERSION_EXPR")"
+    proj_ver=$(eval "$CICD_VERSION_EXPR")
     {
         if [ -n "$proj_ver" ]; then
             echo "- &#x1F4CC; Project version: \`$proj_ver\`"
@@ -78,13 +78,13 @@ echo '::endgroup::'
 
 echo "::group::$0: Docker tags"
     if [ -n "$proj_ver" ]; then
-        docker_tags="$(echo latest; echo "$proj_ver" | tr . '\n' | {
+        docker_tags=$(echo latest; echo "$proj_ver" | tr . '\n' | {
             concat=''
             while read -r i; do
                 concat="$concat$i."
                 echo "${concat%?}"
             done
-        })"
+        })
 
         # shellcheck disable=SC2016
         echo "- &#x1F3F7; Docker tags: \`$(echo -n "$docker_tags" | \
@@ -143,15 +143,15 @@ echo "::group::$0: Description (Docker Hub)"
         echo "Payload: $payload"
 
         if [ -n "$payload" ]; then
-            response="$(curl -sSXPOST https://hub.docker.com/v2/users/login \
+            response=$(curl -sSXPOST https://hub.docker.com/v2/users/login \
                 -dusername="$DOCKERHUB_USERNAME" \
-                -dpassword="$dockerhub_password" --fail-with-body)" || {
+                -dpassword="$dockerhub_password" --fail-with-body) || {
                     echo 'Docker Hub login failed' >&2
                     echo "$response" >&2
                     exit 1
                 }
 
-            token="$(echo "$response" | sed -E 's/^\{"token":"([^"]+)"\}/\1/g')"
+            token=$(echo "$response" | sed -E 's/^\{"token":"([^"]+)"\}/\1/g')
 
             curl -sSXPATCH \
                 "https://hub.docker.com/v2/repositories/$IMG_AUTHOR/$IMG_NAME" \

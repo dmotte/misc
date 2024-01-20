@@ -8,7 +8,7 @@ for arg; do
     ( # Subshell
         cd "$arg"
 
-        branch_final="$(git rev-parse --abbrev-ref HEAD)"
+        branch_final=$(git rev-parse --abbrev-ref HEAD)
 
         git fetch --all # Fetches all branches from all remotes
 
