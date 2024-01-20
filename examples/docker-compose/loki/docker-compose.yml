@@ -26,8 +26,8 @@ services:
       - /bin/sh
       - -ec
       - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat << 'EOF' > /etc/grafana/provisioning/datasources/loki.yml
+        install -Dm644 /dev/stdin \
+          /etc/grafana/provisioning/datasources/loki.yml << 'EOF'
         ---
         apiVersion: 1
         datasources:
