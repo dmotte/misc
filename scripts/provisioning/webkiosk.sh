@@ -32,8 +32,8 @@ webkiosk_url="${1:-http://127.0.0.1/}"
 
 apt_update_if_old
 apt-get install -y --no-install-recommends xorg chromium
-# This is needed to start Xorg as a non-root user. You can configure
-# Xorg wrapper by editing the /etc/X11/Xwrapper.config file
+# The Xorg setuid wrapper is needed to start Xorg as a non-root user. You can
+# configure it by editing the /etc/X11/Xwrapper.config file
 apt-get install -y xserver-xorg-legacy
 
 if [ ! -e ~kioskuser ]; then useradd -Ums/bin/bash kioskuser; fi
