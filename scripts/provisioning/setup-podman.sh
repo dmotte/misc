@@ -92,8 +92,8 @@ if [ "$auto_update" = never ]; then
     scoped_systemctl disable --now podman-auto-update.timer
 elif [ -n "$auto_update" ]; then
     echo 'Enabling Podman auto-update'
-    mkdir "$systemd_units_dir/podman-auto-update.timer.d"
-    tee "$systemd_units_dir/podman-auto-update.timer.d/override.conf" << EOF
+    install -Dm644 /dev/stdin \
+        "$systemd_units_dir/podman-auto-update.timer.d/override.conf" << EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
 OnCalendar=
@@ -107,8 +107,8 @@ fi
 
 if [ -n "$kube_extra_args" ]; then
     echo 'Setting Podman kube extra args'
-    mkdir "$systemd_units_dir/podman-kube@.service.d"
-    tee "$systemd_units_dir/podman-kube@.service.d/override.conf" << EOF
+    install -Dm644 /dev/stdin \
+        "$systemd_units_dir/podman-kube@.service.d/override.conf" << EOF
 [Service]
 # The empty "ExecStart=" line is needed to reset the default value
 ExecStart=

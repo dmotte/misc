@@ -48,7 +48,7 @@ done
 
 apt_update_if_old; apt-get install -y unattended-upgrades
 
-tee /etc/apt/apt.conf.d/50unattended-upgrades << EOF
+install -Dm644 /dev/stdin /etc/apt/apt.conf.d/50unattended-upgrades << EOF
 Unattended-Upgrade::Origins-Pattern { "origin=*"; };
 Unattended-Upgrade::Package-Blacklist {};
 
@@ -82,8 +82,9 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 EOF
 
 if [ -n "$timer_update" ]; then
-    mkdir /etc/systemd/system/apt-daily.timer.d
-    tee /etc/systemd/system/apt-daily.timer.d/override.conf << EOF
+    echo 'Setting event expression for the apt-daily.timer unit'
+    install -Dm644 /dev/stdin \
+        /etc/systemd/system/apt-daily.timer.d/override.conf << EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
 OnCalendar=
@@ -93,8 +94,9 @@ EOF
 fi
 
 if [ -n "$timer_upgrade" ]; then
-    mkdir /etc/systemd/system/apt-daily-upgrade.timer.d
-    tee /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf << EOF
+    echo 'Setting event expression for the apt-daily-upgrade.timer unit'
+    install -Dm644 /dev/stdin \
+        /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf << EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
 OnCalendar=
