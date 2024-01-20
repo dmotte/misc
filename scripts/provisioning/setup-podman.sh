@@ -15,7 +15,9 @@ set -e
 #     setup-podman.sh user -s0 -a'Mon 01:00' \
 #     -k--net=slirp4netns:port_handler=slirp4netns,enable_ipv6=false
 
+if [ $# -lt 1 ]; then echo 'Mode not specified' >&2; exit 1; fi
 mode="$1"; shift
+
 if [ "$mode" = system ]; then
     if [ "$EUID" != '0' ]; then
         echo 'Must run as root if mode=system is used' >&2; exit 1
