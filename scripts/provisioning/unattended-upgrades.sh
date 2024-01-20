@@ -82,7 +82,7 @@ Unattended-Upgrade::Skip-Updates-On-Metered-Connections "false";
 EOF
 
 if [ -n "$timer_update" ]; then
-    install -d /etc/systemd/system/apt-daily.timer.d
+    mkdir /etc/systemd/system/apt-daily.timer.d
     tee /etc/systemd/system/apt-daily.timer.d/override.conf << EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
@@ -93,7 +93,7 @@ EOF
 fi
 
 if [ -n "$timer_upgrade" ]; then
-    install -d /etc/systemd/system/apt-daily-upgrade.timer.d
+    mkdir /etc/systemd/system/apt-daily-upgrade.timer.d
     tee /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf << EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
