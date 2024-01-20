@@ -51,6 +51,7 @@ if [ "$sshd_disable_psw_auth" = y ]; then
         /etc/ssh/sshd_config
 fi
 
+# Prevent setting NTP server from DHCP (by systemd-timesyncd)
 rm -f /etc/dhcp/dhclient-exit-hooks.d/timesyncd \
     /run/systemd/timesyncd.conf.d/01-dhclient.conf
 
