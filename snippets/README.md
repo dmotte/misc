@@ -25,7 +25,7 @@ Some pieces of code I find useful for some reason.
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
 - `find -printf '%p %s %T@\n'`
-- `rclone lsf -R --format pst myremote: | LC_ALL=C sort`
+- `rclone lsf -R --format=pst myremote: | LC_ALL=C sort`
 - `tree -paugh`
 - `find | grep -i pattern`
 - `cp -Rv /media/sorcedisk/folder /media/destdisk`
