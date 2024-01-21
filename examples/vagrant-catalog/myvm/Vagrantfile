@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
     config.vm.box = "mybox"
     config.vm.box_url = "file://../mybox/mybox.json"
-    
+
     config.vm.hostname = "myvm"
 
     config.vm.provider "virtualbox" do |vb|
