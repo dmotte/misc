@@ -15,10 +15,7 @@ set -e
 #   sudo SYSTEMCTL_DAEMON_RELOAD=true KIOSK_RESTART=true \
 #     bash webkiosk.sh https://play.grafana.org/
 
-if [ "$EUID" != '0' ]; then
-    echo 'This script must be run as root' >&2
-    exit 1
-fi
+[ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 apt_update_if_old() {
     if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
@@ -36,7 +33,7 @@ apt-get install -y --no-install-recommends xorg chromium
 # configure it by editing the /etc/X11/Xwrapper.config file
 apt-get install -y xserver-xorg-legacy
 
-if [ ! -e ~kioskuser ]; then useradd -Ums/bin/bash kioskuser; fi
+[ -e ~kioskuser ] || useradd -Ums/bin/bash kioskuser
 
 install -okioskuser -gkioskuser -m644 /dev/stdin ~kioskuser/.xinitrc << 'EOF'
 #!/bin/bash

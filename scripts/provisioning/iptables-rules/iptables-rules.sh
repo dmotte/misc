@@ -10,10 +10,7 @@ set -e
 #   sed '/^\s*$/d;/^#.*$/d' rules.v4 | \
 #     sudo IPTABLES_RULES_RELOAD=true bash iptables-rules.sh -4/dev/stdin
 
-if [ "$EUID" != '0' ]; then
-    echo 'This script must be run as root' >&2
-    exit 1
-fi
+[ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 apt_update_if_old() {
     if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then

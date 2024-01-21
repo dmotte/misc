@@ -8,10 +8,9 @@ version_by_expr() {
 
     if [ "$git_ref" = 'refs/heads/main' ]; then
         local version; version=$(eval "$expr")
-        if ! [[ "$version" =~ ^v[0-9]+(\.[0-9]+)*$ ]]; then
-            echo "Got invalid version: $version" >&2
-            return 1
-        fi
+        [[ "$version" =~ ^v[0-9]+(\.[0-9]+)*$ ]] || {
+            echo "Got invalid version: $version" >&2; return 1
+        }
         echo "$version"
     fi
 }
@@ -29,10 +28,9 @@ version_by_tag() {
 
     local git_tag; git_tag="${git_ref#refs/tags/}"
     if [ "$git_tag" != "$git_ref" ]; then
-        if ! [[ "$git_tag" =~ ^v[0-9]+(\.[0-9]+)*$ ]]; then
-            echo "Got invalid version: $git_tag" >&2
-            return 1
-        fi
+        [[ "$git_tag" =~ ^v[0-9]+(\.[0-9]+)*$ ]] || {
+            echo "Got invalid version: $git_tag" >&2; return 1
+        }
         echo "$git_tag"
     fi
 }

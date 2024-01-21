@@ -11,8 +11,7 @@ owner="$1"
 filter="${2:-true}"
 
 if [ "$owner" = "${owner#users/}" ] && [ "$owner" = "${owner#groups/}" ]; then
-    echo 'Invalid owner specified' >&2
-    exit 1
+    echo 'Invalid owner specified' >&2; exit 1
 fi
 
 page=1

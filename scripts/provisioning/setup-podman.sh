@@ -19,15 +19,13 @@ set -e
 mode="$1"; shift
 
 if [ "$mode" = system ]; then
-    if [ "$EUID" != '0' ]; then
-        echo 'Must run as root if mode=system is used' >&2; exit 1
-    fi
+    [ "$EUID" = 0 ] || \
+        { echo 'Must run as root if mode=system is used' >&2; exit 1; }
     scoped_systemctl() { systemctl "$@"; }
     systemd_units_dir=/etc/systemd/system
 elif [ "$mode" = user ]; then
-    if [ "$EUID" = '0' ]; then
-        echo 'Must run as a regular user if mode=user is used' >&2; exit 1
-    fi
+    [ "$EUID" != 0 ] || \
+        { echo 'Must run as a regular user if mode=user is used' >&2; exit 1; }
     scoped_systemctl() { systemctl --user "$@"; }
     systemd_units_dir=~/.config/systemd/user
 else

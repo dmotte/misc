@@ -16,10 +16,7 @@ set -e
 #   sudo UNATTENDED_UPGRADES_RELOAD=true bash \
 #     unattended-upgrades.sh -rt'*-*-* 04:00' -T'*-*-* 05:00'
 
-if [ "$EUID" != '0' ]; then
-    echo 'This script must be run as root' >&2
-    exit 1
-fi
+[ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 apt_update_if_old() {
     if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
