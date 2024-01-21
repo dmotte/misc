@@ -5,13 +5,14 @@
 # This function aims to be as compact as possible, and compatible with the Dash
 # shell (/bin/sh)
 
-# This puts a dummy "x" character at the end of the content variable to
-# correctly preserve newlines, because the $(...) command substitution trims
-# trailing newline characters. See https://stackoverflow.com/a/15184414
+# Note: the reason for adding the dummy "x" character at the end of the content
+# variable is to correctly preserve newlines, because the $(...) command
+# substitution trims trailing newline characters. See
+# https://stackoverflow.com/a/15184414
 
 # Variables: c = content, s = checksum
 
-fetch_and_check() {
+fetch_and_check() { # Src: https://github.com/dmotte/misc
     local c s; c=$(curl -fsSL "$1"; echo x) && \
     s=$(echo -n "${c%x}" | sha256sum | cut -d' ' -f1) && \
     if [ "$s" = "$2" ]; then echo -n "${c%x}"
