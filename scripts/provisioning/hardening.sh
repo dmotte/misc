@@ -8,8 +8,7 @@ set -e
 # inspiration to make your own real hardening based on your specific environment
 
 if [ "$EUID" != '0' ]; then
-    echo 'This script must be run as root' >&2
-    exit 1
+    echo 'This script must be run as root' >&2; exit 1
 fi
 
 options=$(getopt -o apd -l sshd-addressfamily-inet -l sshd-disable-psw-auth \

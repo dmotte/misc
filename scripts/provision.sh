@@ -6,13 +6,10 @@ set -e
 # Usage example:
 #   ./provision.sh provisioning/ '--arg01 --arg02' ssh user@hostname -p2222
 
-prov_dir="$1"; shift
-remote_args="$1"; shift
+[ $# -ge 2 ] || { echo 'Not enough args' >&2; exit 1; }
+prov_dir="$1"; remote_args="$2"; shift 2
 
-if [ ! -f "$prov_dir/main.sh" ]; then
-    echo 'File main.sh not found' >&2
-    exit 1
-fi
+[ -f "$prov_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
 
 # Operations are split in two separate connections because we want the
 # "$prov_dir/main.sh" script to be able to read from our stdin
