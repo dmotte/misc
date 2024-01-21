@@ -104,12 +104,10 @@ echo "::group::$0: Build (Docker Buildx) + Release (Docker Hub)"
         # https://github.com/docker/build-push-action/blob/master/src/main.ts
         # This builds the images for different platforms in parallel
         docker buildx create --use
-        # shellcheck disable=SC2046
-        docker buildx build --platform="$IMG_PLATFORMS" \
+        echo "$docker_tags" | while read -r i; do
+            echo "--tag=docker.io/$IMG_AUTHOR/$IMG_NAME:$i"
+        done | xargs -rd\\n docker buildx build --platform="$IMG_PLATFORMS" \
             --iidfile=buildx-image-id.txt --metadata-file=buildx-metadata.txt \
-            $(echo "$docker_tags" | while read -r i; do
-                echo "--tag=docker.io/$IMG_AUTHOR/$IMG_NAME:$i"
-            done | xargs) \
             --push build/
         docker buildx rm
         cat buildx-image-id.txt; echo; cat buildx-metadata.txt; echo
