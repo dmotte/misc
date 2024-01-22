@@ -6,26 +6,28 @@ set -e
 # main.sh script inside it
 
 # Usage example:
-#   ./remote-dir-run.sh mydir ssh user@hostname -p2222
+#   RDR_REMOTE_TAR_OPTIONS=-v ./remote-dir-run.sh mydir \
+#     ssh user@hostname -p2222
 
 [ $# -ge 1 ] || { echo 'Not enough args' >&2; exit 1; }
 local_dir="$1"; shift
 
 [ -f "$local_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
 
-: "${RDR_CMD:=bash main.sh}"
 : "${RDR_SHELL_OPTIONS:=-e}"
+: "${RDR_CMD:=bash main.sh}"
 
 remote_dir="/tmp/remote-dir-run-$(date +%Y-%m-%d-%H%M%S)"
 
 # Operations are split in two separate connections because we want the
 # "$local_dir/main.sh" script to be able to read from our end's stdin
 
-tar -cvzf- -C"$local_dir" . | "$@" '
+# shellcheck disable=SC2086
+tar -czf- -C"$local_dir" $RDR_LOCAL_TAR_OPTIONS . | "$@" '
     set '"$RDR_SHELL_OPTIONS"'
     rm -rf '"$remote_dir"'
     mkdir '"$remote_dir"'
-    tar -xvzf- -C'"$remote_dir"'
+    tar -xzf- -C'"$remote_dir"' '"$RDR_REMOTE_TAR_OPTIONS"'
 '
 
 # shellcheck disable=SC2016
