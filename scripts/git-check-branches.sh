@@ -9,8 +9,8 @@ for arg; do
         sort | uniq | wc -l)
     if [ "$n" -ne 1 ]; then echo "$arg: $n different branches"; result=1; fi
 
-    branch_default=$(git -C "$arg" symbolic-ref refs/remotes/origin/HEAD | \
-        sed 's@^refs/remotes/origin/@@')
+    branch_default=$(git -C "$arg" symbolic-ref refs/remotes/origin/HEAD)
+    branch_default=${branch_default#refs/remotes/origin/}
     branch_current=$(git -C "$arg" rev-parse --abbrev-ref HEAD)
     if [ "$branch_current" != "$branch_default" ]; then
         echo "$arg: on $branch_current"; result=1
