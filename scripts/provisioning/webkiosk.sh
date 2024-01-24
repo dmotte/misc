@@ -42,9 +42,9 @@ set -e
 
 # Get display resolution
 
-DISPLAY_RESOLUTION=$(xrandr --current | grep \* | uniq | awk '{print $1}')
-DISPLAY_RES_W=$(echo $DISPLAY_RESOLUTION | cut -dx -f1 | sed 's/[^0-9]*//g')
-DISPLAY_RES_H=$(echo $DISPLAY_RESOLUTION | cut -dx -f2 | sed 's/[^0-9]*//g')
+display_resolution=$(xrandr --current | grep \* | uniq | awk '{print $1}')
+display_res_w=$(echo $display_resolution | cut -dx -f1 | sed 's/[^0-9]*//g')
+display_res_h=$(echo $display_resolution | cut -dx -f2 | sed 's/[^0-9]*//g')
 
 # Disable Xorg screen blanking and DPMS
 
@@ -69,7 +69,7 @@ xmodmap -e 'keycode 71 = Escape'  # Disable the F5 key in the current display
 # https://peter.sh/experiments/chromium-command-line-switches/
 
 chromium --kiosk \
-    --window-position=0,0 --window-size="$DISPLAY_RES_W,$DISPLAY_RES_H" \
+    --window-position=0,0 --window-size="$display_res_w,$display_res_h" \
     --disable-translate --disable-sync --noerrdialogs --no-message-box \
     --no-first-run --start-fullscreen --disable-hang-monitor \
     --disable-infobars --disable-logging --disable-sync \
