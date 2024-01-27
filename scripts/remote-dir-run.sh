@@ -19,22 +19,23 @@ local_dir="$1"; shift
 
 remote_dir="/tmp/remote-dir-run-$(date +%Y-%m-%d-%H%M%S)"
 
+{ read -rd '' script_01 || [ -n "$script_01" ]; } << EOF
+set $RDR_SHELL_OPTIONS
+rm -rf $remote_dir
+mkdir $remote_dir
+tar -xzf- -C$remote_dir $RDR_REMOTE_TAR_OPTIONS
+EOF
+
+{ read -rd '' script_02 || [ -n "$script_02" ]; } << EOF
+set $RDR_SHELL_OPTIONS
+cd $remote_dir
+$RDR_CMD || result=\$?
+rm -rf $remote_dir
+exit \${result:-0}
+EOF
+
 # Operations are split in two separate connections because we want the
 # "$local_dir/main.sh" script to be able to read from our end's stdin
-
 # shellcheck disable=SC2086
-tar -czf- -C"$local_dir" $RDR_LOCAL_TAR_OPTIONS . | "$@" '
-    set '"$RDR_SHELL_OPTIONS"'
-    rm -rf '"$remote_dir"'
-    mkdir '"$remote_dir"'
-    tar -xzf- -C'"$remote_dir"' '"$RDR_REMOTE_TAR_OPTIONS"'
-'
-
-# shellcheck disable=SC2016
-"$@" '
-    set '"$RDR_SHELL_OPTIONS"'
-    cd '"$remote_dir"'
-    '"$RDR_CMD"' || result=$?
-    rm -rf '"$remote_dir"'
-    exit "${result:-0}"
-'
+tar -czf- -C"$local_dir" $RDR_LOCAL_TAR_OPTIONS . | "$@" "$script_01"
+"$@" "$script_02"
