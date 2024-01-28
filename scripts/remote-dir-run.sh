@@ -37,6 +37,9 @@ rm -rf $remote_dir
 exit \${result:-0}
 EOF
 
+script_1=$(echo "$script_1" | tr \\n \;)
+script_2=$(echo "$script_2" | tr \\n \;)
+
 if [ -n "$RDR_EVAL" ]; then eval "$RDR_EVAL"; fi
 
 # Operations are split in two separate connections because we want the
