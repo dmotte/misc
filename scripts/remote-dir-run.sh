@@ -19,14 +19,17 @@ local_dir="$1"; shift
 
 remote_dir="/tmp/remote-dir-run-$(date +%Y-%m-%d-%H%M%S)"
 
-{ read -rd '' script_01 || [ -n "$script_01" ]; } << EOF
+cmd_1=("$@")
+cmd_2=("$@")
+
+{ read -rd '' script_1 || [ -n "$script_1" ]; } << EOF
 set $RDR_SHELL_OPTIONS
 rm -rf $remote_dir
 mkdir $remote_dir
 tar -xzf- -C$remote_dir $RDR_REMOTE_TAR_OPTIONS
 EOF
 
-{ read -rd '' script_02 || [ -n "$script_02" ]; } << EOF
+{ read -rd '' script_2 || [ -n "$script_2" ]; } << EOF
 set $RDR_SHELL_OPTIONS
 cd $remote_dir
 $RDR_CMD || result=\$?
@@ -34,8 +37,10 @@ rm -rf $remote_dir
 exit \${result:-0}
 EOF
 
+if [ -n "$RDR_EVAL" ]; then eval "$RDR_EVAL"; fi
+
 # Operations are split in two separate connections because we want the
 # "$local_dir/main.sh" script to be able to read from our end's stdin
 # shellcheck disable=SC2086
-tar -czf- -C"$local_dir" $RDR_LOCAL_TAR_OPTIONS . | "$@" "$script_01"
-"$@" "$script_02"
+tar -czf- -C"$local_dir" $RDR_LOCAL_TAR_OPTIONS . | "${cmd_1[@]}" "$script_1"
+"${cmd_2[@]}" "$script_2"
