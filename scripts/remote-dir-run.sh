@@ -26,7 +26,7 @@ cmd_2=("$@")
 set $RDR_SHELL_OPTIONS
 rm -rf $remote_dir
 mkdir $remote_dir
-tar -xzf- -C$remote_dir $RDR_REMOTE_TAR_OPTIONS
+tar -xzf- -C$remote_dir --no-same-owner $RDR_REMOTE_TAR_OPTIONS
 EOF
 
 { read -rd '' script_2 || [ -n "$script_2" ]; } << EOF
