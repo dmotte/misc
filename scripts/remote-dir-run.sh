@@ -40,6 +40,13 @@ EOF
 script1=$(echo "$script1" | tr \\n \;)
 script2=$(echo "$script2" | tr \\n \;)
 
+if [ -n "$RDR_ADD_CMD2_ARGS" ]; then
+    while read -r i; do
+        read -r str
+        cmd2=("${cmd2[@]:0:$i}" "$str" "${cmd2[@]:$i}")
+    done < <(echo "$RDR_ADD_CMD2_ARGS" | tr , '\n')
+fi
+
 if [ "$RDR_QUOTE_SCRIPTS" = 'true' ]; then
     script1=\'$script1\'
     script2=\'$script2\'
