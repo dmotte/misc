@@ -60,7 +60,7 @@ Some pieces of code I find useful for some reason.
 - `ssh-keygen -R [myserver.example.com]:2001`
 - `socat - tcp:example.com:80`
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=777,fork STDOUT`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
-- `export XDG_RUNTIME_DIR=/run/user/$UID` to use systemctl as a linger-enabled user
+- `export XDG_RUNTIME_DIR=/run/user/$UID` to use `systemctl --user` as a linger-enabled user
 - `nano -\$v filename`, `vim -R filename`
 - `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
