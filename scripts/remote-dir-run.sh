@@ -9,6 +9,10 @@ set -e
 #   RDR_REMOTE_TAR_OPTIONS=-v ./remote-dir-run.sh mydir \
 #     ssh user@hostname -p2222
 
+# Note: if you're using Git Bash on Windows, you may want to replace "ssh"
+# with "/c/Windows/System32/OpenSSH/ssh.exe", or $GIT_SSH if you have it set.
+# Or you can use ${GIT_SSH:-ssh} to cover both cases
+
 [ $# -ge 2 ] || { echo 'Not enough args' >&2; exit 1; }
 local_dir="$1"; shift
 
