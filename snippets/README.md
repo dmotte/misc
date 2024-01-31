@@ -107,7 +107,7 @@ docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 - `ls -la ~/.local/share/containers/storage/volumes`
 - `(read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
 - `echo -e "{\"main\":\"$(base64 -w0 < mykey.pem)\"}" | podman secret create mykey -`
-- `podman image prune -af`
+- `podman image ls -a`, `podman image prune -af`
 
 ## Kubectl
 
