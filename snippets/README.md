@@ -72,7 +72,6 @@ Some pieces of code I find useful for some reason.
 - `for i in 192.168.1.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
 - `echo '#EXTM3U'; while read -r i; do echo "#EXTINF:0,$(basename "${i%.*}")"; echo "file://$HOME/Music/$i"; done`
 - `for i in var_01 VAR_02; do read -rsp "$i: " "${i?}"; if [[ "$i" == [[:upper:]]* ]]; then export "${i?}"; fi; done`
-- `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
 ## Shell snippets for Docker
 
@@ -80,6 +79,7 @@ Some pieces of code I find useful for some reason.
 - `docker run -v my-volume:/volume --rm --log-driver none loomchild/volume-backup backup - > my-backup.tar.gz`
 - `docker run -i -v my-volume:/volume --rm loomchild/volume-backup restore - < my-backup.tar.gz`
 - `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S '0.0.0.0:8080' -t /v`
+- `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
 ```bash
 docker build -t img-sshsrv01:latest - << 'EOF'
