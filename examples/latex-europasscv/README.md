@@ -10,8 +10,8 @@ FROM docker.io/library/debian:12
 RUN apt-get update && \
     apt-get install -y texlive-full && \
     rm -rf /var/lib/apt/lists/*
-VOLUME /pwd
-WORKDIR /pwd
+VOLUME /v
+WORKDIR /v
 EOF
 ```
 
@@ -20,7 +20,7 @@ EOF
 Then download the [Europass CV](https://www.overleaf.com/latex/templates/europass-cv/kpcsxfcfvxhx) template, customize it and convert it to **PDF**:
 
 ```bash
-docker run --rm -v "$PWD:/pwd" -u "$(id -u):$(id -g)" img-texlive pdflatex main.tex
+docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" img-texlive pdflatex main.tex
 ```
 
 ## Tips
