@@ -5,20 +5,22 @@
 Download a **rootfs tarball**:
 
 ```bash
-curl -LO https://github.com/termux/proot-distro/releases/download/v2.2.0/debian-x86_64-pd-v2.2.0.tar.xz
+curl -fLo tarball.tar.xz \
+    https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz
 ```
 
 Check its integrity with **SHA256**:
 
 ```bash
-echo 5ce7f65e089831b37d1cddeb67cfe4f3c487a507226b90535f420e13a37b9434 debian-x86_64-pd-v2.2.0.tar.xz | sha256sum -c
+echo '164932ab77a0b94a8e355c9b68158a5b76d5abef89ada509488c44ff54655d61' \
+    tarball.tar.xz | sha256sum -c
 ```
 
 **Extract** the tarball content into a `rootfs` directory:
 
 ```bash
 mkdir -p rootfs
-tar -x --auto-compress -f debian-x86_64-pd-v2.2.0.tar.xz --recursive-unlink --preserve-permissions -C rootfs
+tar -x --auto-compress -f tarball.tar.xz --recursive-unlink --preserve-permissions -C rootfs
 ```
 
 > **Note**: the `mknod` errors reported by `tar` can be safely ignored
@@ -26,7 +28,7 @@ tar -x --auto-compress -f debian-x86_64-pd-v2.2.0.tar.xz --recursive-unlink --pr
 Download the **PRoot executable** file:
 
 ```bash
-curl -LO https://proot.gitlab.io/proot/bin/proot
+curl -fLO https://proot.gitlab.io/proot/bin/proot
 chmod +x proot
 ```
 
