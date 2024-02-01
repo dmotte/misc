@@ -54,11 +54,11 @@ Finally, to start your **PRoot environment**, you can execute a command like the
     -b /etc/resolv.conf \
     -b /tmp/ \
     /usr/bin/env -i \
-        "HOME=/root" \
-        "LANG=C.UTF-8" \
-        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
+        'HOME=/root' \
+        'LANG=C.UTF-8' \
+        'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' \
         "TERM=$TERM" \
-        "TMPDIR=/tmp" \
+        'TMPDIR=/tmp' \
         /bin/bash
 ```
 
