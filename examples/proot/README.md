@@ -2,6 +2,8 @@
 
 [PRoot](https://proot-me.github.io/) usage example.
 
+> **Note**: I even tested this as a **regular user** (non-root) inside an **unprivileged Podman container** (i.e. running as a **regular user** on the host), and it worked!
+
 Download a **rootfs tarball**:
 
 ```bash
