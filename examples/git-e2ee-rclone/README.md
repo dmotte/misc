@@ -7,7 +7,7 @@ In this example we'll set up an **end-to-end encrypted** (E2EE) **Git remote** w
 First of all, download _Rclone_ if it's not already installed on your system:
 
 ```bash
-curl -LO https://downloads.rclone.org/v1.63.1/rclone-v1.63.1-linux-amd64.zip
+curl -fLO https://downloads.rclone.org/v1.63.1/rclone-v1.63.1-linux-amd64.zip
 echo ca1cb4b1d9a3e45d0704aa77651b0497eacc3e415192936a5be7f7272f2c94c5 rclone-v1.63.1-linux-amd64.zip | sha256sum -c
 unzip -j rclone-v1.63.1-linux-amd64.zip rclone-v1.63.1-linux-amd64/rclone
 ```

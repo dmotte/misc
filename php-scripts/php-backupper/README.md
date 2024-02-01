@@ -14,7 +14,7 @@ Then you can use it in the following manner:
 
 ```bash
 curl http://admin:changeme@localhost:8080/backupper.php?action=maint-on
-curl http://admin:changeme@localhost:8080/backupper.php?action=backup -o backup.tar.gz
+curl -fLo backup.tar.gz http://admin:changeme@localhost:8080/backupper.php?action=backup
 curl http://admin:changeme@localhost:8080/backupper.php?action=maint-off
 ```
 

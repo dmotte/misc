@@ -6,7 +6,7 @@ Example of how to use the **Selenium WebDriver** _Python_ library to drive the *
 sudo apt-get update && sudo apt-get install -y chromium python3-venv
 
 # Link for downloading the ChromeDriver found here: https://googlechromelabs.github.io/chrome-for-testing/#stable
-curl -O "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$(chromium --product-version)/linux64/chromedriver-linux64.zip"
+curl -fLO "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$(chromium --product-version)/linux64/chromedriver-linux64.zip"
 unzip chromedriver-linux64.zip
 
 python3 -m venv myvenv

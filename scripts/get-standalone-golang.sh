@@ -21,7 +21,7 @@ fi
 mkdir -p "$golang_dir_path"
 
 echo "Downloading $golang_archive_url to $golang_archive_path"
-curl -SLo "$golang_archive_path" "$golang_archive_url"
+curl -fLo "$golang_archive_path" "$golang_archive_url"
 
 echo "Extracting $golang_archive_path to $golang_dir_path"
 tar -xzf "$golang_archive_path" -C "$golang_dir_path"

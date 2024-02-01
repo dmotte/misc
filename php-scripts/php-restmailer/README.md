@@ -17,7 +17,7 @@ curl 'https://admin:changeme@my-host.example.com/restmailer.php?to=my-recipient@
 ```
 
 ```bash
-curl -X POST 'https://admin:changeme@my-host.example.com/restmailer.php' \
+curl -XPOST 'https://admin:changeme@my-host.example.com/restmailer.php' \
     -d 'to=my-recipient@example.com&subject=test-post&message=This%20is%20my%20POST%20test.'
 ```
 
@@ -26,7 +26,7 @@ ls | curl --data-binary @- 'https://admin:changeme@my-host.example.com/restmaile
 ```
 
 ```bash
-curl -X POST 'https://admin:changeme@my-host.example.com/restmailer.php' \
+curl -XPOST 'https://admin:changeme@my-host.example.com/restmailer.php' \
     -H 'Content-Type: application/json' \
     -d '{
         "to": "my-recipient@example.com",

@@ -22,7 +22,7 @@ fi
 mkdir -p "$vscode_dir_path"
 
 echo "Downloading $vscode_archive_url to $vscode_archive_path"
-curl -SLo "$vscode_archive_path" "$vscode_archive_url"
+curl -fLo "$vscode_archive_path" "$vscode_archive_url"
 
 echo "Extracting $vscode_archive_path to $vscode_dir_path"
 tar -xzf "$vscode_archive_path" -C "$vscode_dir_path"

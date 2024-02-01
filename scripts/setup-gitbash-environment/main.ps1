@@ -51,7 +51,7 @@ else
 fi
 
 echo 'Downloading .minttyrc'
-curl -o ~/.minttyrc https://raw.githubusercontent.com/dmotte/misc/main/scripts/setup-gitbash-environment/.minttyrc
+curl -fsSLo ~/.minttyrc https://raw.githubusercontent.com/dmotte/misc/main/scripts/setup-gitbash-environment/.minttyrc
 
 echo 'Setting Git options'
 /mingw64/bin/git config --global core.autocrlf input
