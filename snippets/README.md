@@ -76,8 +76,8 @@ Some pieces of code I find useful for some reason.
 ## Shell snippets for Docker
 
 - `docker ps -a --format {{.Names}}`
-- `docker run -v my-volume:/volume --rm --log-driver=none docker.io/loomchild/volume-backup backup - > my-backup.tar.gz`
-- `docker run -i -v my-volume:/volume --rm docker.io/loomchild/volume-backup restore - < my-backup.tar.gz`
+- `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox tar -cvzf- -C/v . > mybackup.tar.gz`
+- `docker run --rm -v myvolume:/v -i docker.io/library/busybox tar -xvzf- -C/v < mybackup.tar.gz`
 - `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S '0.0.0.0:8080' -t /v`
 - `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
