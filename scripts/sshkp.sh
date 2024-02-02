@@ -12,9 +12,8 @@ set -e
 # If running on Debian 12, you need to have these APT packages installed:
 # keepassxc-cli sshpass
 
-[ -n "$KP_FILENAME" ] || {
-    echo 'The KP_FILENAME env var is not defined' >&2; exit 1
-}
+[ -n "$KP_FILENAME" ] || \
+    { echo 'The KP_FILENAME env var is not defined' >&2; exit 1; }
 
 [ $# -ge 1 ] || { echo 'KeePass entry name not specified' >&2; exit 1; }
 entryname="$1"; shift
