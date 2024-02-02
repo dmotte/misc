@@ -6,7 +6,7 @@ set -e
 # several environments with different names
 
 # It also works (I tested it) when run as a regular user (non-root) inside an
-# unprivileged Podman container (i.e. running as a regular user on the host)
+# unprivileged Podman container (i.e. created as a regular user on the host)
 
 # Usage example:
 #   PROOT_ADD_OPTIONS='--kernel-release=5.4.0-faked' \
