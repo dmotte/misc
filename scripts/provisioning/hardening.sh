@@ -11,7 +11,7 @@ set -e
 
 options=$(getopt -o apd -l sshd-addressfamily-inet -l sshd-disable-psw-auth \
     -l disable-ipv6 -- "$@")
-eval set -- "$options"
+eval "set -- $options"
 
 sshd_addressfamily_inet=n
 sshd_disable_psw_auth=n

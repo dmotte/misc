@@ -40,7 +40,7 @@ apt_update_if_old() {
 
 options=$(getopt -o cs:a:k:p: -l compose -l socket: -l auto-update: \
     -l kube-extra-args: -l unprivileged-port-start: -- "$@")
-eval set -- "$options"
+eval "set -- $options"
 
 flag_compose=n
 socket=''

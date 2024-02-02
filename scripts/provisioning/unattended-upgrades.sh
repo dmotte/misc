@@ -25,7 +25,7 @@ apt_update_if_old() {
 }
 
 options=$(getopt -o rt:T: -l auto-reboot,timer-update:,timer-upgrade: -- "$@")
-eval set -- "$options"
+eval "set -- $options"
 
 auto_reboot='false'
 timer_update=''

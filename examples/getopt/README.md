@@ -10,7 +10,7 @@ Inspired by https://gist.github.com/drmalex07/6bcd65a0861f58b646a0.
 set -e
 
 options=$(getopt -o abc: -l along,blong,clong: -- "$@")
-eval set -- "$options"
+eval "set -- $options"
 
 flag_a=n
 flag_b=n
