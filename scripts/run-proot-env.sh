@@ -33,7 +33,7 @@ env_name="$1"; shift
 if [ ! -e "$tarball_path" ]; then
     echo "Downloading tarball $PROOT_TARBALL_URL to $tarball_path"
     curl -fLo "$tarball_path" "$PROOT_TARBALL_URL"
-    echo "$PROOT_TARBALL_CHECKSUM" "$tarball_path" | sha256sum -c
+    echo "$PROOT_TARBALL_CHECKSUM $tarball_path" | sha256sum -c
 fi
 
 if [ ! -e "$proot_path" ]; then
