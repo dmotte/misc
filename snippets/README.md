@@ -57,7 +57,7 @@ Some pieces of code I find useful for some reason.
 - `systemctl -a | grep -i myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -i myunit` (also disabled ones)
 - `systemctl list-timers`
 - `: "${MYVAR:=myvalue}"`
-- `ssh-keygen -R [myserver.example.com]:2001`
+- `ssh-keygen -R [myserver.example.com]:2222`
 - `socat - tcp:example.com:80`
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=777,fork STDOUT`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use `systemctl --user` as a linger-enabled user
