@@ -72,6 +72,7 @@ Some pieces of code I find useful for some reason.
 - `for i in 192.168.1.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
 - `echo '#EXTM3U'; while read -r i; do echo "#EXTINF:0,$(basename "${i%.*}")"; echo "file://$HOME/Music/$i"; done`
 - `for i in var_01 VAR_02; do read -rsp "$i: " "${i?}"; if [[ "$i" == [[:upper:]]* ]]; then export "${i?}"; fi; done`
+- `shuf -en1 Alice Bob Carl`
 
 ## Shell snippets for Docker
 
