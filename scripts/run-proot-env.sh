@@ -30,6 +30,9 @@ envs_dir=$(dirname "$0")/envs
 [ $# -ge 1 ] || { echo 'Not enough args' >&2; exit 1; }
 env_name="$1"; shift
 
+[[ "$env_name" =~ ^[0-9A-Za-z-]+$ ]] || \
+    { echo 'Invalid env name' >&2; exit 1; }
+
 if [ ! -e "$tarball_path" ]; then
     echo "Downloading tarball $PROOT_TARBALL_URL to $tarball_path"
     curl -fLo "$tarball_path" "$PROOT_TARBALL_URL"
