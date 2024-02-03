@@ -17,16 +17,18 @@ set -e
 # - https://wiki.termux.com/wiki/PRoot
 # - https://github.com/termux/proot-distro/blob/master/proot-distro.sh
 
+cd "$(dirname "$0")"
+
 : "${PROOT_TARBALL_URL:=https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz}"
 : "${PROOT_TARBALL_CHECKSUM:=164932ab77a0b94a8e355c9b68158a5b76d5abef89ada509488c44ff54655d61}"
 : "${PROOT_TARBALL_TOP_DIR:=debian-bookworm-x86_64}"
 : "${PROOT_WORKDIR:=/root}"
 
-tarball_path=$(dirname "$0")/tarball.tar.xz
+tarball_path=tarball.tar.xz
 proot_url=https://proot.gitlab.io/proot/bin/proot
 proot_checksum='b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2'
-proot_path=$(dirname "$0")/proot
-envs_dir=$(dirname "$0")/envs
+proot_path=./proot
+envs_dir=envs
 
 [ $# -ge 1 ] || { echo 'Not enough args' >&2; exit 1; }
 env_name="$1"; shift
