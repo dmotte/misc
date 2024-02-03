@@ -73,6 +73,7 @@ Some pieces of code I find useful for some reason.
 - `echo '#EXTM3U'; while read -r i; do echo "#EXTINF:0,$(basename "${i%.*}")"; echo "file://$HOME/Music/$i"; done`
 - `for i in var_01 VAR_02; do read -rsp "$i: " "${i?}"; if [[ "$i" == [[:upper:]]* ]]; then export "${i?}"; fi; done`
 - `shuf -en1 Alice Bob Carl`
+- `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`
 
 ## Shell snippets for Docker
 
