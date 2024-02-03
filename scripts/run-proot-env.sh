@@ -22,11 +22,11 @@ cd "$(dirname "$0")"
 : "${PROOT_TARBALL_URL:=https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz}"
 : "${PROOT_TARBALL_CHECKSUM:=164932ab77a0b94a8e355c9b68158a5b76d5abef89ada509488c44ff54655d61}"
 : "${PROOT_TARBALL_TOP_DIR:=debian-bookworm-x86_64}"
+: "${PROOT_BINARY_URL:=https://proot.gitlab.io/proot/bin/proot}"
+: "${PROOT_BINARY_CHECKSUM:=b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2}"
 : "${PROOT_WORKDIR:=/root}"
 
 tarball_path=tarball.tar.xz
-proot_url=https://proot.gitlab.io/proot/bin/proot
-proot_checksum='b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2'
 proot_path=./proot
 envs_dir=envs
 
@@ -43,10 +43,10 @@ if [ ! -e "$tarball_path" ]; then
 fi
 
 if [ ! -e "$proot_path" ]; then
-    echo "Downloading PRoot binary $proot_url to $proot_path"
-    curl -fLo "$proot_path" "$proot_url"
+    echo "Downloading PRoot binary $PROOT_BINARY_URL to $proot_path"
+    curl -fLo "$proot_path" "$PROOT_BINARY_URL"
     chmod +x "$proot_path"
-    echo "$proot_checksum $proot_path" | sha256sum -c
+    echo "$PROOT_BINARY_CHECKSUM $proot_path" | sha256sum -c
 fi
 
 rootfs_dir="$envs_dir/$env_name"
