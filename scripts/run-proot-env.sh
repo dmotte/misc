@@ -24,6 +24,7 @@ set -e
 
 tarball_path=$(dirname "$0")/tarball.tar.xz
 proot_url=https://proot.gitlab.io/proot/bin/proot
+proot_checksum='b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2'
 proot_path=$(dirname "$0")/proot
 envs_dir=$(dirname "$0")/envs
 
@@ -43,6 +44,7 @@ if [ ! -e "$proot_path" ]; then
     echo "Downloading PRoot binary $proot_url to $proot_path"
     curl -fLo "$proot_path" "$proot_url"
     chmod +x "$proot_path"
+    echo "$proot_checksum $proot_path" | sha256sum -c
 fi
 
 rootfs_dir="$envs_dir/$env_name"
