@@ -93,8 +93,8 @@ RUN apt-get update && \
 # Warning: leaving the generated host keys in place!
 EXPOSE 22
 RUN useradd -UGsudo -ms/bin/bash mainuser && \
-    bash -c 'install -m440 <(echo "mainuser ALL=(ALL) NOPASSWD: ALL") \
-        /etc/sudoers.d/mainuser-nopassword' && \
+    echo 'mainuser ALL=(ALL) NOPASSWD: ALL' | \
+        install -m440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
     echo mainuser:changeme | chpasswd # Warning: very bad password!
 ENTRYPOINT ["/usr/sbin/sshd", "-De"]
 EOF
