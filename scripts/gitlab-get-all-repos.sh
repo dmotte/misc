@@ -24,11 +24,11 @@ while :; do
 
     count=$(echo "$response" | jq length)
 
-    [ "$count" -ne 0 ] || break
+    [ "$count" != 0 ] || break
 
     echo "$response" | jq -r ".[] | select($filter) | .path_with_namespace"
 
-    [ "$count" -eq 100 ] || break
+    [ "$count" = 100 ] || break
 
     page=$((page + 1))
 done
