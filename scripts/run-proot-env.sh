@@ -50,7 +50,7 @@ if [ ! -e "$proot_path" ]; then
 fi
 
 rootfs_dir="$envs_dir/$env_name"
-rootfs_dir_tmp="$rootfs_dir-tmp-$(date +%Y-%m-%d-%H%M%S)"
+rootfs_dir_tmp="$rootfs_dir-tmp-$(date -u +%Y-%m-%d-%H%M%S)"
 
 if [ ! -d "$rootfs_dir" ]; then
     mkdir -p "$rootfs_dir_tmp"

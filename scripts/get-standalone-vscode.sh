@@ -14,7 +14,7 @@ if [ -d "$vscode_dir_path" ]; then
     echo "Directory $vscode_dir_path already exists. Installed app version:"
     "$vscode_dir_path/VSCode-linux-x64/bin/code" -v
 
-    vscode_old_dir_path="$vscode_dir_path-old-$(date +%Y-%m-%d-%H%M%S)"
+    vscode_old_dir_path="$vscode_dir_path-old-$(date -u +%Y-%m-%d-%H%M%S)"
     echo "Moving $vscode_dir_path to $vscode_old_dir_path"
     mv "$vscode_dir_path" "$vscode_old_dir_path"
 fi

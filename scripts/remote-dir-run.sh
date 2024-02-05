@@ -21,7 +21,7 @@ local_dir="$1"; shift
 : "${RDR_SHELL_OPTIONS:=-e}"
 : "${RDR_CMD:=bash main.sh}"
 
-remote_dir="/tmp/remote-dir-run-$(date +%Y-%m-%d-%H%M%S)"
+remote_dir="/tmp/remote-dir-run-$(date -u +%Y-%m-%d-%H%M%S)"
 
 cmd1=("$@")
 cmd2=("$@")

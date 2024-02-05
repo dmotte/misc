@@ -18,7 +18,7 @@ version_by_datetime() {
     local git_ref; git_ref="$1"
 
     if [ "$git_ref" = 'refs/heads/main' ]; then
-        echo "v$(date +%Y.%m.%d.%H%M)"
+        echo "v$(date -u +%Y.%m.%d.%H%M)"
     fi
 }
 

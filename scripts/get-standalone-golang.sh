@@ -13,7 +13,7 @@ golang_archive_url="https://go.dev/dl/go$2.linux-$1.tar.gz"
 golang_archive_path="$golang_dir_path/archive.tar.gz"
 
 if [ -d "$golang_dir_path" ]; then
-    golang_old_dir_path="$golang_dir_path-old-$(date +%Y-%m-%d-%H%M%S)"
+    golang_old_dir_path="$golang_dir_path-old-$(date -u +%Y-%m-%d-%H%M%S)"
     echo "Directory $golang_dir_path already exists. Moving to $golang_old_dir_path"
     mv "$golang_dir_path" "$golang_old_dir_path"
 fi
