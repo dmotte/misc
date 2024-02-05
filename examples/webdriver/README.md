@@ -9,7 +9,7 @@ sudo apt-get update && sudo apt-get install -y chromium python3-venv
 curl -fLO "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$(chromium --product-version)/linux64/chromedriver-linux64.zip"
 unzip chromedriver-linux64.zip
 
-python3 -m venv myvenv
+python3 -mvenv myvenv
 myvenv/bin/pip3 install 'selenium==4.*'
 
 myvenv/bin/python3 - << 'EOF'

@@ -40,7 +40,7 @@ Some pieces of code I find useful for some reason.
 - `diff <(ls -l) <(ls -la)`
 - `ps -aux --sort -pcpu | head -10`
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
-- `python3 -m http.server`
+- `python3 -mhttp.server`
 - `sleep infinity`
 - `dig @ns1.example.com www.example.com`
 - `git pull --no-edit && git add . && { git commit "-m$(date +%s)" || :; } && git push`

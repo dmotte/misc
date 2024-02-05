@@ -15,8 +15,8 @@ sed -i 's/index\.md/README.md/g' index.html
 Then you can see your local static website with:
 
 ```bash
-python3 -m http.server -b '127.0.0.1'
-xdg-open 'http://127.0.0.1:8000/'
+python3 -mhttp.server -b127.0.0.1
+xdg-open http://127.0.0.1:8000/
 ```
 
 ## Links

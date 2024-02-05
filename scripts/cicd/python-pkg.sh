@@ -23,11 +23,11 @@ fi
 
 echo "::group::$0: Preparation"
     sudo apt-get update; sudo apt-get install -y python3-pip python3-venv
-    python3 -m venv venv
-    venv/bin/python3 -m pip install autopep8 pytest build twine
+    python3 -mvenv venv
+    venv/bin/python3 -mpip install autopep8 pytest build twine
 
     python3 --version
-    venv/bin/python3 -m pip show pip autopep8 pytest build twine
+    venv/bin/python3 -mpip show pip autopep8 pytest build twine
 
     echo "$CICD_SUMMARY_TITLE" | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
@@ -49,18 +49,18 @@ echo "::group::$0: Project metadata"
 echo '::endgroup::'
 
 echo "::group::$0: Install package in editable mode" # Needed for the next steps
-    venv/bin/python3 -m pip install -e .
+    venv/bin/python3 -mpip install -e .
 echo '::endgroup::'
 
 echo "::group::$0: Format (autopep8)"
-    venv/bin/python3 -m autopep8 -aaadr --max-line-length=80 --exit-code \
+    venv/bin/python3 -mautopep8 -aaadr --max-line-length=80 --exit-code \
         --exclude=venv .
-    # venv/bin/python3 -m black -Sl80 --check .
+    # venv/bin/python3 -mblack -Sl80 --check .
 echo '::endgroup::'
 
 echo "::group::$0: Unit tests (pytest)"
     if [ -e test ]; then
-        venv/bin/python3 -m pytest test
+        venv/bin/python3 -mpytest test
     else
         echo 'No tests to run'
     fi
@@ -88,9 +88,9 @@ echo '::endgroup::'
 
 echo "::group::$0: Release (PyPI)"
     if [ -n "$proj_ver" ]; then
-        venv/bin/python3 -m build
+        venv/bin/python3 -mbuild
         TWINE_USERNAME=__token__ TWINE_PASSWORD="$pypi_api_token" \
-            venv/bin/python3 -m twine upload dist/*
+            venv/bin/python3 -mtwine upload dist/*
 
         link_release="https://pypi.org/project/$proj_name/${proj_ver#v}/"
         echo '- &#x1F30D; Release on PyPI:' \

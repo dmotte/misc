@@ -26,7 +26,7 @@ In the Debian installation image boot screen, you can select `Advanced options` 
 One of the easiest ways to serve the **Preseed** file is to use an **HTTP server** on your control host. To do this with _Python3_ you can do something like this:
 
 ```bash
-python3 -m http.server -d my-preseed-dir -b '0.0.0.0'
+python3 -mhttp.server -dmy-preseed-dir -b0.0.0.0
 ```
 
 Once the installation procedure is finished, the device will shut down on its own (it won't restart) due to the `d-i debian-installer/exit/poweroff boolean true` line.
