@@ -123,6 +123,7 @@ docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 - `kubectl --context=mycontext -nmynamespace get pod`
 - `kubectl port-forward pod/mypod '8080:80'`
 - `kubectl get secret/mysecret -ojsonpath={.data.password} | base64 -d; echo`
+- `time kubectl api-resources --verbs=list -oname | xargs -n1 kubectl get -A -owide --show-kind --ignore-not-found`
 - `helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update`
 - `helm --kube-context=mycontext -nmynamespace list`
 
