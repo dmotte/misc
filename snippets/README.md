@@ -70,7 +70,7 @@ Some pieces of code I find useful for some reason.
 - `mkfifo mypipe; while :; do date | tee mypipe; done`
 - `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" -dchat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
 - `for i in 192.168.1.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
-- `echo '#EXTM3U'; while read -r i; do echo "#EXTINF:0,$(basename "${i%.*}")"; echo "file://$HOME/Music/$i"; done`
+- `find . -iname \*.mp3 -printf '%P\n' | { echo '#EXTM3U'; while read -r i; do echo "#EXTINF:0,$(basename "${i%.*}")"; echo "file://$HOME/Music/$i"; done; }`
 - `for i in var_01 VAR_02; do read -rsp "$i: " "${i?}"; if [[ "$i" == [[:upper:]]* ]]; then export "${i?}"; fi; done`
 - `shuf -en1 Alice Bob Carl`
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`
