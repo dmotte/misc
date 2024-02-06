@@ -113,11 +113,18 @@ docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 - `echo -e "{\"main\":\"$(base64 -w0 < mykey.pem)\"}" | podman secret create mykey -`
 - `podman image ls -a`, `podman image prune -af`
 
-## Kubectl
+## Shell snippets for Kubernetes
 
+- `kubectl get all -A`, `kubectl get pod -owide`, `kubectl get pod -w`
 - `kubectl run mypod --image=docker.io/library/debian:12 sleep infinity`
 - `kubectl exec -it mypod -- bash`
 - `kubectl delete pod/mypod`
+- `kubectl config current-context`, `kubectl config use-context mycontext`
+- `kubectl --context=mycontext -nmynamespace get pod`
+- `kubectl port-forward pod/mypod '8080:80'`
+- `kubectl get secret/mysecret -ojsonpath={.data.password} | base64 -d; echo`
+- `helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update`
+- `helm --kube-context=mycontext -nmynamespace list`
 
 ## Git Bash (Windows)
 
