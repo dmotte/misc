@@ -17,7 +17,7 @@ eval "set -- $options"
 service_manager=auto
 source_cmd=''
 msgbuf_url="https://github.com/dmotte/msgbuf/releases/latest/download/msgbuf-$(uname -m)-unknown-linux-gnu"
-msgbuf_checksum='3fcec4e61ef0fdbc9e4a703ba3c5b3075b20336d57b963e05676ccdab3ad5ca4'
+msgbuf_checksum='3fcec4e61ef0fdbc9e4a703ba3c5b3075b20336d57b963e05676ccdab3ad5ca4' # The default value is the checksum for v1.0.2
 msgbuf_interval=60 # seconds
 msgbuf_max_msg_len=2048 # bytes
 bot_token='' # Telegram bot token
@@ -59,16 +59,26 @@ apt_update_if_old() {
 
 ################################################################################
 
-apt_update_if_old; apt-get install -y curl
-
 if [ "$service_manager" = auto ]; then
     if command -v supervisord >/dev/null; then service_manager=supervisord
     else service_manager=systemd; fi
+
+    echo "Detected service manager: $service_manager"
 fi
 
-echo "svcmgr:$service_manager"
+bot_token=${bot_token#bot}
+
+apt_update_if_old; apt-get install -y curl
+
+install -dm700 /opt/lognot
+
+echo "Downloading msgbuf binary $msgbuf_url"
+curl -fLo /opt/lognot/msgbuf "$msgbuf_url"
+echo "$msgbuf_checksum /opt/lognot/msgbuf" | sha256sum -c
+chmod +x /opt/lognot/msgbuf
 
 # TODO
+# TODO check that you use all the vars
 
 ################################################################################
 
