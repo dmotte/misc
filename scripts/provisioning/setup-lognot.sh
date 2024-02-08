@@ -100,7 +100,27 @@ command=/bin/bash -ec '$source_cmd |
 priority=$supervisor_priority
 EOF
 elif [ "$service_manager" = systemd ]; then
-    echo TODO
+    cat << EOF > /etc/systemd/system/lognot.service
+[Unit]
+Description=lognot
+
+# Disable unit start rate limiting
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+
+WorkingDirectory=/opt/lognot
+ExecStart=/bin/bash -ec '$source_cmd | \\
+    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -- \\
+        /bin/bash /opt/lognot/tg.sh'
+
+Restart=always
+RestartSec=$systemd_restartsec
+
+[Install]
+WantedBy=$systemd_wantedby
+EOF
 fi
 
 # TODO
