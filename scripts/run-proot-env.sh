@@ -45,8 +45,8 @@ fi
 if [ ! -e "$proot_path" ]; then
     echo "Downloading PRoot binary $PROOT_BINARY_URL to $proot_path"
     curl -fLo "$proot_path" "$PROOT_BINARY_URL"
-    chmod +x "$proot_path"
     echo "$PROOT_BINARY_CHECKSUM $proot_path" | sha256sum -c
+    chmod +x "$proot_path"
 fi
 
 rootfs_dir="$envs_dir/$env_name"
