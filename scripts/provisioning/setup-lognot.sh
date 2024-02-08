@@ -50,7 +50,9 @@ done
 [[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] || \
     { echo "Unsupported service manager: $service_manager" >&2; exit 1; }
 
-# TODO error if source_cmd or bot_token or chat_id are empty
+[ -n "$source_cmd" ] || { echo 'Source command cannot be empty' >&2; exit 1; }
+[ -n "$bot_token" ] || { echo 'Bot token cannot be empty' >&2; exit 1; }
+[ -n "$chat_id" ] || { echo 'Chat ID cannot be empty' >&2; exit 1; }
 
 apt_update_if_old() {
     if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
