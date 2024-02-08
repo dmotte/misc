@@ -18,7 +18,7 @@ service_manager=auto
 source_cmd=''
 msgbuf_url="https://github.com/dmotte/msgbuf/releases/latest/download/msgbuf-$(uname -m)-unknown-linux-gnu"
 msgbuf_checksum='3fcec4e61ef0fdbc9e4a703ba3c5b3075b20336d57b963e05676ccdab3ad5ca4' # The default value is the checksum for v1.0.2
-msgbuf_interval=60 # seconds
+msgbuf_interval=10 # seconds
 msgbuf_max_msg_len=2048 # bytes
 bot_token='' # Telegram bot token
 chat_id='' # Telegram chat ID of the recipient
@@ -85,6 +85,18 @@ chat_id='$chat_id'
 curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
     -dchat_id="\$chat_id" --data-urlencode text@- --fail-with-body -w'\n'
 EOF
+
+if [ "$service_manager" = supervisor ]; then
+    cat << EOF > /etc/supervisor/conf.d/lognot.conf
+[program:lognot]
+command=/bin/bash -ec '$source_cmd |
+    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len --
+    /bin/bash /opt/lognot/tg.sh'
+priority=$supervisor_priority
+EOF
+else
+    echo TODO
+fi
 
 # TODO
 # TODO check that you use all the vars
