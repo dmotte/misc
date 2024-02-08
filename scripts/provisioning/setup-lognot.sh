@@ -98,6 +98,7 @@ command=/bin/bash -ec '$source_cmd |
     /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len --
         /bin/bash /opt/lognot/tg.sh'
 priority=$supervisor_priority
+directory=/opt/lognot
 EOF
 elif [ "$service_manager" = systemd ]; then
     cat << EOF > /etc/systemd/system/lognot.service
