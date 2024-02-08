@@ -96,7 +96,7 @@ if [ "$service_manager" = supervisor ]; then
 [program:lognot]
 command=/bin/bash -ec '$source_cmd |
     /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len --
-    /bin/bash /opt/lognot/tg.sh'
+        /bin/bash /opt/lognot/tg.sh'
 priority=$supervisor_priority
 EOF
 elif [ "$service_manager" = systemd ]; then
@@ -109,7 +109,10 @@ fi
 ################################################################################
 
 if [ "$LOGNOT_RELOAD" = 'true' ]; then
-    # TODO also commands for supervisorctl
-    systemctl daemon-reload
-    systemctl restart lognot
+    if [ "$service_manager" = supervisor ]; then
+        supervisorctl update
+    elif [ "$service_manager" = systemd ]; then
+        systemctl daemon-reload
+        systemctl restart lognot
+    fi
 fi
