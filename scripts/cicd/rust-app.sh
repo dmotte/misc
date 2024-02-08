@@ -69,7 +69,7 @@ echo "::group::$0: Unit tests (cargo test)"
 echo '::endgroup::'
 
 echo "::group::$0: End-to-end tests (test/main.sh)"
-    if [ -f test/main.sh ]; then
+    if [ -e test/main.sh ]; then
         bash test/main.sh
     else
         echo 'Not running end-to-end tests because test/main.sh does not exist'

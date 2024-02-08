@@ -16,7 +16,7 @@ set -e
 [ $# -ge 2 ] || { echo 'Not enough args' >&2; exit 1; }
 local_dir="$1"; shift
 
-[ -f "$local_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
+[ -e "$local_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
 
 : "${RDR_SHELL_OPTIONS:=-e}"
 : "${RDR_CMD:=bash main.sh}"
