@@ -27,6 +27,13 @@ while :; do
     shift
 done
 
+if [ -n "$rules_v4" ]; then
+    [ -e "$rules_v4" ] || { echo "File $rules_v4 not found" >&2; exit 1; }
+fi
+if [ -n "$rules_v6" ]; then
+    [ -e "$rules_v6" ] || { echo "File $rules_v6 not found" >&2; exit 1; }
+fi
+
 apt_update_if_old() {
     if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
         apt-get update
