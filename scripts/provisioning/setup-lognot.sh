@@ -60,7 +60,7 @@ apt_update_if_old() {
 ################################################################################
 
 if [ "$service_manager" = auto ]; then
-    if command -v supervisord >/dev/null; then service_manager=supervisord
+    if command -v supervisord >/dev/null; then service_manager=supervisor
     else service_manager=systemd; fi
 
     echo "Detected service manager: $service_manager"
