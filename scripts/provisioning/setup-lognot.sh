@@ -72,16 +72,21 @@ apt_update_if_old; apt-get install -y curl
 
 install -dm700 /opt/lognot
 
-echo "Downloading msgbuf binary from $msgbuf_url"
-curl -fLo /opt/lognot/msgbuf "$msgbuf_url"
-echo "$msgbuf_checksum /opt/lognot/msgbuf" | sha256sum -c
-chmod 700 /opt/lognot/msgbuf
+if [ ! -e /opt/lognot/msgbuf ]; then
+    echo "Downloading msgbuf binary from $msgbuf_url"
+    curl -fLo /opt/lognot/msgbuf "$msgbuf_url"
+    echo "$msgbuf_checksum /opt/lognot/msgbuf" | sha256sum -c
+    chmod 700 /opt/lognot/msgbuf
+fi
 
 install -m700 /dev/stdin /opt/lognot/tg.sh << EOF
 #!/bin/bash
+
 set -e
+
 bot_token='$bot_token'
 chat_id='$chat_id'
+
 curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
     -dchat_id="\$chat_id" --data-urlencode text@- --fail-with-body -w'\n'
 EOF
@@ -94,7 +99,7 @@ command=/bin/bash -ec '$source_cmd |
     /bin/bash /opt/lognot/tg.sh'
 priority=$supervisor_priority
 EOF
-else
+elif [ "$service_manager" = systemd ]; then
     echo TODO
 fi
 
