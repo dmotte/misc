@@ -24,6 +24,7 @@ eval "set -- $options"
 
 service_manager=auto
 source_cmd=''
+# TODO msgbuf_url and msgbuf_checksum
 msgbuf_interval=60 # seconds
 msgbuf_max_msg_len=2048 # bytes
 bot_token='' # Telegram bot token
@@ -56,8 +57,6 @@ done
 apt_update_if_old; apt-get install -y curl
 
 # TODO service manager detection if "auto"
-
-# TODO env vars for msgbuf url and checksum
 
 # TODO
 
