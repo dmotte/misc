@@ -1,6 +1,6 @@
 # getopt
 
-Example of how to use `getopt` in Bash (which, mind you, is not the `getopts` builtin).
+Example of how to use `getopt` in Bash (which, keep in mind, is not the `getopts` builtin).
 
 Inspired by https://gist.github.com/drmalex07/6bcd65a0861f58b646a0.
 
@@ -9,25 +9,27 @@ Inspired by https://gist.github.com/drmalex07/6bcd65a0861f58b646a0.
 
 set -e
 
-options=$(getopt -o abc: -l along,blong,clong: -- "$@")
+options=$(getopt -o abc:d: -l along,blong,clong:,dlong: -- "$@")
 eval "set -- $options"
 
-flag_a=n
+flag_a=n # Boolean flag
 flag_b=n
-arg_c=
+arg_c='' # This arg defaults to empty string
+arg_d=${ARG_D:-default value} # This can also be set with an env var
 
 while :; do
     case "$1" in
         -a|--along) flag_a=y;;
         -b|--blong) flag_b=y;;
         -c|--clong) shift; arg_c="$1";;
+        -d|--dlong) shift; arg_d="$1";;
         --) shift; break;;
     esac
     shift
 done
 
-echo "$flag_a-$flag_b-$arg_c"
+echo "x-$flag_a-$flag_b-$arg_c-$arg_d-x"
 echo "$@"
 ```
 
-> **Note**: instead of `-l along,blong,clong:` it's also possible to write `-l along -l blong -l clong:`
+> **Note**: instead of `-l along,blong,clong:,dlong:` it's also possible to write `-l along -l blong -l clong: -l dlong:`
