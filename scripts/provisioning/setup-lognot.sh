@@ -11,12 +11,6 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-apt_update_if_old() {
-    if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
-        apt-get update
-    fi
-}
-
 options=$(getopt -o s:i:m:b:c: -l service-manager: -l source-cmd: \
     -l msgbuf-interval: -l msgbuf-max-msg-len: -l bot-token: -l chat-id: \
     -l supervisor-priority: -l systemd-restartsec: -l systemd-wantedby: -- "$@")
@@ -51,6 +45,12 @@ done
 
 # TODO error if source_cmd or bot_token or chat_id are empty
 # TODO error if service manager is not supported
+
+apt_update_if_old() {
+    if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
+        apt-get update
+    fi
+}
 
 ################################################################################
 

@@ -32,12 +32,6 @@ else
     echo 'Invalid mode' >&2; exit 1
 fi
 
-apt_update_if_old() {
-    if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
-        apt-get update
-    fi
-}
-
 options=$(getopt -o cs:a:k:p: -l compose -l socket: -l auto-update: \
     -l kube-extra-args: -l unprivileged-port-start: -- "$@")
 eval "set -- $options"
@@ -59,6 +53,12 @@ while :; do
     esac
     shift
 done
+
+apt_update_if_old() {
+    if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
+        apt-get update
+    fi
+}
 
 ################################################################################
 

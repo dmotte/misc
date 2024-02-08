@@ -12,12 +12,6 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-apt_update_if_old() {
-    if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
-        apt-get update
-    fi
-}
-
 options=$(getopt -o '4:6:' -l rules-v4:,rules-v6: -- "$@")
 eval "set -- $options"
 
@@ -32,6 +26,12 @@ while :; do
     esac
     shift
 done
+
+apt_update_if_old() {
+    if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then
+        apt-get update
+    fi
+}
 
 ################################################################################
 
