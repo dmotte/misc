@@ -61,7 +61,12 @@ apt_update_if_old() {
 
 apt_update_if_old; apt-get install -y curl
 
-# TODO service manager detection if "auto"
+if [ "$service_manager" = auto ]; then
+    if command -v supervisord >/dev/null; then service_manager=supervisord
+    else service_manager=systemd; fi
+fi
+
+echo "svcmgr:$service_manager"
 
 # TODO
 
