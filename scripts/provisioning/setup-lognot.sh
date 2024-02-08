@@ -6,9 +6,6 @@ set -e
 # notifications (Telegram messages) about your server logs. This script helps
 # you set it up
 
-# Usage example:
-#   sudo bash setup-lognot.sh TODO
-
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 options=$(getopt -o s:i:m:b:c: -l service-manager: -l source-cmd: \
