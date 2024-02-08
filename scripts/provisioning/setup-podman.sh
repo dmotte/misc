@@ -37,9 +37,9 @@ options=$(getopt -o cs:a:k:p: -l compose -l socket: -l auto-update: \
 eval "set -- $options"
 
 flag_compose=n
-socket=''
-auto_update=''
-kube_extra_args=''
+socket=$SETUP_PODMAN_SOCKET
+auto_update=$SETUP_PODMAN_AUTO_UPDATE
+kube_extra_args=$SETUP_PODMAN_KUBE_EXTRA_ARGS
 unprivileged_port_start=''
 
 while :; do
