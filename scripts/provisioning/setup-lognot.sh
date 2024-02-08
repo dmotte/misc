@@ -124,9 +124,6 @@ WantedBy=$systemd_wantedby
 EOF
 fi
 
-# TODO
-# TODO check that you use all the vars
-
 ################################################################################
 
 if [ "$LOGNOT_RELOAD" = 'true' ]; then
