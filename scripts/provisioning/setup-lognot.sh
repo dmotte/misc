@@ -8,14 +8,14 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o s:i:m:b:c: -l service-manager: -l source-cmd: \
+options=$(getopt -o s:i:m:b:c: -l service-manager: -l source-script: \
     -l msgbuf-url: -l msgbuf-checksum: \
     -l msgbuf-interval: -l msgbuf-max-msg-len: -l bot-token: -l chat-id: \
     -l supervisor-priority: -l systemd-restartsec: -l systemd-wantedby: -- "$@")
 eval "set -- $options"
 
 service_manager=auto
-source_cmd='' # Warning: may behave incorrectly if this contains single quotes
+source_script=''
 msgbuf_url="https://github.com/dmotte/msgbuf/releases/latest/download/msgbuf-$(uname -m)-unknown-linux-gnu"
 msgbuf_checksum='3fcec4e61ef0fdbc9e4a703ba3c5b3075b20336d57b963e05676ccdab3ad5ca4' # The default value is the checksum for v1.0.2
 msgbuf_interval=10 # seconds
@@ -29,7 +29,7 @@ systemd_wantedby=multi-user.target
 while :; do
     case "$1" in
         --service-manager) shift; service_manager="$1";;
-        -s|--source-cmd) shift; source_cmd="$1";;
+        -s|--source-script) shift; source_script="$1";;
         --msgbuf-url) shift; msgbuf_url="$1";;
         --msgbuf-checksum) shift; msgbuf_checksum="$1";;
         -i|--msgbuf-interval) shift; msgbuf_interval="$1";;
@@ -47,7 +47,9 @@ done
 [[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] || \
     { echo "Unsupported service manager: $service_manager" >&2; exit 1; }
 
-[ -n "$source_cmd" ] || { echo 'Source command cannot be empty' >&2; exit 1; }
+[ -e "$source_script" ] || \
+    { echo "Source script $source_script not found" >&2; exit 1; }
+
 [ -n "$bot_token" ] || { echo 'Bot token cannot be empty' >&2; exit 1; }
 [ -n "$chat_id" ] || { echo 'Chat ID cannot be empty' >&2; exit 1; }
 
@@ -68,9 +70,13 @@ fi
 
 bot_token=${bot_token#bot}
 
+################################################################################
+
 apt_update_if_old; apt-get install -y curl
 
 install -dm700 /opt/lognot
+
+install -m700 "$source_script" /opt/lognot/get.sh
 
 if [ ! -e /opt/lognot/msgbuf ]; then
     echo "Downloading msgbuf binary from $msgbuf_url"
@@ -94,7 +100,7 @@ EOF
 if [ "$service_manager" = supervisor ]; then
     cat << EOF > /etc/supervisor/conf.d/lognot.conf
 [program:lognot]
-command=/bin/bash -ec '$source_cmd |
+command=/bin/bash -ec '/bin/bash /opt/lognot/get.sh |
     /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len --
         /bin/bash /opt/lognot/tg.sh'
 priority=$supervisor_priority
@@ -112,7 +118,7 @@ StartLimitIntervalSec=0
 Type=simple
 
 WorkingDirectory=/opt/lognot
-ExecStart=/bin/bash -ec '$source_cmd | \\
+ExecStart=/bin/bash -ec '/bin/bash /opt/lognot/get.sh | \\
     /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -- \\
         /bin/bash /opt/lognot/tg.sh'
 
