@@ -122,6 +122,7 @@ RestartSec=$systemd_restartsec
 [Install]
 WantedBy=$systemd_wantedby
 EOF
+    systemctl daemon-reload; systemctl enable lognot
 fi
 
 ################################################################################
@@ -130,7 +131,6 @@ if [ "$LOGNOT_RELOAD" = 'true' ]; then
     if [ "$service_manager" = supervisor ]; then
         supervisorctl update
     elif [ "$service_manager" = systemd ]; then
-        systemctl daemon-reload
         systemctl restart lognot
     fi
 fi

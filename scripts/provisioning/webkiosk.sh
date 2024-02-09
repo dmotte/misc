@@ -12,8 +12,7 @@ set -e
 # Tested on Debian 12 (bookworm)
 
 # Usage example:
-#   sudo SYSTEMCTL_DAEMON_RELOAD=true KIOSK_RESTART=true \
-#     bash webkiosk.sh https://play.grafana.org/
+#   sudo KIOSK_RESTART=true bash webkiosk.sh https://play.grafana.org/
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
@@ -113,9 +112,8 @@ RestartSec=5
 WantedBy=getty.target
 EOF
 
-systemctl enable kiosk
+systemctl daemon-reload; systemctl enable kiosk
 
 ################################################################################
 
-if [ "$SYSTEMCTL_DAEMON_RELOAD" = 'true' ]; then systemctl daemon-reload; fi
 if [ "$KIOSK_RESTART" = 'true' ]; then systemctl restart kiosk; fi
