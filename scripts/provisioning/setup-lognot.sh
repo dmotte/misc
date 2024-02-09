@@ -101,7 +101,7 @@ if [ "$service_manager" = supervisor ]; then
     cat << EOF > /etc/supervisor/conf.d/lognot.conf
 [program:lognot]
 command=/bin/bash -ec '/bin/bash /opt/lognot/get.sh |
-    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len --
+    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -- \\
         /bin/bash /opt/lognot/tg.sh'
 priority=$supervisor_priority
 directory=/opt/lognot
