@@ -15,7 +15,7 @@ options=$(getopt -o s:i:m:b:c: -l service-manager: -l source-cmd: \
 eval "set -- $options"
 
 service_manager=auto
-source_cmd=''
+source_cmd='' # Warning: may behave incorrectly if this contains single quotes
 msgbuf_url="https://github.com/dmotte/msgbuf/releases/latest/download/msgbuf-$(uname -m)-unknown-linux-gnu"
 msgbuf_checksum='3fcec4e61ef0fdbc9e4a703ba3c5b3075b20336d57b963e05676ccdab3ad5ca4' # The default value is the checksum for v1.0.2
 msgbuf_interval=10 # seconds
