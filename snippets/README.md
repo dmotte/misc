@@ -74,6 +74,7 @@ Some pieces of code I find useful for some reason.
 - `for i in var_01 VAR_02; do read -rsp "$i: " "${i?}"; if [[ "$i" == [[:upper:]]* ]]; then export "${i?}"; fi; done`
 - `shuf -en1 Alice Bob Carl`
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`
+- `myvar=$'string \\ with\nsome\nspecial \'chars\' to "escape"'; echo "${myvar@Q}"`
 
 ## Shell snippets for Docker
 
