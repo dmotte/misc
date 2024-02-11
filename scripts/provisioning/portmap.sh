@@ -8,15 +8,14 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o n:r:s: -l service-manager: -l name-suffix: \
-    -l running-user: -l ssh-args: -l keepalive-interval: -l restart-interval: \
+options=$(getopt -o n:r: -l service-manager: -l name-suffix: \
+    -l running-user: -l keepalive-interval: -l restart-interval: \
     -l supervisor-priority: -l systemd-wantedby: -- "$@")
 eval "set -- $options"
 
 service_manager=auto
 name_suffix='' # Warning: some characters are forbidden. See the code below
 running_user=''
-ssh_args='' # Warning: some characters are forbidden. See the code below
 keepalive_interval=30
 restart_interval=30
 supervisor_priority=50
@@ -27,7 +26,6 @@ while :; do
         --service-manager) shift; service_manager="$1";;
         -n|--name-suffix) shift; name_suffix="$1";;
         -r|--running-user) shift; running_user="$1";;
-        -s|--ssh-args) shift; ssh_args="$1";;
         --keepalive-interval) shift; keepalive_interval="$1";;
         --restart-interval) shift; restart_interval="$1";;
         --supervisor-priority) shift; supervisor_priority="$1";;
@@ -36,6 +34,8 @@ while :; do
     esac
     shift
 done
+
+ssh_args=$* # Warning: some characters are forbidden. See the code below
 
 [[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] || \
     { echo "Unsupported service manager: $service_manager" >&2; exit 1; }
