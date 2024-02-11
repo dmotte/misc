@@ -48,9 +48,8 @@ done
     { echo "Unsupported service manager: $service_manager" >&2; exit 1; }
 
 [ -n "$source_cmd" ] || { echo 'Source command cannot be empty' >&2; exit 1; }
-if [[ "$source_cmd" = *\'* ]] || [[ "$source_cmd" = *$'\n'* ]]; then
-    echo 'The source command contains invalid characters' >&2; exit 1
-fi
+{ [[ "$source_cmd" != *\'* ]] && [[ "$source_cmd" != *$'\n'* ]]; } || \
+    { echo 'The source command contains invalid characters' >&2; exit 1; }
 
 [ -n "$bot_token" ] || { echo 'Bot token cannot be empty' >&2; exit 1; }
 [ -n "$chat_id" ] || { echo 'Chat ID cannot be empty' >&2; exit 1; }
