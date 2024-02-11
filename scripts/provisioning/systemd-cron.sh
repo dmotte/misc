@@ -38,7 +38,8 @@ command=$* # Warning: some characters are forbidden. See the code below
 
 if [ -n "$workdir" ]; then line_workdir="WorkingDirectory=$workdir"; fi
 
-echo "Creating unit $name.service"
+echo "Creating $name.service and $name.timer units"
+
 cat << EOF > "/etc/systemd/system/$name.service"
 [Unit]
 Description=$name service
@@ -51,7 +52,6 @@ $line_workdir
 ExecStart=$command
 EOF
 
-echo "Creating unit $name.timer"
 cat << EOF > "/etc/systemd/system/$name.timer"
 [Unit]
 Description=$name timer
