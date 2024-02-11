@@ -136,10 +136,11 @@ fi
 ################################################################################
 
 if [ "$LOGNOT_RELOAD" = 'true' ]; then
-    echo 'Restarting lognot'
     if [ "$service_manager" = supervisor ]; then
+        echo 'Running supervisorctl update'
         supervisorctl update
     elif [ "$service_manager" = systemd ]; then
+        echo 'Restarting lognot'
         systemctl restart lognot
     fi
 fi

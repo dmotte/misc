@@ -105,10 +105,11 @@ fi
 ################################################################################
 
 if [ "$PORTMAP_RELOAD" = 'true' ]; then
-    echo "Restarting $service_name service"
     if [ "$service_manager" = supervisor ]; then
+        echo 'Running supervisorctl update'
         supervisorctl update
     elif [ "$service_manager" = systemd ]; then
+        echo "Restarting $service_name service"
         systemctl restart "$service_name"
     fi
 fi
