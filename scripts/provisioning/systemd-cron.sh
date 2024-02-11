@@ -38,6 +38,7 @@ command=$* # Warning: some characters are forbidden. See the code below
 
 if [ -n "$workdir" ]; then line_workdir="WorkingDirectory=$workdir"; fi
 
+echo "Creating unit $name.service"
 cat << EOF > "/etc/systemd/system/$name.service"
 [Unit]
 Description=$name service
@@ -50,6 +51,7 @@ $line_workdir
 ExecStart=$command
 EOF
 
+echo "Creating unit $name.timer"
 cat << EOF > "/etc/systemd/system/$name.timer"
 [Unit]
 Description=$name timer
@@ -62,10 +64,12 @@ Persistent=true
 WantedBy=timers.target
 EOF
 
+echo "Enabling unit $name.timer"
 systemctl daemon-reload; systemctl enable "$name.timer"
 
 ################################################################################
 
 if [ "$SYSTEMD_TIMER_RESTART" = 'true' ]; then
+    echo "Restarting unit $name.timer"
     systemctl restart "$name.timer"
 fi
