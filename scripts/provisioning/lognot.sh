@@ -84,6 +84,8 @@ if [ ! -e /opt/lognot/msgbuf ]; then
     chmod 700 /opt/lognot/msgbuf
 fi
 
+echo 'Creating lognot service files'
+
 install -m700 /dev/stdin /opt/lognot/tg.sh << EOF
 #!/bin/bash
 
@@ -127,12 +129,14 @@ RestartSec=$systemd_restartsec
 [Install]
 WantedBy=$systemd_wantedby
 EOF
+    echo 'Reloading systemd config and enabling lognot service'
     systemctl daemon-reload; systemctl enable lognot
 fi
 
 ################################################################################
 
 if [ "$LOGNOT_RELOAD" = 'true' ]; then
+    echo 'Restarting lognot'
     if [ "$service_manager" = supervisor ]; then
         supervisorctl update
     elif [ "$service_manager" = systemd ]; then
