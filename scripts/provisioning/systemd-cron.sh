@@ -7,24 +7,24 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o n:e:w:c: -l name:,event-expr:,workdir:,command: -- "$@")
+options=$(getopt -o n:e:w: -l name:,event-expr:,workdir: -- "$@")
 eval "set -- $options"
 
 name='' # Warning: some characters are forbidden. See the code below
 event_expr=''
 workdir=''
-command='' # Warning: some characters are forbidden. See the code below
 
 while :; do
     case "$1" in
         -n|--name) shift; name="$1";;
         -e|--event-expr) shift; event_expr="$1";;
         -w|--workdir) shift; workdir="$1";;
-        -c|--command) shift; command="$1";;
         --) shift; break;;
     esac
     shift
 done
+
+command=$* # Warning: some characters are forbidden. See the code below
 
 [[ "$name" =~ ^[0-9A-Za-z-]+$ ]] || { echo "Invalid name: $name" >&2; exit 1; }
 
