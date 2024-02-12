@@ -19,7 +19,8 @@ Some pieces of code I find useful for some reason.
 - `top` and then press `xcV`. Then `W` to save the config
 - `cd "$(dirname "$0")"` useful in a _Bash_ script
 - `sudo blkid`
-- `ffmpeg -ss 97 -i input.mp4 -t 10 output.mp4`
+- `ffmpeg -i input.mp4 -ss 97 -t 10 output.mp4`
+- `ffmpeg -i input.jpg -vf 'scale=iw*1/2:ih*1/2' output.jpg`
 - `watch -n.2 date`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
