@@ -77,7 +77,7 @@ Some pieces of code I find useful for some reason.
 - `shuf -en1 Alice Bob Carl`
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`
 - `myvar=$'string \\ with\nsome\nspecial \'chars\' to "escape"'; echo "${myvar@Q}"`
-- `for i in *.mp3; do [[ "$i" =~ ^[0-9A-Za-z\ .\(\)-]+$ ]] || echo "$i"; done`
+- `find . -iname \*.mp3 -printf '%P\n' | while read -r i; do [[ "$i" =~ ^[0-9A-Za-z\ .\(\)-]+$ ]] || echo "$i"; done`
 
 ## Shell snippets for Docker
 
