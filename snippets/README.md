@@ -21,6 +21,7 @@ Some pieces of code I find useful for some reason.
 - `sudo blkid`
 - `ffmpeg -i input.mp4 -ss 97 -t 10 output.mp4`
 - `ffmpeg -i input.jpg -vf 'scale=iw*1/2:ih*1/2' output.jpg`
+- `( ow=640; oh=360; ffmpeg -i input.mp4 -vf "scale=$ow:$oh:force_original_aspect_ratio=decrease,pad=$ow:$oh:(ow-iw)/2:(oh-ih)/2" output.mp4 )`
 - `watch -n.2 date`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
