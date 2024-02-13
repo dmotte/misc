@@ -22,6 +22,8 @@ Some pieces of code I find useful for some reason.
 - `ffmpeg -i input.mp4 -ss 97 -t 10 output.mp4`
 - `ffmpeg -i input.jpg -vf 'scale=iw*1/2:ih*1/2' output.jpg`
 - `( ow=640; oh=360; ffmpeg -i input.mp4 -vf "scale=$ow:$oh:force_original_aspect_ratio=decrease,pad=$ow:$oh:(ow-iw)/2:(oh-ih)/2" output.mp4 )`
+- `for i in *.mp3; do echo "$i"; ffmpeg -i "$i" -af volumedetect -vn -sn -dn -f null /dev/null 2>&1 | grep -E '^\[Parsed_volumedetect.+_volume: .+$'; done`
+- `ffmpeg -i input.mp3 -filter:a 'dynaudnorm=p=0.9:s=5' output.mp3`
 - `watch -n.2 date`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
@@ -78,7 +80,6 @@ Some pieces of code I find useful for some reason.
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`
 - `myvar=$'string \\ with\nsome\nspecial \'chars\' to "escape"'; echo "${myvar@Q}"`
 - `find . -iname \*.mp3 -printf '%P\n' | while read -r i; do [[ "$i" =~ ^[0-9A-Za-z\ .\(\)\'/_+-]+$ ]] || echo "$i"; done`
-- `for i in *.mp3; do echo "$i"; ffmpeg -i "$i" -af volumedetect -vn -sn -dn -f null /dev/null 2>&1 | grep -E '^\[Parsed_volumedetect.+_volume: .+$'; done`
 
 ## Shell snippets for Docker
 
