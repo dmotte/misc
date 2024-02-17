@@ -72,6 +72,10 @@ def main(argv=None):
     args.ignore_partitions = [] if args.ignore_partitions == '' \
         else args.ignore_partitions.split(',')
 
+    if args.interval <= 0:
+        print('Interval must be > 0', file=sys.stderr)
+        return 1
+
     ############################################################################
 
     old_disk_io_bytes = -1
