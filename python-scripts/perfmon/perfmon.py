@@ -8,9 +8,9 @@ import time
 import psutil
 
 
-def eval_alert(name: str, value, op: str, threshold):
+def eval_alert_condition(name: str, value, op: str, threshold):
     '''
-    Returns a message (string) if the condition is satisfied and the alert
+    Returns a message (string) if the condition is satisfied and an alert
     should be triggered, None otherwise
     '''
     opfunc = {'<': operator.lt, '<=': operator.le,
@@ -83,7 +83,7 @@ def main(argv=None):
     def add_msg_if_any(*fargs):
         if args.debug:
             print('Evaluating', fargs)
-        msg = eval_alert(*fargs)
+        msg = eval_alert_condition(*fargs)
         if msg is not None:
             msgs.append(msg)
 
