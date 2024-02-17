@@ -69,7 +69,8 @@ def main(argv=None):
     # TODO function inside main to build msgs without records
 
     args = parser.parse_args(argv[1:])
-    ignore_partitions = args.ignore_partitions.split(',')
+    args.ignore_partitions = [] if args.ignore_partitions == '' \
+        else args.ignore_partitions.split(',')
 
     ############################################################################
 
@@ -88,7 +89,7 @@ def main(argv=None):
         ]
 
         for part in psutil.disk_partitions():
-            if part.mountpoint in ignore_partitions:
+            if part.mountpoint in args.ignore_partitions:
                 continue
             threshold = args.boot_free_mb \
                 if part.mountpoint in ['/boot', '/boot/efi'] \
