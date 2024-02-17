@@ -1,11 +1,9 @@
 # perfmon
 
-This is a very simple **perf**ormance **mon**itor script written in _Python_.
-
-It monitors only some basic metrics, so it's not suitable for production use.
+This is a very simple **perf**ormance **mon**itor script written in _Python_. It monitors only some basic metrics, so it's not suitable for production use.
 
 ```bash
-sudo bash install.sh TODO
+sudo PERFMON_RESTART='true' bash install.sh -umainuser -- --disk-free-mb=2048
 
 sudo systemctl status perfmon
 ```
