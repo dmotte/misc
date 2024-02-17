@@ -74,10 +74,10 @@ def main(argv=None):
 
     ############################################################################
 
-    print(f'Perfmon started. Interval: {args.interval} seconds')
-
     old_disk_io_bytes = -1
     old_net_io_bytes = -1
+
+    print(f'Perfmon started. Args: {args}')
 
     while True:
         records = [
