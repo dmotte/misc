@@ -54,6 +54,17 @@ def main(argv=None):
                         help='Threshold for the minimum free disk space on '
                         'normal partitions (in megabytes) (default: 10240)')
 
+    parser.add_argument('-k', '--disk-io-kbps', type=float, default=1024,
+                        help='Threshold for the maximum disk I/O throughput '
+                        '(in kilobytes per second) (default: 1024)')
+    parser.add_argument('-n', '--net-io-kbps', type=float, default=1024,
+                        help='Threshold for the maximum network I/O throughput '
+                        '(in kilobytes per second) (default: 1024)')
+
+    parser.add_argument('-t', '--temp', type=float, default=50,
+                        help='Threshold for the maximum temperature '
+                        '(in degrees Celsius) (default: 50)')
+
     # TODO debug mode to print the records
     # TODO function inside main to build msgs without records
 
@@ -91,7 +102,8 @@ def main(argv=None):
         if old_disk_io_bytes != -1:
             records.append(['disk_io_kbps',
                             round((disk_io_bytes - old_disk_io_bytes)
-                                  / args.interval / 1024, 3), '>=', TODO])
+                                  / args.interval / 1024, 3), '>=',
+                            args.disk_io_kbps])
         old_disk_io_bytes = disk_io_bytes
 
         net_io = psutil.net_io_counters()
@@ -99,14 +111,15 @@ def main(argv=None):
         if old_net_io_bytes != -1:
             records.append(['net_io_kbps',
                             round((net_io_bytes - old_net_io_bytes)
-                                  / args.interval / 1024, 3), '>=', TODO])
+                                  / args.interval / 1024, 3), '>=',
+                            args.net_io_kbps])
         old_net_io_bytes = net_io_bytes
 
         for unit_name, unit in psutil.sensors_temperatures().items():
             for sensor in unit:
                 sensor_label = sensor.label.replace(' ', '_')
                 records.append([f'temp:{unit_name}:{sensor_label}',
-                                sensor.current, '>=', TODO])
+                                sensor.current, '>=', args.temp])
 
         ########################################################################
 
