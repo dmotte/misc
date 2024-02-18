@@ -8,4 +8,4 @@ sudo PERFMON_RESTART='true' bash install.sh -rmainuser -- --disk-free-mb=2048
 sudo systemctl status perfmon
 ```
 
-:information_source: For more details on how to use this script, you can also refer to its help message (`--help`).
+For more details on how to use this script, you can also refer to its help message (`--help`).
