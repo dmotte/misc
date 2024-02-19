@@ -80,6 +80,7 @@ Some pieces of code I find useful for some reason.
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`
 - `myvar=$'string \\ with\nsome\nspecial \'chars\' to "escape"'; echo "${myvar@Q}"`
 - `find . -iname \*.mp3 -printf '%P\n' | while read -r i; do [[ "$i" =~ ^[0-9A-Za-z\ .\(\)\'/_+-]+$ ]] || echo "$i"; done`
+- `venv/bin/python3 -mpip install -U --progress-bar=off -r requirements.txt`
 
 ## Shell snippets for Docker
 
