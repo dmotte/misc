@@ -134,6 +134,25 @@ docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 - `helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update`
 - `helm --kube-context=mycontext -nmynamespace list`
 
+```bash
+kubectl apply -f- << 'EOF'
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: main
+      image: docker.io/library/debian:12
+      args: [sleep, infinity]
+      volumeMounts: [{ mountPath: /v, name: v, readOnly: true }]
+  volumes:
+    - name: v
+      persistentVolumeClaim: { claimName: mypvc, readOnly: true }
+EOF
+```
+
 ## Git Bash (Windows)
 
 - `export MSYS_NO_PATHCONV=1`
