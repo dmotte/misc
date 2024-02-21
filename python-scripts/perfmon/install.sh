@@ -34,7 +34,8 @@ apt_update_if_old() {
 
 ################################################################################
 
-apt_update_if_old; apt-get install -y python3-psutil
+dpkg -s python3-psutil >/dev/null 2>&1 || \
+    { apt_update_if_old; apt-get install -y python3-psutil; }
 
 install -d -o"$running_user" -g"$running_user" -m700 /opt/perfmon
 

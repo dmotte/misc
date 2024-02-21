@@ -46,7 +46,8 @@ for i in 4 6; do # Do not save current rules to /etc/iptables/rules.v*
     echo "iptables-persistent iptables-persistent/autosave_v$i boolean false"
 done | debconf-set-selections -v
 
-apt_update_if_old; apt-get install -y iptables-persistent
+dpkg -s iptables-persistent >/dev/null 2>&1 || \
+    { apt_update_if_old; apt-get install -y iptables-persistent; }
 
 if [ -n "$rules_v4" ]; then tr -d '\r' <"$rules_v4" >/etc/iptables/rules.v4; fi
 if [ -n "$rules_v6" ]; then tr -d '\r' <"$rules_v6" >/etc/iptables/rules.v6; fi

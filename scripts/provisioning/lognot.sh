@@ -73,7 +73,8 @@ bot_token=${bot_token#bot}
 
 ################################################################################
 
-apt_update_if_old; apt-get install -y curl
+dpkg -s curl >/dev/null 2>&1 || \
+    { apt_update_if_old; apt-get install -y curl; }
 
 install -dm700 /opt/lognot
 

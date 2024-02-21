@@ -43,7 +43,8 @@ apt_update_if_old() {
 
 ################################################################################
 
-apt_update_if_old; apt-get install -y unattended-upgrades
+dpkg -s unattended-upgrades >/dev/null 2>&1 || \
+    { apt_update_if_old; apt-get install -y unattended-upgrades; }
 
 install -Dm644 /dev/stdin /etc/apt/apt.conf.d/50unattended-upgrades << EOF
 Unattended-Upgrade::Origins-Pattern { "origin=*"; };

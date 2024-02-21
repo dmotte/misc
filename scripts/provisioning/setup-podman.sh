@@ -63,9 +63,13 @@ apt_update_if_old() {
 ################################################################################
 
 if [ "$mode" = system ]; then
-    apt_update_if_old
-    apt-get install -y podman
-    if [ "$flag_compose" = y ]; then apt-get install -y podman-compose; fi
+    dpkg -s podman >/dev/null 2>&1 || \
+        { apt_update_if_old; apt-get install -y podman; }
+
+    if [ "$flag_compose" = y ]; then
+        dpkg -s podman-compose >/dev/null 2>&1 || \
+            { apt_update_if_old; apt-get install -y podman-compose; }
+    fi
 
     echo 'Disabling the podman-auto-update service at boot'
     systemctl disable podman-auto-update
