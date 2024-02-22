@@ -58,7 +58,7 @@ Some pieces of code I find useful for some reason.
 - `echo Message | mail -s Subject recipient@example.com`
 - `iostat -o JSON`
 - `S_COLORS=always watch -d -n.5 --color iostat`
-- `systemctl -a | grep -i myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -i myunit` (also disabled ones)
+- `systemctl -a | grep -Fi myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -Fi myunit` (also disabled ones)
 - `systemctl list-timers`
 - `: "${MYVAR:=myvalue}"`
 - `ssh-keygen -R [myserver.example.com]:2222`

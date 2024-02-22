@@ -38,7 +38,7 @@ fi
 
 # shellcheck disable=SC2016
 line='export PATH="$PATH:$HOME/go/bin"'
-if grep "$line" ~/.profile >/dev/null 2>&1; then
+if grep -Fx "$line" ~/.profile >/dev/null 2>&1; then
     echo 'Skipping PATH addition in ~/.profile as it seems already present'
 else
     echo "Adding $line to ~/.profile"
