@@ -10,7 +10,7 @@ curl -fLO "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$(chromiu
 unzip chromedriver-linux64.zip
 
 python3 -mvenv myvenv
-myvenv/bin/pip3 install 'selenium==4.*'
+myvenv/bin/python3 -mpip install 'selenium==4.*'
 
 myvenv/bin/python3 - << 'EOF'
 from selenium import webdriver
