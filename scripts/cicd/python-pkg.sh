@@ -14,8 +14,7 @@ ensure_defined CICD_{SECRET01,GIT_REF,REPO_URL,OUTPUT,SUMMARY}
 pypi_api_token="$CICD_SECRET01"; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
-    # shellcheck disable=SC2016
-    export CICD_VERSION_EXPR='version_by_tag $CICD_GIT_REF'
+    export CICD_VERSION_EXPR="version_by_tag ${CICD_GIT_REF@Q}"
 fi
 if [ -z "$CICD_SUMMARY_TITLE" ]; then
     export CICD_SUMMARY_TITLE='## &#x1F680; Python package CI/CD summary'

@@ -17,8 +17,7 @@ ensure_defined DOCKERHUB_USERNAME IMG_{AUTHOR,NAME,PLATFORMS} \
 dockerhub_password="$CICD_SECRET01"; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
-    # shellcheck disable=SC2016
-    export CICD_VERSION_EXPR='version_by_datetime $CICD_GIT_REF'
+    export CICD_VERSION_EXPR="version_by_datetime ${CICD_GIT_REF@Q}"
 fi
 if [ -z "$CICD_SUMMARY_TITLE" ]; then
     export CICD_SUMMARY_TITLE='## &#x1F680; Docker image CI/CD summary'
