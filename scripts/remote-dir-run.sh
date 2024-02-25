@@ -51,9 +51,9 @@ if [ -n "$RDR_ADD_CMD2_ARGS" ]; then
     done < <(echo "$RDR_ADD_CMD2_ARGS" | tr , '\n')
 fi
 
-if [ "$RDR_QUOTE_SCRIPTS" = 'true' ]; then
-    script1=\'$script1\'
-    script2=\'$script2\'
+if [ "$RDR_ESCAPE_SCRIPTS" = 'true' ]; then
+    script1="${script1@Q}"
+    script2="${script2@Q}"
 fi
 
 if [ -n "$RDR_EVAL" ]; then eval "$RDR_EVAL"; fi
