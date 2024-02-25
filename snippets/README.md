@@ -81,6 +81,7 @@ Some pieces of code I find useful for some reason.
 - `myvar=$'string \\ with\nsome\nspecial \'chars\' to "escape"'; echo "${myvar@Q}"`
 - `find . -iname \*.mp3 -printf '%P\n' | while read -r i; do [[ "$i" =~ ^[0-9A-Za-z\ .\(\)\'/_+-]+$ ]] || echo "$i"; done`
 - `venv/bin/python3 -mpip install -U --progress-bar=off -r requirements.txt`
+- `escape_if_any() { echo "${1:+${1@Q}}"; }`
 
 ## Shell snippets for Docker
 
