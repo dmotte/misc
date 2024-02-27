@@ -14,7 +14,9 @@ ensure_defined BOX_{AUTHOR,NAME,DESCRIPTION} CICD_{SECRET01,GIT_REF,SUMMARY}
 vagrantcloud_token="$CICD_SECRET01"; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
-    export CICD_VERSION_EXPR="version_by_datetime ${CICD_GIT_REF@Q}"
+    # Note: we cannot use "${...@Q}" here because this script may run in MacOS
+    # shellcheck disable=SC2016
+    export CICD_VERSION_EXPR='version_by_datetime "$CICD_GIT_REF"'
 fi
 if [ -z "$CICD_SUMMARY_TITLE" ]; then
     export CICD_SUMMARY_TITLE='## &#x1F680; Vagrant box CI/CD summary'
