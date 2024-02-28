@@ -15,5 +15,5 @@ docker-compose kill -sHUP haproxy
 To check the _HAProxy_ configuration file:
 
 ```bash
-docker-compose run --rm haproxy -cf /usr/local/etc/haproxy/haproxy.cfg
+docker-compose run --rm haproxy -c -f /usr/local/etc/haproxy/haproxy.cfg
 ```
