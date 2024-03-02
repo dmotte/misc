@@ -42,6 +42,12 @@ if [ -n "$RDR_ADD_CMD2_ARGS" ]; then
     done < <(echo "$RDR_ADD_CMD2_ARGS" | tr , '\n')
 fi
 
+if [ "$RDR_DEBUG" = 'true' ]; then
+    echo 'cmd1:' "${cmd1[@]}"
+    echo 'cmd2:' "${cmd2[@]}"
+    echo "remote_cmd: $remote_cmd"
+fi
+
 ################################################################################
 
 { read -rd '' script1 || [ -n "$script1" ]; } << EOF
@@ -65,6 +71,11 @@ script2=$(echo "$script2" | tr \\n \;)
 if [ "$RDR_ESCAPE_SCRIPTS" = 'true' ]; then
     script1="${script1@Q}"
     script2="${script2@Q}"
+fi
+
+if [ "$RDR_DEBUG" = 'true' ]; then
+    echo "script1: $script1"
+    echo "script2: $script2"
 fi
 
 ################################################################################
