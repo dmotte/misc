@@ -11,7 +11,10 @@ set -e
 
 # Note: if you're using Git Bash on Windows, you may want to replace "ssh"
 # with "/c/Windows/System32/OpenSSH/ssh.exe", or $GIT_SSH if you have it set.
-# Or you can use ${GIT_SSH:-ssh} to cover both cases
+# Or you could use ${GIT_SSH:-ssh} to cover both cases
+
+# For debugging purposes:
+#   RDR_DEBUG=true RDR_EVAL=exit ./remote-dir-run.sh mydir foo ++ bar baz
 
 [ $# -ge 2 ] || { echo 'Not enough args' >&2; exit 1; }
 local_dir="$1"; shift
