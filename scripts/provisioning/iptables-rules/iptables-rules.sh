@@ -7,7 +7,7 @@ set -e
 # Tested on Debian 12 (bookworm)
 
 # Usage example:
-#   sed '/^\s*$/d;/^#.*$/d' rules.v4 | \
+#   sed '/^\s*$/d;/^#/d' rules.v4 | \
 #     sudo IPTABLES_RULES_RELOAD=true bash iptables-rules.sh -4/dev/stdin
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
