@@ -19,12 +19,30 @@ local_dir="$1"; shift
 [ -e "$local_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
 
 : "${RDR_SHELL_OPTIONS:=-e}"
-: "${RDR_CMD:=bash main.sh}"
 
 remote_dir="/tmp/remote-dir-run-$(date -u +%Y-%m-%d-%H%M%S)"
 
-cmd1=("$@")
-cmd2=("$@")
+################################################################################
+
+cmd1=("$@"); remote_cmd='bash main.sh'
+
+for ((i = 0; i < ${#cmd1[@]}; i++)); do
+    if [ "${cmd1[i]}" = '++' ]; then
+        remote_cmd=$(for x in "${cmd1[@]:i+1}"; do echo -n "${x@Q} "; done)
+        cmd1=("${cmd1[@]:0:i}")
+        break
+    fi
+done
+
+cmd2=("${cmd1[@]}")
+
+if [ -n "$RDR_ADD_CMD2_ARGS" ]; then
+    while read -r i; do
+        read -r str; cmd2=("${cmd2[@]:0:i}" "$str" "${cmd2[@]:i}")
+    done < <(echo "$RDR_ADD_CMD2_ARGS" | tr , '\n')
+fi
+
+################################################################################
 
 { read -rd '' script1 || [ -n "$script1" ]; } << EOF
 set $RDR_SHELL_OPTIONS
@@ -36,7 +54,7 @@ EOF
 { read -rd '' script2 || [ -n "$script2" ]; } << EOF
 set $RDR_SHELL_OPTIONS
 cd $remote_dir
-$RDR_CMD || result=\$?
+$remote_cmd || result=\$?
 rm -rf $remote_dir
 exit \${result:-0}
 EOF
@@ -44,17 +62,12 @@ EOF
 script1=$(echo "$script1" | tr \\n \;)
 script2=$(echo "$script2" | tr \\n \;)
 
-if [ -n "$RDR_ADD_CMD2_ARGS" ]; then
-    while read -r i; do
-        read -r str
-        cmd2=("${cmd2[@]:0:$i}" "$str" "${cmd2[@]:$i}")
-    done < <(echo "$RDR_ADD_CMD2_ARGS" | tr , '\n')
-fi
-
 if [ "$RDR_ESCAPE_SCRIPTS" = 'true' ]; then
     script1="${script1@Q}"
     script2="${script2@Q}"
 fi
+
+################################################################################
 
 if [ -n "$RDR_EVAL" ]; then eval "$RDR_EVAL"; fi
 
