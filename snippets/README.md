@@ -161,6 +161,7 @@ EOF
 - `choco list --local-only`
 - `sudo choco upgrade -y all`
 - `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
+- `[[ "$(uname)" = MINGW* ]]; echo $?`
 
 ## Prometheus queries
 
