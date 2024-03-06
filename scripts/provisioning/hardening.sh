@@ -9,7 +9,7 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o apd -l sshd-addressfamily-inet -l sshd-disable-psw-auth \
+options=$(getopt -o +apd -l sshd-addressfamily-inet -l sshd-disable-psw-auth \
     -l disable-ipv6 -- "$@")
 eval "set -- $options"
 

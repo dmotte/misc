@@ -8,7 +8,7 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o i:m:b:c: -l service-manager: \
+options=$(getopt -o +i:m:b:c: -l service-manager: \
     -l msgbuf-url: -l msgbuf-checksum: \
     -l msgbuf-interval: -l msgbuf-max-msg-len: -l bot-token: -l chat-id: \
     -l supervisor-priority: -l systemd-restartsec: -l systemd-wantedby: -- "$@")

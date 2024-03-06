@@ -32,7 +32,7 @@ else
     echo 'Invalid mode' >&2; exit 1
 fi
 
-options=$(getopt -o cs:a:k:p: -l compose -l socket: -l auto-update: \
+options=$(getopt -o +cs:a:k:p: -l compose -l socket: -l auto-update: \
     -l kube-extra-args: -l unprivileged-port-start: -- "$@")
 eval "set -- $options"
 

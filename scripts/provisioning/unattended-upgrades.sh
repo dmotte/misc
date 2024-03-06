@@ -18,7 +18,7 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o rt:T: -l auto-reboot,timer-update:,timer-upgrade: -- "$@")
+options=$(getopt -o +rt:T: -l auto-reboot,timer-update:,timer-upgrade: -- "$@")
 eval "set -- $options"
 
 auto_reboot='false'

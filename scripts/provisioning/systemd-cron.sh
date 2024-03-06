@@ -7,7 +7,7 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o n:e:w: -l name:,event-expr:,workdir: -- "$@")
+options=$(getopt -o +n:e:w: -l name:,event-expr:,workdir: -- "$@")
 eval "set -- $options"
 
 name='' # Warning: some characters are forbidden. See the code below

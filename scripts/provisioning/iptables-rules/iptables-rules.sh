@@ -12,7 +12,7 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o '4:6:' -l rules-v4:,rules-v6: -- "$@")
+options=$(getopt -o +4:6: -l rules-v4:,rules-v6: -- "$@")
 eval "set -- $options"
 
 rules_v4=''

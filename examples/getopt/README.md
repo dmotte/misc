@@ -9,7 +9,7 @@ Inspired by https://gist.github.com/drmalex07/6bcd65a0861f58b646a0.
 
 set -e
 
-options=$(getopt -o abc:d: -l along,blong,clong:,dlong: -- "$@")
+options=$(getopt -o +abc:d: -l along,blong,clong:,dlong: -- "$@")
 eval "set -- $options"
 
 flag_a=n # Boolean flag
@@ -32,4 +32,8 @@ echo "x-$flag_a-$flag_b-$arg_c-$arg_d-x"
 echo "$@"
 ```
 
+> **Note**: the plus (`+`) character at the beginning of the shortopts string is to make `getopt` interpret the remainder parameters as non-option parameters as soon as the first non-option parameter is found (a.k.a. "**posixly correct**" mode)
+
 > **Note**: instead of `-l along,blong,clong:,dlong:` it's also possible to write `-l along -l blong -l clong: -l dlong:`
+
+See [the `getopt` man page](https://linux.die.net/man/1/getopt) for more information.

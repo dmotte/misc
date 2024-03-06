@@ -8,7 +8,7 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o n:r: -l service-manager: -l name-suffix: \
+options=$(getopt -o +n:r: -l service-manager: -l name-suffix: \
     -l running-user: -l keepalive-interval: -l restart-interval: \
     -l supervisor-priority: -l systemd-wantedby: -- "$@")
 eval "set -- $options"

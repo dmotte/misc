@@ -6,7 +6,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-options=$(getopt -o r: -l running-user: -- "$@")
+options=$(getopt -o +r: -l running-user: -- "$@")
 eval "set -- $options"
 
 running_user=''
