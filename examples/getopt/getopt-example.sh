@@ -17,6 +17,9 @@ set -e
 
 # See the "getopt" man page (https://linux.die.net/man/1/getopt) for more info
 
+# If your script has a lot of options, you may want to use a helper like
+# https://github.com/dmotte/misc/tree/main/bash-libs/smartgetopt
+
 options=$(getopt -o +abc:d: -l along,blong,clong:,dlong: -- "$@")
 eval "set -- $options"
 
