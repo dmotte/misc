@@ -3,7 +3,7 @@
 set -e
 
 # shellcheck source=/dev/null
-. "$(dirname "$0")/../fetch-and-check.sh"
+. "$(dirname "$0")/../../bash-libs/fetch-and-check.sh"
 
 codename=$(grep VERSION_CODENAME /etc/os-release | cut -d= -f2)
 

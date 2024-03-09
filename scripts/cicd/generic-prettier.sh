@@ -3,7 +3,7 @@
 set -e
 
 # shellcheck source=/dev/null
-. "$(dirname "$0")/../fetch-and-check.sh"
+. "$(dirname "$0")/../../bash-libs/fetch-and-check.sh"
 
 echo "::group::$0: Preparation"
     if ! command -v npm; then
