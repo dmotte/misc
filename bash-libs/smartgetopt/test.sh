@@ -26,7 +26,7 @@ run_test() {
         echo "result: $result"
     )
 
-    diff <(echo "$actual") <(echo "$expected")
+    diff <(echo "$expected") <(echo "$actual")
 }
 
 case_id=0
@@ -55,8 +55,25 @@ declare -A opts=([create]=n [refresh]=n [name]='' [path]=/) \
 { read -rd '' expected || [ -n "$expected" ]; } << 'EOF'
 opt: create: 'n'
 opt: name: ''
-opt: path: '/'
+opt: path: 'mydir'
 opt: refresh: 'y'
+rem: 'xyz'
+rem: 'abc'
 result: 0
 EOF
-run_test opts shortopts "$expected" -r
+run_test opts shortopts "$expected" -r --path=mydir xyz abc
+
+echo "Test case $((++case_id))"
+
+# shellcheck disable=SC2034
+declare -A opts=([create]=n [refresh]=n [name]='' [path]=/) \
+    shortopts=([r]=refresh [n]=name)
+{ read -rd '' expected || [ -n "$expected" ]; } << 'EOF'
+opt: create: 'n'
+opt: name: ''
+opt: path: '/'
+opt: refresh: 'y'
+rem: '-nmyname'
+result: 0
+EOF
+run_test opts shortopts "$expected" --refresh -- -nmyname
