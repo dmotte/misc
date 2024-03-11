@@ -41,11 +41,11 @@ From the main screen, long press on the created _host_ and select `Edit port for
 
 ![](img/screen06-portfwd-edit.png)
 
-Add your port forwarding rules to the list.
+Add the desired port forwarding rules to the list.
 
 ![](img/screen07-portfwd-details.png)
 
-From the main screen, tap on the host to **connect** to it. The **host key fingerprint** will be shown. Make sure it's what you expect, then click `Yes` to confirm.
+From the main screen, tap on the _host_ to **connect** to it. The **host key fingerprint** will be shown. Make sure it's what you expect, then click `Yes` to confirm.
 
 ![](img/screen08-connecting.png)
 
@@ -57,6 +57,6 @@ If the connection is successful, the **screen should clear** and stay idle, like
 
 ![](img/screen10-connected.png)
 
-Now you can try to access your forwarded port and see if it works.
+Now you should be able to access the forwarded port(s).
 
 ![](img/screen11-nginx.png)
