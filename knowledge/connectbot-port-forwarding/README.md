@@ -17,7 +17,7 @@ From the `Manage Pubkeys` menu, create a new **pubkey** with the following setti
 - Load key on start: off
 - Confirm before use: on
 
-![](img/screen01-pubkey.png)
+![](img/screen01-pubkey-details.png)
 
 Copy the **public key** string and paste it inside the `authorized_keys` of your remote host.
 
