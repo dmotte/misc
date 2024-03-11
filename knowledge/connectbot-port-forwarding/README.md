@@ -19,7 +19,7 @@ From the `Manage Pubkeys` menu, create a new **pubkey** with the following setti
 
 ![](img/screen01-pubkey-details.png)
 
-Copy the **public key** string and paste it inside the `authorized_keys` of your remote host.
+From the `Manage Pubkeys` menu, long press on the created _pubkey_ and select `Copy public key` to copy the **public key** string. It must be put inside the `authorized_keys` file on the remote host.
 
 ![](img/screen02-pubkey-copy.png)
 
@@ -37,7 +37,7 @@ From the main screen, add a new **host** with the following details:
 <img src="img/screen04-host.png" width="49%" />
 <img src="img/screen05-host.png" width="49%" />
 
-From the main screen, long press on the created host and select `Edit port forwards`.
+From the main screen, long press on the created _host_ and select `Edit port forwards`.
 
 ![](img/screen06-portfwd-edit.png)
 
