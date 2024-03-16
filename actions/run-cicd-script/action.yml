@@ -47,7 +47,7 @@ runs:
         path: ${{ steps.invocation.outputs.artifact-path }}
         if-no-files-found: error
 
-    - uses: softprops/action-gh-release@v1
+    - uses: softprops/action-gh-release@v2
       # Note: this requires the contents:write permission to work
       # Note: if the release already exists, this step just uploads the assets
       if: steps.invocation.outputs.release-name != ''
