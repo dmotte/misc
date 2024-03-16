@@ -91,6 +91,10 @@ echo "::group::$0: Build (cargo build)"
                 apt_update_if_old
                 sudo apt-get install -y gcc-aarch64-linux-gnu
                 ;;
+            armv7-unknown-linux-gnueabihf)
+                apt_update_if_old
+                sudo apt-get install -y gcc-arm-linux-gnueabihf
+                ;;
             i686-unknown-linux-gnu)
                 apt_update_if_old
                 sudo apt-get install -y gcc-i686-linux-gnu
