@@ -15,8 +15,8 @@ BLINK_COUNT = 5
 
 
 def main():
-    print('raspi-safe-shutdown started.')
-    print('Waiting for the user to press the shutdown button')
+    print('Raspi-safe-shutdown started. Waiting for the user to press the',
+          'shutdown button')
 
     GPIO.setmode(GPIO.BOARD)  # Physical/board pin-numbering scheme
 
@@ -29,7 +29,7 @@ def main():
             print('Button pressed. Waiting', T_HOLD, 'milliseconds...')
 
             GPIO.output(SHUTDOWN_LED, GPIO.HIGH)
-            time.sleep(T_HOLD / 1000)
+            time.sleep(T_HOLD / 1000.0)
             GPIO.output(SHUTDOWN_LED, GPIO.LOW)
 
             if GPIO.input(SHUTDOWN_BTN):
@@ -37,16 +37,16 @@ def main():
 
                 for i in range(BLINK_COUNT):
                     GPIO.output(SHUTDOWN_LED, GPIO.LOW)
-                    time.sleep(T_BLINK / 1000)
+                    time.sleep(T_BLINK / 1000.0)
                     GPIO.output(SHUTDOWN_LED, GPIO.HIGH)
-                    time.sleep(T_BLINK / 1000)
+                    time.sleep(T_BLINK / 1000.0)
 
                 GPIO.cleanup()
                 os.execvp('poweroff', ['poweroff'])
             else:
                 print('Button released. Waiting again for the user to press',
                       'the shutdown button')
-        time.sleep(T_CHECK / 1000)
+        time.sleep(T_CHECK / 1000.0)
 
 
 if __name__ == '__main__':
