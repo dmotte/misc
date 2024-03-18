@@ -107,7 +107,8 @@ def main(argv=None):
             if part.mountpoint in args.ignore_partitions:
                 continue
             threshold = args.boot_free_mb \
-                if part.mountpoint in ['/boot', '/boot/efi'] \
+                if part.mountpoint == '/boot' \
+                or part.mountpoint.startswith('/boot/') \
                 else args.disk_free_mb
             add_msg_if_any(f'disk_free_mb:{part.mountpoint}',
                            round(psutil.disk_usage(part.mountpoint).free
