@@ -12,7 +12,7 @@ Simple daemon service application for _Raspberry Pi_ to handle a **safe shutdown
 
 Demonstration video ([`demo.mp4`](demo.mp4)):
 
-TODO video as GitHub asset
+https://github.com/dmotte/misc/assets/37443982/3d33ca51-1fe9-4a12-b926-77b68fae8df9
 
 ## Circuit
 
