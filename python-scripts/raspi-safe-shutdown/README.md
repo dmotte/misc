@@ -44,12 +44,6 @@ sudo reboot
 
 ## Installation
 
-> :warning: **Warning**: Always examine scripts downloaded from the internet before running them locally.
-
-To install or update _raspi-safe-shutdown_ into your Raspberry Pi, connect it to the internet and execute the following command:
-
 ```bash
-curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/python-scripts/raspi-safe-shutdown/get.sh | sudo bash
+sudo RASPI_SAFE_SHUTDOWN_RESTART='true' bash install.sh
 ```
-
-This will automatically download the latest version of this application and install a **systemctl** service for running it in the background.
