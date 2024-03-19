@@ -38,6 +38,8 @@ command=$* # Warning: some characters are forbidden. See the code below
 
 if [ -n "$workdir" ]; then line_workdir="WorkingDirectory=$workdir"; fi
 
+[ -e "/etc/systemd/system/$name.service" ] || changing=y
+
 echo "Creating $name service and timer"
 
 cat << EOF > "/etc/systemd/system/$name.service"
@@ -69,7 +71,9 @@ systemctl daemon-reload; systemctl enable "$name.timer"
 
 ################################################################################
 
-if [ "$SYSTEMD_TIMER_RESTART" = 'true' ]; then
+if [ "$SYSTEMD_TIMER_RESTART" = always ] || {
+    [ "$SYSTEMD_TIMER_RESTART" = when-changed ] && [ "$changing" = y ]
+}; then
     echo "Restarting $name timer"
     systemctl restart "$name.timer"
 fi
