@@ -8,7 +8,7 @@ set -e
 # Tested on Debian 12 (bookworm)
 
 # Usage example:
-#   sudo SYSCTL_RELOAD=true bash setup-podman.sh system -cs0 -anever -p80
+#   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -cs0 -anever -p80
 #   sudo useradd -Ums/bin/bash alice
 #   sudo loginctl enable-linger alice
 #   sudo XDG_RUNTIME_DIR="/run/user/$(id -u alice)" -ualice bash \
@@ -64,7 +64,7 @@ apt_update_if_old() {
 
 if [ "$mode" = system ]; then
     dpkg -s podman >/dev/null 2>&1 || \
-        { apt_update_if_old; apt-get install -y podman; }
+        { apt_update_if_old; apt-get install -y podman; changing=y; }
 
     if [ "$flag_compose" = y ]; then
         dpkg -s podman-compose >/dev/null 2>&1 || \
@@ -129,6 +129,10 @@ fi
 
 ################################################################################
 
-if [ "$mode" = system ] && [ "$SYSCTL_RELOAD" = 'true' ]; then
+if [ "$mode" = system ] && {
+    [ "$SYSCTL_RELOAD" = always ] || {
+        [ "$SYSCTL_RELOAD" = when-changed ] && [ "$changing" = y ]
+    }
+}; then
     sysctl --system
 fi

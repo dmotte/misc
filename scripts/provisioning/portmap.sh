@@ -67,6 +67,8 @@ ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForw
 echo "Creating $service_name service files"
 
 if [ "$service_manager" = supervisor ]; then
+    [ -e "/etc/supervisor/conf.d/$service_name.conf" ] || changing=y
+
     cat << EOF > "/etc/supervisor/conf.d/$service_name.conf"
 [program:$service_name]
 command=/bin/bash -ec '$ssh_command \\
@@ -77,6 +79,8 @@ user=$running_user
 directory=$running_user_home
 EOF
 elif [ "$service_manager" = systemd ]; then
+    [ -e "/etc/systemd/system/$service_name.service" ] || changing=y
+
     cat << EOF > "/etc/systemd/system/$service_name.service"
 [Unit]
 Description=$service_name
@@ -98,13 +102,16 @@ RestartSec=$restart_interval
 [Install]
 WantedBy=$systemd_wantedby
 EOF
+
     echo "Reloading systemd config and enabling $service_name service"
     systemctl daemon-reload; systemctl enable "$service_name"
 fi
 
 ################################################################################
 
-if [ "$PORTMAP_RELOAD" = 'true' ]; then
+if [ "$PORTMAP_RELOAD" = always ] || {
+    [ "$PORTMAP_RELOAD" = when-changed ] && [ "$changing" = y ]
+}; then
     if [ "$service_manager" = supervisor ]; then
         echo 'Running supervisorctl update'
         supervisorctl update

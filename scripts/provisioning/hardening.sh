@@ -29,6 +29,8 @@ done
 
 ################################################################################
 
+[ -e /etc/sysctl.d/99-hardening-ipv4.conf ] || changing=y
+
 sed -Ei 's/^#?UMASK.*$/UMASK 077/' /etc/login.defs
 sed -Ei 's/^#?DIR_MODE=.*$/DIR_MODE=0700/' /etc/adduser.conf
 
@@ -83,8 +85,9 @@ fi
 
 ################################################################################
 
-if [ "$SSHD_RESTART" = 'true' ]; then systemctl restart ssh; fi
-if [ "$TIMESYNCD_RESTART" = 'true' ]; then
-    systemctl restart systemd-timesyncd
+if [ "$HARDENING_RELOAD" = always ] || {
+    [ "$HARDENING_RELOAD" = when-changed ] && [ "$changing" = y ]
+}; then
+    systemctl restart ssh systemd-timesyncd
+    sysctl --system
 fi
-if [ "$SYSCTL_RELOAD" = 'true' ]; then sysctl --system; fi

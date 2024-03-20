@@ -12,7 +12,7 @@ set -e
 # Tested on Debian 12 (bookworm)
 
 # Usage example:
-#   sudo KIOSK_RESTART=true bash webkiosk.sh https://play.grafana.org/
+#   sudo KIOSK_RESTART=when-changed bash webkiosk.sh https://play.grafana.org/
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
@@ -25,6 +25,8 @@ apt_update_if_old() {
 }
 
 ################################################################################
+
+[ -e /etc/systemd/system/kiosk.service ] || changing=y
 
 for i in xorg chromium; do
     dpkg -s "$i" >/dev/null 2>&1 || \
@@ -120,4 +122,8 @@ systemctl daemon-reload; systemctl enable kiosk
 
 ################################################################################
 
-if [ "$KIOSK_RESTART" = 'true' ]; then systemctl restart kiosk; fi
+if [ "$KIOSK_RESTART" = always ] || {
+    [ "$KIOSK_RESTART" = when-changed ] && [ "$changing" = y ]
+}; then
+    systemctl restart kiosk
+fi

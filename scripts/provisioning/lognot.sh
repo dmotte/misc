@@ -73,6 +73,8 @@ bot_token=${bot_token#bot}
 
 ################################################################################
 
+[ -e /opt/lognot ] || changing=y
+
 dpkg -s curl >/dev/null 2>&1 || \
     { apt_update_if_old; apt-get install -y curl; }
 
@@ -136,7 +138,9 @@ fi
 
 ################################################################################
 
-if [ "$LOGNOT_RELOAD" = 'true' ]; then
+if [ "$LOGNOT_RELOAD" = always ] || {
+    [ "$LOGNOT_RELOAD" = when-changed ] && [ "$changing" = y ]
+}; then
     if [ "$service_manager" = supervisor ]; then
         echo 'Running supervisorctl update'
         supervisorctl update

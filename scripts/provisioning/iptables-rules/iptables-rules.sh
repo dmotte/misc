@@ -8,7 +8,7 @@ set -e
 
 # Usage example:
 #   sed '/^\s*$/d;/^#/d' rules.v4 | \
-#     sudo IPTABLES_RULES_RELOAD=true bash iptables-rules.sh -4/dev/stdin
+#     sudo IPTABLES_RULES_RELOAD=always bash iptables-rules.sh -4/dev/stdin
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
@@ -49,12 +49,16 @@ done | debconf-set-selections -v
 dpkg -s iptables-persistent >/dev/null 2>&1 || \
     { apt_update_if_old; apt-get install -y iptables-persistent; }
 
+[ -e /etc/iptables ] || changing=y
+
 if [ -n "$rules_v4" ]; then tr -d '\r' <"$rules_v4" >/etc/iptables/rules.v4; fi
 if [ -n "$rules_v6" ]; then tr -d '\r' <"$rules_v6" >/etc/iptables/rules.v6; fi
 
 ################################################################################
 
-if [ "$IPTABLES_RULES_RELOAD" = 'true' ]; then
+if [ "$IPTABLES_RULES_RELOAD" = always ] || {
+    [ "$IPTABLES_RULES_RELOAD" = when-changed ] && [ "$changing" = y ]
+}; then
     for i in iptables ip6tables; do
         "$i" -P INPUT ACCEPT; "$i" -P FORWARD ACCEPT; "$i" -P OUTPUT ACCEPT
         "$i" -t nat -F; "$i" -t mangle -F; "$i" -F

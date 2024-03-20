@@ -13,7 +13,7 @@ set -e
 # See https://www.freedesktop.org/software/systemd/man/systemd.time.html
 
 # Usage example:
-#   sudo UNATTENDED_UPGRADES_RELOAD=true bash \
+#   sudo UNATTENDED_UPGRADES_RELOAD=when-changed bash \
 #     unattended-upgrades.sh -rt'*-*-* 04:00' -T'*-*-* 05:00'
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
@@ -42,6 +42,8 @@ apt_update_if_old() {
 }
 
 ################################################################################
+
+[ -e /etc/apt/apt.conf.d/50unattended-upgrades ] || changing=y
 
 dpkg -s unattended-upgrades >/dev/null 2>&1 || \
     { apt_update_if_old; apt-get install -y unattended-upgrades; }
@@ -110,7 +112,9 @@ echo 'unattended-upgrades unattended-upgrades/enable_auto_updates' \
 
 ################################################################################
 
-if [ "$UNATTENDED_UPGRADES_RELOAD" = 'true' ]; then
+if [ "$UNATTENDED_UPGRADES_RELOAD" = always ] || {
+    [ "$UNATTENDED_UPGRADES_RELOAD" = when-changed ] && [ "$changing" = y ]
+}; then
     systemctl daemon-reload
     systemctl restart apt-daily.timer apt-daily-upgrade.timer
     dpkg-reconfigure -f noninteractive unattended-upgrades
