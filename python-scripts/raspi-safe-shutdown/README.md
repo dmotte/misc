@@ -45,5 +45,5 @@ sudo reboot
 ## Installation
 
 ```bash
-sudo RASPI_SAFE_SHUTDOWN_RESTART='true' bash install.sh
+sudo RASPI_SAFE_SHUTDOWN_RESTART=when-changed bash install.sh
 ```

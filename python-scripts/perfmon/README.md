@@ -5,7 +5,7 @@ This is a very simple **perf**ormance **mon**itor script written in _Python_. It
 Tested on **Debian 12** (_bookworm_) with **Python 3** and package versions as in [`requirements.txt`](requirements.txt).
 
 ```bash
-sudo PERFMON_RESTART='true' bash install.sh -rmainuser -- --disk-free-mb=2048
+sudo PERFMON_RESTART=when-changed bash install.sh -rmainuser -- --disk-free-mb=2048
 
 sudo systemctl status perfmon
 ```

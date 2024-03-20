@@ -34,6 +34,8 @@ apt_update_if_old() {
 
 ################################################################################
 
+[ -e /opt/perfmon ] || changing=y
+
 dpkg -s python3-psutil >/dev/null 2>&1 || \
     { apt_update_if_old; apt-get install -y python3-psutil; }
 
@@ -71,7 +73,9 @@ systemctl daemon-reload; systemctl enable perfmon
 
 ################################################################################
 
-if [ "$PERFMON_RESTART" = 'true' ]; then
+if [ "$PERFMON_RESTART" = always ] || {
+    [ "$PERFMON_RESTART" = when-changed ] && [ "$changing" = y ]
+}; then
     echo 'Restarting perfmon'
     systemctl restart perfmon
 fi

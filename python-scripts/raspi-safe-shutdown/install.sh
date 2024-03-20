@@ -14,6 +14,8 @@ apt_update_if_old() {
 
 ################################################################################
 
+[ -e /opt/raspi-safe-shutdown ] || changing=y
+
 dpkg -s python3-rpi.gpio >/dev/null 2>&1 || \
     { apt_update_if_old; apt-get install -y python3-rpi.gpio; }
 
@@ -48,7 +50,9 @@ systemctl daemon-reload; systemctl enable raspi-safe-shutdown
 
 ################################################################################
 
-if [ "$RASPI_SAFE_SHUTDOWN_RESTART" = 'true' ]; then
+if [ "$RASPI_SAFE_SHUTDOWN_RESTART" = always ] || {
+    [ "$RASPI_SAFE_SHUTDOWN_RESTART" = when-changed ] && [ "$changing" = y ]
+}; then
     echo 'Restarting raspi-safe-shutdown'
     systemctl restart raspi-safe-shutdown
 fi
