@@ -12,7 +12,8 @@ set -e
 # Tested on Debian 12 (bookworm)
 
 # Usage example:
-#   sudo KIOSK_RESTART=when-changed bash webkiosk.sh https://play.grafana.org/
+#   sudo KIOSK_RESTART=when-changed bash webkiosk.sh \
+#     https://play.grafana.org/?theme=dark
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
