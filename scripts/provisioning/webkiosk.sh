@@ -38,7 +38,12 @@ done
 dpkg -s xserver-xorg-legacy >/dev/null 2>&1 || \
     { apt_update_if_old; apt-get install -y xserver-xorg-legacy; }
 
-[ -e ~kioskuser ] || useradd -Ums/bin/bash kioskuser
+if ! id kioskuser >/dev/null 2>&1; then
+    echo 'Creating user kioskuser'
+    useradd -Ums/bin/bash kioskuser
+fi
+
+echo 'Creating kiosk service files'
 
 install -okioskuser -gkioskuser -m644 /dev/stdin ~kioskuser/.xinitrc << 'EOF'
 #!/bin/bash
@@ -118,6 +123,7 @@ RestartSec=5
 WantedBy=getty.target
 EOF
 
+echo 'Reloading systemd config and enabling kiosk service'
 systemctl daemon-reload; systemctl enable kiosk
 
 ################################################################################
@@ -125,5 +131,6 @@ systemctl daemon-reload; systemctl enable kiosk
 if [ "$KIOSK_RESTART" = always ] || {
     [ "$KIOSK_RESTART" = when-changed ] && [ "$changing" = y ]
 }; then
+    echo 'Restarting kiosk'
     systemctl restart kiosk
 fi
