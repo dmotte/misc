@@ -85,6 +85,17 @@ Some pieces of code I find useful for some reason.
 - `escape_if_any() { echo "${1:+${1@Q}}"; }`
 - `vlc -vvv -Idummy --no-audio screen:// --screen-fps=10 --sout='#transcode{vcodec=MJPG,scale=0.5}:standard{access=http,mux=mpjpeg,dst=:8080/}' --sout-http-mime='multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a' --live-caching=100`
 
+```bash
+install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
+    'ATTR{vendor}=="0x1234", ATTR{device}=="0x5678", ATTR{remove}="1"') \
+    /etc/udev/rules.d/99-disable-pci-example.rules
+udevadm trigger -vcadd -spci -avendor=0x1234 -adevice=0x5678
+install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="usb",' \
+    'ATTR{idVendor}=="1a2b", ATTR{idProduct}=="3c4d", ATTR{remove}="1"') \
+    /etc/udev/rules.d/99-disable-usb-example.rules
+udevadm trigger -vcadd -susb -aidVendor=1a2b -aidProduct=3c4d
+```
+
 ## Shell snippets for Docker
 
 - `docker ps -a --format {{.Names}}`
