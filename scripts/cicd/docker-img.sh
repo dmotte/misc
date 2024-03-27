@@ -147,7 +147,8 @@ echo "::group::$0: Description (Docker Hub)"
                     exit 1
                 }
 
-            token=$(echo "$response" | sed -E 's/^\{"token":"([^"]+)"\}/\1/g')
+            token=$(echo "$response" | \
+                sed -E 's/^\{"token":"([^"]+)".*\}$/\1/g')
 
             curl -sSXPATCH \
                 "https://hub.docker.com/v2/repositories/$IMG_AUTHOR/$IMG_NAME" \
