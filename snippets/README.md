@@ -71,7 +71,7 @@ Some pieces of code I find useful for some reason.
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
 - `echo 'Hello $USER!' | envsubst`
 - `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
-- `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`, `cargo install rust-script`
+- `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`, `rustup update`, `cargo install rust-script`
 - `mkfifo mypipe; while :; do date | tee mypipe; done`
 - `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" -dchat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
 - `for i in 192.168.1.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
