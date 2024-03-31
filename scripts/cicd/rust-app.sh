@@ -49,6 +49,9 @@ echo "::group::$0: Project metadata"
             echo '- &#x1F4CC; Project version: (_none_)'
         fi
     } | tee -a "$CICD_SUMMARY"
+
+    build_targets=$(sed -En 's/^\[target\.(.+)\]$/\1/p' .cargo/config.toml)
+    echo "Build targets:"; echo "$build_targets"
 echo '::endgroup::'
 
 echo "::group::$0: Format (cargo fmt)"
@@ -84,39 +87,47 @@ echo "::group::$0: Set the right version"
 echo '::endgroup::'
 
 echo "::group::$0: Build (cargo build)"
-    sed -En 's/^\[target\.(.+)\]$/\1/p' .cargo/config.toml | \
-        while read -r i; do
-            case "$i" in
-            aarch64-unknown-linux-gnu)
-                apt_update_if_old
-                sudo apt-get install -y gcc-aarch64-linux-gnu
-                ;;
-            armv7-unknown-linux-gnueabihf)
-                apt_update_if_old
-                sudo apt-get install -y gcc-arm-linux-gnueabihf
-                ;;
-            i686-unknown-linux-gnu)
-                apt_update_if_old
-                sudo apt-get install -y gcc-i686-linux-gnu
-                ;;
-            x86_64-unknown-linux-gnu)
-                apt_update_if_old
-                sudo apt-get install -y gcc-x86-64-linux-gnu
-                ;;
-            esac
+    echo "$build_targets" | while read -r i; do
+        case "$i" in
+        aarch64-unknown-linux-gnu)
+            apt_update_if_old
+            sudo apt-get install -y gcc-aarch64-linux-gnu
+            ;;
+        armv7-unknown-linux-gnueabihf)
+            apt_update_if_old
+            sudo apt-get install -y gcc-arm-linux-gnueabihf
+            ;;
+        i686-pc-windows-gnu)
+            apt_update_if_old
+            sudo apt-get install -y gcc-mingw-w64-i686
+            ;;
+        i686-unknown-linux-gnu)
+            apt_update_if_old
+            sudo apt-get install -y gcc-i686-linux-gnu
+            ;;
+        x86_64-pc-windows-gnu)
+            apt_update_if_old
+            sudo apt-get install -y gcc-mingw-w64-x86-64
+            ;;
+        x86_64-unknown-linux-gnu)
+            apt_update_if_old
+            sudo apt-get install -y gcc-x86-64-linux-gnu
+            ;;
+        esac
 
-            rustup target add "$i"
-            cargo build -r --target "$i"
-        done
+        rustup target add "$i"
+        cargo build -r --target "$i"
+    done
 echo '::endgroup::'
 
 echo "::group::$0: Artifact"
     mkdir -p cicd-artifact
 
-    for src in target/*/release/"$proj_name"; do
-        target="${src#target/}"
-        target="${target%"/release/$proj_name"}"
-        file_basename="$proj_name-$target"
+    echo "$build_targets" | while read -r i; do
+        src="target/$i/release/$proj_name"
+        [[ "$i" = *-pc-windows-* ]] && src+=.exe
+        file_basename="$proj_name-$i"
+        [[ "$i" = *-pc-windows-* ]] && file_basename+=.exe
         dst="cicd-artifact/$file_basename"
 
         echo "Copying $src to $dst"
