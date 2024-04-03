@@ -15,6 +15,9 @@ set -e
 #     setup-podman.sh user -s0 -a'Mon 01:00' \
 #     -k--net=slirp4netns:port_handler=slirp4netns,enable_ipv6=false
 
+# Note: you may need to wait a few seconds for the systemd user session to
+# initialize after running "enable-linger"
+
 [ $# -ge 1 ] || { echo 'Mode not specified' >&2; exit 1; }
 mode="$1"; shift
 

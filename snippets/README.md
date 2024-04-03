@@ -97,6 +97,19 @@ install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="usb",' \
 udevadm trigger -vcadd -susb -aidVendor=1a2b -aidProduct=3c4d
 ```
 
+```bash
+user_id=1001; user_name=myuser
+
+loginctl enable-linger "$user_name"
+for i in {10..1}; do
+    [ -e "/run/user/$user_id/systemd/private" ] && break
+    echo "Waiting for systemd user session to initialize (max ${i}s)"
+    sleep 1
+done
+[ -e "/run/user/$user_id/systemd/private" ] || \
+    { echo 'Timeout waiting for systemd user session' >&2; exit 1; }
+```
+
 ## Shell snippets for Docker
 
 - `docker ps -a --format {{.Names}}`
