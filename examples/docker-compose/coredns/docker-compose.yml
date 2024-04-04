@@ -1,0 +1,12 @@
+---
+version: "3"
+
+services:
+  coredns:
+    image: docker.io/coredns/coredns:1.11.1
+    restart: always
+    ports: ["15353:53/tcp", "15353:53/udp"]
+    volumes:
+      - ./Corefile:/Corefile:ro
+      - ./example.com.db:/example.com.db:ro
+    command: -conf /Corefile

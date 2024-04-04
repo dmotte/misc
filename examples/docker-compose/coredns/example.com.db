@@ -1,0 +1,35 @@
+$TTL    3H      ; Default TTL for this zone
+
+; Note: "IN" is the DNS class. It stands for "Internet". Other DNS classes exist but are rarely used.
+
+; The SOA record defines the key characteristics of this zone
+@       IN      SOA     @       hostmaster.example.com. ( ; This is actually the syntax for an e-mail address: hostmaster@example.com
+               2022092501       ; Serial number. If you have also a SLAVE AUTHORITATIVE DNS server, you need to increase this when this file is changed
+                       3H       ; Refresh (needed only if you have also a SLAVE AUTHORITATIVE DNS server)
+                       1H       ; Retry (needed only if you have also a SLAVE AUTHORITATIVE DNS server)
+                       1W       ; Expire (needed only if you have also a SLAVE AUTHORITATIVE DNS server)
+                       3H )     ; Negative cache TTL (for NXDOMAIN responses)
+
+; Name servers for this domain
+@               IN      NS      ns1.example.com.
+@               IN      NS      ns2.example.com.
+
+; Main records
+; Note: A CNAME cannot be placed at the root domain level ("@") (see https://ns1.com/resources/cname)
+@               IN      A       192.168.123.123
+ns1             IN      A       192.168.123.123
+ns2             IN      A       192.168.123.123
+*               IN      A       192.168.123.123
+
+; example.com GitLab Pages records
+www             IN      CNAME   myusername.gitlab.io.
+*.www           IN      A       192.168.123.123
+_gitlab-pages-verification-code.www  IN  TXT  "gitlab-pages-verification-code=..."
+
+; mywebsite GitLab Pages records
+mywebsite          IN      CNAME   myusername.gitlab.io.
+*.mywebsite        IN      A       192.168.123.123
+_gitlab-pages-verification-code.mywebsite      IN  TXT  "gitlab-pages-verification-code=..."
+www.mywebsite      IN      CNAME   myusername.gitlab.io.
+*.www.mywebsite    IN      A       192.168.123.123
+_gitlab-pages-verification-code.www.mywebsite  IN  TXT  "gitlab-pages-verification-code=..."

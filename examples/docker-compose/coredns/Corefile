@@ -1,0 +1,14 @@
+. {
+    log
+    errors
+    acl {
+        drop
+    }
+}
+
+example.com {
+    file /example.com.db
+    log
+    errors
+    minimal
+}
