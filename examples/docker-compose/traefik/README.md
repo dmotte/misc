@@ -13,8 +13,7 @@ docker-compose down && docker-compose up
 To generate the passwords for the **digest authentication**, [use the `htdigest` command](https://doc.traefik.io/traefik/middlewares/digestauth/). If you are on _Debian_ and the `htdigest` command is not installed, you can run:
 
 ```bash
-sudo apt update
-sudo apt install apache2-utils
+sudo apt-get update && sudo apt-get install -y apache2-utils
 ```
 
 Similar packages exist for other operating systems.

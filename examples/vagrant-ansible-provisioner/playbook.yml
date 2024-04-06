@@ -10,7 +10,7 @@
         msg: The Ansible version is too old for this playbook
 
   tasks:
-    - name: Execute apt update if the last one is more than 1 hour ago
+    - name: Execute apt-get update if the last one is more than 1 hour ago
       become: true
       ansible.builtin.apt:
         update_cache: true
