@@ -46,6 +46,7 @@ runs:
         name: ${{ steps.invocation.outputs.artifact-name }}
         path: ${{ steps.invocation.outputs.artifact-path }}
         if-no-files-found: error
+        retention-days: 0 # Default
 
     - uses: softprops/action-gh-release@v2
       # Note: this requires the contents:write permission to work
@@ -59,3 +60,15 @@ runs:
         files: ${{ steps.invocation.outputs.release-files }}
         fail_on_unmatched_files: true
         generate_release_notes: true
+
+    - uses: actions/upload-pages-artifact@v3
+      if: steps.invocation.outputs.ghpages-artifact-path != ''
+      with:
+        name: github-pages
+        path: ${{ steps.invocation.outputs.ghpages-artifact-path }}
+        retention-days: 0 # Default
+
+    - uses: actions/deploy-pages@v4
+      # Note: this requires the id-token:write and pages:write permissions
+      if: steps.invocation.outputs.ghpages-deploy == 'true'
+      with: { artifact_name: github-pages }
