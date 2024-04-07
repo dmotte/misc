@@ -1,7 +1,7 @@
 ---
 # To test locally, you can use the following approach:
 #   ln mkdocs.yml /some/other/dir/mkdocs.yml
-#   MKDOCS_DOCS_DST="$PWD" /tmp/venv01/bin/python3 -mmkdocs serve -sf/some/other/dir/mkdocs.yml
+#   MKDOCS_DOCS_DST="$PWD" /tmp/venv01/bin/python3 -mmkdocs serve -csf/some/other/dir/mkdocs.yml
 
 strict: true
 docs_dir: !ENV MKDOCS_DOCS_DST
@@ -11,6 +11,8 @@ site_dir: !ENV MKDOCS_SITE_DIR
 
 site_name: dmotte/misc
 site_url: https://dmotte.github.io/misc/
+site_author: dmotte
+site_description: dmotte/misc
 
 repo_name: dmotte/misc
 repo_url: https://github.com/dmotte/misc
@@ -38,8 +40,8 @@ theme:
         name: Switch to system preference
 
 plugins:
-  - minify:
-      minify_html: true
+  - minify: { minify_html: true }
+  - search
 
 markdown_extensions:
   - pymdownx.emoji:
