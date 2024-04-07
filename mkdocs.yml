@@ -38,6 +38,8 @@ theme:
       toggle:
         icon: material/toggle-switch-off
         name: Switch to system preference
+  # favicon: null
+  icon: { logo: material/shield }
 
 plugins:
   - minify: { minify_html: true }
