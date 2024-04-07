@@ -16,10 +16,13 @@ site_description: dmotte/misc
 
 repo_name: dmotte/misc
 repo_url: https://github.com/dmotte/misc
+edit_uri: blob/main
 
 theme:
   name: material
   features:
+    - content.action.edit
+    - content.action.view
     - content.code.copy
     - content.tooltips
     - navigation.tabs
