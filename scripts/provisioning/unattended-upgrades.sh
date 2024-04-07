@@ -109,6 +109,7 @@ fi
 # This should create the /etc/apt/apt.conf.d/20auto-upgrades file
 echo 'unattended-upgrades unattended-upgrades/enable_auto_updates' \
     'boolean true' | debconf-set-selections -v
+dpkg-reconfigure -fnoninteractive unattended-upgrades
 
 ################################################################################
 
@@ -117,5 +118,4 @@ if [ "$UNATTENDED_UPGRADES_RELOAD" = always ] || {
 }; then
     systemctl daemon-reload
     systemctl restart apt-daily.timer apt-daily-upgrade.timer
-    dpkg-reconfigure -f noninteractive unattended-upgrades
 fi
