@@ -54,6 +54,7 @@ theme:
 plugins:
   - minify: { minify_html: true }
   - search
+  - git-revision-date-localized: { enable_creation_date: true }
 
 extra:
   consent:
