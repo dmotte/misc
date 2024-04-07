@@ -55,6 +55,16 @@ plugins:
   - minify: { minify_html: true }
   - search
 
+extra:
+  consent:
+    title: Cookie consent
+    description: >-
+      This is a static website, but it may still use some cookies. By
+      continuing to use this website, you consent to the use of cookies.
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/dmotte
+
 markdown_extensions:
   - pymdownx.emoji:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
