@@ -9,4 +9,12 @@ concurrency:
 
 jobs:
   job:
+    permissions: { id-token: write, pages: write }
     uses: dmotte/misc/.github/workflows/cicd-with-script.yml@main
+    with:
+      script: >
+        MKDOCS_DEPS=mkdocs-material,pymdown-extensions
+        MKDOCS_DOCS_SRC=. MKDOCS_DOCS_DST=mkdocs-docs
+        MKDOCS_DOCS_EXCLUDES=.git,venv,mkdocs-docs,mkdocs-site
+        MKDOCS_SITE_DIR=mkdocs-site
+        bash "$(realpath "$GITHUB_ACTION_PATH/../../scripts/cicd/mkdocs-ghpages.sh")"

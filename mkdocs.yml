@@ -1,0 +1,49 @@
+---
+# To test locally, you can use the following command:
+#   MKDOCS_DOCS_DST=. venv/bin/python3 -mmkdocs serve -sf- < mkdocs.yml
+
+strict: true
+docs_dir: !ENV MKDOCS_DOCS_DST
+site_dir: !ENV MKDOCS_SITE_DIR
+
+site_name: dmotte/misc
+
+repo_name: dmotte/misc
+repo_url: https://github.com/dmotte/misc
+
+# Inspired by https://github.com/squidfunk/mkdocs-material/blob/master/mkdocs.yml
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+
+markdown_extensions:
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.magiclink
