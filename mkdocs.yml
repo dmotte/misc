@@ -29,6 +29,7 @@ theme:
     - navigation.indexes # Provides same behavior as the "mkdocs-section-index" plugin
     - navigation.expand
     - navigation.footer
+    - navigation.top
     - search.share
     - search.suggest
     - search.highlight
@@ -57,6 +58,7 @@ theme:
 plugins:
   - minify: { minify_html: true }
   - search
+  - social
 
 extra:
   consent:
