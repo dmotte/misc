@@ -58,7 +58,6 @@ theme:
 plugins:
   - minify: { minify_html: true }
   - search
-  - social
 
 extra:
   consent:
