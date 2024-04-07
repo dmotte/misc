@@ -13,7 +13,7 @@ jobs:
     uses: dmotte/misc/.github/workflows/cicd-with-script.yml@main
     with:
       script: >
-        MKDOCS_DEPS=mkdocs-git-revision-date-localized-plugin,mkdocs-material,mkdocs-minify-plugin,pymdown-extensions
+        MKDOCS_DEPS=mkdocs-material,mkdocs-minify-plugin,pymdown-extensions
         MKDOCS_DOCS_SRC=. MKDOCS_DOCS_DST=mkdocs-docs
         MKDOCS_DOCS_EXCLUDES=.git,venv,mkdocs-docs,mkdocs-site
         MKDOCS_SITE_DIR=mkdocs-site
