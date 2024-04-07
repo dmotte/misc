@@ -19,6 +19,16 @@ repo_url: https://github.com/dmotte/misc
 
 theme:
   name: material
+  features:
+    - content.code.copy
+    - content.tooltips
+    - navigation.tabs
+    - navigation.indexes # Provides same behavior as the "mkdocs-section-index" plugin
+    - navigation.expand
+    - navigation.footer
+    - search.share
+    - search.suggest
+    - search.highlight
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -44,7 +54,6 @@ theme:
 plugins:
   - minify: { minify_html: true }
   - search
-  - section-index
 
 markdown_extensions:
   - pymdownx.emoji:
