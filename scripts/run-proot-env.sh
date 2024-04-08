@@ -33,7 +33,7 @@ envs_dir=envs
 [ $# -ge 1 ] || { echo 'Not enough args' >&2; exit 1; }
 env_name="$1"; shift
 
-[[ "$env_name" =~ ^[0-9A-Za-z-]+$ ]] || \
+[[ "$env_name" =~ ^[0-9A-Za-z-]+$ ]] ||
     { echo 'Invalid env name' >&2; exit 1; }
 
 if [ ! -e "$tarball_path" ]; then

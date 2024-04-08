@@ -44,11 +44,11 @@ done
 
 source_cmd=$* # Warning: some characters are forbidden. See the code below
 
-[[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] || \
+[[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] ||
     { echo "Unsupported service manager: $service_manager" >&2; exit 1; }
 
 [ -n "$source_cmd" ] || { echo 'Source command cannot be empty' >&2; exit 1; }
-{ [[ "$source_cmd" != *\'* ]] && [[ "$source_cmd" != *$'\n'* ]]; } || \
+{ [[ "$source_cmd" != *\'* ]] && [[ "$source_cmd" != *$'\n'* ]]; } ||
     { echo 'The source command contains invalid characters' >&2; exit 1; }
 
 [ -n "$bot_token" ] || { echo 'Bot token cannot be empty' >&2; exit 1; }
@@ -75,7 +75,7 @@ bot_token=${bot_token#bot}
 
 [ -e /opt/lognot ] || changing=y
 
-dpkg -s curl >/dev/null 2>&1 || \
+dpkg -s curl >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y curl; }
 
 install -dm700 /opt/lognot

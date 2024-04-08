@@ -37,7 +37,7 @@ echo '::endgroup::'
 
 echo "::group::$0: Project metadata"
     proj_name=$(sed -En 's/^name = "(.+)"$/\1/p' Cargo.toml | head -1)
-    echo "- &#x1F333; Project name: \`$proj_name\`" | \
+    echo "- &#x1F333; Project name: \`$proj_name\`" |
         tee -a "$CICD_SUMMARY"
 
     echo "Version expression: $CICD_VERSION_EXPR"
@@ -132,7 +132,7 @@ echo "::group::$0: Artifact"
 
         echo "Copying $src to $dst"
         cp "$src" "$dst"
-        echo "- &#x1F4E6; Artifact file: \`$file_basename\`" | \
+        echo "- &#x1F4E6; Artifact file: \`$file_basename\`" |
             tee -a "$CICD_SUMMARY"
     done
 

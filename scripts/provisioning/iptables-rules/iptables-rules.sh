@@ -7,7 +7,7 @@ set -e
 # Tested on Debian 12 (bookworm)
 
 # Usage example:
-#   sed '/^\s*$/d;/^#/d' rules.v4 | \
+#   sed '/^\s*$/d;/^#/d' rules.v4 |
 #     sudo IPTABLES_RULES_RELOAD=always bash iptables-rules.sh -4/dev/stdin
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
@@ -46,7 +46,7 @@ for i in 4 6; do # Do not save current rules to /etc/iptables/rules.v*
     echo "iptables-persistent iptables-persistent/autosave_v$i boolean false"
 done | debconf-set-selections -v
 
-dpkg -s iptables-persistent >/dev/null 2>&1 || \
+dpkg -s iptables-persistent >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y iptables-persistent; }
 
 [ -e /etc/iptables ] || changing=y

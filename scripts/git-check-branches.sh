@@ -5,7 +5,7 @@ set -e
 result=0
 
 for arg; do
-    n=$(git -C "$arg" for-each-ref --format='%(objectname)' refs/heads | \
+    n=$(git -C "$arg" for-each-ref --format='%(objectname)' refs/heads |
         sort | uniq | wc -l)
     if [ "$n" != 1 ]; then echo "$arg: $n different branches"; result=1; fi
 

@@ -37,16 +37,16 @@ done
 
 ssh_args=$* # Warning: some characters are forbidden. See the code below
 
-[[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] || \
+[[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] ||
     { echo "Unsupported service manager: $service_manager" >&2; exit 1; }
 
-[[ "$name_suffix" =~ ^[0-9A-Za-z-]+$ ]] || \
+[[ "$name_suffix" =~ ^[0-9A-Za-z-]+$ ]] ||
     { echo "Invalid name suffix: $name_suffix" >&2; exit 1; }
 
 [ -n "$running_user" ] || { echo 'Running user cannot be empty' >&2; exit 1; }
 
 [ -n "$ssh_args" ] || { echo 'SSH args cannot be empty' >&2; exit 1; }
-{ [[ "$ssh_args" != *\'* ]] && [[ "$ssh_args" != *$'\n'* ]]; } || \
+{ [[ "$ssh_args" != *\'* ]] && [[ "$ssh_args" != *$'\n'* ]]; } ||
     { echo 'The SSH args string contains invalid characters' >&2; exit 1; }
 
 ################################################################################

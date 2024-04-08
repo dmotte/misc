@@ -12,7 +12,7 @@ for arg; do
 
         git fetch --all # Fetches all branches from all remotes
 
-        git for-each-ref --format='%(refname)' refs/remotes | \
+        git for-each-ref --format='%(refname)' refs/remotes |
             while read -r i; do
 
             j="${i#refs/remotes/origin/}"

@@ -30,13 +30,13 @@ apt_update_if_old() {
 [ -e /etc/systemd/system/kiosk.service ] || changing=y
 
 for i in xorg chromium; do
-    dpkg -s "$i" >/dev/null 2>&1 || \
+    dpkg -s "$i" >/dev/null 2>&1 ||
         { apt_update_if_old; apt-get install -y --no-install-recommends "$i"; }
 done
 
 # The Xorg setuid wrapper is needed to start Xorg as a non-root user. You can
 # configure it by editing the /etc/X11/Xwrapper.config file
-dpkg -s xserver-xorg-legacy >/dev/null 2>&1 || \
+dpkg -s xserver-xorg-legacy >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y xserver-xorg-legacy; }
 
 if ! id kioskuser >/dev/null 2>&1; then

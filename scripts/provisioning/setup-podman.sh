@@ -22,12 +22,12 @@ set -e
 mode="$1"; shift
 
 if [ "$mode" = system ]; then
-    [ "$EUID" = 0 ] || \
+    [ "$EUID" = 0 ] ||
         { echo 'Must run as root if mode=system is used' >&2; exit 1; }
     scoped_systemctl() { systemctl "$@"; }
     systemd_units_dir=/etc/systemd/system
 elif [ "$mode" = user ]; then
-    [ "$EUID" != 0 ] || \
+    [ "$EUID" != 0 ] ||
         { echo 'Must run as a regular user if mode=user is used' >&2; exit 1; }
     scoped_systemctl() { systemctl --user "$@"; }
     systemd_units_dir=~/.config/systemd/user
@@ -66,11 +66,11 @@ apt_update_if_old() {
 ################################################################################
 
 if [ "$mode" = system ]; then
-    dpkg -s podman >/dev/null 2>&1 || \
+    dpkg -s podman >/dev/null 2>&1 ||
         { apt_update_if_old; apt-get install -y podman; changing=y; }
 
     if [ "$flag_compose" = y ]; then
-        dpkg -s podman-compose >/dev/null 2>&1 || \
+        dpkg -s podman-compose >/dev/null 2>&1 ||
             { apt_update_if_old; apt-get install -y podman-compose; }
     fi
 
@@ -119,14 +119,14 @@ if [ -n "$kube_extra_args" ]; then
 [Service]
 # The empty "ExecStart=" line is needed to reset the default value
 ExecStart=
-$(grep '^ExecStart=' "/usr/lib/systemd/$mode/podman-kube@.service" | \
+$(grep '^ExecStart=' "/usr/lib/systemd/$mode/podman-kube@.service" |
     sed "s|%I|$kube_extra_args %I|")
 EOF
     scoped_systemctl daemon-reload
 fi
 
 if [ "$mode" = system ] && [ -n "$unprivileged_port_start" ]; then
-    echo "net.ipv4.ip_unprivileged_port_start=$unprivileged_port_start" | \
+    echo "net.ipv4.ip_unprivileged_port_start=$unprivileged_port_start" |
         tee /etc/sysctl.d/99-unprivileged-port-start.conf
 fi
 

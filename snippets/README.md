@@ -109,7 +109,7 @@ for i in {10..1}; do
     echo "Waiting for systemd user session to initialize (max ${i}s)"
     sleep 1
 done
-[ -e "/run/user/$user_id/systemd/private" ] || \
+[ -e "/run/user/$user_id/systemd/private" ] ||
     { echo 'Timeout waiting for systemd user session' >&2; exit 1; }
 ```
 

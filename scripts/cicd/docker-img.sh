@@ -85,7 +85,7 @@ echo "::group::$0: Docker tags"
         })
 
         # shellcheck disable=SC2016
-        echo "- &#x1F3F7; Docker tags: \`$(echo -n "$docker_tags" | \
+        echo "- &#x1F3F7; Docker tags: \`$(echo -n "$docker_tags" |
             xargs | sed 's/ /`, `/g')\`" | tee -a "$CICD_SUMMARY"
     else
         echo 'Not generating the Docker tags because the version variable is' \
@@ -121,7 +121,7 @@ echo '::endgroup::'
 
 echo "::group::$0: Description (Docker Hub)"
     if [ -n "$proj_ver" ]; then
-        if [ -n "$IMG_DESCRIPTION" ] && \
+        if [ -n "$IMG_DESCRIPTION" ] &&
             [ -n "$IMG_FULL_DESCRIPTION_FILE" ]; then
             payload="{
                 \"description\": $(echo -n "$IMG_DESCRIPTION" | jq -Rs .),
@@ -147,7 +147,7 @@ echo "::group::$0: Description (Docker Hub)"
                     exit 1
                 }
 
-            token=$(echo "$response" | \
+            token=$(echo "$response" |
                 sed -E 's/^\{"token":"([^"]+)".*\}$/\1/g')
 
             curl -sSXPATCH \

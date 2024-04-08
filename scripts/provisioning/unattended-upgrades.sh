@@ -45,7 +45,7 @@ apt_update_if_old() {
 
 [ -e /etc/apt/apt.conf.d/50unattended-upgrades ] || changing=y
 
-dpkg -s unattended-upgrades >/dev/null 2>&1 || \
+dpkg -s unattended-upgrades >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y unattended-upgrades; }
 
 { sed '/^\s*$/d;/^\/\//d' | install -Dm644 /dev/stdin \

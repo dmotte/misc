@@ -31,7 +31,7 @@ command=$* # Warning: some characters are forbidden. See the code below
 [ -n "$event_expr" ] || { echo 'Event expression cannot be empty' >&2; exit 1; }
 
 [ -n "$command" ] || { echo 'Command cannot be empty' >&2; exit 1; }
-[[ "$command" != *$'\n'* ]] || \
+[[ "$command" != *$'\n'* ]] ||
     { echo 'Command contains invalid characters' >&2; exit 1; }
 
 ################################################################################

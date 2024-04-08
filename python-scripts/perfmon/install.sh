@@ -23,7 +23,7 @@ perfmon_args=$* # Warning: some characters are forbidden. See the code below
 
 [ -n "$running_user" ] || { echo 'Running user cannot be empty' >&2; exit 1; }
 
-[[ "$perfmon_args" != *$'\n'* ]] || \
+[[ "$perfmon_args" != *$'\n'* ]] ||
     { echo 'The perfmon args string contains invalid characters' >&2; exit 1; }
 
 apt_update_if_old() {
@@ -36,7 +36,7 @@ apt_update_if_old() {
 
 [ -e /opt/perfmon ] || changing=y
 
-dpkg -s python3-psutil >/dev/null 2>&1 || \
+dpkg -s python3-psutil >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y python3-psutil; }
 
 install -d -o"$running_user" -g"$running_user" -m700 /opt/perfmon
