@@ -8,7 +8,7 @@ set -e
 # To change Go environment via the ~/go symlink (if you have multiple Go environments installed):
 # rm ~/go && ln -s ~/apps/go1.20.7/go ~/go
 
-golang_dir_path="$HOME/apps/go$2"
+golang_dir_path=${STANDALONE_GOLANG_DIR_PATH:-$HOME/apps/go$2}
 golang_archive_url="https://go.dev/dl/go$2.linux-$1.tar.gz"
 golang_archive_path="$golang_dir_path/archive.tar.gz"
 
