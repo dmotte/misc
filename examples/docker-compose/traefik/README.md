@@ -73,6 +73,31 @@ Similar to [example-01](#example-01), but:
 - the Traefik **dashboard** is served on **port 8080**, which is bound to **localhost only** in the `docker-compose.yml` file
 - the Traefik **dashboard** is accessible **without authentication**
 
+## Additional tips
+
+:bulb: You can specify **multiple domains** in a single `Host` router rule with: `` Host(`foo.example.com`, `bar.example.com`) ``
+
+:bulb: You can use a **regular expression** to match domains with: `` HostRegexp(`example.com`, `{subdomain:.+}.example.com`) ``. See https://doc.traefik.io/traefik/routing/routers/#rule for further details
+
+:bulb: If you use _Let's Encrypt_ as the certificate resolver and you want a router to handle all the possible subdomains (with `HostRegexp`) but, for some reason, you cannot use the _ACME DNS-01_ challenge and you are fine with enabling _Let's Encrypt_ only for some subdomains, you can **manually** specify the details of the HTTPS certificate **for each domain** with something like this:
+
+```yaml
+http:
+  routers:
+    myrouter:
+      entryPoints: [websecure]
+      rule: HostRegexp(`example.com`, `{subdomain:.+}.example.com`)
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: example.com
+            sans: [www.example.com]
+          - main: www01.example.com
+          - main: www02.example.com
+          - main: www03.example.com
+      service: myservice
+```
+
 ## Links
 
 - https://hub.docker.com/_/traefik
@@ -85,3 +110,4 @@ Similar to [example-01](#example-01), but:
 - https://doc.traefik.io/traefik/https/acme/
 - https://doc.traefik.io/traefik/routing/providers/docker/#services
 - https://doc.traefik.io/traefik/middlewares/redirectregex/
+- https://doc.traefik.io/traefik/routing/routers/#rule
