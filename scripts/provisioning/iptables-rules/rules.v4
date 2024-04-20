@@ -25,6 +25,9 @@
 -A INPUT -i eth+ -p tcp --dport 9993 -j ACCEPT
 -A INPUT -i eth+ -p udp --dport 9993 -j ACCEPT
 
+# Allow a TCP port range from the eth* network interfaces
+-A INPUT -i eth+ -p tcp --dport 8001:8005 -j ACCEPT
+
 # Default policy: DROP
 
 ################################################################################
