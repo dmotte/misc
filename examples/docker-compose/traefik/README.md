@@ -75,9 +75,9 @@ Similar to [example-01](#example-01), but:
 
 ## Additional tips
 
-:bulb: You can specify **multiple domains** in a single `Host` router rule with: ``Host(`foo.example.com`, `bar.example.com`)``
+:bulb: You can specify **multiple domains** in a single `Host` router rule with: `` Host(`foo.example.com`, `bar.example.com`) ``
 
-:bulb: You can use a **regular expression** to match domains with: ``HostRegexp(`example.com`, `{subdomain:.+}.example.com`)``. See https://doc.traefik.io/traefik/routing/routers/#rule for further details
+:bulb: You can use a **regular expression** to match domains with: `` HostRegexp(`example.com`, `{subdomain:.+}.example.com`) ``. See https://doc.traefik.io/traefik/routing/routers/#rule for further details
 
 :bulb: If you use _Let's Encrypt_ as the certificate resolver and you want a router to handle all the possible subdomains (with `HostRegexp`) but, for some reason, you cannot use the _ACME DNS-01_ challenge and you are fine with enabling _Let's Encrypt_ only for some subdomains, you can **manually** specify the details of the HTTPS certificate **for each domain** with something like this:
 
@@ -86,7 +86,11 @@ http:
   routers:
     myrouter:
       entryPoints: [websecure]
-      rule: HostRegexp(`example.com`, `{subdomain:.+}.example.com`)
+      rule: >
+        HostRegexp(
+          `example.com`,
+          `{subdomain:.+}.example.com`,
+        )
       tls:
         certResolver: letsencrypt
         domains:
