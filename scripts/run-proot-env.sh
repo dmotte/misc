@@ -19,12 +19,12 @@ set -e
 
 cd "$(dirname "$0")"
 
-: "${PROOT_TARBALL_URL:=https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz}"
-: "${PROOT_TARBALL_CHECKSUM:=164932ab77a0b94a8e355c9b68158a5b76d5abef89ada509488c44ff54655d61}"
-: "${PROOT_TARBALL_TOP_DIR:=debian-bookworm-x86_64}"
-: "${PROOT_BINARY_URL:=https://proot.gitlab.io/proot/bin/proot}"
-: "${PROOT_BINARY_CHECKSUM:=b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2}"
-: "${PROOT_WORKDIR:=/root}"
+proot_tarball_url="${PROOT_TARBALL_URL:-https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz}"
+proot_tarball_checksum="${PROOT_TARBALL_CHECKSUM:-164932ab77a0b94a8e355c9b68158a5b76d5abef89ada509488c44ff54655d61}"
+proot_tarball_top_dir="${PROOT_TARBALL_TOP_DIR:-debian-bookworm-x86_64}"
+proot_binary_url="${PROOT_BINARY_URL:-https://proot.gitlab.io/proot/bin/proot}"
+proot_binary_checksum="${PROOT_BINARY_CHECKSUM:-b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2}"
+proot_workdir="${PROOT_WORKDIR:-/root}"
 
 tarball_path=tarball.tar.xz
 proot_path=./proot
@@ -37,15 +37,15 @@ env_name="$1"; shift
     { echo 'Invalid env name' >&2; exit 1; }
 
 if [ ! -e "$tarball_path" ]; then
-    echo "Downloading tarball $PROOT_TARBALL_URL to $tarball_path"
-    curl -fLo "$tarball_path" "$PROOT_TARBALL_URL"
-    echo "$PROOT_TARBALL_CHECKSUM $tarball_path" | sha256sum -c
+    echo "Downloading tarball $proot_tarball_url to $tarball_path"
+    curl -fLo "$tarball_path" "$proot_tarball_url"
+    echo "$proot_tarball_checksum $tarball_path" | sha256sum -c
 fi
 
 if [ ! -e "$proot_path" ]; then
-    echo "Downloading PRoot binary $PROOT_BINARY_URL to $proot_path"
-    curl -fLo "$proot_path" "$PROOT_BINARY_URL"
-    echo "$PROOT_BINARY_CHECKSUM $proot_path" | sha256sum -c
+    echo "Downloading PRoot binary $proot_binary_url to $proot_path"
+    curl -fLo "$proot_path" "$proot_binary_url"
+    echo "$proot_binary_checksum $proot_path" | sha256sum -c
     chmod +x "$proot_path"
 fi
 
@@ -57,9 +57,9 @@ if [ ! -d "$rootfs_dir" ]; then
 
     echo "Extracting tarball $tarball_path to $rootfs_dir"
     tar -x --auto-compress -f "$tarball_path" \
-        --exclude="$PROOT_TARBALL_TOP_DIR"/{dev,proc,sys,tmp} \
+        --exclude="$proot_tarball_top_dir"/{dev,proc,sys,tmp} \
         --recursive-unlink --preserve-permissions -C "$rootfs_dir_tmp"
-    mv "$rootfs_dir_tmp/$PROOT_TARBALL_TOP_DIR" "$rootfs_dir"
+    mv "$rootfs_dir_tmp/$proot_tarball_top_dir" "$rootfs_dir"
     rm -r "$rootfs_dir_tmp"
 fi
 
@@ -67,7 +67,7 @@ if [ $# = 0 ]; then set -- bash; fi
 
 # shellcheck disable=SC2086
 "$proot_path" \
-    --rootfs="$rootfs_dir" --root-id --cwd="$PROOT_WORKDIR" \
+    --rootfs="$rootfs_dir" --root-id --cwd="$proot_workdir" \
     --bind=/{dev,proc,sys,tmp} \
     --bind=/etc/{host.conf,hosts,nsswitch.conf,resolv.conf} \
     $PROOT_ADD_OPTIONS \

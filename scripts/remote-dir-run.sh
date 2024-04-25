@@ -21,7 +21,7 @@ local_dir="$1"; shift
 
 [ -e "$local_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
 
-: "${RDR_SHELL_OPTIONS:=-e}"
+remote_shell_options="${RDR_SHELL_OPTIONS:--e}"
 
 remote_dir="/tmp/remote-dir-run-$(date -u +%Y-%m-%d-%H%M%S)"
 
@@ -54,14 +54,14 @@ fi
 ################################################################################
 
 { read -rd '' script1 || [ -n "$script1" ]; } << EOF
-set $RDR_SHELL_OPTIONS
+set $remote_shell_options
 rm -rf $remote_dir
 mkdir $remote_dir
 tar -xzf- -C$remote_dir --no-same-owner $RDR_REMOTE_TAR_OPTIONS
 EOF
 
 { read -rd '' script2 || [ -n "$script2" ]; } << EOF
-set $RDR_SHELL_OPTIONS
+set $remote_shell_options
 cd $remote_dir
 $remote_cmd || result=\$?
 rm -rf $remote_dir

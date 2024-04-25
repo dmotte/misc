@@ -5,7 +5,7 @@ set -e
 # Usage example:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/gitlab-get-all-repos.sh) users/diaspora '(has("forked_from_project") | not) and .archived == false' | while read -r i; do git -C "$(basename "$i")" pull || git clone --depth=1 "git@gitlab.com:$i.git"; done
 
-: "${GITLAB_URL:=https://gitlab.com/}"
+gitlab_url="${GITLAB_URL:-https://gitlab.com/}"
 
 owner="$1"
 filter="${2:-true}"
@@ -20,7 +20,7 @@ while :; do
 
     response=$(curl -fsSL \
         -H "Private-Token: $GITLAB_TOKEN" \
-        "$GITLAB_URL/api/v4/$owner/projects?per_page=100&page=$page")
+        "$gitlab_url/api/v4/$owner/projects?per_page=100&page=$page")
 
     count=$(echo "$response" | jq length)
 
