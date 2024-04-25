@@ -62,7 +62,7 @@ Some pieces of code I find useful for some reason.
 - `S_COLORS=always watch -d -n.5 --color iostat`
 - `systemctl -a | grep -Fi myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -Fi myunit` (also disabled ones)
 - `systemctl list-timers`
-- `: "${MYVAR:=myvalue}"`
+- `: "${myvar:=myvalue}"`, `export MY_ENV_VAR="${MY_ENV_VAR:-myvalue}"`
 - `ssh-keygen -R [myserver.example.com]:2222`
 - `socat - tcp:example.com:80`
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=777,fork STDOUT`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
