@@ -21,7 +21,7 @@ set -e
 options=$(getopt -o +rt:T: -l auto-reboot,timer-update:,timer-upgrade: -- "$@")
 eval "set -- $options"
 
-auto_reboot='false'
+auto_reboot=false
 timer_update=''
 timer_upgrade=''
 
