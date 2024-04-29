@@ -23,7 +23,7 @@ vagrant up
 You can also add the following **alias** to your `~/.bashrc` file (replacing the script path with the correct one for your case):
 
 ```bash
-alias myvmssh="$HOME/myvm/myvmssh.sh"
+alias myvmssh=~/myvm/myvmssh.sh
 ```
 
 Open a new shell window. Now you can execute stuff in your VM from any directory within your `~/git` folder, using the `myvmssh` alias command. For example:
