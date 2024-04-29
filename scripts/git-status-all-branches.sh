@@ -15,7 +15,7 @@ for arg; do
         git for-each-ref --format='%(refname)' refs/remotes |
             while read -r i; do
 
-            j="${i#refs/remotes/origin/}"
+            j=${i#refs/remotes/origin/}
             if [ "$j" = HEAD ] || [ "$j" = "$i" ] || [ -z "$j" ]; then
                 continue
             fi

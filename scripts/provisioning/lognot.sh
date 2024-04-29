@@ -27,16 +27,16 @@ systemd_wantedby=multi-user.target
 
 while :; do
     case "$1" in
-        --service-manager) shift; service_manager="$1";;
-        --msgbuf-url) shift; msgbuf_url="$1";;
-        --msgbuf-checksum) shift; msgbuf_checksum="$1";;
-        -i|--msgbuf-interval) shift; msgbuf_interval="$1";;
-        -m|--msgbuf-max-msg-len) shift; msgbuf_max_msg_len="$1";;
-        -b|--bot-token) shift; bot_token="$1";;
-        -c|--chat-id) shift; chat_id="$1";;
-        --supervisor-priority) shift; supervisor_priority="$1";;
-        --systemd-restartsec) shift; systemd_restartsec="$1";;
-        --systemd-wantedby) shift; systemd_wantedby="$1";;
+        --service-manager) shift; service_manager=$1;;
+        --msgbuf-url) shift; msgbuf_url=$1;;
+        --msgbuf-checksum) shift; msgbuf_checksum=$1;;
+        -i|--msgbuf-interval) shift; msgbuf_interval=$1;;
+        -m|--msgbuf-max-msg-len) shift; msgbuf_max_msg_len=$1;;
+        -b|--bot-token) shift; bot_token=$1;;
+        -c|--chat-id) shift; chat_id=$1;;
+        --supervisor-priority) shift; supervisor_priority=$1;;
+        --systemd-restartsec) shift; systemd_restartsec=$1;;
+        --systemd-wantedby) shift; systemd_wantedby=$1;;
         --) shift; break;;
     esac
     shift

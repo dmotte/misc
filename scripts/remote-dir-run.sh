@@ -17,13 +17,13 @@ set -e
 #   RDR_DEBUG=true RDR_EVAL=exit ./remote-dir-run.sh mydir foo ++ bar baz
 
 [ $# -ge 2 ] || { echo 'Not enough args' >&2; exit 1; }
-local_dir="$1"; shift
+local_dir=$1; shift
 
 [ -e "$local_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
 
-remote_shell_options="${RDR_SHELL_OPTIONS:--e}"
+remote_shell_options=${RDR_SHELL_OPTIONS:--e}
 
-remote_dir="/tmp/remote-dir-run-$(date -u +%Y-%m-%d-%H%M%S)"
+remote_dir=/tmp/remote-dir-run-$(date -u +%Y-%m-%d-%H%M%S)
 
 ################################################################################
 
@@ -72,8 +72,8 @@ script1=$(echo "$script1" | tr \\n \;)
 script2=$(echo "$script2" | tr \\n \;)
 
 if [ "$RDR_ESCAPE_SCRIPTS" = true ]; then
-    script1="${script1@Q}"
-    script2="${script2@Q}"
+    script1=${script1@Q}
+    script2=${script2@Q}
 fi
 
 if [ "$RDR_DEBUG" = true ]; then

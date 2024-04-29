@@ -11,7 +11,7 @@ ensure_defined() {
 }
 
 ensure_defined CICD_{SECRET01,GIT_REF,REPO_URL,OUTPUT,SUMMARY}
-pypi_api_token="$CICD_SECRET01"; unset CICD_SECRET01
+pypi_api_token=$CICD_SECRET01; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
     export CICD_VERSION_EXPR="version_by_tag ${CICD_GIT_REF@Q}"
@@ -76,7 +76,7 @@ echo "::group::$0: Release (GitHub)"
     if [ -n "$proj_ver" ]; then
         echo "release-name=$proj_ver" | tee -a "$CICD_OUTPUT"
 
-        link_release="$CICD_REPO_URL/releases/tag/$proj_ver"
+        link_release=$CICD_REPO_URL/releases/tag/$proj_ver
         echo '- &#x1F6A2; Release on GitHub:' \
             "[\`$proj_ver\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
@@ -88,10 +88,10 @@ echo '::endgroup::'
 echo "::group::$0: Release (PyPI)"
     if [ -n "$proj_ver" ]; then
         venv/bin/python3 -mbuild
-        TWINE_USERNAME=__token__ TWINE_PASSWORD="$pypi_api_token" \
+        TWINE_USERNAME=__token__ TWINE_PASSWORD=$pypi_api_token \
             venv/bin/python3 -mtwine upload dist/*
 
-        link_release="https://pypi.org/project/$proj_name/${proj_ver#v}/"
+        link_release=https://pypi.org/project/$proj_name/${proj_ver#v}/
         echo '- &#x1F30D; Release on PyPI:' \
             "[\`${proj_ver#v}\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else

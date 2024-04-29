@@ -15,8 +15,7 @@ set -e
 [ -n "$KP_FILENAME" ] ||
     { echo 'The KP_FILENAME env var is not defined' >&2; exit 1; }
 
-[ $# -ge 1 ] || { echo 'KeePass entry name not specified' >&2; exit 1; }
-entryname="$1"; shift
+entryname=${1:?}; shift
 
 if [ -n "$KP_PASSWORD" ]; then
     entrypass=$(echo "$KP_PASSWORD" |
@@ -26,4 +25,4 @@ else
 fi
 
 unset KP_FILENAME KP_PASSWORD
-SSHPASS="$entrypass" exec sshpass -e ssh "$entryname" "$@"
+SSHPASS=$entrypass exec sshpass -e ssh "$entryname" "$@"

@@ -26,7 +26,7 @@ fetch_and_check() { # Src: https://github.com/dmotte/misc
 #     'https://.../myscript.sh' \
 #     '1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d1a2b3c4d')
 #
-# script_content="${script_content//my-old-text/my-new-text}"
+# script_content=${script_content//my-old-text/my-new-text}
 #
 # echo "$script_content" # To view the script's code
 # . <(echo "$script_content") # To run it in the current environment

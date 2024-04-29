@@ -32,8 +32,8 @@ while :; do
     case "$1" in
         -a|--along) flag_a=y;;
         -b|--blong) flag_b=y;;
-        -c|--clong) shift; arg_c="$1";;
-        -d|--dlong) shift; arg_d="$1";;
+        -c|--clong) shift; arg_c=$1;;
+        -d|--dlong) shift; arg_d=$1;;
         --) shift; break;;
     esac
     shift

@@ -16,9 +16,9 @@ workdir=''
 
 while :; do
     case "$1" in
-        -n|--name) shift; name="$1";;
-        -e|--event-expr) shift; event_expr="$1";;
-        -w|--workdir) shift; workdir="$1";;
+        -n|--name) shift; name=$1;;
+        -e|--event-expr) shift; event_expr=$1;;
+        -w|--workdir) shift; workdir=$1;;
         --) shift; break;;
     esac
     shift
@@ -36,7 +36,7 @@ command=$* # Warning: some characters are forbidden. See the code below
 
 ################################################################################
 
-if [ -n "$workdir" ]; then line_workdir="WorkingDirectory=$workdir"; fi
+if [ -n "$workdir" ]; then line_workdir=WorkingDirectory=$workdir; fi
 
 [ -e "/etc/systemd/system/$name.service" ] || changing=y
 

@@ -11,7 +11,7 @@ ensure_defined() {
 }
 
 ensure_defined BOX_{AUTHOR,NAME,DESCRIPTION} CICD_{SECRET01,GIT_REF,SUMMARY}
-vagrantcloud_token="$CICD_SECRET01"; unset CICD_SECRET01
+vagrantcloud_token=$CICD_SECRET01; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
     # Note: we cannot use "${...@Q}" here because this script may run in MacOS
@@ -71,7 +71,7 @@ echo "::group::$0: Release (Vagrant Cloud)"
             --no-private --release --force \
             "$BOX_AUTHOR/$BOX_NAME" "${proj_ver#v}" virtualbox package.box
 
-        link_release="https://app.vagrantup.com/$BOX_AUTHOR/boxes/$BOX_NAME/versions/${proj_ver#v}"
+        link_release=https://app.vagrantup.com/$BOX_AUTHOR/boxes/$BOX_NAME/versions/${proj_ver#v}
         echo '- &#x1F30D; Release on Vagrant Cloud:' \
             "[\`${proj_ver#v}\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else

@@ -12,7 +12,7 @@ cd "$(dirname "$0")"
 
 run_test() {
     # shellcheck disable=SC2034
-    declare -n ref_opts="$1" ref_shortopts="$2"; local expected="$3"; shift 3
+    declare -n ref_opts=$1 ref_shortopts=$2; local expected=$3; shift 3
     local remainder=()
 
     local result=0

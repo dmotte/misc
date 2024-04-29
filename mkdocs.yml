@@ -1,7 +1,7 @@
 ---
 # To test locally, you can use the following approach:
 #   ln mkdocs.yml /some/other/dir/mkdocs.yml
-#   MKDOCS_DOCS_DST="$PWD" /tmp/venv01/bin/python3 -mmkdocs serve -csf/some/other/dir/mkdocs.yml
+#   MKDOCS_DOCS_DST=$PWD /tmp/venv01/bin/python3 -mmkdocs serve -csf/some/other/dir/mkdocs.yml
 
 strict: true
 docs_dir: !ENV MKDOCS_DOCS_DST

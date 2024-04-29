@@ -23,13 +23,13 @@ systemd_wantedby=multi-user.target
 
 while :; do
     case "$1" in
-        --service-manager) shift; service_manager="$1";;
-        -n|--name-suffix) shift; name_suffix="$1";;
-        -r|--running-user) shift; running_user="$1";;
-        --keepalive-interval) shift; keepalive_interval="$1";;
-        --restart-interval) shift; restart_interval="$1";;
-        --supervisor-priority) shift; supervisor_priority="$1";;
-        --systemd-wantedby) shift; systemd_wantedby="$1";;
+        --service-manager) shift; service_manager=$1;;
+        -n|--name-suffix) shift; name_suffix=$1;;
+        -r|--running-user) shift; running_user=$1;;
+        --keepalive-interval) shift; keepalive_interval=$1;;
+        --restart-interval) shift; restart_interval=$1;;
+        --supervisor-priority) shift; supervisor_priority=$1;;
+        --systemd-wantedby) shift; systemd_wantedby=$1;;
         --) shift; break;;
     esac
     shift
@@ -58,7 +58,7 @@ if [ "$service_manager" = auto ]; then
     echo "Detected service manager: $service_manager"
 fi
 
-service_name="portmap-$name_suffix"
+service_name=portmap-$name_suffix
 running_user_home=$(eval "echo ~$running_user")
 ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 

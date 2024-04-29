@@ -13,7 +13,7 @@ running_user=''
 
 while :; do
     case "$1" in
-        -r|--running-user) shift; running_user="$1";;
+        -r|--running-user) shift; running_user=$1;;
         --) shift; break;;
     esac
     shift

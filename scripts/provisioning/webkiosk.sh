@@ -17,7 +17,7 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-webkiosk_url="${1:-http://127.0.0.1/}"
+webkiosk_url=${1:-http://127.0.0.1/}
 
 apt_update_if_old() {
     if [ -z "$(find /var/lib/apt/lists -maxdepth 1 -mmin -60)" ]; then

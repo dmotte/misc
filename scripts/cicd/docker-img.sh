@@ -14,7 +14,7 @@ ensure_defined() {
 
 ensure_defined DOCKERHUB_USERNAME IMG_{AUTHOR,NAME,PLATFORMS} \
     CICD_{SECRET01,GIT_REF,SUMMARY}
-dockerhub_password="$CICD_SECRET01"; unset CICD_SECRET01
+dockerhub_password=$CICD_SECRET01; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
     export CICD_VERSION_EXPR="version_by_datetime ${CICD_GIT_REF@Q}"
@@ -79,7 +79,7 @@ echo "::group::$0: Docker tags"
         docker_tags=$(echo latest; echo "$proj_ver" | tr . '\n' | {
             concat=''
             while read -r i; do
-                concat="$concat$i."
+                concat=$concat$i.
                 echo "${concat%?}"
             done
         })
@@ -110,7 +110,7 @@ echo "::group::$0: Build (Docker Buildx) + Release (Docker Hub)"
         docker buildx rm
         cat buildx-image-id.txt; echo; cat buildx-metadata.txt; echo
 
-        link_release="https://hub.docker.com/r/$IMG_AUTHOR/$IMG_NAME/tags"
+        link_release=https://hub.docker.com/r/$IMG_AUTHOR/$IMG_NAME/tags
         echo '- &#x1F30D; Release on Docker Hub:' \
             "[\`${proj_ver#v}\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else

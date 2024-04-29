@@ -11,15 +11,14 @@ set -e
 #   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -cs0 -anever -p80
 #   sudo useradd -Ums/bin/bash alice
 #   sudo loginctl enable-linger alice
-#   sudo XDG_RUNTIME_DIR="/run/user/$(id -u alice)" -ualice bash \
+#   sudo XDG_RUNTIME_DIR=/run/user/$(id -u alice) -ualice bash \
 #     setup-podman.sh user -s0 -a'Mon 01:00' \
 #     -k--net=slirp4netns:port_handler=slirp4netns,enable_ipv6=false
 
 # Note: you may need to wait a few seconds for the systemd user session to
 # initialize after running "enable-linger"
 
-[ $# -ge 1 ] || { echo 'Mode not specified' >&2; exit 1; }
-mode="$1"; shift
+mode=${1:?}; shift
 
 if [ "$mode" = system ]; then
     [ "$EUID" = 0 ] ||
@@ -48,10 +47,10 @@ unprivileged_port_start=''
 while :; do
     case "$1" in
         -c|--compose) flag_compose=y;;
-        -s|--socket) shift; socket="$1";;
-        -a|--auto-update) shift; auto_update="$1";;
-        -k|--kube-extra-args) shift; kube_extra_args="$1";;
-        -p|--unprivileged-port-start) shift; unprivileged_port_start="$1";;
+        -s|--socket) shift; socket=$1;;
+        -a|--auto-update) shift; auto_update=$1;;
+        -k|--kube-extra-args) shift; kube_extra_args=$1;;
+        -p|--unprivileged-port-start) shift; unprivileged_port_start=$1;;
         --) shift; break;;
     esac
     shift

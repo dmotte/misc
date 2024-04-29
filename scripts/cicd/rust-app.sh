@@ -124,11 +124,11 @@ echo "::group::$0: Artifact"
     mkdir -p cicd-artifact
 
     echo "$build_targets" | while read -r i; do
-        src="target/$i/release/$proj_name"
+        src=target/$i/release/$proj_name
         [[ "$i" = *-pc-windows-* ]] && src+=.exe
-        file_basename="$proj_name-$i"
+        file_basename=$proj_name-$i
         [[ "$i" = *-pc-windows-* ]] && file_basename+=.exe
-        dst="cicd-artifact/$file_basename"
+        dst=cicd-artifact/$file_basename
 
         echo "Copying $src to $dst"
         cp "$src" "$dst"
@@ -149,7 +149,7 @@ echo "::group::$0: Release (GitHub)"
             echo 'release-files=cicd-artifact/*'
         } | tee -a "$CICD_OUTPUT"
 
-        link_release="$CICD_REPO_URL/releases/tag/$proj_ver"
+        link_release=$CICD_REPO_URL/releases/tag/$proj_ver
         echo '- &#x1F6A2; Release on GitHub:' \
             "[\`$proj_ver\`]($link_release)" | tee -a "$CICD_SUMMARY"
     else
