@@ -127,7 +127,7 @@ FROM docker.io/library/debian:12
 RUN apt-get update && \
     apt-get install -y sudo openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /var/run/sshd
+    mkdir -p /run/sshd
 # Warning: leaving the generated host keys in place!
 EXPOSE 22
 RUN useradd -UGsudo -ms/bin/bash mainuser && \
