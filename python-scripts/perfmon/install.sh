@@ -12,7 +12,7 @@ eval "set -- $options"
 running_user=''
 
 while :; do
-    case "$1" in
+    case $1 in
         -r|--running-user) shift; running_user=$1;;
         --) shift; break;;
     esac

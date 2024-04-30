@@ -45,7 +45,7 @@ kube_extra_args=$SETUP_PODMAN_KUBE_EXTRA_ARGS
 unprivileged_port_start=''
 
 while :; do
-    case "$1" in
+    case $1 in
         -c|--compose) flag_compose=y;;
         -s|--socket) shift; socket=$1;;
         -a|--auto-update) shift; auto_update=$1;;

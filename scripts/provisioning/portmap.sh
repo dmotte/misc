@@ -22,7 +22,7 @@ supervisor_priority=50
 systemd_wantedby=multi-user.target
 
 while :; do
-    case "$1" in
+    case $1 in
         --service-manager) shift; service_manager=$1;;
         -n|--name-suffix) shift; name_suffix=$1;;
         -r|--running-user) shift; running_user=$1;;

@@ -15,7 +15,7 @@ event_expr=''
 workdir=''
 
 while :; do
-    case "$1" in
+    case $1 in
         -n|--name) shift; name=$1;;
         -e|--event-expr) shift; event_expr=$1;;
         -w|--workdir) shift; workdir=$1;;

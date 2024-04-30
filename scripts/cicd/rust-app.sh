@@ -88,7 +88,7 @@ echo '::endgroup::'
 
 echo "::group::$0: Build (cargo build)"
     echo "$build_targets" | while read -r i; do
-        case "$i" in
+        case $i in
         aarch64-unknown-linux-gnu)
             apt_update_if_old
             sudo apt-get install -y gcc-aarch64-linux-gnu

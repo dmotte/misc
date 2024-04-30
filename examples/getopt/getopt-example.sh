@@ -29,7 +29,7 @@ arg_c='' # This arg defaults to empty string
 arg_d=${ARG_D:-default value} # This can also be set with an env var
 
 while :; do
-    case "$1" in
+    case $1 in
         -a|--along) flag_a=y;;
         -b|--blong) flag_b=y;;
         -c|--clong) shift; arg_c=$1;;

@@ -26,7 +26,7 @@ timer_update=''
 timer_upgrade=''
 
 while :; do
-    case "$1" in
+    case $1 in
         -r|--auto-reboot) auto_reboot=true;;
         -t|--timer-update) shift; timer_update=$1;;
         -T|--timer-upgrade) shift; timer_upgrade=$1;;

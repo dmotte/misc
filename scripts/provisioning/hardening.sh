@@ -18,7 +18,7 @@ sshd_disable_psw_auth=n
 disable_ipv6=n
 
 while :; do
-    case "$1" in
+    case $1 in
         -a|--sshd-addressfamily-inet) sshd_addressfamily_inet=y;;
         -p|--sshd-disable-psw-auth) sshd_disable_psw_auth=y;;
         -d|--disable-ipv6) disable_ipv6=y;;

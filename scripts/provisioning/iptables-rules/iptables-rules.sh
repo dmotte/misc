@@ -19,7 +19,7 @@ rules_v4=''
 rules_v6=''
 
 while :; do
-    case "$1" in
+    case $1 in
         -4|--rules-v4) shift; rules_v4=$1;;
         -6|--rules-v6) shift; rules_v6=$1;;
         --) shift; break;;

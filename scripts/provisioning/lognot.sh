@@ -26,7 +26,7 @@ systemd_restartsec=30
 systemd_wantedby=multi-user.target
 
 while :; do
-    case "$1" in
+    case $1 in
         --service-manager) shift; service_manager=$1;;
         --msgbuf-url) shift; msgbuf_url=$1;;
         --msgbuf-checksum) shift; msgbuf_checksum=$1;;
