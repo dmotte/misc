@@ -37,16 +37,17 @@ sed -Ei 's/^#?DIR_MODE=.*$/DIR_MODE=0700/' /etc/adduser.conf
 sed -Ei 's/^127\.0\.1\.1( |\t).*$/127.0.1.1\t'"$HOSTNAME/" /etc/hosts
 
 sed -Ei /etc/ssh/sshd_config \
-    -e 's/^#?PermitRootLogin.*$/PermitRootLogin no/' \
-    -e 's/^#?HostbasedAuthentication.*$/HostbasedAuthentication no/' \
-    -e 's/^#?PermitEmptyPasswords.*$/PermitEmptyPasswords no/'
+    -e 's/^#?PermitRootLogin[ \t].*$/PermitRootLogin no/' \
+    -e 's/^#?HostbasedAuthentication[ \t].*$/HostbasedAuthentication no/' \
+    -e 's/^#?PermitEmptyPasswords[ \t].*$/PermitEmptyPasswords no/'
 
 if [ "$sshd_addressfamily_inet" = y ]; then
-    sed -Ei 's/^#?AddressFamily.*$/AddressFamily inet/' /etc/ssh/sshd_config
+    sed -Ei 's/^#?AddressFamily[ \t].*$/AddressFamily inet/' \
+        /etc/ssh/sshd_config
 fi
 
 if [ "$sshd_disable_psw_auth" = y ]; then
-    sed -Ei  's/^#?PasswordAuthentication.*$/PasswordAuthentication no/' \
+    sed -Ei  's/^#?PasswordAuthentication[ \t].*$/PasswordAuthentication no/' \
         /etc/ssh/sshd_config
 fi
 
