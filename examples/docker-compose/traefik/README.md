@@ -86,6 +86,9 @@ http:
       entryPoints: [websecure]
       rule: HostRegexp(`^(.+\.)?example\.com$`)
       tls:
+        # The "certResolver" option is needed here to make Traefik try to
+        # generate certificates based on routers Host and HostSNI rules. See
+        # https://doc.traefik.io/traefik/routing/routers/#certresolver
         certResolver: letsencrypt
         domains:
           - main: example.com
