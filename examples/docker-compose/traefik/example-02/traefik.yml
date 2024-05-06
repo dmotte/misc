@@ -3,12 +3,11 @@
 api: {}
 
 # Enable access logging to stdout
-accessLog: {}
+accessLog: { addInternals: true }
 
 providers:
   # Use the dynamic.yml file as dynamic configuration provider
-  file:
-    directory: /etc/traefik/dynamic
+  file: { directory: /etc/traefik/dynamic }
   # Use Docker (container labels) as dynamic configuration provider
   docker:
     exposedByDefault: false
@@ -19,9 +18,7 @@ entryPoints:
     http:
       redirections:
         # Global HTTP to HTTPS redirection
-        entrypoint:
-          to: websecure
-          scheme: https
+        entrypoint: { to: websecure, scheme: https }
   websecure:
     address: ":443"
     http:

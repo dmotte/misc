@@ -3,12 +3,11 @@
 api: {}
 
 # Enable access logging to stdout
-accessLog: {}
+accessLog: { addInternals: true }
 
 providers:
   # Use the dynamic.yml file as dynamic configuration provider
-  file:
-    directory: /etc/traefik/dynamic
+  file: { directory: /etc/traefik/dynamic }
   # Use Docker (container labels) as dynamic configuration provider
   docker:
     exposedByDefault: false

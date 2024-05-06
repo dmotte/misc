@@ -3,12 +3,10 @@ version: "3"
 
 services:
   traefik:
-    image: docker.io/library/traefik:v2.4
+    image: docker.io/library/traefik:v3.0
     restart: always
     network_mode: bridge
-    ports:
-      - 80:80
-      - 443:443
+    ports: ["80:80", "443:443"]
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -19,7 +17,7 @@ services:
       - ./server.key:/etc/traefik/server.key:ro
 
   foo:
-    image: docker.io/traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.10
     restart: always
     network_mode: bridge
     hostname: foo
@@ -29,7 +27,7 @@ services:
       traefik.http.routers.foo.entryPoints: websecure
 
   bar:
-    image: docker.io/traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.10
     restart: always
     network_mode: bridge
     hostname: bar

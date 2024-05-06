@@ -38,6 +38,6 @@ services:
     depends_on: [webserver01]
 
   webserver01:
-    image: docker.io/traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.10
     restart: always
     hostname: webserver01

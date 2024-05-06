@@ -14,7 +14,7 @@ services:
     #   NGROK_AUTHTOKEN: put_your_token_here
 
   webserver01:
-    image: docker.io/traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.10
     restart: always
     hostname: webserver01
     command: -port 8080

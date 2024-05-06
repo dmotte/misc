@@ -3,11 +3,11 @@ version: "3"
 
 services:
   traefik:
-    image: docker.io/library/traefik:v2.4
+    image: docker.io/library/traefik:v3.0
     restart: always
     ports:
-      - 80:80
-      - 127.0.0.1:8080:8080 # Dashboard (only accessible from the loopback address or SSH local port forwarding)
+      - "80:80"
+      - "127.0.0.1:8080:8080" # Dashboard (only accessible from the loopback address or SSH local port forwarding)
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -16,7 +16,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   foo:
-    image: docker.io/traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.10
     restart: always
     hostname: foo
     labels:
@@ -25,7 +25,7 @@ services:
       traefik.http.routers.foo.entryPoints: web
 
   bar:
-    image: docker.io/traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.10
     restart: always
     hostname: bar
     labels:

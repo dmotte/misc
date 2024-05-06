@@ -14,11 +14,11 @@ services:
       - webserver02
 
   webserver01:
-    image: docker.io/traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.10
     restart: always
     hostname: webserver01
 
   webserver02:
-    image: docker.io/traefik/whoami:v1.8.1
+    image: docker.io/traefik/whoami:v1.10
     restart: always
     hostname: webserver02

@@ -3,9 +3,8 @@
 api: {}
 
 # Enable access logging to stdout
-accessLog: {}
+accessLog: { addInternals: true }
 
 providers:
   # Use the dynamic.yml file as dynamic configuration provider
-  file:
-    directory: /etc/traefik/dynamic
+  file: { directory: /etc/traefik/dynamic }
