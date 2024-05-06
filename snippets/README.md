@@ -90,6 +90,7 @@ Some pieces of code I find useful for some reason.
 - `modprobe -r mymod01 mymod02`, `echo -e 'blacklist mymod01\nblacklist mymod02' > /etc/modprobe.d/blacklist-mymod.conf`
 - `bind -x '"\e": mycommand'`
 - `sudo iptables -nvL`
+- `curl https://api.ipify.org/`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
