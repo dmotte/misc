@@ -1,0 +1,59 @@
+body,
+td,
+th {
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #222;
+  color: #ccc;
+}
+
+a {
+  color: #8bf;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  background-color: #222;
+  color: #ccc;
+  border: 1px solid #888;
+}
+
+button {
+  cursor: pointer;
+}
+
+#form {
+  text-align: center;
+}
+
+#form table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#successMessages {
+  color: #0c0;
+}
+
+#errorMessages {
+  color: #f00;
+}
+
+#preformattedMessages {
+  width: calc(100% - 70px);
+  max-width: 500px;
+  height: 100px;
+  font-family: monospace;
+  background-color: #222;
+  color: #ccc;
+  border: 1px solid #888;
+}
+
+#copyButton {
+  height: 30px;
+  width: 35px;
+  vertical-align: top;
+}

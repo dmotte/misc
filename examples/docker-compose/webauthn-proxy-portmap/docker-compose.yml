@@ -23,7 +23,10 @@ services:
     volumes:
       - ./webauthn-proxy-config:/opt/config:ro
       - ./webauthn-proxy-static/authenticated.html:/opt/static/authenticated.html:ro
+      - ./webauthn-proxy-static/login.html:/opt/static/login.html:ro
       - ./webauthn-proxy-static/redirect-login.html:/opt/static/redirect-login.html:ro
+      - ./webauthn-proxy-static/register.html:/opt/static/register.html:ro
+      - ./webauthn-proxy-static/styles.css:/opt/static/styles.css:ro
       - ./webauthn-proxy-static/title-image.png:/opt/static/title-image.png:ro
 
   whoami:
