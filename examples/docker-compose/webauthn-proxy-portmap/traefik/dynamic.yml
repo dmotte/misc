@@ -1,0 +1,40 @@
+---
+# This configuration is inspired by:
+#   - https://github.com/Quiq/webauthn_proxy/tree/main?tab=readme-ov-file#nginx
+#   - https://oauth2-proxy.github.io/oauth2-proxy/configuration/overview/#forwardauth-with-401-errors-middleware
+
+http:
+  routers:
+    webauthn-proxy:
+      rule: PathPrefix(`/webauthn/`)
+      service: webauthn-proxy
+    myservice:
+      rule: "!PathPrefix(`/webauthn/`)"
+      middlewares: [auth-errors, auth-forward]
+      service: myservice
+
+  middlewares:
+    auth-forward:
+      forwardAuth:
+        address: http://webauthn-proxy:8080/webauthn/auth
+        trustForwardHeader: true
+        authResponseHeaders: [X-Authenticated-User]
+    auth-errors:
+      errors:
+        status: ["401"]
+        service: webauthn-proxy
+        # We use a custom HTML page to do the redirect because the "errors"
+        # middleware preserves the status code of the original response (in
+        # this case 401)
+        query: /webauthn/static/redirect-login.html
+
+  services:
+    webauthn-proxy:
+      loadBalancer:
+        servers:
+          - url: http://webauthn-proxy:8080/
+    myservice:
+      loadBalancer:
+        servers:
+          - url: http://whoami/
+          # - url: http://webserver/

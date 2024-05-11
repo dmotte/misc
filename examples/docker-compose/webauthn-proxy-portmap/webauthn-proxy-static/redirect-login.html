@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WebAuthn Proxy Redirect to Login URL</title>
+    <link rel="stylesheet" type="text/css" href="/webauthn/static/styles.css" />
+
+    <script type="text/javascript">
+      function redirectToLoginURL() {
+        var referrerPathname = "";
+        try {
+          referrerPathname = new URL(document.referrer).pathname;
+        } catch (error) {}
+
+        var newHref = "/webauthn/logout";
+
+        if (
+          window.location.origin +
+            window.location.pathname +
+            window.location.search !=
+            document.referrer &&
+          !window.location.pathname.startsWith("/webauthn/") &&
+          !referrerPathname.startsWith("/webauthn/")
+        )
+          newHref =
+            "/webauthn/login?redirect_url=" +
+            encodeURIComponent(window.location.href);
+
+        aLink.href = newHref;
+        aLink.innerText = newHref;
+        window.location.href = newHref;
+      }
+    </script>
+  </head>
+  <body onload="redirectToLoginURL()">
+    <div id="form">
+      Redirecting to <a id="aLink" href="#">another page</a>...
+    </div>
+  </body>
+</html>

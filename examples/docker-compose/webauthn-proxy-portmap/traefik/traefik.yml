@@ -1,0 +1,11 @@
+---
+accessLog: { addInternals: true }
+
+providers:
+  file: { directory: /etc/traefik/dynamic }
+
+entryPoints:
+  web:
+    address: ":80"
+    forwardedHeaders:
+      trustedIPs: ["0.0.0.0/0"] # Always trust the X-Forwarded-* headers
