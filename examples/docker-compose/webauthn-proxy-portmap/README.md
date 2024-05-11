@@ -14,7 +14,7 @@ First of all, you need to set up everything for the `portmap-client` docker-comp
 
 Then you need to replace `example.com` with the right target **domain name** inside [`webauthn-proxy-config/config.yml`](webauthn-proxy-config/config.yml).
 
-Create the [`webauthn-proxy-config/credentials.yml`](webauthn-proxy-config/credentials.yml) file starting from [`webauthn-proxy-config/credentials.sample.yml`](webauthn-proxy-config/credentials.sample.yml):
+Create the `webauthn-proxy-config/credentials.yml` file starting from [`webauthn-proxy-config/credentials.sample.yml`](webauthn-proxy-config/credentials.sample.yml):
 
 - It's important to generate and set a **cookie session secret** there, to avoid the following error after _WebAuthn Proxy_ restart:
 
