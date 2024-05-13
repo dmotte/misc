@@ -13,14 +13,12 @@ python3 main.py < input.json > output.html
 Or with _Docker_:
 
 ```bash
-# TODO test it
-docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" python:3 /v/main.py < input.json > output.html
+docker run -i --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" python:3 python3 /v/main.py < input.json > output.html
 ```
 
 If you want to run the script without downloading it:
 
 ```bash
-# TODO test it
 python3 <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/python-scripts/bookmarks-file-gen/main.py) < input.json > output.html
 ```
 
