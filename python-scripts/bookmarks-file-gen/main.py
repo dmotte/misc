@@ -40,13 +40,15 @@ def main():
     print('<TITLE>Bookmarks</TITLE>')
     print('<H1>Bookmarks</H1>')
 
+    print('<DL><p>')
+
     if isinstance(input, list):
         for item in input:
-            print_item(sys.stdout, item)  # TODO test well
+            print_item(sys.stdout, item, 1)
     else:
-        print('<DL><p>')
-        print_item(sys.stdout, input, 1)  # TODO test well
-        print('</DL><p>')
+        print_item(sys.stdout, input, 1)
+
+    print('</DL><p>')
 
     return 0
 
