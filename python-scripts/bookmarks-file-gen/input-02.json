@@ -1,0 +1,39 @@
+[
+  {
+    "type": "folder",
+    "name": "my-root-folder-01",
+    "children": [
+      {
+        "type": "url",
+        "name": "Example Domain",
+        "url": "https://www.example.com/"
+      },
+      {
+        "type": "url",
+        "name": "Internet Assigned Numbers Authority",
+        "url": "https://www.iana.org/"
+      },
+      {
+        "type": "folder",
+        "name": "my-child-folder",
+        "children": []
+      }
+    ]
+  },
+  {
+    "type": "folder",
+    "name": "my-root-folder-02",
+    "children": [
+      {
+        "type": "url",
+        "name": "Google",
+        "url": "https://www.google.com/"
+      }
+    ]
+  },
+  {
+    "type": "url",
+    "name": "Localhost",
+    "url": "http://127.0.0.1/"
+  }
+]

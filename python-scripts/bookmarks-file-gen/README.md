@@ -33,4 +33,4 @@ The **accepted format** of the input should be more or less aligned with the for
 | Windows 10           | Google Chrome | `%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Bookmarks` |
 | Debian 12 (Bookworm) | Chromium      | `~/.config/chromium/Default/Bookmarks`                                  |
 
-Or you can take a look at the [`input.json`](input.json) file.
+Or you can take a look at the `input-*.json` files inside this directory.
