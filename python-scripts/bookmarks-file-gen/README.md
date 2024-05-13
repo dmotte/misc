@@ -1,6 +1,6 @@
 # bookmarks-file-gen
 
-This Python script can be used to convert a **JSON** (`*.json`) file (more or less compatible with the **Google Chrome / Chromium bookmarks file format**) into a **NETSCAPE Bookmark** (`*.html`) **file** that can be imported into almost any major browser, such as _Google Chrome_, _Chromium_, _Mozilla Firefox_, etc.
+This Python script can be used to convert a **JSON** (`*.json`) file (that is more or less compatible with the **Google Chrome / Chromium bookmarks file format**) into a **NETSCAPE Bookmark** (`*.html`) **file** that can be imported into almost any major browser, such as _Google Chrome_, _Chromium_, _Mozilla Firefox_, etc.
 
 Tested with **Python 3.9.1** on _Windows 10_.
 
@@ -26,7 +26,7 @@ python3 <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/python-s
 
 ## Additional notes
 
-The **accepted format** of the input should be more or less aligned with the format used by the **Google Chrome / Chromium bookmarks file**. If you want to see an example of that file, you can find it for example at one of the following locations, based on the OS and browser you're using:
+The **accepted format** of the input is more or less the same format used by the **Google Chrome / Chromium bookmarks file**. If you want to see an example of that file, you can find it for example at one of the following locations, based on the OS and browser you're using:
 
 | Operating System     | Browser       | Bookmarks file path                                                     |
 | -------------------- | ------------- | ----------------------------------------------------------------------- |
