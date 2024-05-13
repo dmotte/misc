@@ -1,0 +1,27 @@
+{
+  "type": "folder",
+  "name": "my-root-folder",
+  "children": [
+    {
+      "type": "url",
+      "name": "Example Domain",
+      "url": "https://www.example.com/"
+    },
+    {
+      "type": "url",
+      "name": "Internet Assigned Numbers Authority",
+      "url": "https://www.iana.org/"
+    },
+    {
+      "type": "folder",
+      "name": "my-child-folder",
+      "children": [
+        {
+          "type": "url",
+          "name": "Google",
+          "url": "https://www.google.com/"
+        }
+      ]
+    }
+  ]
+}
