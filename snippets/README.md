@@ -123,6 +123,7 @@ done
 - `docker run --rm -v myvolume:/v -i docker.io/library/busybox tar -xvzf- -C/v < mybackup.tar.gz`
 - `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S '0.0.0.0:8080' -t /v`
 - `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
+- `docker rm -fv mycontainer`
 
 ```bash
 docker build -t img-sshsrv01:latest - << 'EOF'
