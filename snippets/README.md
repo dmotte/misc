@@ -18,7 +18,7 @@ Some pieces of code I find useful for some reason.
 - `type python3`
 - `tar -cvzf archive.tar.gz folder/`, `tar -xvzf archive.tar.gz`
 - `curl -fLO https://...`, `curl -fLo target.zip https://...`
-- `curl -i https://example.com/`
+- `curl -I https://example.com/`, `curl -i https://example.com/`
 - `top` and then press `xcV`. Then `W` to save the config
 - `cd "$(dirname "$0")"` useful in a _Bash_ script
 - `sudo blkid`
