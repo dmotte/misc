@@ -66,8 +66,8 @@ Some pieces of code I find useful for some reason.
 - `systemctl list-timers`
 - `: "${myvar:=myvalue}"`, `export MY_ENV_VAR="${MY_ENV_VAR:-myvalue}"`
 - `ssh-keygen -R [myserver.example.com]:2222`
-- `socat - tcp:example.com:80`
-- `socat UNIX-LISTEN:/tmp/my.sock,mode=777,fork STDOUT`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
+- `socat - TCP:example.com:80`
+- `socat UNIX-LISTEN:/tmp/my.sock,mode=777,fork -`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use `systemctl --user` as a linger-enabled user
 - `nano -\$v filename`, `vim -R filename`
 - `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
@@ -92,6 +92,7 @@ Some pieces of code I find useful for some reason.
 - `bind -x '"\e": mycommand'`
 - `sudo iptables -nvL`
 - `curl https://api.ipify.org/`
+- `socat TCP4-LISTEN:9000,fork,reuseaddr - >/dev/null`, `dd if=/dev/zero bs=1M count=1024 status=progress | socat - TCP:192.168.0.2:9000`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
