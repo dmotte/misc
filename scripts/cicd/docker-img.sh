@@ -2,7 +2,7 @@
 
 set -e
 
-readonly TMP_IMG=tmp:latest
+readonly tmp_img=tmp:latest
 
 # shellcheck source=/dev/null
 . "$(dirname "$0")/helpers/version.sh"
@@ -59,7 +59,7 @@ echo "::group::$0: Project metadata"
 echo '::endgroup::'
 
 echo "::group::$0: Preliminary build"
-    docker build -t "$TMP_IMG" build/
+    docker build -t "$tmp_img" build/
 echo '::endgroup::'
 
 echo "::group::$0: Version"
