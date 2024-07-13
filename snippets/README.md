@@ -124,6 +124,10 @@ done
 - `docker rm -fv mycontainer`
 - `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox tar -cvzC/v . > mybackup.tar.gz`
 - `docker run --rm -v myvolume:/v -i docker.io/library/busybox tar -xvzC/v < mybackup.tar.gz`
+- `docker create --name=tmp01 docker.io/library/busybox`
+  - `docker cp tmp01:/bin - | gzip > mybin.tar.gz`
+  - `docker cp tmp01:/bin/sh - | tar -xv`
+  - `docker rm -v tmp01`
 - `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S '0.0.0.0:8080' -t /v`
 - `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
