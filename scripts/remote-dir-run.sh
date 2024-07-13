@@ -57,7 +57,7 @@ fi
 set $remote_shell_options
 rm -rf $remote_dir
 mkdir $remote_dir
-tar -xzf- -C$remote_dir --no-same-owner $RDR_REMOTE_TAR_OPTIONS
+tar -xzC$remote_dir --no-same-owner $RDR_REMOTE_TAR_OPTIONS
 EOF
 
 { read -rd '' script2 || [ -n "$script2" ]; } << EOF
@@ -88,5 +88,5 @@ if [ -n "$RDR_EVAL" ]; then eval "$RDR_EVAL"; fi
 # Operations are split in two separate connections because we want the
 # "$local_dir/main.sh" script to be able to read from our end's stdin
 # shellcheck disable=SC2086
-tar -czf- -C"$local_dir" $RDR_LOCAL_TAR_OPTIONS . | "${cmd1[@]}" "$script1"
+tar -czC"$local_dir" $RDR_LOCAL_TAR_OPTIONS . | "${cmd1[@]}" "$script1"
 "${cmd2[@]}" "$script2"
