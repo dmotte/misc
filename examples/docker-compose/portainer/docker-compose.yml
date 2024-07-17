@@ -9,8 +9,7 @@ services:
       - --admin-password=$$2y$$05$$Gdu0dsEZFmy34/gkHNDIfeAQQFPu7.5LrhtQpwuPK5hRjjA.nGLq.
       - --logo=https://image.ibb.co/n44xxA/docker-logo.png
       - --host=unix:///var/run/docker.sock
-    ports:
-      - 9443:9443
+    ports: ["9443:9443"]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - data-portainer:/data

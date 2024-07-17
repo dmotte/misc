@@ -6,7 +6,7 @@ services:
     image: docker.io/ngrok/ngrok:3.0.6-debian
     restart: always
     ports:
-      - 4040:4040 # Web inspector
+      - "4040:4040" # Web inspector
     command: http webserver01:8080
     # The ngrok service also works without authtoken (with some limitations) but
     # if you have an ngrok account just uncomment the section below

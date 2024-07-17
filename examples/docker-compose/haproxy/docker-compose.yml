@@ -5,13 +5,9 @@ services:
   haproxy:
     image: docker.io/library/haproxy:2.6
     restart: always
-    volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-    ports:
-      - 8080:80
-    depends_on:
-      - webserver01
-      - webserver02
+    depends_on: [webserver01, webserver02]
+    ports: ["8080:80"]
+    volumes: [./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro]
 
   webserver01:
     image: docker.io/traefik/whoami:v1.10

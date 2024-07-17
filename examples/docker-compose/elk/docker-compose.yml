@@ -16,7 +16,7 @@ services:
     image: docker.elastic.co/kibana/kibana:8.3.0
     restart: always
     depends_on: [elasticsearch]
-    ports: [5601:5601]
+    ports: ["5601:5601"]
     environment:
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200/
       # The following is needed to enable the alerting feature
@@ -49,7 +49,7 @@ services:
   webserver01:
     image: docker.io/library/nginx:1.23
     restart: always
-    ports: [8081:80]
+    ports: ["8081:80"]
     volumes:
       - ./nginx-default.conf:/etc/nginx/conf.d/default.conf:ro
     labels:
@@ -67,7 +67,7 @@ services:
   webserver02:
     image: docker.io/library/nginx:1.23
     restart: always
-    ports: [8082:80]
+    ports: ["8082:80"]
     labels:
       co.elastic.logs/enabled: "true"
       co.elastic.logs/module: nginx

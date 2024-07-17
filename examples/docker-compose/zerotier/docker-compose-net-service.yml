@@ -10,8 +10,8 @@ services:
     ports:
       # Optional port forwardings (but recommended for highly trafficked
       # services)
-      - 9993:9993/tcp
-      - 9993:9993/udp
+      - "9993:9993/tcp"
+      - "9993:9993/udp"
     environment:
       ZEROTIER_IDENTITY_SECRET: <put-identity-secret-here>
     command: <put-network-id-here> # ZeroTier network ID
