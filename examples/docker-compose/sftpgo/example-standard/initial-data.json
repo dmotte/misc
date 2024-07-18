@@ -1,0 +1,18 @@
+{
+  "admins": [
+    {
+      "status": 1,
+      "username": "admin",
+      "password": "admin",
+      "permissions": ["*"]
+    }
+  ],
+  "users": [
+    {
+      "status": 1,
+      "username": "alice",
+      "password": "changeme",
+      "permissions": { "/": ["*"] }
+    }
+  ]
+}
