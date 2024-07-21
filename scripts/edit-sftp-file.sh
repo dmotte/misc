@@ -27,6 +27,14 @@ scp_local_file=$tmpdir/tmp-file
 
 echo "Downloading file to $scp_local_file"
 "$scp_app" "${scp_args[@]}" "$scp_remote_file" "$scp_local_file"
+
+lastmod=$(date -r "$scp_local_file" +%s.%N)
+
 "$editor" "$scp_local_file"
-echo 'Uploading file'
-"$scp_app" "${scp_args[@]}" "$scp_local_file" "$scp_remote_file"
+
+if [ "$(date -r "$scp_local_file" +%s.%N)" = "$lastmod" ]; then
+    echo 'File unchanged. Skipping upload'
+else
+    echo 'Uploading file'
+    "$scp_app" "${scp_args[@]}" "$scp_local_file" "$scp_remote_file"
+fi
