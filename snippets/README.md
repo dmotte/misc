@@ -41,7 +41,7 @@ Some pieces of code I find useful for some reason.
 - `df -h`
 - `du -sh`
 - `zip -r archive.zip folder/`
-- `date -u +%Y-%m-%d-%H%M%S`
+- `date -ur myfile.txt +%Y-%m-%d-%H%M%S`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
 - `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`
