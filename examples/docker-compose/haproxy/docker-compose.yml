@@ -1,6 +1,4 @@
 ---
-version: "3"
-
 services:
   haproxy:
     image: docker.io/library/haproxy:2.6

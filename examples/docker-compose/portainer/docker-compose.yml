@@ -1,6 +1,4 @@
 ---
-version: "3"
-
 services:
   portainer:
     image: docker.io/portainer/portainer-ce:2.14.2

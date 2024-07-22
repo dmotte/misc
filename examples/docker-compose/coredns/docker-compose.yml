@@ -1,6 +1,4 @@
 ---
-version: "3"
-
 services:
   coredns:
     image: docker.io/coredns/coredns:1.11.1

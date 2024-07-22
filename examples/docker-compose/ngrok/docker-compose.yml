@@ -1,6 +1,4 @@
 ---
-version: "3"
-
 services:
   ngrok:
     image: docker.io/ngrok/ngrok:3.0.6-debian

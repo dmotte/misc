@@ -1,6 +1,4 @@
 ---
-version: "3"
-
 services:
   loki:
     image: docker.io/grafana/loki:2.8.4

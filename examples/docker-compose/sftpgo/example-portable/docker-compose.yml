@@ -1,6 +1,4 @@
 ---
-version: "3"
-
 services:
   sftpgo:
     # We use the "-alpine" image variant because the standard one is based on
