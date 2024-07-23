@@ -1,4 +1,0 @@
----
-rpDisplayName: example.com
-rpID: example.com
-usernameRegex: ^[0-9A-Za-z\-]+$
