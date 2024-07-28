@@ -6,7 +6,7 @@ result=0
 
 for arg; do
     n=$(git -C "$arg" for-each-ref --format='%(objectname)' refs/heads |
-        sort | uniq | wc -l)
+        LC_ALL=C sort | uniq | wc -l)
     if [ "$n" != 1 ]; then echo "$arg: $n different branches"; result=1; fi
 
     branch_default=$(git -C "$arg" symbolic-ref refs/remotes/origin/HEAD)
