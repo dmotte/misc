@@ -9,8 +9,8 @@ set -e
 
 editor=${EDITOR:-}
 
-[ -n "$editor" ] || for i in /usr/bin/{nano,vi,vim}; do
-    [ -f "$i" ] && { editor=$i; break; }
+[ -n "$editor" ] || for i in nano vi vim; do
+    tmp_command=$(command -v "$i") && { editor=$tmp_command; break; }
 done
 
 [ -n "$editor" ] || { echo 'Cannot find a valid text editor' >&2; exit 1; }
