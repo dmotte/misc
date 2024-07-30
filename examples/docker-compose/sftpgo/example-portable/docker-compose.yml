@@ -10,6 +10,7 @@ services:
       - ./home:/var/lib/sftpgo # Home dir for the sftpgo system user defined inside the container
       - ./serve:/serve # Files to be served
     command: >
-      sftpgo portable --log-file-path=/dev/stdout --sftpd-port=2022 --username=user --directory=/serve
+      sftpgo portable --log-file-path=/dev/stdout --log-level=info
+      --sftpd-port=2022 --username=user --directory=/serve
       --permissions=list,download,upload,overwrite,delete,rename,create_dirs,chmod,chtimes,copy
       --public-key='ssh-ed25519 AAAAC3Nza...'
