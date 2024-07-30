@@ -19,15 +19,17 @@ def print_item(file: TextIO, item: dict, indent: int = 0):
 
     esc_name = xmlescape(item['name'])
 
+    pf = lambda *args, **kwargs: print(*args, file=file, **kwargs)
+
     if item['type'] == 'folder':
-        print(f'{str_indent}<DT><H3>{esc_name}</H3>', file=file)
-        print(f'{str_indent}<DL><p>', file=file)
+        pf(f'{str_indent}<DT><H3>{esc_name}</H3>')
+        pf(f'{str_indent}<DL><p>')
         for subitem in item['children']:
             print_item(file, subitem, indent + 1)
-        print(f'{str_indent}</DL><p>', file=file)
+        pf(f'{str_indent}</DL><p>')
     elif item['type'] == 'url':
         esc_url = xmlescape(item['url'])
-        print(f'{str_indent}<DT><A HREF="{esc_url}">{esc_name}</A>', file=file)
+        pf(f'{str_indent}<DT><A HREF="{esc_url}">{esc_name}</A>')
     else:
         raise ValueError('Unsupported item type: ' + str(item['type']))
 
