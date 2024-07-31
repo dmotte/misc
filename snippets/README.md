@@ -36,7 +36,7 @@ Some pieces of code I find useful for some reason.
 - `rclone lsf -R --format=pst myremote: | LC_ALL=C sort`
 - `tree -paugh`
 - `find | grep -i pattern`
-- `cp -Rv /media/sorcedisk/folder /media/destdisk`
+- `cp -Rv /media/sourcedisk/folder /media/destdisk`
 - `ss -tulpn`
 - `df -h`
 - `du -sh`
