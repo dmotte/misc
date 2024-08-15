@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import requests
 import sys
 
@@ -8,6 +9,8 @@ from types import SimpleNamespace
 from flask import Flask, jsonify, send_file, redirect
 
 GITHUB_API_VERSION = '2022-11-28'
+
+CODESPACE_ID_REGEX = re.compile(r'^[0-9A-Za-z-]+$')
 
 
 def get_config():
@@ -27,11 +30,15 @@ def get_config():
     len_ids = len(cfg_lists['ids'])
 
     if len_ids <= 0:
-        raise Exception('No codespaces defined')
+        raise ValueError('No codespaces defined')
     if len(cfg_lists['names']) != len_ids:
-        raise Exception('IDs and names lists length mismatch')
+        raise ValueError('IDs and names lists length mismatch')
     if len(cfg_lists['tokens']) != len_ids:
-        raise Exception('IDs and tokens lists length mismatch')
+        raise ValueError('IDs and tokens lists length mismatch')
+
+    for id in cfg_lists['ids']:
+        if not CODESPACE_ID_REGEX.match(id):
+            raise ValueError('Invalid codespace ID: ' + id)
 
     return SimpleNamespace(
         # Logging level
