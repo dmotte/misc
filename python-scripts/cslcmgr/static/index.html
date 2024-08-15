@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+  <head>
+    <title>cslcmgr</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+    />
+
+    <style type="text/css">
+      body,
+      td,
+      th {
+        font-family: sans-serif;
+      }
+
+      body {
+        background-color: #222;
+        color: #ccc;
+      }
+
+      .color-green {
+        color: #0c0;
+      }
+      .color-yellow {
+        color: #ca0;
+      }
+      .color-red {
+        color: #d00;
+      }
+      .color-grey {
+        color: #aaa;
+      }
+
+      .cursor-default {
+        cursor: default;
+      }
+      .cursor-pointer {
+        cursor: pointer;
+      }
+    </style>
+
+    <script type="text/javascript">
+      const API_ENDPOINT = "..";
+
+      async function api_json(path, options) {
+        response = await fetch(API_ENDPOINT + path, options);
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        return await response.json();
+      }
+
+      function api_list() {
+        return api_json("/list");
+      }
+      function api_state(id) {
+        return api_json("/state/" + id);
+      }
+      function api_start(id) {
+        return api_json("/start/" + id, { method: "POST" });
+      }
+      function api_stop(id) {
+        return api_json("/stop/" + id, { method: "POST" });
+      }
+    </script>
+
+    <script type="text/javascript">
+      const CODESPACE_ID_REGEX = /^[0-9A-Za-z-]+$/;
+
+      var cs_data = {}; // Data about codespaces
+
+      function cs_init(list) {
+        cs_data = {};
+        list.forEach((id) => {
+          if (!CODESPACE_ID_REGEX.test(id))
+            throw new Error("Invalid codespace ID: " + id);
+          cs_data[id] = { state: "Unknown" };
+        });
+      }
+    </script>
+
+    <script type="text/javascript">
+      // List of all the possible states:
+      // https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2022-11-28#get-a-codespace-for-the-authenticated-user
+      const CODESPACE_STATES = {
+        Archived: { icon: "offline_pin", color: "grey" },
+        Available: { icon: "circle", color: "green" },
+        Awaiting: { icon: "pending", color: "yellow" },
+        Created: { icon: "stars", color: "grey" },
+        Deleted: { icon: "cancel", color: "red" },
+        Exporting: { icon: "outbound", color: "yellow" },
+        Failed: { icon: "error", color: "red" },
+        Moved: { icon: "arrow_circle_right", color: "red" },
+        Provisioning: { icon: "pending", color: "yellow" },
+        Queued: { icon: "pending", color: "yellow" },
+        Rebuilding: { icon: "build_circle", color: "yellow" },
+        Shutdown: { icon: "cancel", color: "grey" },
+        ShuttingDown: { icon: "pending", color: "yellow" },
+        Starting: { icon: "pending", color: "yellow" },
+        Unavailable: { icon: "cancel", color: "red" },
+        Unknown: { icon: "help", color: "grey" },
+        Updating: { icon: "pending", color: "yellow" },
+      };
+
+      function build_csTable(data) {
+        strHtml = "";
+
+        for (csID in data) {
+          csState = data[csID].state;
+          csStateIcon = CODESPACE_STATES[csState].icon;
+          csStateColor = CODESPACE_STATES[csState].color;
+
+          strHtml += `
+            <tr>
+              <td>
+                <span class="cursor-pointer material-symbols-outlined" title="Fetch state" onclick="btnFetchState_onClick('${csID}')">autorenew</span>
+              </td>
+              <td>
+                <span class="cursor-default material-symbols-outlined color-${csStateColor}" title="${csState}">${csStateIcon}</span>
+              </td>
+              <td>${csID}</td>
+              <td>
+                &nbsp;
+                <span class="cursor-pointer material-symbols-outlined" title="Stop" onclick="btnStop_onClick('${csID}')">stop</span>
+                <span class="cursor-pointer material-symbols-outlined" title="Start" onclick="btnStart_onClick('${csID}')">play_arrow</span>
+              </td>
+            </tr>
+          `;
+        }
+
+        return strHtml;
+      }
+
+      function show_view(id) {
+        document
+          .querySelectorAll(".view")
+          .forEach((view) => (view.hidden = view.id != id));
+      }
+
+      function show_viewMain(data) {
+        document.getElementById("tblMain").innerHTML = build_csTable(data);
+        show_view("viewMain");
+      }
+      function show_viewWaiting(text) {
+        document.getElementById("txtWaiting").textContent = text;
+        show_view("viewWaiting");
+      }
+      function show_viewError(text) {
+        document.getElementById("txtError").textContent = text;
+        show_view("viewError");
+      }
+
+      function ui_error(error) {
+        console.log(error);
+        show_viewError(error);
+      }
+
+      function ui_load() {
+        show_viewWaiting("Fetching the list of codespaces");
+        return api_list()
+          .then((data) => {
+            cs_init(data.codespaces);
+            show_viewMain(cs_data);
+          })
+          .catch(ui_error);
+      }
+
+      function btnFetchState_onClick(id) {
+        show_viewWaiting("Fetching state of codespace " + id);
+        return api_state(id)
+          .then((data) => {
+            cs_data[id].state = data.state;
+            show_viewMain(cs_data);
+          })
+          .catch(ui_error);
+      }
+      function btnStop_onClick(id) {
+        show_viewWaiting("Stopping codespace " + id);
+        return api_stop(id)
+          .then((data) => {
+            cs_data[id].state = "Unknown";
+            show_viewMain(cs_data);
+          })
+          .catch(ui_error);
+      }
+      function btnStart_onClick(id) {
+        show_viewWaiting("Starting codespace " + id);
+        return api_start(id)
+          .then((data) => {
+            cs_data[id].state = "Unknown";
+            show_viewMain(cs_data);
+          })
+          .catch(ui_error);
+      }
+    </script>
+  </head>
+
+  <body onload="ui_load()">
+    <h1>cslcmgr</h1>
+
+    <div class="view" id="viewMain" hidden>
+      <table id="tblMain"></table>
+    </div>
+
+    <div class="view" id="viewWaiting">
+      <div class="color-yellow">
+        <table>
+          <tr>
+            <td><span class="material-symbols-outlined">pending</span></td>
+            <td><b>Operation in progress</b></td>
+          </tr>
+        </table>
+      </div>
+      <p style="margin: 10px 5px">
+        <i id="txtWaiting">Loading</i>
+      </p>
+    </div>
+
+    <div class="view" id="viewError" hidden>
+      <div class="color-red">
+        <table>
+          <tr>
+            <td><span class="material-symbols-outlined">error</span></td>
+            <td><b>Error</b></td>
+          </tr>
+        </table>
+      </div>
+      <pre style="margin: 10px 5px" id="txtError">An error occurred</pre>
+    </div>
+  </body>
+</html>
