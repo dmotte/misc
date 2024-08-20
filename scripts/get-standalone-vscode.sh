@@ -30,8 +30,9 @@ tar -xzf "$vscode_archive_path" -C "$vscode_dir_path"
 echo 'Installed app version:'
 "$vscode_dir_path/VSCode-linux-x64/bin/code" -v
 
-echo "Creating launcher file in $vscode_launcher_path"
-cat << EOF >> "$vscode_launcher_path"
+if [ -n "$vscode_launcher_path" ]; then
+    echo "Creating launcher file in $vscode_launcher_path"
+    install -m644 /dev/stdin "$vscode_launcher_path" << EOF
 [Desktop Entry]
 Name=Visual Studio Code
 Exec=$vscode_dir_path/VSCode-linux-x64/code %f
@@ -40,5 +41,6 @@ Terminal=false
 Icon=$vscode_dir_path/VSCode-linux-x64/resources/app/resources/linux/code.png
 Type=Application
 EOF
+fi
 
 echo 'Installation completed successfully'
