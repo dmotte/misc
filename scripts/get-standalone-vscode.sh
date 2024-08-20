@@ -16,6 +16,8 @@ elif [ -d "$(dirname "$vscode_launcher_default_path")" ]; then
     vscode_launcher_path=$vscode_launcher_default_path
 fi
 
+################################################################################
+
 if [ -d "$vscode_dir_path" ]; then
     echo "Directory $vscode_dir_path already exists. Installed app version:"
     "$vscode_dir_path/VSCode-linux-x64/bin/code" -v
@@ -35,6 +37,8 @@ tar -xzf "$vscode_archive_path" -C "$vscode_dir_path"
 
 echo 'Installed app version:'
 "$vscode_dir_path/VSCode-linux-x64/bin/code" -v
+
+################################################################################
 
 if [ -n "$vscode_launcher_path" ]; then
     echo "Creating launcher file in $vscode_launcher_path"

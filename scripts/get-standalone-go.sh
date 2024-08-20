@@ -12,6 +12,8 @@ go_dir_path=${STANDALONE_GO_DIR_PATH:-$HOME/apps/go$2}
 go_archive_url=https://go.dev/dl/go$2.linux-$1.tar.gz
 go_archive_path=$go_dir_path/archive.tar.gz
 
+################################################################################
+
 if [ -d "$go_dir_path" ]; then
     go_old_dir_path=$go_dir_path-old-$(date -u +%Y-%m-%d-%H%M%S)
     echo "Directory $go_dir_path already exists. Moving to $go_old_dir_path"
@@ -28,6 +30,8 @@ tar -xzf "$go_archive_path" -C "$go_dir_path"
 
 echo -n 'Installed app version: '
 "$go_dir_path/go/bin/go" version
+
+################################################################################
 
 if [ -e ~/go ]; then
     echo 'Skipping symlink creation as ~/go already exists'
