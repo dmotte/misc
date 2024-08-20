@@ -8,28 +8,31 @@ set -e
 # To change Go environment via the ~/go symlink (if you have multiple Go environments installed):
 # rm ~/go && ln -s ~/apps/go1.20.7/go ~/go
 
-go_dir_path=${STANDALONE_GO_DIR_PATH:-$HOME/apps/go$2}
-go_archive_url=https://go.dev/dl/go$2.linux-$1.tar.gz
-go_archive_path=$go_dir_path/archive.tar.gz
+# Ensure that some variables are defined
+: "${1:?}" "${2:?}"
+
+main_dir=${STANDALONE_GO_MAIN_DIR:-$HOME/apps/go$2}
+archive_url=https://go.dev/dl/go$2.linux-$1.tar.gz
+archive_path=$main_dir/archive.tar.gz
 
 ################################################################################
 
-if [ -d "$go_dir_path" ]; then
-    go_old_dir_path=$go_dir_path-old-$(date -u +%Y-%m-%d-%H%M%S)
-    echo "Directory $go_dir_path already exists. Moving to $go_old_dir_path"
-    mv "$go_dir_path" "$go_old_dir_path"
+if [ -d "$main_dir" ]; then
+    main_dir_old=$main_dir-old-$(date -u +%Y-%m-%d-%H%M%S)
+    echo "Directory $main_dir already exists. Moving to $main_dir_old"
+    mv "$main_dir" "$main_dir_old"
 fi
 
-mkdir -p "$go_dir_path"
+mkdir -p "$main_dir"
 
-echo "Downloading $go_archive_url to $go_archive_path"
-curl -fLo "$go_archive_path" "$go_archive_url"
+echo "Downloading $archive_url to $archive_path"
+curl -fLo "$archive_path" "$archive_url"
 
-echo "Extracting $go_archive_path to $go_dir_path"
-tar -xzf "$go_archive_path" -C "$go_dir_path"
+echo "Extracting $archive_path to $main_dir"
+tar -xzf "$archive_path" -C "$main_dir"
 
 echo -n 'Installed app version: '
-"$go_dir_path/go/bin/go" version
+"$main_dir/go/bin/go" version
 
 ################################################################################
 
@@ -37,7 +40,7 @@ if [ -e ~/go ]; then
     echo 'Skipping symlink creation as ~/go already exists'
 else
     echo 'Creating ~/go symlink'
-    ln -s "$go_dir_path/go" ~/go
+    ln -s "$main_dir/go" ~/go
 fi
 
 # shellcheck disable=SC2016
