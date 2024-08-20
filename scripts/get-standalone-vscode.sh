@@ -8,7 +8,13 @@ set -e
 vscode_dir_path=${STANDALONE_VSCODE_DIR_PATH:-$HOME/apps/vscode}
 vscode_archive_url=${STANDALONE_VSCODE_ARCHIVE_URL:-https://code.visualstudio.com/sha/download?build=stable&os=linux-x64}
 vscode_archive_path=$vscode_dir_path/archive.tar.gz
-vscode_launcher_path=${STANDALONE_VSCODE_LAUNCHER_PATH:-$HOME/.local/share/applications/vscode.desktop}
+
+vscode_launcher_default_path=~/.local/share/applications/vscode.desktop
+if [ -n "$STANDALONE_VSCODE_LAUNCHER_PATH" ]; then
+    vscode_launcher_path=$STANDALONE_VSCODE_LAUNCHER_PATH
+elif [ -d "$(dirname "$vscode_launcher_default_path")" ]; then
+    vscode_launcher_path=$vscode_launcher_default_path
+fi
 
 if [ -d "$vscode_dir_path" ]; then
     echo "Directory $vscode_dir_path already exists. Installed app version:"
