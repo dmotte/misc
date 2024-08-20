@@ -28,17 +28,28 @@ def get_config():
     }
 
     len_ids = len(cfg_lists['ids'])
+    len_tokens = len(cfg_lists['tokens'])
 
     if len_ids <= 0:
         raise ValueError('No codespaces defined')
     if len(cfg_lists['names']) != len_ids:
         raise ValueError('IDs and names lists length mismatch')
-    if len(cfg_lists['tokens']) != len_ids:
-        raise ValueError('IDs and tokens lists length mismatch')
+    if len_tokens <= 0:
+        raise ValueError('No tokens defined')
+    if len_tokens > len_ids:
+        raise ValueError('Too many tokens defined')
 
-    for id in cfg_lists['ids']:
+    if cfg_lists['tokens'][0] == '':
+        raise ValueError('The first token cannot be empty')
+
+    for i, id in enumerate(cfg_lists['ids']):
         if not CODESPACE_ID_REGEX.match(id):
             raise ValueError('Invalid codespace ID: ' + id)
+
+        if i >= len_tokens:
+            cfg_lists['tokens'].append(cfg_lists['tokens'][-1])
+        elif cfg_lists['tokens'][i] == '':
+            cfg_lists['tokens'][i] = cfg_lists['tokens'][i - 1]
 
     return SimpleNamespace(
         # Logging level
