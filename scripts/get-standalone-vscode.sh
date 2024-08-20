@@ -38,6 +38,13 @@ curl -fLo "$archive_path" "$archive_url"
 echo "Extracting $archive_path to $main_dir"
 tar -xzf "$archive_path" -C "$main_dir"
 
+data_old="$main_dir_old/VSCode-$1/data"
+data_new="$main_dir/VSCode-$1/data"
+if [ -n "$main_dir_old" ] && [ -d "$data_old" ]; then
+    echo "Moving data dir from $data_old to $data_new"
+    mv -Tn "$data_old" "$data_new"
+fi
+
 echo 'Installed app version:'
 "$main_dir/VSCode-$1/bin/code" -v
 
