@@ -42,7 +42,7 @@ data_old="$main_dir_old/VSCode-$1/data"
 data_new="$main_dir/VSCode-$1/data"
 if [ -n "$main_dir_old" ] && [ -d "$data_old" ]; then
     echo "Moving data dir from $data_old to $data_new"
-    mv -Tn "$data_old" "$data_new"
+    mv -T "$data_old" "$data_new"
 fi
 
 echo 'Installed app version:'
