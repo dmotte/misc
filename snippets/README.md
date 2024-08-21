@@ -155,6 +155,26 @@ EOF
 docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 ```
 
+```bash
+docker build -t img-unpriv01:latest - << 'EOF'
+FROM docker.io/library/debian:12
+RUN apt-get update && \
+    apt-get install -y sudo \
+        git nano tmux tree wget zip curl socat procps jq \
+        iputils-ping iproute2 && \
+    rm -rf /var/lib/apt/lists/*
+RUN useradd -UGsudo -ms/bin/bash mainuser && \
+    echo 'mainuser ALL=(ALL) NOPASSWD: ALL' | \
+        install -m440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
+    echo mainuser:changeme | chpasswd # Warning: very bad password!
+USER mainuser
+ENV USER=mainuser HOME=/home/mainuser
+WORKDIR /home/mainuser
+EOF
+
+docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
+```
+
 ## Shell snippets for Podman
 
 - `sudo XDG_RUNTIME_DIR=/run/user/1001 -iu myuser`
