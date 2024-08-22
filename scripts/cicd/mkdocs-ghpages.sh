@@ -105,7 +105,7 @@ echo "::group::$0: Build"
         find "$real_src" -mindepth 1 -maxdepth 1 "${args_excludes[@]}" |
             while read -r i; do
                 echo "Copying $i into $real_dst"
-                cp -R "$i" "$real_dst"
+                cp -Rt"$real_dst" "$i"
             done
     fi
 

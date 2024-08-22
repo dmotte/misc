@@ -131,7 +131,7 @@ echo "::group::$0: Artifact"
         dst=cicd-artifact/$file_basename
 
         echo "Copying $src to $dst"
-        cp "$src" "$dst"
+        cp -T "$src" "$dst"
         echo "- &#x1F4E6; Artifact file: \`$file_basename\`" |
             tee -a "$CICD_SUMMARY"
     done

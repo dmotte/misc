@@ -18,7 +18,7 @@ Create a new empty **bare Git repo** locally, and enable and run the **`post-upd
 
 ```bash
 git init --bare repo01.git
-(cd repo01.git/hooks && cp post-update{.sample,} && ./post-update)
+(cd repo01.git/hooks && cp -T post-update{.sample,} && ./post-update)
 ```
 
 Now upload your new blank Git bare repo onto the `mycrypt` remote:
