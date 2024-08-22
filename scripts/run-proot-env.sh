@@ -58,7 +58,7 @@ if [ ! -d "$rootfs_dir" ]; then
     tar -x --auto-compress -f "$tarball_path" \
         --exclude="$proot_tarball_top_dir"/{dev,proc,sys,tmp} \
         --recursive-unlink --preserve-permissions -C "$rootfs_dir_tmp"
-    mv "$rootfs_dir_tmp/$proot_tarball_top_dir" "$rootfs_dir"
+    mv -T "$rootfs_dir_tmp/$proot_tarball_top_dir" "$rootfs_dir"
     rm -r "$rootfs_dir_tmp"
 fi
 

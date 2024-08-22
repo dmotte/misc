@@ -20,7 +20,7 @@ archive_path=$main_dir/archive.tar.gz
 if [ -d "$main_dir" ]; then
     main_dir_old=$main_dir-old-$(date -u +%Y-%m-%d-%H%M%S)
     echo "Directory $main_dir already exists. Moving to $main_dir_old"
-    mv "$main_dir" "$main_dir_old"
+    mv -T "$main_dir" "$main_dir_old"
 fi
 
 mkdir -p "$main_dir"

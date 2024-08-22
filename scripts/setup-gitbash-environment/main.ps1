@@ -45,7 +45,7 @@ fi
 file='/mingw64/share/git/completion/git-prompt.sh'
 if [ -f "$file" ]; then
     echo "Moving $file to $file.old"
-    mv "$file" "$file.old"
+    mv -T "$file" "$file.old"
 else
     echo "Skipping renaming $file as $file.old already exists"
 fi
