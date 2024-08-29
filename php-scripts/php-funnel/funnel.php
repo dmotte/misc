@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
 
     <script type="text/javascript">
-        function ui_submit() {
+        function submitData() {
             const formMain = document.getElementById('formMain');
             const preStatus = document.getElementById('preStatus');
 
@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <p>
     <form id="formMain" method="POST" enctype="multipart/form-data">
         <input type="file" name="files[]" multiple />
-        <input type="button" value="Submit" onclick="ui_submit()" />
+        <input type="button" value="Submit" onclick="submitData()" />
     </form>
     </p>
 
