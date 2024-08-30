@@ -45,160 +45,171 @@
     </style>
 
     <script type="text/javascript">
-      const API_ENDPOINT = "..";
+      class API {
+        static apiURL = "..";
 
-      async function api_json(path, options) {
-        response = await fetch(API_ENDPOINT + path, options);
-        if (!response.ok) throw new Error("HTTP error " + response.status);
-        return await response.json();
-      }
-
-      function api_list() {
-        return api_json("/list");
-      }
-      function api_state(id) {
-        return api_json("/state/" + id);
-      }
-      function api_start(id) {
-        return api_json("/start/" + id, { method: "POST" });
-      }
-      function api_stop(id) {
-        return api_json("/stop/" + id, { method: "POST" });
-      }
-    </script>
-
-    <script type="text/javascript">
-      const CODESPACE_ID_REGEX = /^[0-9A-Za-z-]+$/;
-
-      var cs_data = {}; // Data about codespaces
-
-      function cs_init(list) {
-        cs_data = {};
-        list.forEach((id) => {
-          if (!CODESPACE_ID_REGEX.test(id))
-            throw new Error("Invalid codespace ID: " + id);
-          cs_data[id] = { state: "Unknown" };
-        });
-      }
-    </script>
-
-    <script type="text/javascript">
-      // List of all the possible states:
-      // https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2022-11-28#get-a-codespace-for-the-authenticated-user
-      const CODESPACE_STATES = {
-        Archived: { icon: "offline_pin", color: "grey" },
-        Available: { icon: "circle", color: "green" },
-        Awaiting: { icon: "pending", color: "yellow" },
-        Created: { icon: "stars", color: "grey" },
-        Deleted: { icon: "cancel", color: "red" },
-        Exporting: { icon: "outbound", color: "yellow" },
-        Failed: { icon: "error", color: "red" },
-        Moved: { icon: "arrow_circle_right", color: "red" },
-        Provisioning: { icon: "pending", color: "yellow" },
-        Queued: { icon: "pending", color: "yellow" },
-        Rebuilding: { icon: "build_circle", color: "yellow" },
-        Shutdown: { icon: "cancel", color: "grey" },
-        ShuttingDown: { icon: "pending", color: "yellow" },
-        Starting: { icon: "pending", color: "yellow" },
-        Unavailable: { icon: "cancel", color: "red" },
-        Unknown: { icon: "help", color: "grey" },
-        Updating: { icon: "pending", color: "yellow" },
-      };
-
-      function build_csTable(data) {
-        strHtml = "";
-
-        for (csID in data) {
-          csState = data[csID].state;
-          csStateIcon = CODESPACE_STATES[csState].icon;
-          csStateColor = CODESPACE_STATES[csState].color;
-
-          strHtml += `
-            <tr>
-              <td>
-                <span class="cursor-pointer material-symbols-outlined" title="Fetch state" onclick="btnFetchState_onClick('${csID}')">autorenew</span>
-              </td>
-              <td>
-                <span class="cursor-default material-symbols-outlined color-${csStateColor}" title="${csState}">${csStateIcon}</span>
-              </td>
-              <td>${csID}</td>
-              <td>
-                &nbsp;
-                <span class="cursor-pointer material-symbols-outlined" title="Stop" onclick="btnStop_onClick('${csID}')">stop</span>
-                <span class="cursor-pointer material-symbols-outlined" title="Start" onclick="btnStart_onClick('${csID}')">play_arrow</span>
-              </td>
-            </tr>
-          `;
+        static async json(path, options) {
+          const response = await fetch(this.apiURL + path, options);
+          if (!response.ok) throw new Error("HTTP error " + response.status);
+          return await response.json();
         }
 
-        return strHtml;
+        static list() {
+          return this.json("/list");
+        }
+        static state(id) {
+          return this.json("/state/" + id);
+        }
+        static start(id) {
+          return this.json("/start/" + id, { method: "POST" });
+        }
+        static stop(id) {
+          return this.json("/stop/" + id, { method: "POST" });
+        }
       }
 
-      function show_view(id) {
-        document
-          .querySelectorAll(".view")
-          .forEach((view) => (view.hidden = view.id != id));
+      class CodespacesData {
+        static data = {};
+
+        static initialize(list) {
+          this.data = {};
+          list.forEach((id) => {
+            if (!/^[0-9A-Za-z-]+$/u.test(id))
+              throw new Error("Invalid codespace ID: " + id);
+            this.data[id] = { state: "Unknown" };
+          });
+        }
+
+        static setState(id, state) {
+          this.data[id].state = state;
+        }
+
+        static getData() {
+          return this.data;
+        }
       }
 
-      function show_viewMain(data) {
-        document.getElementById("tblMain").innerHTML = build_csTable(data);
-        show_view("viewMain");
-      }
-      function show_viewWaiting(text) {
-        document.getElementById("txtWaiting").textContent = text;
-        show_view("viewWaiting");
-      }
-      function show_viewError(text) {
-        document.getElementById("txtError").textContent = text;
-        show_view("viewError");
-      }
+      class UI {
+        // List of all the possible states:
+        // https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2022-11-28#get-a-codespace-for-the-authenticated-user
+        static codespaceStates = {
+          Archived: { icon: "offline_pin", color: "grey" },
+          Available: { icon: "circle", color: "green" },
+          Awaiting: { icon: "pending", color: "yellow" },
+          Created: { icon: "stars", color: "grey" },
+          Deleted: { icon: "cancel", color: "red" },
+          Exporting: { icon: "outbound", color: "yellow" },
+          Failed: { icon: "error", color: "red" },
+          Moved: { icon: "arrow_circle_right", color: "red" },
+          Provisioning: { icon: "pending", color: "yellow" },
+          Queued: { icon: "pending", color: "yellow" },
+          Rebuilding: { icon: "build_circle", color: "yellow" },
+          Shutdown: { icon: "cancel", color: "grey" },
+          ShuttingDown: { icon: "pending", color: "yellow" },
+          Starting: { icon: "pending", color: "yellow" },
+          Unavailable: { icon: "cancel", color: "red" },
+          Unknown: { icon: "help", color: "grey" },
+          Updating: { icon: "pending", color: "yellow" },
+        };
 
-      function ui_error(error) {
-        console.log(error);
-        show_viewError(error);
-      }
+        static buildCodespacesTable(data) {
+          let result = "";
 
-      function ui_load() {
-        show_viewWaiting("Fetching the list of codespaces");
-        return api_list()
-          .then((data) => {
-            cs_init(data.codespaces);
-            show_viewMain(cs_data);
-          })
-          .catch(ui_error);
-      }
+          for (const csID in data) {
+            if (!Object.hasOwn(data, csID)) continue;
 
-      function btnFetchState_onClick(id) {
-        show_viewWaiting("Fetching state of codespace " + id);
-        return api_state(id)
-          .then((data) => {
-            cs_data[id].state = data.state;
-            show_viewMain(cs_data);
-          })
-          .catch(ui_error);
-      }
-      function btnStop_onClick(id) {
-        show_viewWaiting("Stopping codespace " + id);
-        return api_stop(id)
-          .then((data) => {
-            cs_data[id].state = "Unknown";
-            show_viewMain(cs_data);
-          })
-          .catch(ui_error);
-      }
-      function btnStart_onClick(id) {
-        show_viewWaiting("Starting codespace " + id);
-        return api_start(id)
-          .then((data) => {
-            cs_data[id].state = "Unknown";
-            show_viewMain(cs_data);
-          })
-          .catch(ui_error);
+            const csState = data[csID].state;
+            const csStateIcon = this.codespaceStates[csState].icon;
+            const csStateColor = this.codespaceStates[csState].color;
+
+            result += `
+              <tr>
+                <td>
+                  <span class="cursor-pointer material-symbols-outlined" title="Fetch state" onclick="UI.btnFetchState_onclick('${csID}')">autorenew</span>
+                </td>
+                <td>
+                  <span class="cursor-default material-symbols-outlined color-${csStateColor}" title="${csState}">${csStateIcon}</span>
+                </td>
+                <td>${csID}</td>
+                <td>
+                  &nbsp;
+                  <span class="cursor-pointer material-symbols-outlined" title="Stop" onclick="UI.btnStop_onclick('${csID}')">stop</span>
+                  <span class="cursor-pointer material-symbols-outlined" title="Start" onclick="UI.btnStart_onclick('${csID}')">play_arrow</span>
+                </td>
+              </tr>
+            `;
+          }
+
+          return result;
+        }
+
+        static showView(id) {
+          document
+            .querySelectorAll(".view")
+            .forEach((view) => (view.hidden = view.id !== id));
+        }
+
+        static showViewMain(data) {
+          document.getElementById("tblMain").innerHTML =
+            this.buildCodespacesTable(data);
+          this.showView("viewMain");
+        }
+        static showViewWaiting(text) {
+          document.getElementById("txtWaiting").textContent = text;
+          this.showView("viewWaiting");
+        }
+        static showViewError(text) {
+          document.getElementById("txtError").textContent = text;
+          this.showView("viewError");
+        }
+
+        static error(error) {
+          console.log(error);
+          this.showViewError(error);
+        }
+
+        static load() {
+          this.showViewWaiting("Fetching the list of codespaces");
+          return API.list()
+            .then((data) => {
+              CodespacesData.initialize(data.codespaces);
+              this.showViewMain(CodespacesData.getData());
+            })
+            .catch(this.error);
+        }
+
+        static btnFetchState_onclick(id) {
+          this.showViewWaiting("Fetching state of codespace " + id);
+          return API.state(id)
+            .then((data) => {
+              CodespacesData.setState(id, data.state);
+              this.showViewMain(CodespacesData.getData());
+            })
+            .catch(this.error);
+        }
+        static btnStop_onclick(id) {
+          this.showViewWaiting("Stopping codespace " + id);
+          return API.stop(id)
+            .then(() => {
+              CodespacesData.setState(id, "Unknown");
+              this.showViewMain(CodespacesData.getData());
+            })
+            .catch(this.error);
+        }
+        static btnStart_onclick(id) {
+          this.showViewWaiting("Starting codespace " + id);
+          return API.start(id)
+            .then(() => {
+              CodespacesData.setState(id, "Unknown");
+              this.showViewMain(CodespacesData.getData());
+            })
+            .catch(this.error);
+        }
       }
     </script>
   </head>
 
-  <body onload="ui_load()">
+  <body onload="UI.load()">
     <h1>cslcmgr</h1>
 
     <div class="view" id="viewMain" hidden>
