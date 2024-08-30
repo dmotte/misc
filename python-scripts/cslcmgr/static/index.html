@@ -175,7 +175,7 @@
               CodespacesData.initialize(data.codespaces);
               this.showViewMain(CodespacesData.getData());
             })
-            .catch(this.error);
+            .catch((error) => this.error(error));
         }
 
         static btnFetchState_onclick(id) {
@@ -185,7 +185,7 @@
               CodespacesData.setState(id, data.state);
               this.showViewMain(CodespacesData.getData());
             })
-            .catch(this.error);
+            .catch((error) => this.error(error));
         }
         static btnStop_onclick(id) {
           this.showViewWaiting("Stopping codespace " + id);
@@ -194,7 +194,7 @@
               CodespacesData.setState(id, "Unknown");
               this.showViewMain(CodespacesData.getData());
             })
-            .catch(this.error);
+            .catch((error) => this.error(error));
         }
         static btnStart_onclick(id) {
           this.showViewWaiting("Starting codespace " + id);
@@ -203,7 +203,7 @@
               CodespacesData.setState(id, "Unknown");
               this.showViewMain(CodespacesData.getData());
             })
-            .catch(this.error);
+            .catch((error) => this.error(error));
         }
       }
     </script>
