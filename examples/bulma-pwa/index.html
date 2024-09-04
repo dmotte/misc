@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Bulma PWA</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon-96x96.png" />
+    <link rel="manifest" href="manifest.json" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#"><b>PWA</b></a>
+
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarMenu"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">Home</a>
+
+          <a class="navbar-item">Documentation</a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">More</a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">About</a>
+              <a class="navbar-item is-selected">Jobs</a>
+              <a class="navbar-item">Contact</a>
+              <hr class="navbar-divider" />
+              <a class="navbar-item">Report an issue</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary"><strong>Sign up</strong></a>
+              <a class="button is-light">Log in</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title">My Bulma PWA</h1>
+
+        <p class="subtitle">This is the <strong>subtitle</strong>.</p>
+
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Text input" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              class="input is-success"
+              type="text"
+              placeholder="Text input"
+              value="bulma"
+            />
+            <span class="icon is-small is-left">
+              <span class="material-symbols-outlined">person</span>
+            </span>
+            <span class="icon is-small is-right">
+              <span class="material-symbols-outlined">check</span>
+            </span>
+          </div>
+          <p class="help is-success">This username is available</p>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 64 64"
+   fill="none"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="normal.svg"
+   inkscape:export-filename="favicon-96x96.png"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="8.7173008"
+     inkscape:cx="24.090026"
+     inkscape:cy="41.813402"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M 11,44 14.81818,16 30.0909,0 49.1818,20 37.7273,32 53,48 30.0909,64 Z"
+     fill="#00d1b2"
+     id="path1" />
+</svg>
