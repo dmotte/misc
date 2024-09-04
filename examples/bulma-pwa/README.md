@@ -11,3 +11,4 @@ Heavily inspired by the links below; I just put the pieces together.
 - https://bulma.io/documentation/elements/icon/
 - https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable
 - https://bulma.io/brand/
+- https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt

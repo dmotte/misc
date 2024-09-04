@@ -17,9 +17,70 @@
       type="text/css"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
     />
+
+    <script type="text/javascript">
+      class PWAInstallPrompt {
+        static installPrompt = null;
+
+        static initialize(callbackBeforeInstallPrompt, callbackAppInstalled) {
+          window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            this.installPrompt = event;
+            callbackBeforeInstallPrompt();
+          });
+          window.addEventListener("appinstalled", () => {
+            this.installPrompt = null;
+            callbackAppInstalled();
+          });
+        }
+
+        static install() {
+          if (!this.installPrompt)
+            throw new Error(
+              "The beforeinstallprompt event has not been triggered before",
+            );
+          let promise = this.installPrompt.prompt();
+          this.installPrompt = null;
+          return promise;
+        }
+      }
+
+      class UI {
+        static load() {
+          const notifPWA = document.getElementById("notifPWA");
+
+          return PWAInstallPrompt.initialize(
+            () => {
+              notifPWA.hidden = false;
+            },
+            () => {
+              notifPWA.hidden = true;
+            },
+          );
+        }
+
+        static btnInstall_onclick() {
+          const notifPWA = document.getElementById("notifPWA");
+
+          return PWAInstallPrompt.install()
+            .then((result) => {
+              notifPWA.hidden = true;
+              // The result.outcome can be "accepted" or "dismissed". See
+              // https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent/prompt#outcome
+              alert(
+                `The installation prompt has been ${result.outcome} by the user`,
+              );
+            })
+            .catch((error) => {
+              console.log(error);
+              document.body.textContent = "ERROR: " + error;
+            });
+        }
+      }
+    </script>
   </head>
 
-  <body>
+  <body onload="UI.load()">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="#"><b>PWA</b></a>
@@ -73,6 +134,22 @@
         <h1 class="title">My Bulma PWA</h1>
 
         <p class="subtitle">This is the <strong>subtitle</strong>.</p>
+
+        <div id="notifPWA" class="notification is-primary" hidden>
+          <button class="delete"></button>
+          <div class="block">
+            Click the button below to <strong>install</strong> this web app as a
+            <strong>PWA</strong>
+          </div>
+          <div class="block">
+            <button class="button is-light" onclick="UI.btnInstall_onclick()">
+              <span class="icon">
+                <span class="material-symbols-outlined">install_desktop</span>
+              </span>
+              <span>Install</span>
+            </button>
+          </div>
+        </div>
 
         <div class="field">
           <label class="label">Name</label>
