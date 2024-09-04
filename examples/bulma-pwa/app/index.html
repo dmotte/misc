@@ -39,7 +39,7 @@
             throw new Error(
               "The beforeinstallprompt event has not been triggered before",
             );
-          let promise = this.installPrompt.prompt();
+          const promise = this.installPrompt.prompt();
           this.installPrompt = null;
           return promise;
         }
