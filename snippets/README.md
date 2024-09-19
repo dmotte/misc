@@ -133,6 +133,7 @@ done
   - `docker cp tmp01:/bin - | gzip > mybin.tar.gz`
   - `docker cp tmp01:/bin/sh - | tar -xv`
   - `docker rm -v tmp01`
+- `docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive docker.io/library/python:3`
 - `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S '0.0.0.0:8080' -t /v`
 - `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
