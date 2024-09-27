@@ -1,4 +1,4 @@
-// Bookmarklet to copy a page URL and title as link (in rich text format) to
+// Bookmarklet to copy the page URL and title as link (in rich text format) to
 // the user's clipboard
 
 // javascript:(function(){
