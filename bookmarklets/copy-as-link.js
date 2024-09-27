@@ -13,7 +13,7 @@ function xmlescape(x) {
 }
 
 const contentHTML = `<a href="${xmlescape(window.location.href)}">${xmlescape(
-  document.title
+  document.title,
 )}</a>`;
 const contentPlain = document.title;
 
