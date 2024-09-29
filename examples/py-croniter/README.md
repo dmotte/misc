@@ -4,10 +4,12 @@ Simple example of how to use the **croniter** Python library.
 
 - PyPI: https://pypi.org/project/croniter/
 - GitHub: https://github.com/kiorky/croniter
+- Debian package: https://packages.debian.org/bookworm/python3-croniter
 
 To run the example:
 
 ```bash
+sudo apt-get update && sudo apt-get install -y python3-croniter
 python3 main.py
 ```
 
