@@ -76,7 +76,7 @@ def workloads_to_restart(resources: list, kinds_skip: list, kinds_accept: list):
     ]
 
     if len(cordoned_nodes_names) == 0:
-        raise LookupError(f'There are no cordoned nodes in the cluster')
+        raise LookupError('There are no cordoned nodes in the cluster')
 
     workloads = {}
 
