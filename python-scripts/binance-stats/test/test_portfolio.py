@@ -70,9 +70,7 @@ def test_portfolio_float():
     assert str(p.composition(reverse=True)) == "{'BBB': 7.0, 'AAA': 5.0}"
 
     assert str(p.copy().change('CCC', 2).diff(p)) == '{"CCC": 2.0}'
-
-    with pytest.raises(ValueError):  # Coin would go negative
-        p.copy().change('AAA', -1).diff(p)
+    assert str(p.copy().change('AAA', -1).diff(p)) == '{"AAA": -1.0}'
 
 
 def test_portfolio_load():

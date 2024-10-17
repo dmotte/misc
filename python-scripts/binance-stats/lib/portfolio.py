@@ -102,8 +102,7 @@ class Portfolio:
         coins = sorted(set(self.__balances.keys()) |
                        set(other.__balances.keys()))
 
-        portfolio = Portfolio(numtype=self.__numtype,
-                              allow_negative=self.allow_negative)
+        portfolio = Portfolio(numtype=self.__numtype, allow_negative=True)
 
         balances = {coin: self.get(coin) - other.get(coin) for coin in coins}
 
