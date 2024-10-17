@@ -30,7 +30,7 @@ def main(argv=None):
                         help='Ticker symbol (example: ^GSPC)')
 
     parser.add_argument('-i', '--interval', type=str, default='1d',
-                        help='Length of time each candle represents'
+                        help='Length of time each candle represents '
                         '(default: 1d)')
 
     parser.add_argument('-d', '--dt-start', type=lambda x: dup.parse(x),
@@ -41,8 +41,8 @@ def main(argv=None):
                         help='End date and time (default: now)')
 
     parser.add_argument('-f', '--format', type=str, default='',
-                        help='If specified, formats the float values (such as'
-                        'the asset prices) with this format string'
+                        help='If specified, formats the float values (such as '
+                        'the asset prices) with this format string '
                         '(e.g. "{:.6f}")')
 
     args = parser.parse_args(argv[1:])
