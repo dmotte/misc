@@ -26,6 +26,7 @@ def load_records(file: TextIO) -> list[dict]:
         if all(k == v for k, v in x.items()):
             continue
 
+        # Only Spot transaction records are supported for now
         if x['Account'] != 'Spot':
             raise ValueError('Invalid Account: ' + x['Account'])
 
