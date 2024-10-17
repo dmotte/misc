@@ -194,7 +194,8 @@ class OHLCV:
 
                 # Linear interpolation
                 return prev['open'] + (prev['close'] - prev['open']) * \
-                    ((d - prev['datetime']) / self.__interval.timedelta())
+                    self.__numtype(
+                        (d - prev['datetime']) / self.__interval.timedelta())
 
         raise LookupError(f'No valid candle for datetime {d} (it\'s too late)')
 
