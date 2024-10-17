@@ -4,6 +4,8 @@ Scripts to compute some **statistics** starting from **Binance transaction recor
 
 :warning: **Disclaimer**: I am not responsible for any wrong results or any possible damage caused by the use of these scripts.
 
+> **Note**: this project contains **fake data** useful for testing (e.g. directories [`transactions`](transactions) and [`statements`](statements))
+
 ## Usage
 
 Set up a **Python venv** (virtual environment) and install some packages inside it:
