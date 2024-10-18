@@ -278,6 +278,9 @@ class OHLCVDir:
         Estimates the value of an asset at a given datetime `d` using the best
         OHLCV object available in the set
         '''
+        if base == quote:
+            return self.__numtype(1)
+
         pair_branch: defaultdict = self.__ohlcvs[f'{base}/{quote}']
         ohlcv: OHLCV = pair_branch[min(pair_branch.keys())][d.year]
         return ohlcv.val(d)
