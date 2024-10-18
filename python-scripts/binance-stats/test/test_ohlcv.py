@@ -159,6 +159,10 @@ def test_ohlcv():
     d = dt.fromtimestamp((ts1 + ts2) / 2, tz=tz.utc)
     assert ohlcv04.val(d) == 7083.24
 
+    # Central point of the last candle
+    d = ohlcv04.end - ohlcv04.interval.timedelta() / 2
+    assert ohlcv04.val(d) == (7354.19 + 7358.75) / 2
+
     with pytest.raises(LookupError):  # No valid candle (too early)
         ohlcv04.val(dt.fromtimestamp(1000000000, tz=tz.utc))
 

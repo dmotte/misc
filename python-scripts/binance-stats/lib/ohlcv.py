@@ -189,13 +189,11 @@ class OHLCV:
                               '(it\'s too early)')
 
         for i, candle in enumerate(self.__candles):
-            if candle['datetime'] > d:
-                prev = self.__candles[i - 1]
-
+            if candle['datetime'] + self.__interval.timedelta() > d:
                 # Linear interpolation
-                return prev['open'] + (prev['close'] - prev['open']) * \
+                return candle['open'] + (candle['close'] - candle['open']) * \
                     self.__numtype(
-                        (d - prev['datetime']) / self.__interval.timedelta())
+                        (d - candle['datetime']) / self.__interval.timedelta())
 
         raise LookupError(f'No valid candle for datetime {d} (it\'s too late)')
 
