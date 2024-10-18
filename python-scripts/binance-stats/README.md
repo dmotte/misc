@@ -47,9 +47,10 @@ Finally, you can **compute the statistics**:
 
 ```bash
 cat transactions/records-*.csv |
-    venv/bin/python3 stats.py -d2021-01-01T00Z -D2022-01-01T00Z \
-        -s statements/spot-2021.csv,Coin,Total \
-        -e statements/earn-2021.csv,Token,Amount
+    venv/bin/python3 stats.py -d2021-01-01T00Z -D2021-12-31T23:59Z \
+        --real-spot=statements/spot-2021.csv,Coin,Total \
+        --real-earn=statements/earn-2021.csv,Token,Amount \
+        --ohlcv-dir=ohlcv --fiat=EUR
 ```
 
 ## Unit tests

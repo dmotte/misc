@@ -7,17 +7,14 @@ import sys
 from datetime import datetime as dt
 from datetime import timezone as tz
 from dateutil import parser as dup
+from decimal import Decimal
 
+from lib.ohlcv import OHLCVDir
 from lib.portfolio import Portfolio
 from lib.record import load_records, records_before
 
 
-# TODO compute values in FIAT. Usage example of OHLCVDir:
-# ohlcv_dir = OHLCVDir('ohlcv', 2020, 2020)
-# print(ohlcv_dir.val('BTC', 'USDT', dt.fromtimestamp(..., tz=tz.utc)))
-
-
-def compute_portfolios(records: list[dict]):
+def compute_portfolios(records: list[dict]) -> dict[str, Portfolio]:
     '''
     Computes the composition of the Spot and Earn portfolios starting from the
     transaction records
@@ -38,6 +35,22 @@ def compute_portfolios(records: list[dict]):
             earn.change(x['coin'], -x['change'])
 
     return {'spot': spot, 'earn': earn}
+
+
+def compute_fiats(pin: Portfolio, d: dt, fiat: str,
+                  ohlcvdir: OHLCVDir, quote: str) -> Portfolio:
+    '''
+    Computes the equivalent values in fiat currency of all the coins in the
+    porfolio
+    '''
+    pout = Portfolio()
+
+    for coin, balance in pin.composition().items():
+        rate_coin = ohlcvdir.val(coin, quote, d)
+        rate_fiat = ohlcvdir.val(fiat, quote, d)
+        pout.change(coin, balance * rate_coin / rate_fiat)
+
+    return pout
 
 
 def main(argv=None):
@@ -70,9 +83,13 @@ def main(argv=None):
     parser.add_argument('-e', '--real-earn', type=str, default='',
                         help='Like --real-spot, but for Earn')
 
-    # TODO Add arg --ohlcv-dir (default: "ohlcv")
-    # TODO Add arg --ref-quote (default: USDT)
-    # TODO Add arg --fiat (default: USDT, but you will pass EUR)
+    parser.add_argument('-o', '--ohlcv-dir', type=str, default='ohlcv',
+                        help='Directory containing OHLCV data that can be '
+                        'used by the script')
+    parser.add_argument('-r', '--ref-quote', type=str, default='USDT',
+                        help='Reference quote currency')
+    parser.add_argument('-f', '--fiat', type=str, default='USDT',
+                        help='Fiat currency')
 
     args = parser.parse_args(argv[1:])
 
@@ -85,7 +102,12 @@ def main(argv=None):
     records_before_start = records_before(records, args.dt_start)
     records_before_end = records_before(records, args.dt_end)
 
+    ohlcvdir = OHLCVDir(args.ohlcv_dir, args.dt_start.year, args.dt_end.year,
+                        Decimal)
+
     result = {}
+
+    ############################################################################
 
     portfolios_start = compute_portfolios(records_before_start)
     comp_spot_start = portfolios_start['spot']
@@ -98,6 +120,22 @@ def main(argv=None):
     comp_earn_end = portfolios_end['earn']
     result['comp_spot_end'] = comp_spot_end.composition()
     result['comp_earn_end'] = comp_earn_end.composition()
+
+    ############################################################################
+
+    comp_spot_start_fiat = compute_fiats(comp_spot_start, args.dt_start,
+                                         args.fiat, ohlcvdir, args.ref_quote)
+    comp_earn_start_fiat = compute_fiats(comp_earn_start, args.dt_start,
+                                         args.fiat, ohlcvdir, args.ref_quote)
+    result['comp_spot_start_fiat'] = comp_spot_start_fiat.composition()
+    result['comp_earn_start_fiat'] = comp_earn_start_fiat.composition()
+
+    comp_spot_end_fiat = compute_fiats(comp_spot_end, args.dt_end,
+                                       args.fiat, ohlcvdir, args.ref_quote)
+    comp_earn_end_fiat = compute_fiats(comp_earn_end, args.dt_end,
+                                       args.fiat, ohlcvdir, args.ref_quote)
+    result['comp_spot_end_fiat'] = comp_spot_end_fiat.composition()
+    result['comp_earn_end_fiat'] = comp_earn_end_fiat.composition()
 
     ############################################################################
 
