@@ -2,9 +2,9 @@
 
 This Python script can be used to convert a **JSON** (`*.json`) file (that is more or less compatible with the **Google Chrome / Chromium bookmarks file format**) into a **NETSCAPE Bookmark** (`*.html`) **file** that can be imported into almost any major browser, such as _Google Chrome_, _Chromium_, _Mozilla Firefox_, etc.
 
-Tested with **Python 3.9.1** on _Windows 10_.
-
 ## Usage
+
+> **Important**: this has been tested with **Python 3.9.1** on **Windows 10**.
 
 ```bash
 python3 main.py < input.json > output.html

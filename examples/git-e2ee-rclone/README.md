@@ -4,6 +4,8 @@ In this example we'll set up an **end-to-end encrypted** (E2EE) **Git remote** w
 
 > **Note**: we cannot use [`rclone serve sftp`](https://rclone.org/commands/rclone_serve_sftp/) for this project because [Git over SSH relies on **real shell commands**](https://serverfault.com/questions/620648/does-git-server-over-ssh-requires-sftp/620649#620649), not SFTP.
 
+> **Important**: this has been tested on **Debian 12** (_bookworm_).
+
 First of all, download _Rclone_ if it's not already installed on your system:
 
 ```bash

@@ -5,6 +5,8 @@ set -e
 # Example of how to use "getopt" in Bash (which, keep in mind, is not the
 # "getopts" builtin)
 
+# Tested on Debian 12 (bookworm)
+
 # Inspired by https://gist.github.com/drmalex07/6bcd65a0861f58b646a0
 
 # Note: the plus ("+") character at the beginning of the shortopts string is to

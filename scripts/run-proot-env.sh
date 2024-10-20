@@ -5,6 +5,8 @@ set -e
 # This script runs a command inside a custom PRoot environment. You can create
 # several environments with different names
 
+# Tested on Debian 12 (bookworm)
+
 # It also works (I tested it) when run as a regular user (non-root) inside an
 # unprivileged Podman container (i.e. created as a regular user on the host)
 

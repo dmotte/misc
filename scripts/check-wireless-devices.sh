@@ -5,6 +5,8 @@ set -e
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/check-wireless-devices.sh); echo $?
 
+# Tested on Debian 12 (bookworm)
+
 echo 'Checking that no wireless devices are present'
 
 text=$(bash -c 'lspci; lsusb; lsmod; ip a; rfkill list' 2>&1 || :)

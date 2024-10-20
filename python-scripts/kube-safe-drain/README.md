@@ -4,6 +4,8 @@ This script can be used to **safely drain** all the **cordoned nodes** in a _Kub
 
 ## Usage
 
+> **Important**: this has been tested with **Python 3.11.2** on **Debian 12** (_bookworm_).
+
 First you have to **cordon** all the nodes you want to drain. Example:
 
 ```bash

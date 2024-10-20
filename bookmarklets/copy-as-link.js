@@ -1,6 +1,8 @@
 // Bookmarklet to copy the page URL and title as link (in rich text format) to
 // the user's clipboard
 
+// Tested with Google Chrome version 130.0.6723.59 (Official Build) (64-bit)
+
 // javascript:(function(){
 
 function xmlescape(x) {

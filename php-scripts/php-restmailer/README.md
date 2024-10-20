@@ -4,9 +4,9 @@
 
 Inspired by [andrisro/REST-PHP-Mailer](https://github.com/andrisro/REST-PHP-Mailer).
 
-Tested with _PHP 8.0.8_.
-
 ## Usage
+
+> **Important**: this has been tested with **PHP 8.0.8**.
 
 Before uploading the script to your web server document directory, you may want to customize the configuration section. In particular, you should definitely **change the authentication credentials** and use a strong password.
 

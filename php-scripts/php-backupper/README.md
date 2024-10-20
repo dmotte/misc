@@ -4,9 +4,9 @@
 
 This script is meant to be used with PHP running on an **Apache** web server. It uses the `.htaccess` file functionality to enable / disable the maintenance mode.
 
-Tested with _PHP 8.1.3_.
-
 ## Usage
+
+> **Important**: this has been tested with **PHP 8.1.3**.
 
 Before uploading the script to your web server document directory, you may want to customize the configuration section. In particular, you should definitely **change the authentication credentials** and use a strong password.
 

@@ -4,9 +4,9 @@
 
 Simple daemon service application for _Raspberry Pi_ to handle a **safe shutdown button** with an indicator LED.
 
-Tested on a **Raspberry Pi 3 B** with **[Raspberry Pi OS](https://www.raspberrypi.com/software/operating-systems/) Lite** (release date: _2024-03-12_), **Python 3** and package versions as in [`requirements.txt`](requirements.txt).
-
 :warning: **Disclaimer**: I am not responsible for any possible damage caused to your boards.
+
+> **Important**: this has been tested on a **Raspberry Pi 3 B** with **[Raspberry Pi OS](https://www.raspberrypi.com/software/operating-systems/) Lite** (release date: _2024-03-12_), and depends only on **system packages** (from APT). See [`install.sh`](install.sh) for further details. If you want to double-check the versions of the Python libraries used, see [`requirements.txt`](requirements.txt).
 
 ## Demo
 

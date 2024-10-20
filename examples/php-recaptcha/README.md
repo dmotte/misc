@@ -2,6 +2,8 @@
 
 Simple example of how to use **Google reCAPTCHA v2** with **PHP**.
 
+> **Important**: this has been tested with **PHP 8.0.8**.
+
 Useful video tutorial (_not mine_): https://www.youtube.com/watch?v=xyOu0b6R3m0
 
 ## Step 1: Create the key pair

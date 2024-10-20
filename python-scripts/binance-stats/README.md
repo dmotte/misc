@@ -8,6 +8,8 @@ Scripts to compute some **statistics** starting from **Binance transaction recor
 
 ## Usage
 
+> **Important**: this has been tested with **Python 3.12.4** on **Windows 10**.
+
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 
 ```bash

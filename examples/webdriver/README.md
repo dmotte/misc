@@ -1,6 +1,8 @@
 # webdriver
 
-Example of how to use the **Selenium WebDriver** _Python_ library to drive the **Chromium** browser. Tested on **Debian 12** (_bookworm_).
+Example of how to use the **Selenium WebDriver** _Python_ library to drive the **Chromium** browser.
+
+> **Important**: this has been tested on **Debian 12** (_bookworm_).
 
 ```bash
 sudo apt-get update && sudo apt-get install -y chromium python3-venv

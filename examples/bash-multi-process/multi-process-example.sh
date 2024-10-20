@@ -5,6 +5,8 @@ set -e
 # Example of how to spawn multiple concurrent processes in Bash and display
 # both their stdout and stderr (with proper prefixes)
 
+# Tested on Debian 12 (bookworm)
+
 sample_service() {
     local name=${1:?}; shift
     while :; do

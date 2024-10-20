@@ -6,6 +6,8 @@ Simple example of how to use the **croniter** Python library.
 - GitHub: https://github.com/kiorky/croniter
 - Debian package: https://packages.debian.org/bookworm/python3-croniter
 
+> **Important**: this has been tested on **Debian 12** (_bookworm_) and depends only on **system packages** (from APT). If you want to double-check the versions of the Python libraries used, see [`requirements.txt`](requirements.txt).
+
 To run the example:
 
 ```bash

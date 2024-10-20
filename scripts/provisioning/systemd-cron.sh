@@ -5,6 +5,8 @@ set -e
 # This script can be used to set up a systemd-based "cron job" consisting of a
 # timer and a oneshot service
 
+# Tested on Debian 12 (bookworm)
+
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 options=$(getopt -o +n:e:w: -l name:,event-expr:,workdir: -- "$@")

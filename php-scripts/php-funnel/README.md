@@ -2,11 +2,11 @@
 
 :elephant: Simple PHP script that lets you upload **multiple files** with a single HTTP `POST` request ([multipart formpost](https://everything.curl.dev/http/multipart)).
 
-Tested with _PHP 8.2.10_.
-
 > **Warning**: be careful about the location of your `uploads_dir`; it **shouldn't be accessible** from the outside. If you are running PHP on an **Apache** web server, you can leverage the `hta_protection` feature of this script (which uses an `.htaccess` file), but putting uploaded files into the document root is still **strongly discouraged**.
 
 ## Usage
+
+> **Important**: this has been tested with **PHP 8.2.10**.
 
 Before uploading the script to your web server document directory, you may want to customize the configuration section. In particular, you should definitely **change the authentication credentials** and use a strong password.
 
