@@ -87,6 +87,7 @@ Some pieces of code I find useful for some reason.
 - `find . -iname \*.mp3 -printf '%P\n' | while read -r i; do [[ "$i" =~ ^[0-9A-Za-z\ .\(\)\'/_+-]+$ ]] || echo "$i"; done`
 - `venv/bin/python3 -mpip install -U --progress-bar=off -r requirements.txt`
 - `escape_if_any() { echo "${1:+${1@Q}}"; }`
+- `json_min_escape() { cat | jq -c . | jq -Rrs 'rtrimstr("\n") | @json'; }`
 - `arr=(one two three); echo "${arr[@]@Q}"; echo "${arr[*]@Q}"`
 - `vlc -vvv -Idummy --no-audio screen:// --screen-fps=10 --sout='#transcode{vcodec=MJPG,scale=0.5}:standard{access=http,mux=mpjpeg,dst=:8080/}' --sout-http-mime='multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a' --live-caching=100`
 - `modprobe -r mymod01 mymod02`, `echo -e 'blacklist mymod01\nblacklist mymod02' > /etc/modprobe.d/blacklist-mymod.conf`
