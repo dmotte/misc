@@ -100,6 +100,7 @@ Some pieces of code I find useful for some reason.
   - `md5sum mmcblk2.img.gz.part* > MD5SUMS`
   - `cat mmcblk2.img.gz.part* | gunzip -c | sudo dd of=/dev/mmcblk2 status=progress`
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
+- `comm <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright') --total`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
