@@ -21,7 +21,7 @@ Some pieces of code I find useful for some reason.
 - `curl -fLO https://...`, `curl -fLo target.zip https://...`
 - `curl -I https://example.com/`, `curl -i https://example.com/`
 - `top` and then press `xcV`. Then `W` to save the config
-- `cd "$(dirname "$0")"` useful in a _Bash_ script
+- `cd "$(dirname "$0")"` or `readonly basedir="$(dirname "$0")"`, useful in a _Bash_ script
 - `sudo blkid`
 - `ffmpeg -i input.mp4 -ss 97 -t 10 output.mp4`
 - `ffmpeg -i input.jpg -vf 'scale=iw*1/2:ih*1/2' output.jpg`
