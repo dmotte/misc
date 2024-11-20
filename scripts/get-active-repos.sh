@@ -2,6 +2,8 @@
 
 set -e
 
+# Usage example: ./get-active-repos.sh ~/git/* | while read -r i; do [ -e "$i/README.md" ] || echo "$i"; done
+
 readonly ignore_invalid=${IGNORE_INVALID:-false}
 readonly min_datetime=${MIN_DATETIME:-1 year ago}
 
@@ -15,7 +17,5 @@ for arg; do
         last_commit_timestamp=$(git -C "$arg" log -1 --format=%ct)
     fi
 
-    if [ "$last_commit_timestamp" -ge "$min_timestamp" ]; then
-        echo "$arg"
-    fi
+    [ "$last_commit_timestamp" -ge "$min_timestamp" ] && echo "$arg"
 done
