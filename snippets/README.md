@@ -48,6 +48,7 @@ Some pieces of code I find useful for some reason.
 - `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`
 - `diff <(ls -l) <(ls -la)`
 - `ps -aux --sort -pcpu | head -10`
+- `strings /proc/1234/environ | grep -i MY_ENV_VAR`
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
 - `python3 -mhttp.server`
 - `sleep infinity`
