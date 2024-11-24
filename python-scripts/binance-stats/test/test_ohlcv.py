@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import textwrap
 import io
 
 import pytest
@@ -122,13 +123,14 @@ def test_ohlcv():
 
     assert ohlcv02.val(dt(2020, 1, 1, 0, 30, tzinfo=tz.utc)) == Decimal(1.25)
 
-    csv01 = '''Timestamp,Open,High,Low,Close,Volume
+    csv01 = textwrap.dedent('''\
+        Timestamp,Open,High,Low,Close,Volume
         1577836800000,7195.24,7255.0,7175.15,7200.85,16792.388165
         1577923200000,7200.77,7212.5,6924.74,6965.71,31951.483932
         1578009600000,6965.49,7405.0,6871.04,7344.96,68428.500451
         1578096000000,7345.0,7404.0,7272.21,7354.11,29987.974977
         1578182400000,7354.19,7495.0,7318.0,7358.75,38331.085604
-    '''.replace(' ', '')
+    ''')
 
     with pytest.raises(ValueError):  # Invalid number type
         OHLCV.load('BTC', 'USDT', io.StringIO(csv01), int)

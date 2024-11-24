@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import io
+import textwrap
 
 import pytest
 
@@ -74,10 +75,11 @@ def test_portfolio_float():
 
 
 def test_portfolio_load():
-    csv01 = '''Coin,Amount
+    csv01 = textwrap.dedent('''\
+        Coin,Amount
         AAA,123
         BBB,456
-    '''.replace(' ', '')
+    ''')
 
     p = Portfolio.load(io.StringIO(csv01), 'Coin', 'Amount', numtype=float)
 
