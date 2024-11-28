@@ -6,6 +6,8 @@ inputs:
   script:
     description: Content of the script to run
     required: true
+  # We pass the secrets as inputs instead of env vars to limit their visibility
+  # to only the steps that need them
   secret01: { description: Secret, required: false, default: "" }
   secret02: { description: Secret, required: false, default: "" }
   secret03: { description: Secret, required: false, default: "" }
