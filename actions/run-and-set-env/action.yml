@@ -24,9 +24,10 @@ runs:
 
         env_after_script=$(env | LC_ALL=C sort)
 
-        comm -13 <(echo "$env_before_script") <(echo "$env_after_script") | {
-            if [ "$INPUT_PRINT" = true ]
-                then tee -a "$GITHUB_ENV"
-                else tee "$GITHUB_ENV"
-            fi
+        get_changed_env_vars() {
+            comm -13 <(echo "$env_before_script") <(echo "$env_after_script")
         }
+        if [ "$INPUT_PRINT" = true ]
+            then get_changed_env_vars | tee -a "$GITHUB_ENV"
+            else get_changed_env_vars >> "$GITHUB_ENV"
+        fi
