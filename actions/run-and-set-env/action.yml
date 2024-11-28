@@ -1,0 +1,22 @@
+---
+name: run-and-set-env
+description: run-and-set-env
+
+inputs:
+  script:
+    description: Content of the script to run
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        env_before_script=$(env | LC_ALL=C sort)
+
+        ${{ inputs.script }}
+
+        env_after_script=$(env | LC_ALL=C sort)
+
+        comm -13 <(echo "$env_before_script") <(echo "$env_after_script") |
+            tee -a "$GITHUB_ENV"
