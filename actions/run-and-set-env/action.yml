@@ -6,11 +6,17 @@ inputs:
   script:
     description: Content of the script to run
     required: true
+  print:
+    description: If set to "true", print the env vars
+    required: false
+    default: ""
 
 runs:
   using: composite
   steps:
     - shell: bash
+      env:
+        INPUT_PRINT: ${{ inputs.print }}
       run: |
         env_before_script=$(env | LC_ALL=C sort)
 
@@ -18,5 +24,9 @@ runs:
 
         env_after_script=$(env | LC_ALL=C sort)
 
-        comm -13 <(echo "$env_before_script") <(echo "$env_after_script") |
-            tee -a "$GITHUB_ENV"
+        comm -13 <(echo "$env_before_script") <(echo "$env_after_script") | {
+            if [ "$INPUT_PRINT" = true ]
+                then tee -a "$GITHUB_ENV"
+                else tee "$GITHUB_ENV"
+            fi
+        }
