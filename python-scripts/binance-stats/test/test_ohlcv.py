@@ -39,7 +39,7 @@ def test_interval():
 
 
 def test_ohlcv():
-    with pytest.raises(ValueError):  # Invalid number type
+    with pytest.raises(ValueError) as exc_info:
         OHLCV('BASE', 'QUOTE', [
             {
                 'datetime': dt(2020, 1, 1, 0, tzinfo=tz.utc),
@@ -52,11 +52,13 @@ def test_ohlcv():
                 'volume': 1,
             },
         ])
+    assert exc_info.value.args == ('Invalid number type: <class \'int\'>',)
 
-    with pytest.raises(ValueError):  # Not enough candles
+    with pytest.raises(ValueError) as exc_info:
         OHLCV('BASE', 'QUOTE', [])
+    assert exc_info.value.args == ('Not enough candles. Minimum required: 2',)
 
-    with pytest.raises(ValueError):  # Not enough candles
+    with pytest.raises(ValueError) as exc_info:
         OHLCV('BASE', 'QUOTE', [
             {
                 'datetime': dt(2020, 1, 1, 0, tzinfo=tz.utc),
@@ -64,8 +66,9 @@ def test_ohlcv():
                 'volume': 1.0,
             },
         ])
+    assert exc_info.value.args == ('Not enough candles. Minimum required: 2',)
 
-    with pytest.raises(ValueError):  # Interval mismatch
+    with pytest.raises(ValueError) as exc_info:
         OHLCV('BASE', 'QUOTE', [
             {
                 'datetime': dt(2020, 1, 1, 0, tzinfo=tz.utc),
@@ -83,6 +86,9 @@ def test_ohlcv():
                 'volume': 1.0,
             },
         ])
+    assert exc_info.value.args == (
+        'Interval mismatch for candle at 2020-01-01 03:00:00+00:00. '
+        'Expected 1:00:00, but found 2:00:00',)
 
     ohlcv01 = OHLCV('BASE', 'QUOTE', [
         {
@@ -132,8 +138,9 @@ def test_ohlcv():
         1578182400000,7354.19,7495.0,7318.0,7358.75,38331.085604
     ''')
 
-    with pytest.raises(ValueError):  # Invalid number type
+    with pytest.raises(ValueError) as exc_info:
         OHLCV.load('BTC', 'USDT', io.StringIO(csv01), int)
+    assert exc_info.value.args == ('Invalid number type: <class \'int\'>',)
 
     ohlcv03: OHLCV = OHLCV.load('BTC', 'USDT', io.StringIO(csv01), Decimal)
     assert ohlcv03.numtype == Decimal
@@ -165,8 +172,14 @@ def test_ohlcv():
     d = ohlcv04.end - ohlcv04.interval.timedelta() / 2
     assert ohlcv04.val(d) == (7354.19 + 7358.75) / 2
 
-    with pytest.raises(LookupError):  # No valid candle (too early)
+    with pytest.raises(LookupError) as exc_info:
         ohlcv04.val(dt.fromtimestamp(1000000000, tz=tz.utc))
+    assert exc_info.value.args == (
+        'No valid candle for datetime 2001-09-09 01:46:40+00:00 '
+        '(it\'s too early)',)
 
-    with pytest.raises(LookupError):  # No valid candle (too late)
+    with pytest.raises(LookupError) as exc_info:
         ohlcv04.val(dt.fromtimestamp(2000000000, tz=tz.utc))
+    assert exc_info.value.args == (
+        'No valid candle for datetime 2033-05-18 03:33:20+00:00 '
+        '(it\'s too late)',)

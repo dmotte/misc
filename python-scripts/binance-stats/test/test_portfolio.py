@@ -11,8 +11,9 @@ from lib.portfolio import Portfolio
 
 
 def test_portfolio():
-    with pytest.raises(ValueError):  # Invalid number type
+    with pytest.raises(ValueError) as exc_info:
         Portfolio(numtype=int)
+    assert exc_info.value.args == ('Invalid number type: <class \'int\'>',)
 
     p = Portfolio({'AAA': 5, 'BBB': 7})
 
@@ -49,8 +50,10 @@ def test_portfolio_float():
     assert p.is_zero(0)
     assert not p.is_zero(3)
 
-    with pytest.raises(ValueError):  # Coin would go negative
+    with pytest.raises(ValueError) as exc_info:
         p.change('AAA', -6)
+    assert exc_info.value.args == (
+        'Coin AAA would go negative (-1.0) after change by -6.0',)
     assert p.get('AAA') == 5
 
     pcopy = p.copy()
