@@ -15,6 +15,7 @@ Some pieces of code I find useful for some reason.
 - `git diff --cached > my.patch`, `git apply my.patch`
 - `git clean -dfnX`
 - `git remote set-url origin git@github.com:octocat/hello-world.git`
+- `git rev-parse --show-toplevel`
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
 - `tar -cvzf archive.tar.gz folder/`, `tar -xvzf archive.tar.gz`
