@@ -5,7 +5,13 @@
 
 // javascript:(function(){
 
-const content = document.getElementsByTagName("textarea")[0].value.trim();
+const content = document
+  .getElementsByTagName("textarea")[0]
+  .value.trim()
+  .replaceAll("\r", "")
+  .split("\n")
+  .map((line) => line.trim())
+  .join("\n");
 
 navigator.clipboard
   .writeText(content)
