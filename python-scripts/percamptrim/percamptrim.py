@@ -6,6 +6,7 @@ import math
 import sys
 
 from contextlib import ExitStack
+from typing import TextIO
 
 from pydub import AudioSegment
 
@@ -67,6 +68,14 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0.0001,
         'gain_factor': gain_factor,
         'gain_db': gain_db,
     }
+
+
+def print_values(values: dict, file: TextIO):
+    '''
+    Prints the values to the specified file
+    '''
+    for k, v in values.items():
+        print(f'{k}={v}', file=file)
 
 
 def main(argv=None):
