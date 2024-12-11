@@ -87,10 +87,14 @@ def compute_values(audio: AudioSegment,
         'frame_rate': frame_rate,
         'max_poss': max_poss,
         'len_samples': len_samples,
+
+        'sample_start': sample_start, 'sample_end': sample_end,
+        'time_start': time_start, 'time_end': time_end,
+        'len_samples_cut': len_samples_cut,
+
         'target_max': target_max,
         'gain_factor': gain_factor,
         'gain_db': gain_db,
-        # TODO check that you have all the values here
     }
 
 
