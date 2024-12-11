@@ -2,9 +2,66 @@
 
 set -e
 
-TODO this processes an audio file based on values computed by the python script
+# This script can be used to process an audio file based on the values computed
+# by the Python scripts
 
-# venv/bin/python3 percamptrim.py input.mp3 # TODO
+options=$(getopt -o +p:l:c -l perc-clipping:,level-trim:,clear-metadata -- "$@")
+eval "set -- $options"
 
-# ffmpeg -i input.mp3 -af volume=1.95 output.mp3 # TODO
-# TODO optional flag to remove the metadata before processing the MP3 file
+perc_clipping=''
+level_trim=''
+clear_metadata=n
+
+while :; do
+    case $1 in
+        -p|--perc-clipping) shift; perc_clipping=$1;;
+        -l|--level-trim) shift; level_trim=$1;;
+        -c|--clear-metadata) clear_metadata=y;;
+        --) shift; break;;
+    esac
+    shift
+done
+
+readonly file_in=${1:?} file_out=${2:?}
+
+args_amp=()
+args_trim=()
+
+[ -n "$perc_clipping" ] && args_amp+=(--perc-clipping="$perc_clipping")
+[ -n "$level_trim" ] && args_trim+=(--level-trim="$level_trim")
+
+################################################################################
+
+basedir=$(dirname "$0")
+
+if [[ "$(uname)" = MINGW* ]]
+    then py=$basedir/venv/Scripts/python
+    else py=$basedir/venv/bin/python3
+fi
+
+echo 'Computing amplification values'
+values_amp=$("$py" "$basedir/compute-amp.py" "${args_amp[@]}" \
+    "$file_in" -f'{:.6f}')
+echo "$values_amp"
+
+echo 'Computing trimming values'
+values_trim=$("$py" "$basedir/compute-trim.py" "${args_trim[@]}" \
+    "$file_in" -f'{:.6f}')
+echo "$values_trim"
+
+gain_factor="$(echo "$values_amp" | grep '^gain_factor=')"
+gain_factor=${gain_factor#gain_factor=}
+
+time_start="$(echo "$values_trim" | grep '^time_start=')"
+time_start=${time_start#time_start=}
+time_end="$(echo "$values_trim" | grep '^time_end=')"
+time_end=${time_end#time_end=}
+
+################################################################################
+
+ffmpeg -i "$file_in" -af "volume=$gain_factor" "$file_out"
+echo TODO trim
+
+if [ "$clear_metadata" = y ]; then
+    echo TODO clear metadata
+fi
