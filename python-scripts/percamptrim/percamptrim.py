@@ -122,22 +122,20 @@ def main(argv=None):
                         help='Output file. If set to "-" then stdout is used '
                         '(default: -)')
 
-    # TODO change the order of the params and cli flags to make it clear that the trimming is considered in the amp calc
-    # TODO write in the flags that, if levels are zero, trimming is not
-    # performed
-
-    parser.add_argument('-p', '--perc-clipping', type=float, default=0.0001,
-                        help='Percentage (from 0 to 1) of audio samples that '
-                        'are allowed to clip (default: 0.0001)')
-
     parser.add_argument('-l', '--level-start', type=float, default=0.0005,
                         help='Threshold (from 0 to 1) for trimming the start '
-                        'of the audio (default: 0.0005)')
+                        'of the audio. If 0, the start will not be trimmed '
+                        '(default: 0.0005)')
     parser.add_argument('-L', '--level-end', type=float, default=0.0005,
                         help='Threshold (from 0 to 1) for trimming the end '
-                        'of the audio (default: 0.0005)')
+                        'of the audio. If 0, the end will not be trimmed '
+                        '(default: 0.0005)')
 
-    # TODO use it
+    parser.add_argument('-p', '--perc-clipping', type=float, default=0.0001,
+                        help='Percentage (from 0 to 1) of samples of the '
+                        'trimmed audio that are allowed to clip '
+                        '(default: 0.0001)')
+
     parser.add_argument('-f', '--format', type=str, default='',
                         help='If specified, formats the float values (such as '
                         'the gain factor) with this format string '
@@ -155,7 +153,7 @@ def main(argv=None):
 
         audio: AudioSegment = AudioSegment.from_file(file_in)
 
-        # TODO fix this
+        # TODO use all the flags
         print(compute_values(audio, args.perc_clipping, args.level_start,
                              args.level_end), file=file_out)
 
