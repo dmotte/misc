@@ -61,7 +61,22 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0.0001,
 
     ############################################################################
 
-    # TODO calculate start and end
+    # TODO consider start and end in the calculation of amplification
+
+    sample_start = 0  # Inclusive
+    for i in range(0, len_samples):
+        if samples_abs[i] >= level_start:
+            sample_start = i
+            break
+
+    sample_end = len_samples - 1  # Inclusive
+    for i in range(len_samples - 1, -1, -1):
+        if samples_abs[i] >= level_end:
+            sample_end = i
+            break
+
+    time_start = sample_start / frame_rate
+    time_end = sample_end / frame_rate
 
     ############################################################################
 
