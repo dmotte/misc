@@ -19,7 +19,7 @@ venv/bin/python3 -mpip install -r requirements.txt
 Then TODO:
 
 ```bash
-venv/bin/python3 main.py TODO
+venv/bin/python3 percamptrim.py TODO
 ```
 
 TODO Bash script
