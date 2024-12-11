@@ -156,9 +156,10 @@ def main(argv=None):
         # TODO consider splitting into two separate scripts, as the two parts
         # influence each other
 
-        # TODO use all the flags
-        print(compute_values(audio, args.perc_clipping, args.level_start,
-                             args.level_end), file=file_out)
+        values = compute_values(audio, args.level_start, args.level_end,
+                                args.perc_clipping)
+
+        print_values(values, file_out, args.format)
 
     return 0
 
