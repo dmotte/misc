@@ -43,6 +43,9 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0.0001,
     # Maximum sample value in the audio track
     max_abs = sorted_abs[-1]
 
+    if max_abs == 0:
+        raise ValueError('The track is silent')
+
     # Value of the sample(s) that will be the new maximum after the track will
     # be amplified
     target_max = sorted_abs[round((len_samples - 1) * (1 - perc_clipping))]
