@@ -74,7 +74,7 @@ def main(argv=None):
         argv = sys.argv
 
     parser = argparse.ArgumentParser(
-        description='TODO'
+        description='Percentile-based audio amplifier and trimmer'
     )
 
     parser.add_argument('file_in', metavar='FILE_IN', type=str,
@@ -86,16 +86,16 @@ def main(argv=None):
                         help='Output file. If set to "-" then stdout is used '
                         '(default: -)')
 
-    # TODO recheck the flags
-
     parser.add_argument('-p', '--perc-clipping', type=float, default=0.0001,
-                        help='Percentage of audio samples that are allowed '
-                        'to clip (default: 0.0001)')
+                        help='Percentage (from 0 to 1) of audio samples that '
+                        'are allowed to clip (default: 0.0001)')
 
     parser.add_argument('-l', '--level-start', type=float, default=0.0005,
-                        help='TODO (default: 0.0005)')
+                        help='Threshold (from 0 to 1) for trimming the start '
+                        'of the audio (default: 0.0005)')
     parser.add_argument('-L', '--level-end', type=float, default=0.0005,
-                        help='TODO (default: 0.0005)')
+                        help='Threshold (from 0 to 1) for trimming the end '
+                        'of the audio (default: 0.0005)')
 
     args = parser.parse_args(argv[1:])
 
