@@ -153,6 +153,9 @@ def main(argv=None):
 
         audio: AudioSegment = AudioSegment.from_file(file_in)
 
+        # TODO consider splitting into two separate scripts, as the two parts
+        # influence each other
+
         # TODO use all the flags
         print(compute_values(audio, args.perc_clipping, args.level_start,
                              args.level_end), file=file_out)
