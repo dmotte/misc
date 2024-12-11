@@ -98,12 +98,11 @@ def compute_values(audio: AudioSegment,
     }
 
 
-def print_values(values: dict, file: TextIO):
-    '''
-    Prints the values to the specified file
-    '''
+def print_values(values: dict, file: TextIO, fmt_float: str = ''):
+    func_float = str if fmt_float == '' else lambda x: fmt_float.format(x)
+
     for k, v in values.items():
-        print(f'{k}={v}', file=file)
+        print(f'{k}={func_float(v) if isinstance(v, float) else v}', file=file)
 
 
 def main(argv=None):
