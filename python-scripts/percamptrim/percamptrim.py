@@ -106,6 +106,12 @@ def main(argv=None):
                         help='Threshold (from 0 to 1) for trimming the end '
                         'of the audio (default: 0.0005)')
 
+    # TODO use it
+    parser.add_argument('-f', '--format', type=str, default='',
+                        help='If specified, formats the float values (such as '
+                        'the gain factor) with this format string '
+                        '(e.g. "{:.6f}")')
+
     args = parser.parse_args(argv[1:])
 
     ############################################################################
