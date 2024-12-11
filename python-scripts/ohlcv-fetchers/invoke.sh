@@ -2,7 +2,7 @@
 
 set -e
 
-basedir="$(dirname "$0")"
+basedir=$(dirname "$0")
 
 readonly fetcher=${1:?}; shift
 
