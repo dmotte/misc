@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-import array
 import math
 import sys
 
@@ -11,17 +10,17 @@ from typing import TextIO
 from pydub import AudioSegment
 
 
-def compute_values(audio: AudioSegment, perc_clipping: float = 0.0001,
-                   level_start: float = 0.0005,
-                   level_end: float = 0.0005) -> dict:
-    if perc_clipping < 0 or perc_clipping > 1:
-        raise ValueError(f'Invalid perc_clipping value: {perc_clipping}. It '
-                         'must be between 0 and 1, inclusive')
+def compute_values(audio: AudioSegment,
+                   level_start: float = 0, level_end: float = 0,
+                   perc_clipping: float = 0) -> dict:
     if level_start < 0 or level_start > 1:
         raise ValueError(f'Invalid level_start value: {level_start}. It '
                          'must be between 0 and 1, inclusive')
     if level_end < 0 or level_end > 1:
         raise ValueError(f'Invalid level_end value: {level_end}. It '
+                         'must be between 0 and 1, inclusive')
+    if perc_clipping < 0 or perc_clipping > 1:
+        raise ValueError(f'Invalid perc_clipping value: {perc_clipping}. It '
                          'must be between 0 and 1, inclusive')
 
     ############################################################################
@@ -36,23 +35,46 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0.0001,
 
     samples_abs = [abs(s) for s in samples]
 
+    ############################################################################
+
+    sample_start = 0  # First sample, inclusive
+    if level_start > 0:
+        for i in range(0, len_samples):
+            if samples_abs[i] >= level_start:
+                sample_start = i
+                break
+
+    sample_end = len_samples  # Last sample, exclusive
+    if level_end > 0:
+        for i in range(len_samples - 1, -1, -1):
+            if samples_abs[i] >= level_end:
+                sample_end = i + 1
+                break
+
+    # Time of the first sample, in seconds. If < 0, the audio doesn't need to
+    # be trimmed at the start
+    time_start = -1 if sample_start == 0 else sample_start / frame_rate
+    # Time of the last sample, in seconds. If < 0, the audio doesn't need to
+    # be trimmed at the end
+    time_end = -1 if sample_end == len_samples else sample_end / frame_rate
+
+    ############################################################################
+
+    samples_abs_cut = samples_abs[sample_start:sample_end]
+    len_samples_cut = len(samples_abs_cut)
+
     # Similar to an ECDF (Empirical Cumulative Distribution Function)
-    sorted_abs = samples_abs.copy()
-    sorted_abs.sort()
+    sorted_abs_cut = samples_abs_cut.copy()
+    sorted_abs_cut.sort()
 
-    # Maximum sample value in the audio track
-    max_abs = sorted_abs[-1]
-
-    if max_abs == 0:
-        raise ValueError('The track is silent')
-
-    # Value of the sample(s) that will be the new maximum after the track will
-    # be amplified
-    target_max = sorted_abs[round((len_samples - 1) * (1 - perc_clipping))]
+    # Value of the sample(s) that will be the new maximum(s) after the track
+    # will be amplified
+    target_max = sorted_abs_cut[round(
+        (len_samples_cut - 1) * (1 - perc_clipping))]
 
     if target_max == 0:
-        raise ValueError('The computed target_max is zero (maybe '
-                         'perc_clipping is a little bit too high?)')
+        raise ValueError('The computed target_max is zero. Maybe '
+                         'perc_clipping is too high, or the track is silent')
 
     # Gain expressed as multiplication factor (e.g. 2.0 -> 2x)
     gain_factor = max_poss / target_max
@@ -61,33 +83,14 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0.0001,
 
     ############################################################################
 
-    # TODO consider start and end in the calculation of amplification
-
-    sample_start = 0  # Inclusive
-    for i in range(0, len_samples):
-        if samples_abs[i] >= level_start:
-            sample_start = i
-            break
-
-    sample_end = len_samples - 1  # Inclusive
-    for i in range(len_samples - 1, -1, -1):
-        if samples_abs[i] >= level_end:
-            sample_end = i
-            break
-
-    time_start = sample_start / frame_rate
-    time_end = sample_end / frame_rate
-
-    ############################################################################
-
     return {
         'frame_rate': frame_rate,
         'max_poss': max_poss,
         'len_samples': len_samples,
-        'max_abs': max_abs,
         'target_max': target_max,
         'gain_factor': gain_factor,
         'gain_db': gain_db,
+        # TODO check that you have all the values here
     }
 
 
@@ -115,6 +118,10 @@ def main(argv=None):
                         nargs='?', default='-',
                         help='Output file. If set to "-" then stdout is used '
                         '(default: -)')
+
+    # TODO change the order of the params and cli flags to make it clear that the trimming is considered in the amp calc
+    # TODO write in the flags that, if levels are zero, trimming is not
+    # performed
 
     parser.add_argument('-p', '--perc-clipping', type=float, default=0.0001,
                         help='Percentage (from 0 to 1) of audio samples that '
