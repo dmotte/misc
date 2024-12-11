@@ -26,6 +26,8 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0.0001,
 
     ############################################################################
 
+    frame_rate = audio.frame_rate
+
     # Maximum possible (absolute) value of a sample
     max_poss = 2 ** (8 * audio.sample_width - 1)
 
@@ -61,6 +63,7 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0.0001,
     ############################################################################
 
     return {
+        'frame_rate': frame_rate,
         'max_poss': max_poss,
         'len_samples': len_samples,
         'max_abs': max_abs,
