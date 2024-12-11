@@ -1,9 +1,9 @@
-# percampcut
+# percamptrim
 
-**Perc**entile-based audio **amp**lifier and **cut**ter.
+**Perc**entile-based audio **amp**lifier and **trim**mer.
 
 - Using the "**amplifier**" algorithm, you can **normalize** the audio track based on an **allowed clipping** percentage
-- Using the "**cutter**" algorithm, you can **cut** the **start** and **end** of the audio track based on **minimum allowed signal levels**
+- Using the "**trimmer**" algorithm, you can **cut** the **start** and **end** of the audio track based on thresholds for **minimum allowed signal levels**
 
 ## Usage
 
