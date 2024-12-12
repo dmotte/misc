@@ -2,8 +2,8 @@
 
 **Perc**entile-based audio **amp**lifier and **trim**mer.
 
-- Using the "**amplifier**" algorithm, you can **normalize** the audio track based on an **allowed clipping** samples percentage
-- Using the "**trimmer**" algorithm, you can **cut** the **start** and **end** of the audio track based on thresholds for **minimum allowed signal levels**
+- Using the "**amplifier**" algorithm ([`compute-amp.py`](compute-amp.py)), you can **normalize** the audio track based on an **allowed clipping** samples percentage
+- Using the "**trimmer**" algorithm ([`compute-trim.py`](compute-trim.py)), you can **cut** the **start** and **end** of the audio track based on thresholds for **minimum allowed signal levels**
 
 ## Usage
 
@@ -16,10 +16,8 @@ python3 -mvenv venv
 venv/bin/python3 -mpip install -r requirements.txt
 ```
 
-Then TODO:
+Then you can **process an audio file** using the [`process.sh`](process.sh) Bash script:
 
 ```bash
-venv/bin/python3 percamptrim.py TODO
+./process.sh -c {input,output}.mp3
 ```
-
-TODO Bash script
