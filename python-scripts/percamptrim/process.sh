@@ -27,8 +27,8 @@ readonly file_in=${1:?} file_out=${2:?}
 args_amp=()
 args_trim=()
 
-[ -n "$perc_clipping" ] && args_amp+=(--perc-clipping="$perc_clipping")
-[ -n "$level_trim" ] && args_trim+=(--level-trim="$level_trim")
+[ -n "$perc_clipping" ] && args_amp+=("--perc-clipping=$perc_clipping")
+[ -n "$level_trim" ] && args_trim+=(--level-{start,end}"=$level_trim")
 
 ################################################################################
 
@@ -59,9 +59,13 @@ time_end=${time_end#time_end=}
 
 ################################################################################
 
-ffmpeg -i "$file_in" -af "volume=$gain_factor" "$file_out"
-echo TODO trim
+args_ffmpeg=()
 
-if [ "$clear_metadata" = y ]; then
-    echo TODO clear metadata
-fi
+[ "$time_start" != -1 ] && args_ffmpeg+=(-ss "$time_start")
+[ "$time_end" != -1 ] && args_ffmpeg+=(-to "$time_end")
+
+args_ffmpeg+=(-af "volume=$gain_factor")
+
+[ "$clear_metadata" = y ] && args_ffmpeg+=(-map 0:a -map_metadata -1)
+
+ffmpeg -i "$file_in" "${args_ffmpeg[@]}" "$file_out"
