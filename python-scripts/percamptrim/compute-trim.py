@@ -19,6 +19,7 @@ def compute_values(audio: AudioSegment,
                          'must be between 0 and 1, inclusive')
 
     frame_rate = audio.frame_rate
+    channels = audio.channels
 
     # Maximum possible (absolute) value of a sample
     max_poss = 2 ** (8 * audio.sample_width - 1)
@@ -30,27 +31,32 @@ def compute_values(audio: AudioSegment,
 
     sample_start = 0  # First sample, inclusive
     if level_start > 0:
+        threshold = max_poss * level_start
         for i in range(0, len_samples):
-            if samples_abs[i] >= level_start * max_poss:
+            if samples_abs[i] >= threshold:
                 sample_start = i
                 break
 
     sample_end = len_samples  # Last sample, exclusive
     if level_end > 0:
+        threshold = max_poss * level_end
         for i in range(len_samples - 1, -1, -1):
-            if samples_abs[i] >= level_end * max_poss:
+            if samples_abs[i] >= threshold:
                 sample_end = i + 1
                 break
 
     # Time of the first sample, in seconds. If < 0, the audio doesn't need to
     # be trimmed at the start
-    time_start = -1 if sample_start == 0 else sample_start / frame_rate
+    time_start = -1 if sample_start == 0 \
+        else sample_start / (frame_rate * channels)
     # Time of the last sample, in seconds. If < 0, the audio doesn't need to
     # be trimmed at the end
-    time_end = -1 if sample_end == len_samples else sample_end / frame_rate
+    time_end = -1 if sample_end == len_samples \
+        else sample_end / (frame_rate * channels)
 
     return {
         'frame_rate': frame_rate,
+        'channels': channels,
         'len_samples': len_samples,
 
         'level_start': level_start, 'level_end': level_end,
