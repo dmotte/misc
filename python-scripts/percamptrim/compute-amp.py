@@ -44,6 +44,8 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0) -> dict:
         'max_poss': max_poss,
         'len_samples': len_samples,
 
+        'perc_clipping': perc_clipping,
+
         'target_max': target_max,
         'gain_factor': gain_factor,
         'gain_db': gain_db,

@@ -50,6 +50,8 @@ def compute_values(audio: AudioSegment,
         'frame_rate': frame_rate,
         'len_samples': len_samples,
 
+        'level_start': level_start, 'level_end': level_end,
+
         'sample_start': sample_start, 'sample_end': sample_end,
         'time_start': time_start, 'time_end': time_end,
     }
