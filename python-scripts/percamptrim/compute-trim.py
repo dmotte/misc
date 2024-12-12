@@ -20,6 +20,9 @@ def compute_values(audio: AudioSegment,
 
     frame_rate = audio.frame_rate
 
+    # Maximum possible (absolute) value of a sample
+    max_poss = 2 ** (8 * audio.sample_width - 1)
+
     samples = audio.get_array_of_samples()
     len_samples = len(samples)
 
@@ -28,14 +31,14 @@ def compute_values(audio: AudioSegment,
     sample_start = 0  # First sample, inclusive
     if level_start > 0:
         for i in range(0, len_samples):
-            if samples_abs[i] >= level_start:
+            if samples_abs[i] >= level_start * max_poss:
                 sample_start = i
                 break
 
     sample_end = len_samples  # Last sample, exclusive
     if level_end > 0:
         for i in range(len_samples - 1, -1, -1):
-            if samples_abs[i] >= level_end:
+            if samples_abs[i] >= level_end * max_poss:
                 sample_end = i + 1
                 break
 
