@@ -2,7 +2,7 @@
 
 set -e
 
-# Usage example: ./github-bak-all-repos.sh octocat ~/bak-octocat/
+# Usage example: time ./github-bak-all-repos.sh octocat ~/bak-octocat/; echo $?
 
 readonly owner=${1:?} dest=${2:?}
 
