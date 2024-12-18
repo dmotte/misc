@@ -20,9 +20,11 @@ readonly subcmd=$1; shift
 
 [ "$subcmd" = help ] || [ "$subcmd" = version ] && { mottekit_info; exit; }
 
+basedir=$(dirname "$0")
+
 for i in ~/.mottekit/overrides/"$subcmd.sh" \
-    "$(dirname "$0")/$subcmd.sh" \
-    "$(dirname "$(dirname "$0")")/$subcmd.sh"
+    "$basedir/$subcmd.sh" \
+    "$(dirname "$basedir")/$subcmd.sh"
 
     do [ -e "$i" ] && exec bash "$i" "$@"
 done
