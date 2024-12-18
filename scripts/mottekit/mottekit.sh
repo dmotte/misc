@@ -20,8 +20,12 @@ readonly subcmd=$1; shift
 
 [ "$subcmd" = help ] || [ "$subcmd" = version ] && { mottekit_info; exit; }
 
-path_script="$(dirname "$(dirname "$0")")/$subcmd.sh"
-[ -e "$path_script" ] && exec "$path_script" "$@"
+for i in ~/.mottekit/overrides/"$subcmd.sh" \
+    "$(dirname "$0")/$subcmd.sh" \
+    "$(dirname "$(dirname "$0")")/$subcmd.sh"
+
+    do [ -e "$i" ] && exec bash "$i" "$@"
+done
 
 # TODO add subcommands: update, snip
 
