@@ -19,14 +19,19 @@ mkdir -p "$dest"
 
 cd "$dest"
 
+before_clone=''
+[ "$GHBAK_RM_BEFORE_CLONE" = true ] && before_clone+="rm -rf \"\$repo_name\";"
+
 # We run the rest of the commands in a Bash subprocess spawned with "exec"
 # because this script could be changed by a "git pull" in case it's part
 # of one of the repos
 
 { read -rd '' script || [ -n "$script" ]; } << EOF
 echo ${repos@Q} | while read -r i; do
-    echo "Processing repo \$i"
-    git -C "\${i#$owner_name/}" ${GHBAK_PULL_ARGS:-} pull || {
+    repo_name=\${i#$owner_name/}
+    echo "Processing repo \$repo_name"
+    git -C "\$repo_name" ${GHBAK_PULL_ARGS:-} pull || {
+        $before_clone
         git clone ${GHBAK_CLONE_ARGS:-} "https://github.com/\$i.git"
     }
 done
