@@ -2,13 +2,18 @@
 
 set -e
 
-# Usage example: time ./github-bak-all-repos.sh octocat ~/bak-octocat/; echo $?
+# Usage example:
+#   time ./github-bak-all-repos.sh users/octocat ~/bak-octocat/; echo $?
 
 readonly owner=${1:?} dest=${2:?}
 
-repos=$(bash "$(dirname "$0")/github-get-all-repos.sh" "users/$owner" \
+repos=$(bash "$(dirname "$0")/github-get-all-repos.sh" "$owner" \
     '.archived == false and .fork == false')
 repos=$(echo "$repos" | tr -d '\r')
+
+for i in "${owner#users/}" "${owner#orgs/}"; do
+    [ "$i" = "$owner" ] || { readonly owner_name=$i; break; }
+done
 
 mkdir -p "$dest"
 
@@ -21,7 +26,9 @@ cd "$dest"
 { read -rd '' script || [ -n "$script" ]; } << EOF
 echo ${repos@Q} | while read -r i; do
     echo "Processing repo \$i"
-    git -C "\${i#$owner/}" pull || git clone "https://github.com/\$i.git"
+    git -C "\${i#$owner_name/}" ${GHBAK_PULL_ARGS:-} pull || {
+        git clone ${GHBAK_CLONE_ARGS:-} "https://github.com/\$i.git"
+    }
 done
 EOF
 
