@@ -27,7 +27,7 @@ for i in ~/.mottekit/overrides/"$subcmd.sh" \
     do [ -e "$i" ] && exec bash "$i" "$@"
 done
 
-# TODO add subcommands: update, snip
+# TODO add subcommands: snip, update, autoupdate (?)
 
 echo "Invalid MotteKit subcommand: $subcmd. Run \"mottekit help\" for help" >&2
 exit 1
