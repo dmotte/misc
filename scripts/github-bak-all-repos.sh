@@ -23,6 +23,9 @@ cd "$dest"
 before_clone=''
 [ "$GHBAK_RM_BEFORE_CLONE" = true ] && before_clone+="rm -rf \"\$repo_name\";"
 
+repo_url_fmt="https://github.com/\$i.git"
+[ "$GHBAK_USE_SSH" = true ] && repo_url_fmt="git@github.com:\$i.git"
+
 # We run the rest of the commands in a Bash subprocess spawned with "exec"
 # because this script could be changed by a "git pull" in case it's part
 # of one of the repos
@@ -33,7 +36,7 @@ echo ${repos@Q} | while read -r i; do
     echo "Processing repo \$repo_name"
     git -C "\$repo_name" ${GHBAK_PULL_ARGS:-} pull || {
         $before_clone
-        git clone ${GHBAK_CLONE_ARGS:-} "https://github.com/\$i.git"
+        git clone ${GHBAK_CLONE_ARGS:-} "$repo_url_fmt"
     }
 done
 EOF
