@@ -3,7 +3,8 @@
 set -e
 
 # Usage example:
-#   time ./github-bak-all-repos.sh users/octocat ~/bak-octocat/; echo $?
+#   time GHBAK_CLONE_ARGS=--depth=1 ./github-bak-all-repos.sh \
+#     users/octocat ~/bak-octocat/; echo $?
 
 readonly owner=${1:?} dest=${2:?}
 
