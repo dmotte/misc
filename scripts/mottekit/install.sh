@@ -2,35 +2,35 @@
 
 set -e
 
-readonly path_mottekit=~/.mottekit
+readonly mottekit_dir=~/.mottekit
 
-[ "$MOTTEKIT_TESTING" = true ] || { echo 'TODO test this script' >&2; exit 1; }
-
-[ -e "$path_mottekit" ] &&
-    { echo "The $path_mottekit directory already exists" >&2; exit 1; }
+[ -e "$mottekit_dir" ] &&
+    { echo "The $mottekit_dir directory already exists" >&2; exit 1; }
 
 for i in ~/.local/bin ~/bin; do
     [ "$PATH" = "$i" ] || [[ "$PATH" = *:"$i":* ]] ||
         [[ "$PATH" = "$i":* ]] || [[ "$PATH" = *:"$i" ]] &&
-        { path_entrypoint="$i/mottekit"; break; }
+        { entrypoint=$i/mottekit; break; }
 done
 
-[ -z "$path_entrypoint" ] && {
-    echo 'Cannot find a valid location in PATH to install the MotteKit' \
-        'entrypoint' >&2
+[ -z "$entrypoint" ] && {
+    echo 'Cannot find a location in PATH suitable for installing the' \
+        'MotteKit entrypoint' >&2
     exit 1
 }
 
-[ -e "$path_entrypoint" ] &&
-    { echo "The entrypoint $path_entrypoint already exists" >&2; exit 1; }
+[ -e "$entrypoint" ] &&
+    { echo "The entrypoint $entrypoint already exists" >&2; exit 1; }
 
-echo "Creating MotteKit directory $path_mottekit"
-mkdir "$path_mottekit"
+echo "Creating the MotteKit directory $mottekit_dir"
+mkdir "$mottekit_dir"
 
-echo "Cloning MotteKit repo into $path_mottekit/misc"
-git clone https://github.com/dmotte/misc.git "$path_mottekit/misc"
+readonly repo_url=https://github.com/dmotte/misc.git \
+    repo_dir=$mottekit_dir/misc
+echo "Cloning $repo_url into $repo_dir"
+git clone "$repo_url" "$repo_dir"
 
-echo "Creating MotteKit entrypoint $path_entrypoint"
-readonly path_mottekit_script=$path_mottekit/misc/scripts/mottekit/mottekit.sh
-echo $'#!/bin/bash\nexec bash '"${path_mottekit_script@Q}"' "$@"' |
-    install -m755 /dev/stdin "$path_entrypoint"
+readonly mottekit_script=$repo_dir/scripts/mottekit/mottekit.sh
+echo "Creating MotteKit entrypoint at $entrypoint"
+echo $'#!/bin/bash\nexec bash '"${mottekit_script@Q}"' "$@"' |
+    install -m755 /dev/stdin "$entrypoint"

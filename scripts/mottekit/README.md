@@ -1,6 +1,6 @@
 # mottekit
 
-**Multi-purpose** "Swiss Army knife" **CLI tool**.
+**MotteKit** is a **multi-purpose** "Swiss Army knife" **CLI tool**.
 
 ## Installation
 
