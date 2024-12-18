@@ -29,4 +29,5 @@ done
 
 # TODO add subcommands: update, snip
 
-echo "Invalid MotteKit subcommand: $subcmd" >&2; exit 1
+echo "Invalid MotteKit subcommand: $subcmd. Run \"mottekit help\" for help" >&2
+exit 1
