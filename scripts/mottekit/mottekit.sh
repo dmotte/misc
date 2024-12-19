@@ -39,7 +39,7 @@ readonly subcmd=$1; shift
 [ "$subcmd" = snip ] && { mottekit_snip "$@"; exit; }
 [ "$subcmd" = update ] && { mottekit_update "$@"; exit; }
 
-for i in ~/.mottekit/overrides/"$subcmd.sh" \
+for i in "$basedir/overrides/$subcmd.sh" \
     "$basedir/$subcmd.sh" \
     "$(dirname "$basedir")/$subcmd.sh"
 
