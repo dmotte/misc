@@ -40,4 +40,4 @@ git clone "$repo_url" "$repo_dir"
 readonly mottekit_script=$repo_dir/scripts/mottekit/mottekit.sh
 echo "Creating MotteKit entrypoint at $entrypoint"
 echo $'#!/bin/bash\nexec bash '"${mottekit_script@Q}"' "$@"' |
-    install -m755 /dev/stdin "$entrypoint"
+    install -Dm755 /dev/stdin "$entrypoint"
