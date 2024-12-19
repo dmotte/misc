@@ -244,3 +244,7 @@ EOF
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
+
+## Python
+
+- `os.chdir(os.path.dirname(os.path.realpath(__file__)))`
