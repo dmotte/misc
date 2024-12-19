@@ -2,6 +2,8 @@
 
 set -e
 
+basedir=$(dirname "$0")
+
 mottekit_info() {
     echo " __  __       _   _       _  ___ _   "
     echo "|  \/  | ___ | |_| |_ ___| |/ (_) |_ "
@@ -15,6 +17,10 @@ mottekit_info() {
     echo "MotteKit version $version (commit $commit)"
 }
 
+mottekit_snip() {
+    grep -Fi "${1:?}" "$basedir/../../snippets/README.md"
+}
+
 ################################################################################
 
 [ -n "$1" ] || { mottekit_info; exit; }
@@ -22,8 +28,7 @@ mottekit_info() {
 readonly subcmd=$1; shift
 
 [ "$subcmd" = help ] || [ "$subcmd" = version ] && { mottekit_info; exit; }
-
-basedir=$(dirname "$0")
+[ "$subcmd" = snip ] && { mottekit_snip "$@"; exit; }
 
 for i in ~/.mottekit/overrides/"$subcmd.sh" \
     "$basedir/$subcmd.sh" \
@@ -32,7 +37,7 @@ for i in ~/.mottekit/overrides/"$subcmd.sh" \
     do [ -e "$i" ] && exec bash "$i" "$@"
 done
 
-# TODO add subcommands: snip, update, autoupdate (?)
+# TODO add subcommands: update, autoupdate (?)
 
 echo "Invalid MotteKit subcommand: $subcmd. Run \"mottekit help\" for help" >&2
 exit 1
