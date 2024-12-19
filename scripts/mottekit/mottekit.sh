@@ -9,7 +9,10 @@ mottekit_info() {
     echo "| |  | | (_) | |_| ||  __/ . \| | |_ "
     echo "|_|  |_|\___/ \__|\__\___|_|\_\_|\__|"
     echo
-    echo 'TODO version (commit)'
+    local version; version=$(TZ=UTC git log -1 \
+        --date=format-local:'v%Y.%m.%d.%H%M' --format='%cd')
+    local commit; commit=$(git rev-parse --short HEAD)
+    echo "MotteKit version $version (commit $commit)"
 }
 
 ################################################################################
