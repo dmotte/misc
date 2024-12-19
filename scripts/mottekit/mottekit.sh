@@ -21,6 +21,14 @@ mottekit_snip() {
     grep -Fi "${1:?}" "$basedir/../../snippets/README.md"
 }
 
+mottekit_update() {
+    echo 'Updating MotteKit'
+
+    # We run the pull in a Bash subprocess spawned with "exec" because this
+    # script could be changed by it
+    exec bash -ec "git -C ${basedir@Q} pull"
+}
+
 ################################################################################
 
 [ -n "$1" ] || { mottekit_info; exit; }
@@ -29,6 +37,7 @@ readonly subcmd=$1; shift
 
 [ "$subcmd" = help ] || [ "$subcmd" = version ] && { mottekit_info; exit; }
 [ "$subcmd" = snip ] && { mottekit_snip "$@"; exit; }
+[ "$subcmd" = update ] && { mottekit_update "$@"; exit; }
 
 for i in ~/.mottekit/overrides/"$subcmd.sh" \
     "$basedir/$subcmd.sh" \
@@ -36,8 +45,6 @@ for i in ~/.mottekit/overrides/"$subcmd.sh" \
 
     do [ -e "$i" ] && exec bash "$i" "$@"
 done
-
-# TODO add subcommands: update, autoupdate (?)
 
 echo "Invalid MotteKit subcommand: $subcmd. Run \"mottekit help\" for help" >&2
 exit 1
