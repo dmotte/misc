@@ -10,7 +10,7 @@ You can use this script to interact with the [Watson](https://github.com/TailorD
 
 ## Usage
 
-> **Important**: this has been tested with **Python 3.11.6** in **Termux** on **Android**.
+> **Important**: this has been tested with **Python 3.12.8** in **Termux** on **Android**.
 
 ```bash
 python3 -mvenv venv
