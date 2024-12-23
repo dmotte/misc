@@ -73,7 +73,7 @@ Some pieces of code I find useful for some reason.
 - `socat - TCP:example.com:80`
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=777,fork -`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use `systemctl --user` as a linger-enabled user
-- `nano -\$v filename`, `vim -R filename`
+- `nano -Sav filename`, `vim -R filename`
 - `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
 - `echo 'Hello $USER!' | envsubst`
