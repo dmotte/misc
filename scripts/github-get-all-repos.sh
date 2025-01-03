@@ -13,7 +13,7 @@ fi
 
 page=1
 while :; do
-    # echo "Downloading page $page" >&2 # For debugging purposes
+    [ "$GHGET_DEBUG" = true ] && echo "Downloading page $page" >&2
 
     if [ -n "$GITHUB_TOKEN" ]; then header_auth="Bearer $GITHUB_TOKEN"; fi
     response=$(curl -fsSL \

@@ -16,7 +16,7 @@ fi
 
 page=1
 while :; do
-    # echo "Downloading page $page" >&2 # For debugging purposes
+    [ "$GLGET_DEBUG" = true ] && echo "Downloading page $page" >&2
 
     response=$(curl -fsSL \
         -H "Private-Token: $GITLAB_TOKEN" \
