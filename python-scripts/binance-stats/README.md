@@ -24,11 +24,11 @@ mkdir ohlcv
 
 mapfile -t coins < <(cat transactions/records-*.csv |
     venv/bin/python3 coins.py | tr -d '\r')
-echo "${coins[@]@Q}"
+echo "${coins[*]@Q}"
 
 mapfile -t years < <(find transactions -name 'records-*.csv' \
     -printf '%P\n' | tr -cd '0-9\n')
-echo "${years[@]@Q}"
+echo "${years[*]@Q}"
 
 i=0; for year in "${years[@]}"; do for coin in "${coins[@]}"; do
     echo "$((++i)): fetching year $year coin $coin"

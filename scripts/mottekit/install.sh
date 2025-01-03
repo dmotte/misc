@@ -19,7 +19,7 @@ done
     echo 'Cannot find a location in PATH suitable for installing the' \
         'MotteKit entrypoint. You must have one of the following' \
         'directories in your PATH:' >&2
-    echo "${path_dirs[@]@Q}" >&2
+    echo "${path_dirs[*]@Q}" >&2
     exit 1
 }
 
