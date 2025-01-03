@@ -2,11 +2,13 @@
 
 set -e
 
-# Usage example:
-# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/gitlab-get-all-repos.sh) users/diaspora '(has("forked_from_project") | not) and .archived == false' | while read -r i; do git -C "$(basename "$i")" pull || git clone --depth=1 "git@gitlab.com:$i.git"; done
+# Usage examples:
+#   ./gitlab-get-all-repos.sh users/diaspora '(has("forked_from_project") | not) and .archived == false' .
+#   ./gitlab-get-all-repos.sh users/diaspora true '.path_with_namespace, .description'
+#   bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/gitlab-get-all-repos.sh) users/diaspora '(has("forked_from_project") | not) and .archived == false' | while read -r i; do git -C "$(basename "$i")" pull || git clone --depth=1 "git@gitlab.com:$i.git"; done
 
 readonly gitlab_url=${GITLAB_URL:-https://gitlab.com/}
-readonly owner=${1:?} filter=${2:-true}
+readonly owner=${1:?} filter=${2:-true} fields=${3:-.path_with_namespace}
 
 if [ "$owner" = "${owner#users/}" ] && [ "$owner" = "${owner#groups/}" ]; then
     echo 'Invalid owner specified' >&2; exit 1
@@ -24,7 +26,7 @@ while :; do
 
     [ "$count" != 0 ] || break
 
-    echo "$response" | jq -r ".[] | select($filter) | .path_with_namespace"
+    echo "$response" | jq -cr ".[] | select($filter) | $fields"
 
     [ "$count" = 100 ] || break
 
