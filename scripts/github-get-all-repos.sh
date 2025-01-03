@@ -13,11 +13,12 @@ if [ "$owner" = "${owner#users/}" ] && [ "$owner" = "${owner#orgs/}" ]; then
     echo 'Invalid owner specified' >&2; exit 1
 fi
 
+[ -n "$GITHUB_TOKEN" ] && readonly header_auth="Bearer $GITHUB_TOKEN"
+
 page=1
 while :; do
     [ "$GHGET_DEBUG" = true ] && echo "Downloading page $page" >&2
 
-    if [ -n "$GITHUB_TOKEN" ]; then header_auth="Bearer $GITHUB_TOKEN"; fi
     response=$(curl -fsSL \
         -H 'Accept: application/vnd.github+json' \
         -H "Authorization: $header_auth" \
