@@ -5,10 +5,8 @@ set -e
 # Usage example:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/gitlab-get-all-repos.sh) users/diaspora '(has("forked_from_project") | not) and .archived == false' | while read -r i; do git -C "$(basename "$i")" pull || git clone --depth=1 "git@gitlab.com:$i.git"; done
 
-gitlab_url=${GITLAB_URL:-https://gitlab.com/}
-
-owner=${1:?}
-filter=${2:-true}
+readonly gitlab_url=${GITLAB_URL:-https://gitlab.com/}
+readonly owner=${1:?} filter=${2:-true}
 
 if [ "$owner" = "${owner#users/}" ] && [ "$owner" = "${owner#groups/}" ]; then
     echo 'Invalid owner specified' >&2; exit 1
