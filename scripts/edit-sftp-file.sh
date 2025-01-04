@@ -15,7 +15,7 @@ done
 
 [ -n "$editor" ] || { echo 'Cannot find a valid text editor' >&2; exit 1; }
 
-scp_remote_file=${1:?} scp_app=${2:?}; shift 2
+readonly scp_remote_file=${1:?} scp_app=${2:?}; shift 2
 scp_args=("$@")
 
 ################################################################################
@@ -23,7 +23,7 @@ scp_args=("$@")
 tmpdir=$(mktemp -d --tmpdir edit-sftp-file-XXXXXXXXXX)
 trap 'rm -rf $tmpdir' EXIT
 
-scp_local_file=$tmpdir/tmp-file
+readonly scp_local_file=$tmpdir/tmp-file
 
 echo "Downloading file to $scp_local_file"
 "$scp_app" "${scp_args[@]}" "$scp_remote_file" "$scp_local_file"

@@ -17,11 +17,11 @@ set -e
 #   RDR_DEBUG=true RDR_EVAL=exit ./remote-dir-run.sh mydir foo ++ bar baz
 
 [ $# -ge 2 ] || { echo 'Not enough args' >&2; exit 1; }
-local_dir=$1; shift
+readonly local_dir=$1; shift
 
 [ -e "$local_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
 
-remote_shell_options=${RDR_SHELL_OPTIONS:--e}
+readonly remote_shell_options=${RDR_SHELL_OPTIONS:--e}
 
 remote_dir=/tmp/remote-dir-run-$(date -u +%Y-%m-%d-%H%M%S)
 

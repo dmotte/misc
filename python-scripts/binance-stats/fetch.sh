@@ -5,9 +5,9 @@ set -e
 # Usage example:
 #   ./fetch.sh ../ohlcv-fetchers/binance.py BTC/USDT 1d 2020
 
-fetcher=${1:?} symbol=${2:?} interval=${3:?} year=${4:?}
+readonly fetcher=${1:?} symbol=${2:?} interval=${3:?} year=${4:?}
 
-nextyear=$((year + 1))
+readonly nextyear=$((year + 1))
 
 if [[ "$(uname)" = MINGW* ]]
     then py=$(dirname "$fetcher")/venv/Scripts/python

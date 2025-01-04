@@ -8,11 +8,11 @@ set -e
 # Ensure that some variables are defined
 : "${1:?}"
 
-main_dir=${STANDALONE_VSCODE_MAIN_DIR:-$HOME/apps/vscode}
-archive_url="https://code.visualstudio.com/sha/download?build=stable&os=$1"
-archive_path=$main_dir/archive.tar.gz
+readonly main_dir=${STANDALONE_VSCODE_MAIN_DIR:-$HOME/apps/vscode}
+readonly archive_url="https://code.visualstudio.com/sha/download?build=stable&os=$1"
+readonly archive_path=$main_dir/archive.tar.gz
 
-launcher_default=~/.local/share/applications/vscode.desktop
+readonly launcher_default=~/.local/share/applications/vscode.desktop
 if [ -n "$STANDALONE_VSCODE_LAUNCHER" ]; then
     launcher=$STANDALONE_VSCODE_LAUNCHER
 elif [ -d "$(dirname "$launcher_default")" ]; then
@@ -38,8 +38,8 @@ curl -fLo "$archive_path" "$archive_url"
 echo "Extracting $archive_path to $main_dir"
 tar -xzf "$archive_path" -C "$main_dir"
 
-data_old="$main_dir_old/VSCode-$1/data"
-data_new="$main_dir/VSCode-$1/data"
+readonly data_old=$main_dir_old/VSCode-$1/data
+readonly data_new=$main_dir/VSCode-$1/data
 if [ -n "$main_dir_old" ] && [ -d "$data_old" ]; then
     echo "Moving data dir from $data_old to $data_new"
     mv -T "$data_old" "$data_new"

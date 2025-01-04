@@ -11,9 +11,9 @@ set -e
 # Ensure that some variables are defined
 : "${1:?}" "${2:?}"
 
-main_dir=${STANDALONE_GO_MAIN_DIR:-$HOME/apps/go$2}
-archive_url=https://go.dev/dl/go$2.linux-$1.tar.gz
-archive_path=$main_dir/archive.tar.gz
+readonly main_dir=${STANDALONE_GO_MAIN_DIR:-$HOME/apps/go$2}
+readonly archive_url=https://go.dev/dl/go$2.linux-$1.tar.gz
+readonly archive_path=$main_dir/archive.tar.gz
 
 ################################################################################
 
@@ -44,7 +44,7 @@ else
 fi
 
 # shellcheck disable=SC2016
-line='export PATH="$PATH:$HOME/go/bin"'
+readonly line='export PATH="$PATH:$HOME/go/bin"'
 if grep -Fx "$line" ~/.profile >/dev/null 2>&1; then
     echo 'Skipping PATH addition in ~/.profile as it seems already present'
 else

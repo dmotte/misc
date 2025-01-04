@@ -15,7 +15,7 @@ set -e
 [ -n "$KP_FILENAME" ] ||
     { echo 'The KP_FILENAME env var is not defined' >&2; exit 1; }
 
-entryname=${1:?}; shift
+readonly entryname=${1:?}; shift
 
 if [ -n "$KP_PASSWORD" ]; then
     entrypass=$(echo "$KP_PASSWORD" |

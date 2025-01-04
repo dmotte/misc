@@ -121,7 +121,7 @@ udevadm trigger -vcadd -susb -aidVendor=1a2b -aidProduct=3c4d
 ```
 
 ```bash
-user_id=1001; user_name=myuser
+readonly user_id=1001 user_name=myuser
 
 loginctl enable-linger "$user_name"
 for i in {10..1}; do

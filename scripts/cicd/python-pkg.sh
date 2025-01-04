@@ -11,7 +11,7 @@ ensure_defined() {
 }
 
 ensure_defined CICD_{SECRET01,GIT_REF,REPO_URL,OUTPUT,SUMMARY}
-pypi_api_token=$CICD_SECRET01; unset CICD_SECRET01
+readonly pypi_api_token=$CICD_SECRET01; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
     export CICD_VERSION_EXPR="version_by_tag ${CICD_GIT_REF@Q}"

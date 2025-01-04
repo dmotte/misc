@@ -11,7 +11,7 @@ ensure_defined() {
 }
 
 ensure_defined BOX_{AUTHOR,NAME,DESCRIPTION} CICD_{SECRET01,GIT_REF,SUMMARY}
-vagrantcloud_token=$CICD_SECRET01; unset CICD_SECRET01
+readonly vagrantcloud_token=$CICD_SECRET01; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
     # Note: we cannot use "${...@Q}" here because this script may run in MacOS

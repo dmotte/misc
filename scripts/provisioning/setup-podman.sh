@@ -18,7 +18,7 @@ set -e
 # Note: you may need to wait a few seconds for the systemd user session to
 # initialize after running "enable-linger"
 
-mode=${1:?}; shift
+readonly mode=${1:?}; shift
 
 if [ "$mode" = system ]; then
     [ "$EUID" = 0 ] ||

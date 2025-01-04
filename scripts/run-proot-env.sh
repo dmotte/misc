@@ -21,18 +21,18 @@ set -e
 
 cd "$(dirname "$0")"
 
-proot_tarball_url=${PROOT_TARBALL_URL:-https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz}
-proot_tarball_checksum=${PROOT_TARBALL_CHECKSUM:-164932ab77a0b94a8e355c9b68158a5b76d5abef89ada509488c44ff54655d61}
-proot_tarball_top_dir=${PROOT_TARBALL_TOP_DIR:-debian-bookworm-x86_64}
-proot_binary_url=${PROOT_BINARY_URL:-https://proot.gitlab.io/proot/bin/proot}
-proot_binary_checksum=${PROOT_BINARY_CHECKSUM:-b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2}
-proot_workdir=${PROOT_WORKDIR:-/root}
+readonly proot_tarball_url=${PROOT_TARBALL_URL:-https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz}
+readonly proot_tarball_checksum=${PROOT_TARBALL_CHECKSUM:-164932ab77a0b94a8e355c9b68158a5b76d5abef89ada509488c44ff54655d61}
+readonly proot_tarball_top_dir=${PROOT_TARBALL_TOP_DIR:-debian-bookworm-x86_64}
+readonly proot_binary_url=${PROOT_BINARY_URL:-https://proot.gitlab.io/proot/bin/proot}
+readonly proot_binary_checksum=${PROOT_BINARY_CHECKSUM:-b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2}
+readonly proot_workdir=${PROOT_WORKDIR:-/root}
 
-tarball_path=tarball.tar.xz
-proot_path=./proot
-envs_dir=envs
+readonly tarball_path=tarball.tar.xz
+readonly proot_path=./proot
+readonly envs_dir=envs
 
-env_name=${1:?}; shift
+readonly env_name=${1:?}; shift
 
 [[ "$env_name" =~ ^[0-9A-Za-z-]+$ ]] ||
     { echo 'Invalid env name' >&2; exit 1; }
@@ -50,7 +50,7 @@ if [ ! -e "$proot_path" ]; then
     chmod +x "$proot_path"
 fi
 
-rootfs_dir=$envs_dir/$env_name
+readonly rootfs_dir=$envs_dir/$env_name
 rootfs_dir_tmp=$rootfs_dir-tmp-$(date -u +%Y-%m-%d-%H%M%S)
 
 if [ ! -d "$rootfs_dir" ]; then

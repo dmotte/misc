@@ -2,7 +2,7 @@
 
 set -e
 
-vagrant_pwd=/home/vagrant/${PWD#"$HOME/"}
+readonly vagrant_pwd=/home/vagrant/${PWD#"$HOME/"}
 
 cd "$(dirname "$0")"
 

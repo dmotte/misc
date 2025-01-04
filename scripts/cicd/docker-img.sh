@@ -14,7 +14,7 @@ ensure_defined() {
 
 ensure_defined DOCKERHUB_USERNAME IMG_{AUTHOR,NAME,PLATFORMS} \
     CICD_{SECRET01,GIT_REF,SUMMARY}
-dockerhub_password=$CICD_SECRET01; unset CICD_SECRET01
+readonly dockerhub_password=$CICD_SECRET01; unset CICD_SECRET01
 
 if [ -z "$CICD_VERSION_EXPR" ]; then
     export CICD_VERSION_EXPR="version_by_datetime ${CICD_GIT_REF@Q}"

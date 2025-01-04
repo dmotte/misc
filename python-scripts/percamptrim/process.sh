@@ -49,12 +49,12 @@ values_trim=$("$py" "$basedir/compute-trim.py" "${args_trim[@]}" \
     "$file_in" -f'{:.6f}')
 echo "$values_trim"
 
-gain_factor="$(echo "$values_amp" | grep '^gain_factor=')"
+gain_factor=$(echo "$values_amp" | grep '^gain_factor=')
 gain_factor=${gain_factor#gain_factor=}
 
-time_start="$(echo "$values_trim" | grep '^time_start=')"
+time_start=$(echo "$values_trim" | grep '^time_start=')
 time_start=${time_start#time_start=}
-time_end="$(echo "$values_trim" | grep '^time_end=')"
+time_end=$(echo "$values_trim" | grep '^time_end=')
 time_end=${time_end#time_end=}
 
 ################################################################################

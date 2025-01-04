@@ -2,8 +2,7 @@
 
 set -e
 
-branch_src=${BRANCH_SRC:-main}
-branch_dst=${BRANCH_DST:-dev}
+readonly branch_src=${BRANCH_SRC:-main} branch_dst=${BRANCH_DST:-dev}
 
 for arg; do
     echo -e "### \033[0;35m$arg\033[0m:"

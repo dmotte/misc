@@ -42,7 +42,7 @@ else
     echo HISTCONTROL=ignoreboth >> ~/.bashrc
 fi
 
-file='/mingw64/share/git/completion/git-prompt.sh'
+readonly file=/mingw64/share/git/completion/git-prompt.sh
 if [ -f "$file" ]; then
     echo "Moving $file to $file.old"
     mv -T "$file" "$file.old"

@@ -60,9 +60,9 @@ if [ "$service_manager" = auto ]; then
     echo "Detected service manager: $service_manager"
 fi
 
-service_name=portmap-$name_suffix
+readonly service_name=portmap-$name_suffix
 running_user_home=$(eval "echo ~$running_user")
-ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
+readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
 ################################################################################
 
