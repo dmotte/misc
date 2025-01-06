@@ -106,7 +106,7 @@ Some pieces of code I find useful for some reason.
   - `cat mmcblk2.img.gz.part* | gunzip -c | sudo dd of=/dev/mmcblk2 status=progress`
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
 - `comm <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright') --total`
-- `curl -fLO https://cdn1.suno.ai/my-song-id.mp3`
+- `sunodl() { curl -fLO https://cdn1.suno.ai/$1.mp3; }`
 - `install -D <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
 
 ```bash
