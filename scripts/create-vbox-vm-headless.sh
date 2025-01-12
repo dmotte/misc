@@ -88,7 +88,7 @@ vboxmanage modifyvm "$name" --vram "$vram"
 
 [ "$disable_audio" = true ] && vboxmanage modifyvm "$name" --audio-enabled off
 
-[ "$disable_usb" = true ] && vboxmanage modifyvm "$name" --usb off
+[ "$disable_usb" = true ] && vboxmanage modifyvm "$name" --usb{,-{e,o,x}hci}=off
 
 vboxmanage modifyvm "$name" --nic1 nat
 
