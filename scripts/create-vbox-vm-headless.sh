@@ -5,12 +5,13 @@ set -e
 # This script can be used to create a VirtualBox VM with some predefined
 # settings suitable for a headless Linux server (without GUI)
 
-# Tested on VirtualBox v7.1.4
+# Tested with VirtualBox v7.1.4
 
-# Usage example: ./create-vbox-vm-headless.sh -nMyVM -m2048 -d20480,102400
+# Usage example:
+#   ./create-vbox-vm-headless.sh -nMyVM -m2048 -d20480,102400 -sheadless
 
-options=$(getopt -o +n:o:D:c:m:d:i:s -l name: -l os: -l desc: -l cpus: \
-    -l mem: -l disks: -l iso: -l snap-name: -l snap-desc: -l start -- "$@")
+options=$(getopt -o +n:o:D:c:m:d:i:s: -l name: -l os: -l desc: -l cpus: \
+    -l mem: -l disks: -l iso: -l snap-name: -l snap-desc: -l start: -- "$@")
 eval "set -- $options"
 
 name=
@@ -22,7 +23,7 @@ disks=10240 # Comma-separated values in MB
 iso=
 snap_name=
 snap_desc=
-start=n # TODO style headless
+start=
 
 while :; do
     case $1 in
@@ -35,7 +36,7 @@ while :; do
         -i|--iso) shift; iso=$1;;
         --snap-name) shift; snap_name=$1;;
         --snap-desc) shift; snap_desc=$1;;
-        -s|--start) start=y;;
+        -s|--start) shift; start=$1;;
         --) shift; break;;
     esac
     shift
@@ -55,7 +56,7 @@ vbox_machinefolder=$(echo "$vbox_sysprops" |
 
 ################################################################################
 
-alias vboxmanage='echo TODO vboxmanage'
+vboxmanage() { echo TODO vboxmanage "$@"; }
 
 echo "Creating VM $name"
 
@@ -91,7 +92,7 @@ fi
 
 ################################################################################
 
-if [ "$start" = y ]; then
-    echo "Starting VM $name"
-    vboxmanage startvm "$name"
+if [ -n "$start" ]; then
+    echo "Starting VM $name (type $start)"
+    vboxmanage startvm "$name" --type "$start"
 fi
