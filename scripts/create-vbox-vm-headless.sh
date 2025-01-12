@@ -10,7 +10,7 @@ set -e
 # Usage example: ./create-vbox-vm-headless.sh -nMyVM -m2048 -d20480,102400
 
 options=$(getopt -o +n:o:D:c:m:d:i:s -l name: -l os: -l desc: -l cpus: \
-    -l mem: -l disks: -l iso: -l start -- "$@")
+    -l mem: -l disks: -l iso: -l snap-name: -l snap-desc: -l start -- "$@")
 eval "set -- $options"
 
 name=
@@ -20,7 +20,9 @@ cpus=1
 mem=1024 # MB
 disks=10240 # Comma-separated values in MB
 iso=
-start=n
+snap_name=
+snap_desc=
+start=n # TODO style headless
 
 while :; do
     case $1 in
@@ -31,6 +33,8 @@ while :; do
         -m|--mem) shift; mem=$1;;
         -d|--disks) shift; disks=$1;;
         -i|--iso) shift; iso=$1;;
+        --snap-name) shift; snap_name=$1;;
+        --snap-desc) shift; snap_desc=$1;;
         -s|--start) start=y;;
         --) shift; break;;
     esac
@@ -80,7 +84,14 @@ echo TODO "$disks" "$iso" "$vbox_machinefolder"
 
 ################################################################################
 
+if [ -n "$snap_name" ]; then
+    echo "Taking snapshot $snap_name"
+    vboxmanage snapshot "$name" take "$snap_name" --description "$snap_desc"
+fi
+
+################################################################################
+
 if [ "$start" = y ]; then
     echo "Starting VM $name"
-    echo TODO
+    vboxmanage startvm "$name"
 fi
