@@ -63,11 +63,9 @@ vbox_machinefolder=$(echo "$vbox_sysprops" |
 
 ################################################################################
 
-vboxmanage() { echo TODO vboxmanage "$@"; }
-
 echo "Creating VM $name"
 
-# The "--default" option applies a default hardware configuration for the
+# The --default option applies a default hardware configuration for the
 # specified guest OS
 vboxmanage createvm --name "$name" --ostype "$os" --register --default
 
@@ -99,7 +97,31 @@ for i in "${fwds[@]}"; do vboxmanage modifyvm "$name" --natpf1 "$i"; done
 [ "$disable_mini_toolbar" = true ] &&
     vboxmanage setextradata "$name" GUI/ShowMiniToolBar false
 
-echo TODO "$disks" "$iso" "$vbox_machinefolder"
+################################################################################
+
+i=0
+while read -r size; do
+    str_i=$(printf "%02d" "$i")
+    virtdisk=$vbox_machinefolder/$name/disk$str_i.vdi
+
+    echo "Creating virtual disk file $virtdisk (size $size MB)"
+    vboxmanage createmedium disk --filename "$virtdisk" --size "$size"
+
+    echo "Mounting virtual disk file $virtdisk into VM $name"
+    # The device number (--device) must always be 0 if using the SATA
+    # controller, because it only allows one device per port
+    vboxmanage storageattach "$name" --storagectl SATA \
+        --port "$i" --device 0 --type hdd --medium "$virtdisk"
+
+    ((i+=1))
+done < <(echo "$disks" | tr , '\n')
+
+if [ -n "$iso" ]; then
+    echo "Mounting ISO file $iso into VM $name"
+    # IDE device on channel Primary (--port 0) Master (--device 0)
+    vboxmanage storageattach "$name" --storagectl IDE \
+        --port 0 --device 0 --type dvddrive --medium "$iso"
+fi
 
 ################################################################################
 
