@@ -44,10 +44,23 @@ readonly rtcuseutc=${VBOX_VM_HEADLESS_RTCUSEUTC:-true}
 
 ################################################################################
 
+vbox_sysprops=$(vboxmanage list systemproperties)
+vbox_machinefolder=$(echo "$vbox_sysprops" |
+    sed -En 's/^Default machine folder:\s+(.+)$/\1/p')
+
+################################################################################
+
 echo "Creating VM $name"
 
 echo TODO vboxmanage createvm --name "$name" --ostype "$os" --register --default
 
+echo "Configuring VM $name settings"
+
+echo TODO
+
 ################################################################################
 
-echo TODO start
+if [ "$start" = y ]; then
+    echo "Starting VM $name"
+    echo TODO
+fi
