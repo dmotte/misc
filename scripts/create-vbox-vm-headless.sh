@@ -39,8 +39,9 @@ done
 
 [ -n "$name" ] || { echo 'The VM name cannot be empty' >&2; exit 1; }
 
-readonly rtcuseutc=${VBOX_VM_HEADLESS_RTCUSEUTC:-true}
-# TODO other env vars
+readonly ps2mouse=${VBOX_VM_PS2MOUSE:-true}
+readonly rtcuseutc=${VBOX_VM_RTCUSEUTC:-true}
+readonly vram=${VBOX_VM_VRAM:-16} # MB
 
 ################################################################################
 
@@ -50,13 +51,32 @@ vbox_machinefolder=$(echo "$vbox_sysprops" |
 
 ################################################################################
 
+alias vboxmanage='echo TODO vboxmanage'
+
 echo "Creating VM $name"
 
-echo TODO vboxmanage createvm --name "$name" --ostype "$os" --register --default
+# The "--default" option applies a default hardware configuration for the
+# specified guest OS
+vboxmanage createvm --name "$name" --ostype "$os" --register --default
 
 echo "Configuring VM $name settings"
 
-echo TODO
+[ -z "$desc" ] || vboxmanage modifyvm "$name" --description "$desc"
+
+vboxmanage modifyvm "$name" --memory "$mem"
+
+# Remove "Floppy" from Boot Order
+vboxmanage modifyvm "$name" --boot1 dvd --boot2 disk --boot3 none --boot4 none
+
+[ "$ps2mouse" = true ] && vboxmanage modifyvm "$name" --mouse ps2
+
+[ "$rtcuseutc" = true ] && vboxmanage modifyvm "$name" --rtcuseutc on
+
+vboxmanage modifyvm "$name" --cpus "$cpus"
+
+vboxmanage modifyvm "$name" --vram "$vram"
+
+echo TODO "$disks" "$iso" "$vbox_machinefolder"
 
 ################################################################################
 
