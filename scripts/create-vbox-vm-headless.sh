@@ -86,7 +86,7 @@ vboxmanage modifyvm "$name" --cpus "$cpus"
 
 vboxmanage modifyvm "$name" --vram "$vram"
 
-[ "$disable_audio" = true ] && vboxmanage modifyvm "$name" --audio none
+[ "$disable_audio" = true ] && vboxmanage modifyvm "$name" --audio-driver none
 
 [ "$disable_usb" = true ] && vboxmanage modifyvm "$name" --usb off
 
