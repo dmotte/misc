@@ -20,14 +20,15 @@ The goal of this guide is to create a _Talos Linux_ cluster with **3 control pla
 
 A **VirtualBox NAT Network** will be used for network communication. The control host will be able to access the Talos and Kubernetes APIs via **port forwarding rules**.
 
-| Node            | Type          | Talos API access from host | Kubernetes API access from host |
-| --------------- | ------------- | -------------------------- | ------------------------------- |
-| `192.168.10.11` | Control plane | `127.0.0.1:5011`           | `127.0.0.1:6011`                |
-| `192.168.10.12` | Control plane | `127.0.0.1:5012`           | `127.0.0.1:6012`                |
-| `192.168.10.13` | Control plane | `127.0.0.1:5013`           | `127.0.0.1:6013`                |
-| `192.168.10.21` | Worker        | `127.0.0.1:5021`           | -                               |
-| `192.168.10.22` | Worker        | `127.0.0.1:5022`           | -                               |
-| `192.168.10.23` | Worker        | `127.0.0.1:5023`           | -                               |
+| IP address      | Type                                          | Talos API access from host | Kubernetes API access from host |
+| --------------- | --------------------------------------------- | -------------------------- | ------------------------------- |
+| `192.168.10.10` | Virtual IP shared between control plane nodes | -                          | `127.0.0.1:6010`                |
+| `192.168.10.11` | Control plane node                            | `127.0.0.1:5011`           | `127.0.0.1:6011`                |
+| `192.168.10.12` | Control plane node                            | `127.0.0.1:5012`           | `127.0.0.1:6012`                |
+| `192.168.10.13` | Control plane node                            | `127.0.0.1:5013`           | `127.0.0.1:6013`                |
+| `192.168.10.21` | Worker node                                   | `127.0.0.1:5021`           | -                               |
+| `192.168.10.22` | Worker node                                   | `127.0.0.1:5022`           | -                               |
+| `192.168.10.23` | Worker node                                   | `127.0.0.1:5023`           | -                               |
 
 ## Control host tools
 
@@ -49,6 +50,8 @@ vboxmanage natnetwork add --netname mynat01 --network 192.168.10.0/24 --enable -
 To create the **port forwarding rules**:
 
 ```bash
+vboxmanage natnetwork modify --netname mynat01 \
+    --port-forward-4 "Kubernetes10:tcp:[127.0.0.1]:6010:[192.168.10.10]:6443"
 for i in {11..13}; do
     vboxmanage natnetwork modify --netname mynat01 \
         --port-forward-4 "Talos$i:tcp:[127.0.0.1]:50$i:[192.168.10.$i]:50000" \
