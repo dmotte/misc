@@ -64,6 +64,24 @@ done
 
 Download the `metal-amd64.iso` **ISO file** from https://github.com/siderolabs/talos/releases.
 
-Then you can run the following commands to **create the virtual machines**:
+Then you can leverage the [`create-vbox-vm-headless.sh`](https://github.com/dmotte/misc/blob/main/scripts/create-vbox-vm-headless.sh) script to **create the virtual machines** (replace `metal-amd64.iso` with the correct path of the ISO file):
+
+```bash
+while read -r name cpus mem; do
+    ./create-vbox-vm-headless.sh -n"$name" -oLinux_64 \
+        -c"$cpus" -m"$mem" -d102400,102400 -i metal-amd64.iso
+
+    vboxmanage modifyvm "$name" --nic1 natnetwork --nat-network1 mynat01
+done << 'EOF'
+TalosCtrl11   4   2048
+TalosCtrl12   4   2048
+TalosCtrl13   4   2048
+TalosWork21   2   1024
+TalosWork22   2   1024
+TalosWork23   2   1024
+EOF
+```
+
+> **Note**: you may also want to adjust some values based on https://www.talos.dev/v1.9/introduction/system-requirements/.
 
 TODO
