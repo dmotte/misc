@@ -11,8 +11,9 @@ This guide explains how to set up a **[Talos Linux](https://www.talos.dev/)** (_
 This guide is heavily inspired by the official _Talos Linux_ documentation. In particular:
 
 - [Getting Started - Talos Linux](https://www.talos.dev/v1.9/introduction/getting-started/)
-- [Production Clusters - Talos Linux](https://www.talos.dev/v1.9/introduction/prodnotes/)
 - [ISO - Talos Linux](https://www.talos.dev/v1.9/talos-guides/install/bare-metal-platforms/iso/)
+- [Production Clusters - Talos Linux](https://www.talos.dev/v1.9/introduction/prodnotes/)
+- [Advanced Networking - Talos Linux](https://www.talos.dev/v1.9/advanced/advanced-networking/#static-addressing)
 
 ## Goal
 
@@ -29,6 +30,8 @@ A **VirtualBox NAT Network** will be used for network communication. The control
 | `192.168.10.21` | Worker node                                   | `127.0.0.1:5021`           | -                               |
 | `192.168.10.22` | Worker node                                   | `127.0.0.1:5022`           | -                               |
 | `192.168.10.23` | Worker node                                   | `127.0.0.1:5023`           | -                               |
+
+Plus, each node will have an **additional 100 GB disk** for **persistent data**. TODO check if this is feasible. Also, maybe only the worker nodes need the additional disk
 
 ## Control host tools
 
@@ -86,6 +89,48 @@ EOF
 ```
 
 > **Note**: you may also want to adjust some values based on https://www.talos.dev/v1.9/introduction/system-requirements/.
+
+## Nodes setup
+
+TODO maybe move this guide to the `examples` dir, and change the guide's content accordingly
+
+**Start** all the VMs. TODO no, please do it after the machineconfig patching
+
+TODO configure IP addresses from the network configuration screen (F3):
+
+- DNS Servers: `1.1.1.1 1.0.0.1`
+- Interface: (your main interface)
+- Mode: `Static`
+- Addresses: `192.168.10.XX/24`
+- Gateway: `192.168.10.1`
+
+TODO add some descriptive text before each of the following commands
+
+```bash
+talosctl gen config mycluster https://127.0.0.1:6010 # TODO this is not ok: the Kubernetes API should be reachable by the nodes themselves at this address
+
+for i in {11..13}; do
+    talosctl machineconfig patch controlplane.yaml -p"@patch-controlplane-$i.yaml" -o "controlplane-$i.yaml"
+done
+for i in {21..23}; do
+    talosctl machineconfig patch worker.yaml -p"@patch-worker-$i.yaml" -o "worker-$i.yaml"
+done
+
+for i in {11..13}; do
+    talosctl apply-config -in "127.0.0.1:50$i" -f "controlplane-$i.yaml"
+done
+for i in {21..23}; do
+    talosctl apply-config -in "127.0.0.1:50$i" -f "worker-$i.yaml"
+done
+
+talosctl --talosconfig=talosconfig bootstrap -e127.0.0.1:5011 -n192.168.10.11 # TODO at this point I get an "invalid certificate" error: valid for 192.168.10.11 instead of 127.0.0.1. Maybe I need to use .machine.certSANs
+
+talosctl --talosconfig=talosconfig kubeconfig ./kubeconfig -e127.0.0.1:5011 -n192.168.10.11
+
+kubectl get nodes # TODO check that there really are 6 nodes
+
+talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11,12,13} # TODO not sure if I need this
+```
 
 TODO
 
