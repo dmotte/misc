@@ -1,7 +1,8 @@
 ---
 machine:
+  certSANs: [127.0.0.1] # TODO check that it works
   network:
-    # hostname: TODO check that it can be empty
+    # hostname: worker-23
     nameservers: [1.1.1.1, 1.0.0.1]
     interfaces:
       - interface: eth0 # TODO check
