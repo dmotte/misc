@@ -107,7 +107,7 @@ TODO configure IP addresses from the network configuration screen (F3):
 TODO add some descriptive text before each of the following commands
 
 ```bash
-talosctl gen config mycluster https://127.0.0.1:6010 # TODO this is not ok: the Kubernetes API should be reachable by the nodes themselves at this address
+talosctl gen config mycluster https://127.0.0.1:6010 # TODO this is not ok: the Kubernetes API should be reachable by the nodes themselves at this address. Try to specify https://192.168.10.10 and, if there are certificate problems, you could try to add --additional-sans=127.0.0.1
 
 for i in {11..13}; do
     talosctl machineconfig patch controlplane.yaml -p"@patch-controlplane-$i.yaml" -o "controlplane-$i.yaml"
