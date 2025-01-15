@@ -1,11 +1,11 @@
 ---
 machine:
-  certSANs: [127.0.0.1] # TODO check that it works
+  certSANs: [127.0.0.1]
   network:
     # hostname: controlplane-13
     nameservers: [1.1.1.1, 1.0.0.1]
     interfaces:
-      - interface: eth0 # TODO check
+      - interface: enp0s3
         dhcp: false
         addresses: [192.168.10.13/24]
         routes: [{ network: 0.0.0.0/0, gateway: 192.168.10.1 }]

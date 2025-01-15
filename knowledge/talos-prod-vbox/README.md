@@ -107,7 +107,7 @@ TODO configure IP addresses from the network configuration screen (F3):
 TODO add some descriptive text before each of the following commands
 
 ```bash
-talosctl gen config mycluster https://127.0.0.1:6010 # TODO this is not ok: the Kubernetes API should be reachable by the nodes themselves at this address. Try to specify https://192.168.10.10 and, if there are certificate problems, you could try to add --additional-sans=127.0.0.1
+talosctl gen config mycluster https://192.168.10.10:6443
 
 for i in {11..13}; do
     talosctl machineconfig patch controlplane.yaml -p"@patch-controlplane-$i.yaml" -o "controlplane-$i.yaml"
@@ -123,11 +123,12 @@ for i in {21..23}; do
     talosctl apply-config -in "127.0.0.1:50$i" -f "worker-$i.yaml"
 done
 
-talosctl --talosconfig=talosconfig bootstrap -e127.0.0.1:5011 -n192.168.10.11 # TODO at this point I get an "invalid certificate" error: valid for 192.168.10.11 instead of 127.0.0.1. Maybe I need to use .machine.certSANs
+talosctl --talosconfig=talosconfig bootstrap -e127.0.0.1:5011 -n192.168.10.11
 
 talosctl --talosconfig=talosconfig kubeconfig ./kubeconfig -e127.0.0.1:5011 -n192.168.10.11
+sed -Ei 's/^(\s+server:\s+https:\/\/).+$/\1127.0.0.1:6010/' kubeconfig
 
-kubectl get nodes # TODO check that there really are 6 nodes
+kubectl --kubeconfig=kubeconfig get nodes
 
 talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11,12,13} # TODO not sure if I need this
 ```
