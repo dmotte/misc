@@ -165,8 +165,4 @@ talosctl --talosconfig=talosconfig -n192.168.10.11 get disks
 
 ## TODO
 
-TODO
-
-TODO additional stuff: https://www.talos.dev/v1.9/kubernetes-guides/
-
-TODO try additional ingress, see https://datavirke.dk/posts/bare-metal-kubernetes-part-4-ingress-dns-certificates/#:~:text=Ingress%20controllers%20usually,the%20exposed%20port.
+TODO maybe add some more stuff
