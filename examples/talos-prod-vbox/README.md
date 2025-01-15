@@ -1,6 +1,6 @@
 # talos-prod-vbox
 
-This guide explains how to set up a **[Talos Linux](https://www.talos.dev/)** (_Kubernetes_) **cluster** using **VirtualBox VMs**, following **production-ready best-practices** as much as possible. Of course, for real production, you shouldn't use _VirtualBox_: this guide serves just as inspiration, and to see what the process looks like.
+This is an example of how to set up a **[Talos Linux](https://www.talos.dev/)** (_Kubernetes_) **cluster** using **VirtualBox VMs**, following **production-ready best-practices** as much as possible. Of course, for real production, you shouldn't use _VirtualBox_: this tutorial serves just as inspiration, and to see what the process looks like.
 
 > **Note**: if you want to quickly spin up a _Talos Linux_ cluster using **Docker containers** instead, just to try it out, you should refer to https://www.talos.dev/v1.9/introduction/quickstart/. It should be as simple as running something like:
 >
@@ -8,7 +8,7 @@ This guide explains how to set up a **[Talos Linux](https://www.talos.dev/)** (_
 > talosctl cluster create --controlplanes 3 --workers 3
 > ```
 
-This guide is heavily inspired by the official _Talos Linux_ documentation. In particular:
+This example is heavily inspired by the official _Talos Linux_ documentation. In particular:
 
 - [Getting Started - Talos Linux](https://www.talos.dev/v1.9/introduction/getting-started/)
 - [ISO - Talos Linux](https://www.talos.dev/v1.9/talos-guides/install/bare-metal-platforms/iso/)
@@ -17,7 +17,7 @@ This guide is heavily inspired by the official _Talos Linux_ documentation. In p
 
 ## Goal
 
-The goal of this guide is to create a _Talos Linux_ cluster with **3 control plane nodes** and **3 worker nodes**.
+The goal of this tutorial is to create a _Talos Linux_ cluster with **3 control plane nodes** and **3 worker nodes**.
 
 A **VirtualBox NAT Network** will be used for network communication. The control host will be able to access the Talos and Kubernetes APIs via **port forwarding rules**.
 
@@ -35,12 +35,12 @@ Plus, each node will have an **additional 100 GB disk** for **persistent data**.
 
 ## Control host tools
 
-First of all, you need to install some utilities on your host. This guide has been tested with:
+First of all, you need to install some utilities on your host. This example has been tested with:
 
 - **VirtualBox** version **7.1.4**
 - **`talosctl`** version **1.9.1**
 - **`kubectl`** version **1.32.0**
-- **Helm** version **3.16.4** TODO make sure that you really need Helm later in the guide
+- **Helm** version **3.16.4** TODO make sure that you really need Helm later in the tutorial
 
 ## VirtualBox NAT Network
 
@@ -91,8 +91,6 @@ EOF
 > **Note**: you may also want to adjust some values based on https://www.talos.dev/v1.9/introduction/system-requirements/.
 
 ## Nodes setup
-
-TODO maybe move this guide to the `examples` dir, and change the guide's content accordingly
 
 **Start** all the VMs. TODO no, please do it after the machineconfig patching
 
