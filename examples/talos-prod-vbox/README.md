@@ -92,17 +92,7 @@ EOF
 
 ## Nodes setup
 
-**Start** all the VMs. TODO no, please do it after the machineconfig patching
-
-TODO configure IP addresses from the network configuration screen (F3):
-
-- DNS Servers: `1.1.1.1 1.0.0.1`
-- Interface: (your main interface)
-- Mode: `Static`
-- Addresses: `192.168.10.XX/24`
-- Gateway: `192.168.10.1`
-
-TODO add some descriptive text before each of the following commands
+We are now ready to generate the _Talos Linux_ **cluster configuration** files:
 
 ```bash
 talosctl gen config mycluster https://192.168.10.10:6443
@@ -113,29 +103,67 @@ done
 for i in {21..23}; do
     talosctl machineconfig patch worker.yaml -p"@patch-worker-$i.yaml" -o "worker-$i.yaml"
 done
+```
 
+Now **start** all the VMs.
+
+Once started, change their **network configuration** to make them reachable by the host via the port-forwarding rules created before. In general, you need to set the following:
+
+- DNS Servers: `1.1.1.1 1.0.0.1`
+- Interface: `enp0s3`
+- Mode: `Static`
+- Addresses: `192.168.10.XX/24` (replace `XX` with the proper number for each VM)
+- Gateway: `192.168.10.1`
+
+> **Note**: you can access the **network configuration screen** by pressing the `F3` key in the VM.
+
+> **Note**: if the **main network interface name** is different, please remember to change it in the configuration files too.
+
+We should now be ready to **apply the cluster configuration** to the nodes:
+
+```bash
 for i in {11..13}; do
     talosctl apply-config -in "127.0.0.1:50$i" -f "controlplane-$i.yaml"
 done
 for i in {21..23}; do
     talosctl apply-config -in "127.0.0.1:50$i" -f "worker-$i.yaml"
 done
+```
 
+They should **reboot** automatically. After that, you can **bootstrap the Kubernetes cluster**:
+
+```bash
 talosctl --talosconfig=talosconfig bootstrap -e127.0.0.1:5011 -n192.168.10.11
+```
 
+**Wait a few minutes** for the _Kubernetes_ cluster to be set up, and then you can **get the `kubeconfig`**:
+
+```bash
 talosctl --talosconfig=talosconfig kubeconfig ./kubeconfig -e127.0.0.1:5011 -n192.168.10.11
 sed -Ei 's/^(\s+server:\s+https:\/\/).+$/\1127.0.0.1:6010/' kubeconfig
 
 kubectl --kubeconfig=kubeconfig get nodes
+```
 
+At this point, even if the _Kubernetes_ cluster is now working, it's a good idea to **detach the ISO disks** from the VMs. If you don't do so, they will throw an error on the next boot saying that "Talos is already installed to disk but booted from another media", "Please reboot from the disk".
+
+To detach the ISOs:
+
+```bash
 for i in Talos{Ctrl{11..13},Work{21..23}}; do
     vboxmanage storageattach "$i" --storagectl IDE --port 0 --device 0 --type dvddrive --medium none
 done
+```
 
+Finally, if you want, you can also **set the endpoints** in your `talosconfig` file, so you won't have to pass the `-e` flag anymore on every `talosctl` invocation:
+
+```bash
 talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11,12,13}
 
 talosctl --talosconfig=talosconfig -n192.168.10.11 get disks
 ```
+
+## TODO
 
 TODO
 
