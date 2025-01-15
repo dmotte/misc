@@ -134,7 +134,9 @@ for i in Talos{Ctrl{11..13},Work{21..23}}; do
     vboxmanage storageattach "$i" --storagectl IDE --port 0 --device 0 --type dvddrive --medium none
 done
 
-talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11,12,13} # TODO not sure if I need this
+talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11,12,13}
+
+talosctl --talosconfig=talosconfig -n192.168.10.11 get disks
 ```
 
 TODO
