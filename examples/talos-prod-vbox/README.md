@@ -15,7 +15,7 @@ This example is heavily inspired by the official _Talos Linux_ documentation. In
 - [Production Clusters - Talos Linux](https://www.talos.dev/v1.9/introduction/prodnotes/)
 - [Advanced Networking - Talos Linux](https://www.talos.dev/v1.9/advanced/advanced-networking/#static-addressing)
 
-## Goal
+## Overview
 
 The goal of this tutorial is to create a _Talos Linux_ cluster with **3 control plane nodes** and **3 worker nodes**.
 
