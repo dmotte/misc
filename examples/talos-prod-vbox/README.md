@@ -176,7 +176,7 @@ To set up **storage**: TODO use the additional 100GB volumes created previously
 - [Replicated Local Storage - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/configuration/replicated-local-storage-with-openebs/): using local storage with OpenEBS
 - [Storage - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/configuration/storage/): setting up storage for a Kubernetes cluster
 
-To set up a custom **CNI** (_Container Network Interface_):
+To set up a custom **CNI** (_Container Network Interface_) (useful for example if you need [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)):
 
 - [Network - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/network/): managing the Kubernetes cluster networking
 
