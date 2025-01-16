@@ -2,7 +2,7 @@
 
 This is an example of how to set up a **[Talos Linux](https://www.talos.dev/)** (_Kubernetes_) **cluster** using **VirtualBox VMs**, following **production-ready best-practices** as much as possible. Of course, for real production, you shouldn't use _VirtualBox_: this tutorial serves just as inspiration, and to see what the process looks like.
 
-> **Note**: if you want to quickly spin up a _Talos Linux_ cluster using **Docker containers** instead, just to try it out, you should refer to https://www.talos.dev/v1.9/introduction/quickstart/. It should be as simple as running something like:
+> **Note**: if you want to quickly spin up a _Talos Linux_ cluster using **Docker containers** instead, just to try it out, you should refer to [Quickstart - Talos Linux](https://www.talos.dev/v1.9/introduction/quickstart/). It should be as simple as running something like:
 >
 > ```bash
 > talosctl cluster create --controlplanes 3 --workers 3
@@ -10,10 +10,10 @@ This is an example of how to set up a **[Talos Linux](https://www.talos.dev/)** 
 
 This example is heavily inspired by the official _Talos Linux_ documentation. In particular:
 
-- [Getting Started - Talos Linux](https://www.talos.dev/v1.9/introduction/getting-started/)
-- [ISO - Talos Linux](https://www.talos.dev/v1.9/talos-guides/install/bare-metal-platforms/iso/)
-- [Production Clusters - Talos Linux](https://www.talos.dev/v1.9/introduction/prodnotes/)
-- [Advanced Networking - Talos Linux](https://www.talos.dev/v1.9/advanced/advanced-networking/#static-addressing)
+- [Getting Started - Talos Linux](https://www.talos.dev/v1.9/introduction/getting-started/): a guide to setting up a Talos Linux cluster
+- [ISO - Talos Linux](https://www.talos.dev/v1.9/talos-guides/install/bare-metal-platforms/iso/): booting Talos on bare-metal with ISO
+- [Production Clusters - Talos Linux](https://www.talos.dev/v1.9/introduction/prodnotes/): recommendations for setting up a Talos Linux cluster in production
+- [Static Addressing - Talos Linux](https://www.talos.dev/v1.9/advanced/advanced-networking/#static-addressing), part of the "Advanced Networking" guide
 
 ## Overview
 
@@ -88,7 +88,7 @@ TalosWork23   2   1024
 EOF
 ```
 
-> **Note**: you may also want to adjust some values based on https://www.talos.dev/v1.9/introduction/system-requirements/.
+> **Note**: you may also want to adjust some values based on [System Requirements - Talos Linux](https://www.talos.dev/v1.9/introduction/system-requirements/).
 
 ## Nodes setup
 
@@ -163,6 +163,26 @@ talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11,12,13}
 talosctl --talosconfig=talosconfig -n192.168.10.11 get disks
 ```
 
-## TODO
+## Next steps
+
+Now that you have a functional _Kubernetes_ cluster, you might want to do some **additional setup**. For example:
+
+- [Ingress Firewall - Talos Linux](https://www.talos.dev/v1.9/talos-guides/network/ingress-firewall/): learn to use Talos Linux Ingress Firewall to limit access to the host services
+- [Logging - Talos Linux](https://www.talos.dev/v1.9/talos-guides/configuration/logging/): dealing with Talos Linux logs
+- [Deploying Metrics Server - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/configuration/deploy-metrics-server/): in this guide you will learn how to set up metrics-server
+
+To set up **storage**: TODO use the additional 100GB volumes created previously
+
+- [Replicated Local Storage - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/configuration/replicated-local-storage-with-openebs/): using local storage with OpenEBS
+- [Storage - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/configuration/storage/): setting up storage for a Kubernetes cluster
+
+To set up a custom **CNI** (_Container Network Interface_):
+
+- [Network - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/network/): managing the Kubernetes cluster networking
+
+To perform **upgrades**:
+
+- [Upgrading Talos Linux - Talos Linux](https://www.talos.dev/v1.9/talos-guides/upgrading-talos/): guide to upgrading a Talos Linux machine
+- [Upgrading Kubernetes - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/upgrading-kubernetes/): guide on how to upgrade the Kubernetes cluster from Talos Linux
 
 TODO maybe add some more stuff
