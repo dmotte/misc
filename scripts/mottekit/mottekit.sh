@@ -18,10 +18,6 @@ mottekit_info() {
     echo "MotteKit version $version (commit $commit)"
 }
 
-mottekit_snip() {
-    grep -Fi "${1:?}" "$basedir/../../snippets/README.md"
-}
-
 mottekit_update() {
     echo 'Updating MotteKit'
 
@@ -37,11 +33,10 @@ mottekit_update() {
 readonly subcmd=$1; shift
 
 [ "$subcmd" = help ] || [ "$subcmd" = version ] && { mottekit_info; exit; }
-[ "$subcmd" = snip ] && { mottekit_snip "$@"; exit; }
 [ "$subcmd" = update ] && { mottekit_update "$@"; exit; }
 
 for i in "$basedir/overrides/$subcmd.sh" \
-    "$basedir/$subcmd.sh" \
+    "$basedir/sub/$subcmd.sh" \
     "$(dirname "$basedir")/$subcmd.sh"
 
     do [ -e "$i" ] && exec bash "$i" "$@"
