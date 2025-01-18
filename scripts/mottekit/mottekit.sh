@@ -25,7 +25,7 @@ mottekit_snip() {
 mottekit_update() {
     echo 'Updating MotteKit'
 
-    # We run the pull in a Bash subprocess spawned with "exec" because this
+    # We run the pull in a Bash process spawned with "exec" because this
     # script could be changed by it
     exec bash -ec "git -C ${basedir@Q} pull"
 }

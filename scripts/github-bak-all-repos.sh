@@ -26,7 +26,7 @@ before_clone=''
 repo_url_fmt="https://github.com/\$i.git"
 [ "$GHBAK_USE_SSH" = true ] && repo_url_fmt="git@github.com:\$i.git"
 
-# We run the rest of the commands in a Bash subprocess spawned with "exec"
+# We run the rest of the commands in a Bash process spawned with "exec"
 # because this script could be changed by a "git pull" in case it's part
 # of one of the repos
 
