@@ -22,6 +22,7 @@ mottekit_info() {
     for i in help version update \
         "$basedir"/{overrides,sub}/*.sh \
         "$(dirname "$basedir")"/*.sh; do
+            [ -e "$i" ] || continue
             echo "- $(basename "${i%.sh}")"
     done
 }
