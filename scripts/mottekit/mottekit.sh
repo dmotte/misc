@@ -16,6 +16,14 @@ mottekit_info() {
         --date=format-local:'v%Y.%m.%d.%H%M' --format='%cd')
     local commit; commit=$(git -C "$basedir" rev-parse --short HEAD)
     echo "MotteKit version $version (commit $commit)"
+    echo
+    echo 'Available subcommands:'
+    echo
+    for i in help version update \
+        "$basedir"/{overrides,sub}/*.sh \
+        "$(dirname "$basedir")"/*.sh; do
+            echo "- $(basename "${i%.sh}")"
+    done
 }
 
 mottekit_update() {
