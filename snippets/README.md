@@ -101,6 +101,7 @@ Some pieces of code I find useful for some reason.
 - `bind -x '"\e": mycommand'`
 - `sudo iptables -nvL`
 - `curl https://api.ipify.org/`
+- `ping my.dns.domain.10-0-0-1.nip.io`
 - `socat TCP4-LISTEN:9000,fork,reuseaddr - >/dev/null`, `dd if=/dev/zero bs=1M count=1024 status=progress | socat - TCP:192.168.0.2:9000`
 - `curl -fLo ~/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x ~/.local/bin/kubectl`
 - `sudo dd if=/dev/mmcblk2 status=progress | gzip -c | split -b4GB - mmcblk2.img.gz.part`
