@@ -40,7 +40,7 @@ First of all, you need to install some utilities on your host. This example has 
 - **VirtualBox** version **7.1.4**
 - **`talosctl`** version **1.9.1**
 - **`kubectl`** version **1.32.0**
-- **Helm** version **3.16.4** TODO make sure that you really need Helm later in the tutorial
+- **Helm** version **3.17.0**
 
 ## VirtualBox NAT Network
 
@@ -162,6 +162,26 @@ talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11,12,13}
 
 talosctl --talosconfig=talosconfig -n192.168.10.11 get disks
 ```
+
+## Storage
+
+To set up **persistent storage** in your cluster, you have the following options.
+
+### Local storage
+
+With a **local storage** solution, each `PersistentVolume` you create (and its data) will be **bound to a specific node**. It's a **simple and lightweight** approach, and often it's just enough.
+
+For example, one such solution is **Rancher Local Path Provisioner**; to set it up, see https://www.talos.dev/v1.9/kubernetes-guides/configuration/local-storage/#local-path-provisioner.
+
+Note that, since you can **choose the directory** on the host (node) in which to save the data, you can also configure it to save to a **partition on a secondary disk**, by leveraging this _Talos Linux_ feature: [`machine.disks[].partitions[]`](https://www.talos.dev/v1.9/reference/configuration/v1alpha1/config/#Config.machine.disks..partitions.)
+
+### Replicated storage
+
+With a **replicated persistent storage** solution, the data of each `PersistentVolume` can be **replicated on many nodes**. This approach is often more **complicated and resource-intensive**.
+
+For example, one such solution is **OpenEBS Replicated PV Mayastor**; to set it up, see https://www.talos.dev/v1.9/kubernetes-guides/configuration/storage/#openebs-mayastor-replicated-storage.
+
+If you choose to set up a solution of this kind, please make sure that your cluster satisfies the [**minimum requirements for Mayastor**](https://openebs.io/docs/user-guides/replicated-storage-user-guide/replicated-pv-mayastor/rs-installation#prerequisites).
 
 ## Next steps
 
