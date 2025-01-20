@@ -179,7 +179,7 @@ With a **replicated persistent storage** solution, the data of each `PersistentV
 
 For example, one such solution is **OpenEBS Replicated PV Mayastor**; to set it up, see https://www.talos.dev/v1.9/kubernetes-guides/configuration/storage/#openebs-mayastor-replicated-storage.
 
-If you choose to set up a solution of this kind, please make sure that your cluster satisfies the [**minimum requirements for Mayastor**](https://openebs.io/docs/user-guides/replicated-storage-user-guide/replicated-pv-mayastor/rs-installation#prerequisites).
+If you choose to set up this solution, please make sure that your cluster satisfies the [**minimum requirements for Mayastor**](https://openebs.io/docs/user-guides/replicated-storage-user-guide/replicated-pv-mayastor/rs-installation#prerequisites).
 
 ## Next steps
 
