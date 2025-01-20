@@ -31,8 +31,6 @@ A **VirtualBox NAT Network** will be used for network communication. The control
 | `192.168.10.22` | Worker node                                   | `127.0.0.1:5022`           | -                               |
 | `192.168.10.23` | Worker node                                   | `127.0.0.1:5023`           | -                               |
 
-Plus, each node will have an **additional 100 GB disk** for **persistent data**. TODO check if this is feasible. Also, maybe only the worker nodes need the additional disk
-
 ## Control host tools
 
 First of all, you need to install some utilities on your host. This example has been tested with:
@@ -75,7 +73,7 @@ Then you can leverage the [`create-vbox-vm-headless.sh`](https://github.com/dmot
 ```bash
 while read -r name cpus mem; do
     ./create-vbox-vm-headless.sh -n"$name" -oLinux_64 \
-        -c"$cpus" -m"$mem" -d102400,102400 -i metal-amd64.iso
+        -c"$cpus" -m"$mem" -d102400 -i metal-amd64.iso
 
     vboxmanage modifyvm "$name" --nic1 natnetwork --nat-network1 mynat01
 done << 'EOF'
@@ -185,16 +183,11 @@ If you choose to set up a solution of this kind, please make sure that your clus
 
 ## Next steps
 
-Now that you have a functional _Kubernetes_ cluster, you might want to do some **additional setup**. For example:
+You might want to do some **additional setup**. For example:
 
 - [Ingress Firewall - Talos Linux](https://www.talos.dev/v1.9/talos-guides/network/ingress-firewall/): learn to use Talos Linux Ingress Firewall to limit access to the host services
 - [Logging - Talos Linux](https://www.talos.dev/v1.9/talos-guides/configuration/logging/): dealing with Talos Linux logs
 - [Deploying Metrics Server - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/configuration/deploy-metrics-server/): in this guide you will learn how to set up metrics-server
-
-To set up **storage**: TODO use the additional 100GB volumes created previously
-
-- [Replicated Local Storage - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/configuration/replicated-local-storage-with-openebs/): using local storage with OpenEBS
-- [Storage - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/configuration/storage/): setting up storage for a Kubernetes cluster
 
 To set up a custom **CNI** (_Container Network Interface_) (useful for example if you need [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)):
 
@@ -204,5 +197,3 @@ To perform **upgrades**:
 
 - [Upgrading Talos Linux - Talos Linux](https://www.talos.dev/v1.9/talos-guides/upgrading-talos/): guide to upgrading a Talos Linux machine
 - [Upgrading Kubernetes - Talos Linux](https://www.talos.dev/v1.9/kubernetes-guides/upgrading-kubernetes/): guide on how to upgrade the Kubernetes cluster from Talos Linux
-
-TODO maybe add some more stuff
