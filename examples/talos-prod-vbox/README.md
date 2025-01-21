@@ -181,6 +181,30 @@ For example, one such solution is **OpenEBS Replicated PV Mayastor**; to set it 
 
 If you choose to set up this solution, please make sure that your cluster satisfies the [**minimum requirements for Mayastor**](https://openebs.io/docs/user-guides/replicated-storage-user-guide/replicated-pv-mayastor/rs-installation#prerequisites).
 
+## Ingress Controller
+
+You can set up the [**Ingress-Nginx Controller**](https://kubernetes.github.io/ingress-nginx/) in your cluster by following this guide: [Ingress-Nginx Quick start](https://kubernetes.github.io/ingress-nginx/deploy/#quick-start). I recomment using **Helm** as the installation method, as it's the most simple and straightforward one.
+
+Since we are working with a **bare-metal Kubernetes cluster**, to actually make _Ingress-Nginx_ available, we need to rely on **`NodePort`s**. Please refer to this section of the official documentation: [Bare-metal Ingress-Nginx over a NodePort Service](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#over-a-nodeport-service).
+
+I suggest setting the following Helm values, to **make the port numbers constant**:
+
+| Key                                  | Value   |
+| ------------------------------------ | ------- |
+| `controller.service.nodePorts.http`  | `30080` |
+| `controller.service.nodePorts.https` | `30443` |
+
+We can also create an additional **Virtual IP** `192.168.10.20` for worker nodes, using _Talos Linux_'s [Virtual (shared) IP feature](https://www.talos.dev/v1.9/talos-guides/network/vip/). It's the same thing we did for control plane nodes. Example: [link](patch-controlplane-11.yaml#L12).
+
+In the end, you should be able to access the **exposed node ports** like this:
+
+```bash
+curl http://192.168.10.20:30080/
+curl https://192.168.10.20:30443/ --insecure
+```
+
+Remember that, to make them available outside the **VirtualBox NAT Network**, you will have to create **additional port forwardings**, like we did in the [VirtualBox NAT Network](#virtualbox-nat-network) section.
+
 ## Next steps
 
 You might want to do some **additional setup**. For example:
