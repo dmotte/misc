@@ -21,15 +21,20 @@ The goal of this tutorial is to create a _Talos Linux_ cluster with **3 control 
 
 A **VirtualBox NAT Network** will be used for network communication. The control host will be able to access the Talos and Kubernetes APIs via **port forwarding rules**.
 
-| IP address      | Type                                          | Talos API access from host | Kubernetes API access from host |
-| --------------- | --------------------------------------------- | -------------------------- | ------------------------------- |
-| `192.168.10.10` | Virtual IP shared between control plane nodes | -                          | `127.0.0.1:6010`                |
-| `192.168.10.11` | Control plane node                            | `127.0.0.1:5011`           | `127.0.0.1:6011`                |
-| `192.168.10.12` | Control plane node                            | `127.0.0.1:5012`           | `127.0.0.1:6012`                |
-| `192.168.10.13` | Control plane node                            | `127.0.0.1:5013`           | `127.0.0.1:6013`                |
-| `192.168.10.21` | Worker node                                   | `127.0.0.1:5021`           | -                               |
-| `192.168.10.22` | Worker node                                   | `127.0.0.1:5022`           | -                               |
-| `192.168.10.23` | Worker node                                   | `127.0.0.1:5023`           | -                               |
+| IP address      | Type                                   | Talos API access from host | Kubernetes API access from host |
+| --------------- | -------------------------------------- | -------------------------- | ------------------------------- |
+| `192.168.10.10` | VIP shared between control plane nodes | -                          | `127.0.0.1:6010`                |
+| `192.168.10.11` | Control plane node                     | `127.0.0.1:5011`           | `127.0.0.1:6011`                |
+| `192.168.10.12` | Control plane node                     | `127.0.0.1:5012`           | `127.0.0.1:6012`                |
+| `192.168.10.13` | Control plane node                     | `127.0.0.1:5013`           | `127.0.0.1:6013`                |
+| `192.168.10.20` | VIP shared between worker nodes        | -                          | -                               |
+| `192.168.10.21` | Worker node                            | `127.0.0.1:5021`           | -                               |
+| `192.168.10.22` | Worker node                            | `127.0.0.1:5022`           | -                               |
+| `192.168.10.23` | Worker node                            | `127.0.0.1:5023`           | -                               |
+
+Note that we also set up some **VIP**s (_Virtual IP_ addresses), using _Talos Linux_'s [Virtual (shared) IP feature](https://www.talos.dev/v1.9/talos-guides/network/vip/).
+
+We set up the `192.168.10.20` VIP **shared between worker nodes** because it might be useful in the future while working with applications in our _Kubernetes_ cluster. For example, see the [Ingress Controller](#ingress-controller) section of this document.
 
 ## Control host tools
 
@@ -194,16 +199,20 @@ I suggest setting the following Helm values, to **make the port numbers constant
 | `controller.service.nodePorts.http`  | `30080` |
 | `controller.service.nodePorts.https` | `30443` |
 
-We can also create an additional **Virtual IP** `192.168.10.20` for worker nodes, using _Talos Linux_'s [Virtual (shared) IP feature](https://www.talos.dev/v1.9/talos-guides/network/vip/). It's the same thing we did for control plane nodes. Example: [link](patch-controlplane-11.yaml#L12).
-
-In the end, you should be able to access the **exposed node ports** like this:
+Then we can create some **additional port forwarding rules** to make the node ports available **outside the VirtualBox NAT Network**. For that we can also use the previously created **VIP** `192.168.10.20`, which is shared between the worker nodes:
 
 ```bash
-curl http://192.168.10.20:30080/
-curl https://192.168.10.20:30443/ --insecure
+vboxmanage natnetwork modify --netname mynat01 \
+    --port-forward-4 "HTTP20:tcp:[127.0.0.1]:3080:[192.168.10.20]:30080" \
+    --port-forward-4 "HTTPS20:tcp:[127.0.0.1]:3443:[192.168.10.20]:30443"
 ```
 
-Remember that, to make them available outside the **VirtualBox NAT Network**, you will have to create **additional port forwardings**, like we did in the [VirtualBox NAT Network](#virtualbox-nat-network) section.
+Then you should be able to access the **exposed node ports** from your host like this:
+
+```bash
+curl http://127.0.0.1:3080/
+curl https://127.0.0.1:3443/ --insecure
+```
 
 ## Next steps
 
