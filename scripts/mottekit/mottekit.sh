@@ -4,7 +4,10 @@ set -e
 
 basedir=$(dirname "$0")
 
-mottekit_info() {
+readonly builtin_subcmds=(info help version update)
+
+# shellcheck disable=SC2317
+subcmd_info() {
     echo " __  __       _   _       _  ___ _   "
     echo "|  \/  | ___ | |_| |_ ___| |/ (_) |_ "
     echo "| |\/| |/ _ \| __| __/ _ \ ' /| | __|"
@@ -19,15 +22,29 @@ mottekit_info() {
     echo
     echo 'Available subcommands:'
     echo
-    for i in help version update \
-        "$basedir"/{overrides,sub}/*.sh \
-        "$basedir"/../*.sh; do
-            [ -e "$i" ] || continue
-            echo "- $(basename "${i%.sh}")"
+    for i in "${builtin_subcmds[@]}"; do
+        echo "- (builtin) $i"
+    done
+    for i in "$basedir"/overrides/*.sh; do
+        [ -e "$i" ] || continue
+        echo "- (overrides) $(basename "${i%.sh}")"
+    done
+    for i in "$basedir"/sub/*.sh; do
+        [ -e "$i" ] || continue
+        echo "- (sub) $(basename "${i%.sh}")"
+    done
+    for i in "$basedir"/../*.sh; do
+        [ -e "$i" ] || continue
+        echo "- (..) $(basename "${i%.sh}")"
     done
 }
+# shellcheck disable=SC2317
+subcmd_help() { subcmd_info "$@"; }
+# shellcheck disable=SC2317
+subcmd_version() { subcmd_info "$@"; }
 
-mottekit_update() {
+# shellcheck disable=SC2317
+subcmd_update() {
     echo 'Updating MotteKit'
 
     # We run the pull in a Bash process spawned with "exec" because this
@@ -37,18 +54,16 @@ mottekit_update() {
 
 ################################################################################
 
-[ -n "$1" ] || { mottekit_info; exit; }
+readonly subcmd=${1:-"${builtin_subcmds[0]}"}; shift || :
 
-readonly subcmd=$1; shift
-
-[ "$subcmd" = help ] || [ "$subcmd" = version ] && { mottekit_info; exit; }
-[ "$subcmd" = update ] && { mottekit_update "$@"; exit; }
-
-for i in "$basedir/overrides/$subcmd.sh" \
-    "$basedir/sub/$subcmd.sh" \
-    "$basedir/../$subcmd.sh"
-
-    do [ -e "$i" ] && exec bash "$i" "$@"
+for i in "${builtin_subcmds[@]}"; do
+    [ "$i" != "$subcmd" ] || { "subcmd_$i" "$@"; exit; }
+done
+for i in "$basedir"/{overrides,sub,..}/"$subcmd.sh"; do
+    [ -e "$i" ] || continue
+    path=$(realpath "$i")
+    # shellcheck disable=SC2093
+    exec bash "$path" "$@"
 done
 
 echo "Invalid MotteKit subcommand: $subcmd. Run \"mottekit help\" for help" >&2
