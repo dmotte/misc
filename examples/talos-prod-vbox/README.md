@@ -27,14 +27,11 @@ A **VirtualBox NAT Network** will be used for network communication. The control
 | `192.168.10.11` | Control plane node                     | `127.0.0.1:5011`           | `127.0.0.1:6011`                |
 | `192.168.10.12` | Control plane node                     | `127.0.0.1:5012`           | `127.0.0.1:6012`                |
 | `192.168.10.13` | Control plane node                     | `127.0.0.1:5013`           | `127.0.0.1:6013`                |
-| `192.168.10.20` | VIP shared between worker nodes        | -                          | -                               |
 | `192.168.10.21` | Worker node                            | `127.0.0.1:5021`           | -                               |
 | `192.168.10.22` | Worker node                            | `127.0.0.1:5022`           | -                               |
 | `192.168.10.23` | Worker node                            | `127.0.0.1:5023`           | -                               |
 
-Note that we also set up some **VIP**s (_Virtual IP_ addresses), using _Talos Linux_'s [Virtual (shared) IP feature](https://www.talos.dev/v1.9/talos-guides/network/vip/).
-
-We set up the `192.168.10.20` VIP **shared between worker nodes** because it might be useful in the future while working with applications in our _Kubernetes_ cluster. For example, see the [Ingress Controller](#ingress-controller) section of this document.
+Note that we also set up a **VIP** (_Virtual IP_ address) for **control plane** nodes using _Talos Linux_'s [Virtual (shared) IP feature](https://www.talos.dev/v1.9/talos-guides/network/vip/).
 
 ## Control host tools
 
@@ -161,7 +158,7 @@ done
 Finally, if you want, you can also **set the endpoints** in your `talosconfig` file, so you won't have to pass the `-e` flag anymore on every `talosctl` invocation:
 
 ```bash
-talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11,12,13}
+talosctl --talosconfig=talosconfig config endpoint 127.0.0.1:50{11..13}
 
 talosctl --talosconfig=talosconfig -n192.168.10.11 get disks
 ```
@@ -188,9 +185,9 @@ If you choose to set up this solution, please make sure that your cluster satisf
 
 ## Ingress Controller
 
-You can set up the [**Ingress-Nginx Controller**](https://kubernetes.github.io/ingress-nginx/) in your cluster by following this guide: [Ingress-Nginx Quick start](https://kubernetes.github.io/ingress-nginx/deploy/#quick-start). I recomment using **Helm** as the installation method, as it's the most simple and straightforward one.
+You can set up the [**Ingress-Nginx Controller**](https://kubernetes.github.io/ingress-nginx/) in your cluster by following this guide: [Ingress-Nginx Quick start](https://kubernetes.github.io/ingress-nginx/deploy/#quick-start). I recommend using **Helm** as the installation method, as it's the most simple and flexible one.
 
-Since we are working with a **bare-metal Kubernetes cluster**, to actually make _Ingress-Nginx_ available, we need to rely on **`NodePort`s**. Please refer to this section of the official documentation: [Bare-metal Ingress-Nginx over a NodePort Service](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#over-a-nodeport-service).
+Since we are working on a **bare-metal Kubernetes cluster**, to actually make _Ingress-Nginx_ available, we need to rely on **`NodePort`s**. Please refer to this section of the official documentation: [Bare-metal Ingress-Nginx over a NodePort Service](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#over-a-nodeport-service).
 
 I suggest setting the following Helm values, to **make the port numbers constant**:
 
@@ -199,19 +196,21 @@ I suggest setting the following Helm values, to **make the port numbers constant
 | `controller.service.nodePorts.http`  | `30080` |
 | `controller.service.nodePorts.https` | `30443` |
 
-Then we can create some **additional port forwarding rules** to make the node ports available **outside the VirtualBox NAT Network**. For that we can also use the previously created **VIP** `192.168.10.20`, which is shared between the worker nodes:
+Then we can create some **additional port forwarding rules** to make the node ports available **outside the VirtualBox NAT Network**:
 
 ```bash
-vboxmanage natnetwork modify --netname mynat01 \
-    --port-forward-4 "HTTP20:tcp:[127.0.0.1]:3080:[192.168.10.20]:30080" \
-    --port-forward-4 "HTTPS20:tcp:[127.0.0.1]:3443:[192.168.10.20]:30443"
+for i in {21..23}; do
+    vboxmanage natnetwork modify --netname mynat01 \
+        --port-forward-4 "HTTP$i:tcp:[127.0.0.1]:38$i:[192.168.10.$i]:30080" \
+        --port-forward-4 "HTTPS$i:tcp:[127.0.0.1]:34$i:[192.168.10.$i]:30443"
+done
 ```
 
 Then you should be able to access the **exposed node ports** from your host like this:
 
 ```bash
-curl http://127.0.0.1:3080/
-curl https://127.0.0.1:3443/ --insecure
+curl http://127.0.0.1:3821/
+curl https://127.0.0.1:3421/ --insecure
 ```
 
 ## Next steps

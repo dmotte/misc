@@ -9,6 +9,5 @@ machine:
         dhcp: false
         addresses: [192.168.10.22/24]
         routes: [{ network: 0.0.0.0/0, gateway: 192.168.10.1 }]
-        vip: { ip: 192.168.10.20 }
   time:
     servers: [time.cloudflare.com]
