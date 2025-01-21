@@ -21,7 +21,7 @@ mottekit_info() {
     echo
     for i in help version update \
         "$basedir"/{overrides,sub}/*.sh \
-        "$(dirname "$basedir")"/*.sh; do
+        "$basedir"/../*.sh; do
             [ -e "$i" ] || continue
             echo "- $(basename "${i%.sh}")"
     done
@@ -46,7 +46,7 @@ readonly subcmd=$1; shift
 
 for i in "$basedir/overrides/$subcmd.sh" \
     "$basedir/sub/$subcmd.sh" \
-    "$(dirname "$basedir")/$subcmd.sh"
+    "$basedir/../$subcmd.sh"
 
     do [ -e "$i" ] && exec bash "$i" "$@"
 done
