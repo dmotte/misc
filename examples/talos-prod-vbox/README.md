@@ -213,6 +213,31 @@ curl http://127.0.0.1:3821/
 curl https://127.0.0.1:3421/ --insecure
 ```
 
+## Observability
+
+[**Observability**](https://grafana.com/docs/grafana-cloud/introduction/what-is-observability/) is a crucial part of a production-ready _Kubernetes_ cluster.
+
+Here are some advices that may be useful to set up an observability system in your cluster. We will use `Victoria*` products.
+
+They also have some **playgrounds** (public **demos**) available, to let you quickly explore the UIs: https://docs.victoriametrics.com/#playgrounds
+
+### Metrics
+
+You can use [**VictoriaMetrics**](https://victoriametrics.com/products/open-source/) as **monitoring** solution. They say it's more performant and easier to operate than _Prometheus_.
+
+It supports **HA**, **zero-downtime upgrades**, **backups to S3**, metrics discovery via CRDs such as `ServiceMonitor`, `PodMonitor`, etc. (via the [VictoriaMetrics operator](https://github.com/VictoriaMetrics/operator#overview)) and much more.
+
+- [Kubernetes monitoring via VictoriaMetrics Single](https://docs.victoriametrics.com/guides/k8s-monitoring-via-vm-single/)
+- [Kubernetes monitoring with VictoriaMetrics Cluster](https://docs.victoriametrics.com/guides/k8s-monitoring-via-vm-cluster/)
+- [HA monitoring setup in Kubernetes via VictoriaMetrics Cluster](https://docs.victoriametrics.com/guides/k8s-ha-monitoring-via-vm-cluster/)
+- [Starting VictoriaMetrics Single Node via Docker](https://docs.victoriametrics.com/quick-start/#starting-vm-single-via-docker)
+
+### Logs
+
+You can use [**VictoriaLogs**](https://victoriametrics.com/products/victorialogs/) as **logs** solution. They say it's more performant and easier to operate than _Grafana Loki_.
+
+- [Quick Start - VictoriaLogs](https://docs.victoriametrics.com/victorialogs/quickstart/)
+
 ## Next steps
 
 You might want to do some **additional setup**. For example:
