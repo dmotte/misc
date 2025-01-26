@@ -15,6 +15,7 @@ Some pieces of code I find useful for some reason.
 - `git diff --cached > my.patch`, `git apply my.patch`
 - `git clean -dfnX`
 - `git remote set-url origin git@github.com:octocat/hello-world.git`
+- `git config --global credential.helper "cache --timeout=$((10*365*24*60*60))"`
 - `reporoot=$(git rev-parse --show-toplevel)`
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
