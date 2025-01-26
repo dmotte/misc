@@ -16,6 +16,7 @@ Some pieces of code I find useful for some reason.
 - `git clean -dfnX`
 - `git remote set-url origin git@github.com:octocat/hello-world.git`
 - `git config --global credential.helper "cache --timeout=$((10*365*24*60*60))"`
+- `git lfs track '*.mp3'`, `git lfs ls-files`
 - `reporoot=$(git rev-parse --show-toplevel)`
 - `latest_commit=$(git rev-parse HEAD)`
 - `grep -IRi --exclude-dir=.git pattern`
