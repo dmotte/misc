@@ -32,7 +32,6 @@ Some pieces of code I find useful for some reason.
 - `( ow=640; oh=360; ffmpeg -i input.mp4 -vf "scale=$ow:$oh:force_original_aspect_ratio=decrease,pad=$ow:$oh:(ow-iw)/2:(oh-ih)/2" output.mp4 )`
 - `for i in *.mp3; do echo "$i"; ffmpeg -i "$i" -af volumedetect -vn -sn -dn -f null /dev/null 2>&1 | grep -E '^\[Parsed_volumedetect.+_volume: .+$'; done`
 - `ffmpeg -i input.mp3 -filter:a 'dynaudnorm=p=0.9:s=5' output.mp3`
-- `ffmpeg -loop 1 -i image.jpg -i audio.mp3 -c:a copy -shortest output.mp4`
 - `ffmpeg -i input.mp3 -map 0:a -c:a copy -map_metadata -1 output.mp3`
 - `watch -n.2 date`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
