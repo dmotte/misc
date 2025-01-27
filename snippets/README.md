@@ -143,7 +143,7 @@ done
 ## Shell snippets for Docker
 
 - `docker run -it --rm docker.io/library/debian:12`
-- `docker run -d --name=mydeb01 docker.io/library/debian:12 sleep infinity`, `docker exec -it mydeb01 bash`
+- `docker run -d --name=mydeb01 docker.io/library/debian:12 sleep infinity`, `docker exec -it mydeb01 bash`, `docker rm -f mydeb01`
 - `docker ps -a --format {{.Names}}`
 - `docker rm -fv mycontainer`
 - `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox tar -cvzC/v . > mybackup.tar.gz`
