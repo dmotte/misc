@@ -154,6 +154,8 @@ done
   - `docker rm -v tmp01`
 - `docker run -d --name=mydind01 --privileged docker.io/library/docker:dind`
 - `docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive docker.io/library/python:3`
+- `docker-compose down -v && docker-compose up -d --build && docker-compose logs -ft`
+- `docker-compose exec mycontainer bash`
 - `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S '0.0.0.0:8080' -t /v`
 - `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
