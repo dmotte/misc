@@ -117,6 +117,8 @@ Some pieces of code I find useful for some reason.
 - `sunodl() { curl -fLO https://cdn1.suno.ai/$1.mp3; }`
 - `install -DT <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
 - `shred -u myfile.txt`
+- `gpg -ac --cipher-algo=AES256 -o encrypted.asc <(date)`, `gpg -d encrypted.asc`
+  - `echo -e 'default-cache-ttl 0\nmax-cache-ttl 0' >> ~/.gnupg/gpg-agent.conf && gpgconf -R`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
