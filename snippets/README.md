@@ -250,8 +250,10 @@ EOF
 - `export MSYS_NO_PATHCONV=1`
 - `winpty rclone ncdu .`
 - `choco list --local-only`
+- `choco install -y gsudo`
 - `sudo choco upgrade -y all`
 - `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
+- `MSYS=winsymlinks:nativestrict sudo ln -s original.txt link.txt`
 - `[[ "$(uname)" = MINGW* ]]; echo $?`
 
 ## Prometheus queries
