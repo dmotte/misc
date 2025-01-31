@@ -4,7 +4,7 @@ In **Windows**, drivers are usually stored in the following directories:
 
 - `C:\Windows\System32\Drivers`
 - `C:\Windows\System32\DriverStore`
-- `C:\Windows\System32\DRVSTORE` (if present)
+- `C:\Windows\System32\DRVSTORE` (not always present)
 
 You can copy them on a USB stick pendrive, then insert it into another PC and install the drivers there, by selecting the pendrive location when Windows asks for a directory to "find the drivers automatically".
 
