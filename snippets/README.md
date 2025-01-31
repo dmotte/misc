@@ -116,6 +116,7 @@ Some pieces of code I find useful for some reason.
 - `comm <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright') --total`
 - `sunodl() { curl -fLO https://cdn1.suno.ai/$1.mp3; }`
 - `install -DT <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
+- `shred -u myfile.txt`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
