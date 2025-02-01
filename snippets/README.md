@@ -118,7 +118,8 @@ Some pieces of code I find useful for some reason.
 - `install -DT <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
 - `shred -u myfile.txt`
 - `gpg -ac --cipher-algo=AES256 -o encrypted.asc <(date)`, `gpg -d encrypted.asc`
-  - `echo -e 'default-cache-ttl 0\nmax-cache-ttl 0' >> ~/.gnupg/gpg-agent.conf && gpgconf -R`
+- `date | gpg -ac --batch --cipher-algo=AES256 --passphrase-file=<(echo MyPassphrase) -o encrypted.asc`, `gpg -d --batch --passphrase-file=<(echo MyPassphrase) encrypted.asc | sha256sum`
+- `echo -e 'default-cache-ttl 0\nmax-cache-ttl 0' >> ~/.gnupg/gpg-agent.conf && gpgconf -R`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
