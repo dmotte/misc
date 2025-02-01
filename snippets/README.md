@@ -67,6 +67,7 @@ Some pieces of code I find useful for some reason.
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
 - `ssh-keygen -R [myserver.example.com]:2222`
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
+- `ssh-keygen -yf ~/.ssh/id_rsa`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
 - `withprefix() { while read -r i; do echo "$1$i"; done }`
 - `echo Message | mail -s Subject recipient@example.com`
