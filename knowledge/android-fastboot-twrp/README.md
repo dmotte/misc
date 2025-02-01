@@ -1,6 +1,6 @@
 # android-fastboot-twrp
 
-:warning: **Disclaimer**: This guide is intended for **educational purposes** only. Modifying your device using `fastboot` or _TWRP_ involves risks such as **data loss**, **bricking your device**, or **voiding the warranty**. I am not responsible for any possible damage caused to your phone.
+:warning: **Disclaimer**: this guide is intended for **educational purposes** only. Modifying your device using `fastboot` or _TWRP_ involves risks such as **data loss**, **bricking your device**, or **voiding the warranty**. I am not responsible for any possible damage caused to your phone.
 
 Usual **boot key combinations**:
 
