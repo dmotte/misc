@@ -65,9 +65,9 @@ Some pieces of code I find useful for some reason.
 - `git reset --soft HEAD^ && git push --force`
 - `git log --follow --format=%H myfile.txt | while read -r i; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git show "$i:./myfile.txt"); done`
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
+- `ssh-keygen -yf ~/.ssh/id_ed25519`
 - `ssh-keygen -R [myserver.example.com]:2222`
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
-- `ssh-keygen -yf ~/.ssh/id_ed25519`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
 - `withprefix() { while read -r i; do echo "$1$i"; done }`
 - `echo Message | mail -s Subject recipient@example.com`
