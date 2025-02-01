@@ -65,6 +65,8 @@ Some pieces of code I find useful for some reason.
 - `git reset --soft HEAD^ && git push --force`
 - `git log --follow --format=%H myfile.txt | while read -r i; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git show "$i:./myfile.txt"); done`
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
+- `ssh-keygen -R [myserver.example.com]:2222`
+- `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
 - `withprefix() { while read -r i; do echo "$1$i"; done }`
 - `echo Message | mail -s Subject recipient@example.com`
@@ -73,7 +75,6 @@ Some pieces of code I find useful for some reason.
 - `systemctl -a | grep -Fi myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -Fi myunit` (also disabled ones)
 - `systemctl list-timers`
 - `: "${myvar:=myvalue}"`, `export MY_ENV_VAR="${MY_ENV_VAR:-myvalue}"`
-- `ssh-keygen -R [myserver.example.com]:2222`
 - `socat - TCP:example.com:80`
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=777,fork -`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use `systemctl --user` as a linger-enabled user
@@ -81,7 +82,6 @@ Some pieces of code I find useful for some reason.
 - `vboxmanage startvm myvm --type=headless`
 - `vboxmanage controlvm myvm acpipowerbutton`
 - `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
-- `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`
 - `echo 'Hello $USER!' | envsubst`
 - `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
 - `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`, `rustup update`, `cargo install rust-script`
