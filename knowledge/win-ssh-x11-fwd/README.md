@@ -2,7 +2,7 @@
 
 This guide explains how to do **X11 Forwarding** with **OpenSSH** on **Windows 10** using [**VcXsrv**](https://github.com/marchaesen/vcxsrv).
 
-> **Note**: before starting, make sure that [`X11Forwarding`](https://man.openbsd.org/sshd_config#X11Forwarding) is enabled on the SSH server you want to connect to.
+> **Note**: before starting, make sure that [`X11Forwarding`](https://man.openbsd.org/sshd_config#X11Forwarding) is enabled and `xauth` is installed on the SSH server you want to connect to.
 
 First of all, you need to install **VcXsrv**. Example with the [**Chocolatey**](https://chocolatey.org/) package manager:
 
@@ -18,6 +18,13 @@ Now you can connect to an SSH server with X11 Forwarding. Open a _Git Bash_ wind
 
 ```bash
 DISPLAY=127.0.0.1:0 ssh -Y myuser@192.168.0.123
+```
+
+Then, in the remote shell:
+
+```bash
+sudo apt install x11-apps
+xclock
 ```
 
 ## Links
