@@ -6,7 +6,7 @@ Some pieces of code I find useful for some reason.
 
 - `tmux new-session -As0`
 - `tmux setw -g mouse on`
-- `eval "$(ssh-agent)"`, `ssh-add -t1800` (30 minutes), `eval "$(ssh-agent -k)"`
+- `eval "$(ssh-agent)"`, `ssh-add -t1800` (30 minutes), `ssh-add -l`, `eval "$(ssh-agent -k)"`
 - `git log --graph --oneline`
 - `git fsck`
 - `git clone --depth=1 ...`
