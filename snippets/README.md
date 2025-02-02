@@ -262,6 +262,13 @@ EOF
 - `MSYS=winsymlinks:nativestrict sudo ln -s original.txt link.txt`
 - `[[ "$(uname)" = MINGW* ]]; echo $?`
 
+## Termux
+
+- `termux-info`
+- `termux-open myimage.jpg`
+- `termux-open-url https://example.com/`
+- `termux-setup-storage`
+
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
