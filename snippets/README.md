@@ -122,6 +122,7 @@ Some pieces of code I find useful for some reason.
 - `gpg -ac --cipher-algo=AES256 --no-symkey-cache -o encrypted.asc <(date)`, `gpg -d --no-symkey-cache encrypted.asc`
 - `date | gpg -ac --batch --cipher-algo=AES256 --no-symkey-cache --passphrase-file=<(echo MyPassphrase) -o encrypted.asc`, `gpg -d --batch --no-symkey-cache --passphrase-file=<(echo MyPassphrase) encrypted.asc | sha256sum`
 - `echo -e 'default-cache-ttl 0\nmax-cache-ttl 0' >> ~/.gnupg/gpg-agent.conf && gpgconf -R`
+- `rsync -Phavn --delete --stats ~/sourcedir/ ~/targetdir/` (trailing slashes needed!)
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
