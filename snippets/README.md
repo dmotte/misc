@@ -40,7 +40,7 @@ Some pieces of code I find useful for some reason.
 - `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
 - `find -printf '%p %s %T@\n'`
 - `rclone lsf -R --format=pst myremote: | LC_ALL=C sort`
-- `tree -paugh`
+- `tree -paugh --inodes`
 - `find | grep -i pattern`
 - `cp -Rvt/media/destdisk /media/sourcedisk/folder`
 - `ss -tulpn`
