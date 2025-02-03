@@ -1,0 +1,27 @@
+---
+services:
+  syncthing01:
+    image: docker.io/syncthing/syncthing:1.29.2
+    restart: always
+    hostname: syncthing01
+    ports:
+      - "8001:8384" # Web UI
+      # - "22000:22000/tcp" # TCP file transfers
+      # - "22000:22000/udp" # QUIC file transfers
+      # - "21027:21027/udp" # Receive local discovery broadcasts
+    volumes: [data-syncthing01:/var/syncthing]
+
+  syncthing02:
+    image: docker.io/syncthing/syncthing:1.29.2
+    restart: always
+    hostname: syncthing02
+    ports:
+      - "8002:8384" # Web UI
+      # - "22000:22000/tcp" # TCP file transfers
+      # - "22000:22000/udp" # QUIC file transfers
+      # - "21027:21027/udp" # Receive local discovery broadcasts
+    volumes: [data-syncthing02:/var/syncthing]
+
+volumes:
+  data-syncthing01: {}
+  data-syncthing02: {}
