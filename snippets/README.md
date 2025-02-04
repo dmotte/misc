@@ -123,6 +123,11 @@ Some pieces of code I find useful for some reason.
 - `date | gpg -ac --batch --cipher-algo=AES256 --no-symkey-cache --passphrase-file=<(echo MyPassphrase) -o encrypted.asc`, `gpg -d --batch --no-symkey-cache --passphrase-file=<(echo MyPassphrase) encrypted.asc | sha256sum`
 - `echo -e 'default-cache-ttl 0\nmax-cache-ttl 0' >> ~/.gnupg/gpg-agent.conf && gpgconf -R`
 - `rsync -Phavn --delete --stats ~/sourcedir/ ~/targetdir/` (trailing slashes needed!)
+- `restic -r my-restic-repo -p<(echo mypassword) init`
+  - `env -C my-files restic -r "$(realpath my-restic-repo)" -p<(echo mypassword) backup -vn .`
+  - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD_COMMAND='echo mypassword'`
+  - `restic snapshots`, `restic ls latest`, `restic check --read-data`
+  - `restic restore latest -t my-target-dir`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
