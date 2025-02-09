@@ -39,7 +39,6 @@ Some pieces of code I find useful for some reason.
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
 - `find -printf '%p %s %T@\n'`
-- `rclone lsf -R --format=pst myremote: | LC_ALL=C sort`
 - `tree -paugh --inodes`
 - `find | grep -i pattern`
 - `cp -Rvt/media/destdisk /media/sourcedisk/folder`
@@ -128,6 +127,15 @@ Some pieces of code I find useful for some reason.
   - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD_COMMAND='echo mypassword'`
   - `restic snapshots`, `restic ls latest`, `restic check --read-data`
   - `restic restore latest -t my-target-dir`
+- `RCLONE_CONFIG=rclone.conf rclone config`, `rclone config --config=rclone.conf`
+- `echo -e '[mygdrive]\ntype = drive\nscope = drive\nroot_folder_id = ...' > ~/.config/rclone/rclone.conf`, `rclone config reconnect mygdrive:`
+- `echo -e "[mycrypt]\ntype = crypt\nremote = mygdrive\npassword = $(echo mypass | rclone obscure -)" >> ~/.config/rclone/rclone.conf`
+- `rclone lsf myremote:`
+- `rclone --config=/dev/null lsf -R --format=pst . | LC_ALL=C sort`
+- `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dest-dir`
+- `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config=/dev/null sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
+- `rclone check myremote:/remote-src-dir ./local-dest-dir`
+- `rclone --config=/dev/null serve -v sftp --user=myuser --pass=mypass .`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
@@ -264,7 +272,7 @@ EOF
 - `choco list --local-only`
 - `choco install -y gsudo`
 - `sudo choco upgrade -y all`
-- `sudo choco install -y rclone winfsp && rclone mount myremote: X:`
+- `sudo choco install -y winfsp rclone`, `rclone mount myremote: X: --volname='Volume label' --vfs-disk-space-total-size=2T`
 - `MSYS=winsymlinks:nativestrict sudo ln -s original.txt link.txt`
 - `[[ "$(uname)" = MINGW* ]]; echo $?`
 
