@@ -66,7 +66,7 @@ openssl rsa -in server.key -noout -text
 openssl req -in server.csr -noout -text
 ```
 
-You can also start a **simple HTTPS web server** to test a certificate like this:
+You can also start a **simple HTTPS web server** to test a certificate, like this:
 
 ```bash
 openssl s_server -cert server.crt -key server.key -accept 127.0.0.1:4433 -www
@@ -93,7 +93,7 @@ We create a **leaf certificate** by setting the `CA` basic constraint to `FALSE`
 
 ![](img/screen03-details-no-ca.png)
 
-This prevents users from adding the server certificate to their browsers as a trusted CA:
+That prevents users from adding the server certificate to their browsers as a trusted CA:
 
 ![](img/screen04-warning-no-ca.png)
 
