@@ -275,6 +275,8 @@ EOF
 - `sudo choco install -y winfsp rclone`, `rclone mount myremote: X: --volname='Volume label' --vfs-disk-space-total-size=2T`
 - `MSYS=winsymlinks:nativestrict sudo ln -s original.txt link.txt`
 - `[[ "$(uname)" = MINGW* ]]; echo $?`
+- `MSYS_NO_PATHCONV=1 '/c/Program Files/VeraCrypt/VeraCrypt.exe' /q /v '\Device\Harddisk1\Partition1' /l X /m ro /m label='My label'`
+- `MSYS_NO_PATHCONV=1 '/c/Program Files/VeraCrypt/VeraCrypt.exe' /q /d X`
 
 ## Termux
 
