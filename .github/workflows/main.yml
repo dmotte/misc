@@ -12,9 +12,9 @@ jobs:
     permissions: { id-token: write, pages: write }
     uses: dmotte/misc/.github/workflows/cicd-with-script.yml@main
     with:
-      script: >
-        MKDOCS_DEPS=mkdocs-material,mkdocs-minify-plugin,pymdown-extensions
-        MKDOCS_DOCS_SRC=. MKDOCS_DOCS_DST=mkdocs-docs
-        MKDOCS_DOCS_EXCLUDES=.git,venv,mkdocs-docs,mkdocs-site
-        MKDOCS_SITE_DIR=mkdocs-site
-        bash "$(realpath "$GITHUB_ACTION_PATH/../../scripts/cicd/mkdocs-ghpages.sh")"
+      script: |
+        export MISC_SCRIPTS_DIR="$GITHUB_ACTION_PATH/../../scripts"
+        find . -type f \( -name 'cicd.sh' -o -name 'cicd-*.sh' \) |
+          while read -r i; do
+            echo "########## RUNNING $i"; bash "$i"; echo
+          done
