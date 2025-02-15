@@ -10,5 +10,5 @@ Inspired by [Awesome](https://awesome.re/) and [the awesome manifesto](https://g
 
 ## CLI tools
 
-- **Rclone** - sync files from/to cloud storage, like rsync but for cloud: [apt](https://packages.debian.org/bookworm/rclone) [choco](https://community.chocolatey.org/packages/rclone) [docker](https://hub.docker.com/r/rclone/rclone/) [github](https://github.com/rclone/rclone) [website](https://rclone.org/)
+- **Rclone** - sync files from/to cloud storage, like rsync but for cloud: [apt](https://packages.debian.org/bookworm/rclone) [choco](https://community.chocolatey.org/packages/rclone) [docker](https://hub.docker.com/r/rclone/rclone) [github](https://github.com/rclone/rclone) [website](https://rclone.org/)
 - **Restic** - modern backup program: [apt](https://packages.debian.org/bookworm/restic) [choco](https://community.chocolatey.org/packages/restic) [docker](https://hub.docker.com/r/restic/restic) [github](https://github.com/restic/restic) [website](https://restic.net/)
