@@ -4,6 +4,13 @@ Inspired by [Awesome](https://awesome.re/) and [the awesome manifesto](https://g
 
 :warning: **Disclaimer**: this list is NOT intended as professional advice, endorsement, or recommendation of any kind. There is **no guarantee** that an item included in this list is objectively great, up-to-date, or even useful. The inclusion of any resource, tool, or project in this list **does NOT guarantee** its quality, reliability, or suitability for your needs. Some items might be outdated, deprecated, or unmaintained. Some of them are listed just **for reference** (to "remember that they exist"), not as a recommendation to use them. Please always do your own research and **check the current status** of any project before using it, and make sure it still fits your needs. I make no guarantees about quality, security, or reliability, and I am not responsible for any consequences arising from the use of any item on this list.
 
+To **parse** or **validate** this document using the [`parse.py`](parse.py) script:
+
+```bash
+time python3 parse.py < README.md > output.json; echo $?
+time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
+```
+
 ## Android apps
 
 - **Material Files** - Material Design file manager for Android: [fdroid](https://f-droid.org/packages/me.zhanghai.android.files/) [github](https://github.com/zhanghai/MaterialFiles) [playstore](https://play.google.com/store/apps/details?id=me.zhanghai.android.files)
