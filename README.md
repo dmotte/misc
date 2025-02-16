@@ -5,3 +5,5 @@ Things that do not need a separate repo.
 ## License
 
 See [`LICENSE`](LICENSE).
+
+<!-- WEBSITE DEPLOYMENT INFO -->
