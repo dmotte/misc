@@ -8,7 +8,7 @@ set -e
 cd "$(dirname "$0")"
 
 website_deployment_info='## Deployment info\n\n'
-website_deployment_info+=":rocket: Website **deployed** on _$(date -u)_."
+website_deployment_info+=":rocket: Last website deployment on _$(date -u)_."
 
 sed -i "/<!-- WEBSITE DEPLOYMENT INFO -->/c\\$website_deployment_info" README.md
 
