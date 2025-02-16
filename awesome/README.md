@@ -64,6 +64,15 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **ZeroTier One** - join ZeroTier virtual networks as VPN connections on your Android device: [github](https://github.com/zerotier) [playstore](https://play.google.com/store/apps/details?id=com.zerotier.one) [website](https://www.zerotier.com/)
 - **phyphox** - perform physics experiments with your phone: [fdroid](https://f-droid.org/packages/de.rwth_aachen.phyphox/) [github](https://github.com/phyphox/phyphox-android) [playstore](https://play.google.com/store/apps/details?id=de.rwth_aachen.phyphox) [website](https://phyphox.org/)
 
+## Docker images
+
+- **Kaniko** - build container images from a Dockerfile, inside a container or Kubernetes cluster: [github](https://github.com/GoogleContainerTools/kaniko)
+- **Webtop** - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments, accessible via any modern web browser: [docker](https://hub.docker.com/r/linuxserver/webtop) [github](https://github.com/linuxserver/docker-webtop) [website](https://docs.linuxserver.io/images/docker-webtop)
+- **linuxserver/code-server** - run Visual Studio Code in the browser: [docker](https://hub.docker.com/r/linuxserver/code-server) [github](https://github.com/linuxserver/docker-code-server) [website](https://docs.linuxserver.io/images/docker-code-server)
+- **linuxserver/qbittorrent** - run the qBittorrent Web UI in a Docker image: [docker](https://hub.docker.com/r/linuxserver/qbittorrent) [github](https://github.com/linuxserver/docker-qbittorrent) [website](https://docs.linuxserver.io/images/docker-qbittorrent)
+- **scottyhardy/docker-wine** - Docker image that includes Wine and Winetricks for running Windows applications on Linux and macOS: [docker](https://hub.docker.com/r/scottyhardy/docker-wine) [github](https://github.com/scottyhardy/docker-wine)
+- **soffchen/tiny-remote-desktop** - tiny Alpine desktop with headless VNC/RDP session and arm support: [docker](https://hub.docker.com/r/soff/tiny-remote-desktop) [github](https://github.com/soffchen/tiny-remote-desktop)
+
 ## CLI tools
 
 - **Rclone** - sync files from/to cloud storage, like rsync but for cloud: [apt](https://packages.debian.org/bookworm/rclone) [choco](https://community.chocolatey.org/packages/rclone) [docker](https://hub.docker.com/r/rclone/rclone) [github](https://github.com/rclone/rclone) [website](https://rclone.org/)
