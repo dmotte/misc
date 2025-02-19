@@ -60,7 +60,8 @@ def main(argv=None):
     # https://query1.finance.yahoo.com/v8/finance/chart/...?interval=...&period1=...&period2=...
     # See https://finance.yahoo.com/quote/.../history
     data: pd.DataFrame = yf.download(
-        args.symbol, args.dt_start, args.dt_end, interval=args.interval)
+        args.symbol, args.dt_start, args.dt_end, interval=args.interval,
+        auto_adjust=False)
 
     if args.format != '':
         data = data.apply(lambda col: col.map(
