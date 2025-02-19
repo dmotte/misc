@@ -63,6 +63,8 @@ def main(argv=None):
         args.symbol, args.dt_start, args.dt_end, interval=args.interval,
         auto_adjust=False)
 
+    assert data.index.name == 'Date'
+
     assert data.columns.equals(pd.MultiIndex.from_tuples(
         [('Adj Close', args.symbol),
          ('Close', args.symbol),
