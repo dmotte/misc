@@ -35,41 +35,41 @@ LINK_VALIDATORS = {
     'gitlab': lambda x: re.match(r'^https://gitlab\.com/[0-9A-Za-z-]+'
                                  r'(/[0-9A-Za-z._-]+)?$', x),
     'sourceforge': lambda x: re.match(r'^https://sourceforge\.net/projects'
-                                      r'/[0-9A-Za-z-]+/$', x),
+                                      r'/[0-9a-z-]+/$', x),
 
     'apt': lambda x: re.match(r'^https://packages\.debian\.org/bookworm'
-                              r'/[0-9A-Za-z-]+$', x),
+                              r'/[0-9a-z-]+$', x),
     'choco': lambda x: re.match(r'^https://community\.chocolatey\.org/packages'
                                 r'/[0-9A-Za-z.-]+$', x),
 
     'npm': lambda x: re.match(r'^https://www\.npmjs\.com/package'
-                              r'(/@[0-9A-Za-z-]+)?/[0-9A-Za-z-]+$', x),
+                              r'(/@[0-9a-z-]+)?/[0-9a-z-]+$', x),
     'pypi': lambda x: re.match(r'^https://pypi\.org/project'
                                r'/[0-9A-Za-z-]+/$', x),
 
     'docker': lambda x: any([
         re.match(r'^https://hub\.docker\.com/r'
-                 r'/[0-9A-Za-z-]+/[0-9A-Za-z-]+$', x),
-        re.match(r'^https://hub\.docker\.com/_/[0-9A-Za-z-]+$', x),
+                 r'/[0-9a-z-]+/[0-9a-z-]+$', x),
+        re.match(r'^https://hub\.docker\.com/_/[0-9a-z-]+$', x),
         re.match(r'^https://quay\.io/repository'
-                 r'/[0-9A-Za-z-]+/[0-9A-Za-z-]+$', x),
+                 r'/[0-9a-z-]+/[0-9a-z-]+$', x),
     ]),
 
     'helm': validate_https,
 
     'fdroid': lambda x: re.match(r'^https://f-droid\.org/packages'
-                                 r'/[0-9A-Za-z._]+/$', x),
+                                 r'/[0-9a-z._]+/$', x),
     'playstore': lambda x: re.match(r'^https://play\.google\.com/store/apps'
                                     r'/details\?id=[0-9A-Za-z._]+$', x),
 
     'chrome': lambda x: re.match(r'^https://chromewebstore\.google\.com/detail'
-                                 r'/[0-9A-Za-z-]+/[a-z]{32}$', x),
+                                 r'/[0-9a-z-]+/[a-z]{32}$', x),
     'firefox': lambda x: re.match(r'^https://addons\.mozilla\.org/en-US'
-                                  r'/firefox/addon/[0-9A-Za-z-]+/$', x),
+                                  r'/firefox/addon/[0-9a-z-]+/$', x),
 
     'vsmarketplace': lambda x: re.match(
         r'^https://marketplace\.visualstudio\.com/items'
-        r'\?itemName=[0-9A-Za-z.-]+$', x),
+        r'\?itemName=[0-9a-z.-]+$', x),
 }
 
 
