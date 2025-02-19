@@ -100,6 +100,11 @@ def parse_item(s: str) -> dict:
     name = match.group(1)
     desc = match.group(2)
 
+    if desc[0].isspace():
+        raise ValueError(f'Leading whitespace in item description: {desc}')
+    if desc[-1].isspace():
+        raise ValueError(f'Trailing whitespace in item description: {desc}')
+
     raw_links = match.group(3).split(' ')
 
     if not all(raw_links[i] <= raw_links[i + 1]
