@@ -63,6 +63,17 @@ def main(argv=None):
         args.symbol, args.dt_start, args.dt_end, interval=args.interval,
         auto_adjust=False)
 
+    assert data.columns.equals(pd.MultiIndex.from_tuples(
+        [('Adj Close', args.symbol),
+         ('Close', args.symbol),
+         ('High', args.symbol),
+         ('Low', args.symbol),
+         ('Open', args.symbol),
+         ('Volume', args.symbol)],
+        names=['Price', 'Ticker']))
+    data.columns = ['Adj Close', 'Close', 'High', 'Low', 'Open', 'Volume']
+    data = data[['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']]
+
     if args.format != '':
         data = data.apply(lambda col: col.map(
             lambda x: args.format.format(x) if isinstance(x, float) else x))
