@@ -237,3 +237,172 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **rust-script** - run Rust files and expressions as scripts: [github](https://github.com/fornwall/rust-script) [website](https://rust-script.org/)
 - **spotDL** - download songs from Spotify: [github](https://github.com/spotDL/spotify-downloader) [website](https://spotdl.readthedocs.io/en/latest/)
 - **vimdiff** - Vim on multiple files with differences highlighted: [docs](https://linux.die.net/man/1/vimdiff)
+
+## GUI apps
+
+### For Linux
+
+- **AutoKey** - desktop automation utility like AutoHotKey but for Linux and uses Python 3 as scripting language: [github](https://github.com/autokey/autokey) [website](https://autokey.github.io/)
+- **PCManFM** - fast and lightweight file manager: [apt](https://packages.debian.org/bookworm/pcmanfm) [website](https://blog.lxde.org/category/pcmanfm/)
+
+### For Windows
+
+- **7-Zip** - open source file archiver application: [choco](https://community.chocolatey.org/packages/7zip) [website](https://www.7-zip.org/)
+- **ASIO4ALL** - hardware independent low latency ASIO driver for WDM audio devices: [choco](https://community.chocolatey.org/packages/asio4all) [website](https://asio4all.org/)
+- **AutoHotkey** - automation scripting language for Windows: [choco](https://community.chocolatey.org/packages/autohotkey) [github](https://github.com/Lexikos/AutoHotkey_L) [website](https://www.autohotkey.com/)
+- **BRELS MIDI Editor** - open source MIDI editor with a simple, straightforward interface: [website](https://breno.sarmen.to/midi/)
+- **CS-Script** - ECMA-compliant C# based scripting plugin for Notepad++: [github](https://github.com/oleg-shilo/cs-script.npp) [website](https://www.cs-script.net/)
+- **Chocolatey** - package manager for Windows: [website](https://chocolatey.org/)
+- **FreePiano** - play music with your computer keyboard, supports VSTs: [website](https://freepiano.tiwb.com/en/)
+- **HTTrack Website Copier** - recursively download a website from the internet to a local directory: [website](https://www.httrack.com/)
+- **ILSpy** - open-source .NET assembly browser and decompiler: [choco](https://community.chocolatey.org/packages/ilspy) [github](https://github.com/icsharpcode/ILSpy)
+- **IconsExtract** - extract the icons and cursors stored in EXE, DLL, OCX, CPL, and in other file types: [choco](https://community.chocolatey.org/packages/iconsext) [website](https://www.nirsoft.net/utils/iconsext.html)
+- **LTSpice** - free SPICE simulator software, schematic capture and waveform viewer with enhancements and models for improving the simulation of analog circuits: [choco](https://community.chocolatey.org/packages/ltspice) [website](https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html)
+- **MultiMonitorTool** - small tool that allows you to do some actions related to working with multiple monitors: [choco](https://community.chocolatey.org/packages/multimonitortool) [website](https://www.nirsoft.net/utils/multi_monitor_tool.html)
+- **Notepad++** - free source code editor that supports several languages: [choco](https://community.chocolatey.org/packages/notepadplusplus) [github](https://github.com/notepad-plus-plus/notepad-plus-plus) [website](https://notepad-plus-plus.org/)
+- **Paint.NET** - free intuitive image and photo editing software: [choco](https://community.chocolatey.org/packages/paint.net) [website](https://www.getpaint.net/)
+- **Process Explorer** - display information about which handles and DLLs processes have opened or loaded: [choco](https://community.chocolatey.org/packages/procexp) [website](https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer)
+- **Process Hacker** - monitor system resources, debug software and detect malware: [choco](https://community.chocolatey.org/packages/processhacker) [github](https://github.com/processhacker/processhacker)
+- **Process Monitor** - display real-time file system, registry and process/thread activity: [choco](https://community.chocolatey.org/packages/procmon) [website](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)
+- **RBTray** - minimize almost any window to the system tray: [choco](https://community.chocolatey.org/packages/rbtray) [website](https://github.com/benbuck/rbtray)
+- **RegShot** - registry comparison utility that allows you to quickly take snapshots of your Windows registry: [choco](https://community.chocolatey.org/packages/RegShot) [sourceforge](https://sourceforge.net/projects/regshot/)
+- **Rufus** - format and create bootable USB flash drives: [choco](https://community.chocolatey.org/packages/rufus) [github](https://github.com/pbatard/rufus) [website](https://rufus.ie/en/)
+- **Sandboxie Plus** - open-source sandbox-based isolation for Windows: [choco](https://community.chocolatey.org/packages/sandboxie-plus) [github](https://github.com/sandboxie-plus) [website](https://sandboxie-plus.com/)
+- **Sumatra PDF** - free lightweight PDF reader, with support for eBook, XPS, and many other file formats: [choco](https://community.chocolatey.org/packages/sumatrapdf) [github](https://github.com/sumatrapdfreader/sumatrapdf) [website](https://www.sumatrapdfreader.org/free-pdf-reader)
+- **UltraVNC** - free remote PC access software: [choco](https://community.chocolatey.org/packages/ultravnc) [github](https://github.com/ultravnc/UltraVNC) [website](https://www.uvnc.com/)
+- **VSTHost** - VST-compatible host: [choco](https://community.chocolatey.org/packages/vsthost) [website](https://www.hermannseib.com/english/vsthost.htm)
+- **VcXsrv** - X-server for Windows: [choco](https://community.chocolatey.org/packages/vcxsrv) [github](https://github.com/marchaesen/vcxsrv)
+- **WifiInfoView** - wireless network scanner: [choco](https://community.chocolatey.org/packages/wifiinfoview) [website](https://www.nirsoft.net/utils/wifi_information_view.html)
+- **Win32DiskImager** - write a raw disk image to removable SD or USB flash devices or backup these devices to a raw image file: [choco](https://community.chocolatey.org/packages/win32diskimager) [sourceforge](https://sourceforge.net/projects/win32diskimager/)
+- **WinSCP** - open source SFTP, SCP, FTPS and FTP client: [choco](https://community.chocolatey.org/packages/winscp) [github](https://github.com/winscp/winscp) [website](https://winscp.net/eng/index.php)
+- **cdrtfe** - CD/DVD/BD burning application: [choco](https://community.chocolatey.org/packages/cdrtfe) [website](https://cdrtfe.sourceforge.io/)
+
+### Multi-platform
+
+- **Audacity** - cross-platform software for recording and editing sounds: [apt](https://packages.debian.org/bookworm/audacity) [choco](https://community.chocolatey.org/packages/audacity) [website](https://www.audacityteam.org/)
+- **DB Browser for SQLite** - visual open source tool to create, design, and edit SQLite database files: [choco](https://community.chocolatey.org/packages/sqlitebrowser) [github](https://github.com/sqlitebrowser/sqlitebrowser) [website](https://sqlitebrowser.org/)
+- **EncryptPad** - view and edit symmetrically encrypted text files: [github](https://github.com/evpo/EncryptPad) [website](https://evpo.net/encryptpad/)
+- **Excalidraw** - virtual whiteboard for sketching hand-drawn like diagrams: [github](https://github.com/excalidraw/excalidraw) [website](https://excalidraw.com/)
+- **Flameshot** - powerful cross-platform open-source screenshot software: [apt](https://packages.debian.org/bookworm/flameshot) [choco](https://community.chocolatey.org/packages/flameshot) [github](https://github.com/flameshot-org/flameshot) [website](https://flameshot.org/)
+- **Foxit PDF Reader** - freeware PDF reader and editor: [choco](https://community.chocolatey.org/packages/FoxitReader) [website](https://www.foxitsoftware.com/)
+- **FreeFileSync** - folder comparison and synchronization software: [choco](https://community.chocolatey.org/packages/freefilesync) [website](https://freefilesync.org/)
+- **Fritzing** - electronic design automation software: [apt](https://packages.debian.org/bookworm/fritzing) [choco](https://community.chocolatey.org/packages/fritzing) [website](https://fritzing.org/)
+- **GIMP** - multi-platform photo manipulation tool: [apt](https://packages.debian.org/bookworm/gimp) [choco](https://community.chocolatey.org/packages/gimp) [website](https://www.gimp.org/)
+- **GNU Octave** - high-level language primarily intended for numerical computations, similar to MATLAB: [apt](https://packages.debian.org/bookworm/octave) [choco](https://community.chocolatey.org/packages/Octave) [website](https://octave.org/)
+- **GeoGebra** - dynamic mathematics software: [apt](https://packages.debian.org/bookworm/geogebra) [choco](https://community.chocolatey.org/packages/geogebra-classic.install) [webapp](https://www.geogebra.org/classic) [website](https://www.geogebra.org/)
+- **Google Earth Pro** - fly anywhere on Earth to view satellite imagery, maps, terrain, 3D buildings: [choco](https://community.chocolatey.org/packages/googleearthpro) [website](https://www.google.com/intl/en_uk/earth/about/versions/#earth-pro)
+- **Greenfish Icon Editor** - freeware image editor, especially suitable for creating icons, cursors, animations and icon libraries: [website](https://greenfishsoftware.org/gfie.php)
+- **HandBrake** - tool for converting video from nearly any format to a selection of modern, widely supported codecs: [apt](https://packages.debian.org/bookworm/handbrake) [choco](https://community.chocolatey.org/packages/handbrake) [github](https://github.com/HandBrake/HandBrake) [website](https://handbrake.fr/)
+- **Kdenlive** - KDE Non-Linear Video Editor: [apt](https://packages.debian.org/bookworm/kdenlive) [choco](https://community.chocolatey.org/packages/Kdenlive) [website](https://kdenlive.org/)
+- **KeePassXC** - free open source password manager: [apt](https://packages.debian.org/bookworm/keepassxc) [choco](https://community.chocolatey.org/packages/keepassxc) [github](https://github.com/keepassxreboot/keepassxc) [website](https://keepassxc.org/)
+- **Kid3** - cross-platform audio tag editor for many audio file formats: [apt](https://packages.debian.org/bookworm/kid3) [choco](https://community.chocolatey.org/packages/kid3) [website](https://kid3.kde.org/)
+- **Logisim Evolution** - design and simulate digital logic circuits: [choco](https://community.chocolatey.org/packages/logisim-evolution) [github](https://github.com/reds-heig/logisim-evolution)
+- **MQTTX** - desktop and CLI MQTT client: [github](https://github.com/emqx/MQTTX) [website](https://mqttx.app/)
+- **Minetest** - open source voxel game engine, similar to Minecraft: [apt](https://packages.debian.org/bookworm/minetest) [choco](https://community.chocolatey.org/packages/minetest) [github](https://github.com/luanti-org/luanti) [website](https://www.luanti.org/)
+- **OBS Studio** - Open Broadcaster Software, a free open-source cross-platform screencasting, screen recording, and streaming app: [apt](https://packages.debian.org/bookworm/obs-studio) [choco](https://community.chocolatey.org/packages/obs-studio) [github](https://github.com/obsproject/obs-studio) [website](https://obsproject.com/)
+- **REAPER** - complete DAW (Digital Audio Workstation) production application, for multitrack audio and MIDI recording, editing, processing, mixing and mastering: [choco](https://community.chocolatey.org/packages/reaper) [website](https://www.reaper.fm/)
+- **Restic Browser** - visual GUI to browse and restore restic backup repositories: [github](https://github.com/emuell/restic-browser)
+- **RustDesk** - free open-source remote desktop software, similar to TeamViewer: [choco](https://community.chocolatey.org/packages/rustdesk) [github](https://github.com/rustdesk/rustdesk) [website](https://rustdesk.com/)
+- **SimulIDE** - real time electronic circuit simulator with PIC, AVR and Arduino simulation: [choco](https://community.chocolatey.org/packages/simulide) [github](https://github.com/eeTools/SimulIDE-dev) [website](https://www.simulide.com/p/home.html)
+- **Thunderbird** - free email application: [apt](https://packages.debian.org/bookworm/thunderbird) [choco](https://community.chocolatey.org/packages/thunderbird) [website](https://www.thunderbird.net/en-US/)
+- **TuxGuitar** - free and open source multitrack tablature editor: [choco](https://community.chocolatey.org/packages/tuxguitar)
+- **VLC media player** - free and open source cross-platform multimedia player and framework that plays most multimedia files: [apt](https://packages.debian.org/bookworm/vlc) [choco](https://community.chocolatey.org/packages/vlc) [website](https://www.videolan.org/vlc/)
+- **VeraCrypt** - free open source disk encryption software: [choco](https://community.chocolatey.org/packages/veracrypt) [github](https://github.com/veracrypt/VeraCrypt) [website](https://veracrypt.fr/en/Home.html)
+- **VirtualBox** - cross-platform virtualization application: [choco](https://community.chocolatey.org/packages/virtualbox) [website](https://www.virtualbox.org/)
+- **Visual Studio Code** - free cross-platform IDE (Integrated Development Environment) code editor: [choco](https://community.chocolatey.org/packages/vscode) [github](https://github.com/microsoft/vscode) [website](https://code.visualstudio.com/)
+- **Wireshark** - network protocol analyzer packet sniffer: [choco](https://community.chocolatey.org/packages/wireshark) [gitlab](https://gitlab.com/wireshark/wireshark) [website](https://www.wireshark.org/)
+- **Xournal++** - open-source PDF editor and note-taking app: [github](https://github.com/xournalpp/xournalpp) [website](https://xournalpp.github.io/)
+- **qBittorrent** - free cross-platform BitTorrent client GUI: [apt](https://packages.debian.org/bookworm/qbittorrent) [choco](https://community.chocolatey.org/packages/qbittorrent) [github](https://github.com/qbittorrent/qBittorrent) [website](https://www.qbittorrent.org/)
+
+## Technologies and standards
+
+- **OpenAPI** - specification language for HTTP APIs that provides a standardized means to define your API to others: [website](https://www.openapis.org/)
+- **PWA** - Progressive Web Application: [guide](https://web.dev/progressive-web-apps/)
+- **WebAssembly** - WASM is a binary instruction format for a stack-based virtual machine: [website](https://webassembly.org/)
+- **WebAuthn** - authentication with public-key cryptography for the web: [guide](https://webauthn.guide/) [website](https://webauthn.io/)
+
+## Frameworks and libraries
+
+- **Ansible Molecule** - testing framework for Ansible playbooks: [github](https://github.com/ansible-community/molecule) [website](https://ansible.readthedocs.io/projects/molecule/) [youtube](https://www.youtube.com/watch?v=DAnMyBZ8-Qs)
+- **Docusaurus** - open-source static documentation website generator: [github](https://github.com/facebook/docusaurus) [website](https://docusaurus.io/)
+- **ESP32 VGA library** - video library for VGA output for ESP32: [docs](https://bitluni.net/esp32-vga) [github](https://github.com/bitluni/ESP32Lib) [youtube](https://www.youtube.com/watch?v=qJ68fRff5_k)
+- **Flutter** - Google's UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop: [github](https://github.com/flutter/flutter) [website](https://flutter.dev/)
+- **GORM** - fantastic ORM library for Golang: [docs](https://gorm.io/docs/#Quick-Start) [github](https://github.com/go-gorm/gorm) [website](https://gorm.io/)
+- **MDB** - Material Design for Bootstrap. Vue.js version also available: [github](https://github.com/mdbootstrap/mdb-ui-kit) [website](https://mdbootstrap.com/)
+- **Material for MkDocs** - Material Design theme for MkDocs: [apt](https://packages.debian.org/bookworm/mkdocs-material) [choco](https://community.chocolatey.org/packages/mkdocs-material) [docker](https://hub.docker.com/r/squidfunk/mkdocs-material) [github](https://github.com/squidfunk/mkdocs-material) [pypi](https://pypi.org/project/mkdocs-material/) [website](https://squidfunk.github.io/mkdocs-material/)
+- **OpenTelemetry** - collection of APIs, SDKs, and tools to instrument, generate, collect, and export telemetry data (metrics, logs, and traces). Also known as OTel: [github](https://github.com/open-telemetry) [website](https://opentelemetry.io/)
+- **Playwright** - framework for end-to-end web testing and automation, with replay capabilities: [github](https://github.com/microsoft/playwright) [website](https://playwright.dev/)
+- **Pulumi** - open-source IaC (Infrastructure as Code) SDK for automation of configuration, supports different providers (e.g. GitHub, GitLab, Proxmox VE, ...): [example](https://www.pulumi.com/registry/packages/proxmoxve/) [github](https://github.com/pulumi/pulumi) [pypi](https://pypi.org/project/pulumi/) [website](https://www.pulumi.com/)
+- **PyAutoGUI** - control mouse and keyboard with Python to automate stuff: [github](https://github.com/asweigart/pyautogui) [pypi](https://pypi.org/project/PyAutoGUI/) [website](https://pyautogui.readthedocs.io/en/latest/)
+- **PyScript** - run Python code in the browser: [github](https://github.com/pyscript/pyscript) [website](https://pyscript.com/) [website](https://pyscript.net/)
+- **Vue.js** - progressive JavaScript frontend web framework: [github](https://github.com/vuejs) [website](https://vuejs.org/) [youtube](https://www.youtube.com/watch?v=qZXt1Aom3Cs)
+- **Vuetify** - Vue UI library with beautifully handcrafted Material components for creating web and mobile apps: [github](https://github.com/vuetifyjs/vuetify) [website](https://vuetifyjs.com/) [youtube](https://www.youtube.com/watch?v=CjXgoYo86yY)
+- **Yew** - framework for creating WASM web apps with Rust: [docs](https://yew.rs/docs/more/deployment) [github](https://github.com/yewstack/yew) [website](https://yew.rs/)
+- **ccxt** - JavaScript / TypeScript / Python / C# / PHP cryptocurrency trading library with support for 100+ exchanges: [github](https://github.com/ccxt/ccxt) [pypi](https://pypi.org/project/ccxt/) [website](https://docs.ccxt.com/#/)
+- **starry-night** - Markdown renderer with syntax highlighting, like GitHub, but free and open source and JavaScript: [github](https://github.com/wooorm/starry-night)
+
+## Visual Studio Code Extensions
+
+- **C/C++** - add language support for C/C++: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+- **Dart** - support for the Dart programming language: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=dart-code.dart-code)
+- **Docker** - build, manage, and deploy containerized applications: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+- **DotENV** - syntax highlighting support for Environment (.env) files: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
+- **Excel Viewer** - custom editors and previews for CSV files and Excel spreadsheets: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=grapecity.gc-excelviewer)
+- **Flutter** - support for effectively editing, refactoring, running, and reloading Flutter mobile apps: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=dart-code.flutter)
+- **GitLens** - add Git functionality like in-editor blame annotations, hovers, CodeLens, and more: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- **Go** - rich language support for the Go programming language: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode.go)
+- **Jupyter** - Jupyter notebook support: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+- **Live Server** - development local server with live reload feature for static and dynamic pages: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ritwickdey.liveserver)
+- **Markdown Emoji** - emoji syntax support for the built-in markdown preview and markdown cells in notebook: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-emoji)
+- **Markdown Mermaid** - add Mermaid diagram and flowchart support to the built-in markdown preview: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+- **Markdown PDF** - converts Markdown files to PDF, HTML, PNG or JPEG files: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf)
+- **Markdown+Math** - LaTeX Math for Markdown, with macros and more: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=goessner.mdmath)
+- **Marp for VS Code** - create slide deck written in Marp Markdown: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode)
+- **PHP Intelephense** - PHP code intelligence: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
+- **PlantUML** - rich PlantUML support: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml)
+- **PlatformIO IDE** - embedded software development platform (supports Espressif ESP32): [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide)
+- **Prettier** - code formatting using prettier, the opinionated code formatter: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- **Pylance** - feature-rich language support for Python: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
+- **Python** - add Python language support with extension access points for IntelliSense (Pylance), Debugging (Python Debugger), linting, formatting, refactoring, unit tests, and more: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+- **REST Client** - send HTTP request and view the response: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+- **Remote - SSH** - use any remote machine with an SSH server as your development environment: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
+- **Remote - SSH: Editing Configuration Files** - syntax colorization, keyword intellisense, and simple snippets when editing SSH configuration files: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
+- **Remote - WSL** - use any folder in the Windows Subsystem for Linux (WSL) as your development environment: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+- **ShellCheck** - integrate ShellCheck, a linter for shell scripts: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
+- **Trailing Spaces** - highlight trailing spaces and delete them in a flash: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
+- **XML Tools** - XML Formatting, XQuery, and XPath Tools: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=dotjoshjohnson.xml)
+- **bioSyntax** - syntax highlighting tool for computational biology: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=reageyao.biosyntax)
+- **gotemplate-syntax** - language support for Go text/template: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=casualjim.gotemplate)
+- **vscode-pdf** - display PDF files in VSCode: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=tomoki1207.pdf)
+
+### Color themes
+
+- **Atom One Dark Theme** - the One Dark Theme based on Atom: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
+
+### File icons themes
+
+- **Material Icon Theme** - Material Design icons for VSCode: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=pkief.material-icon-theme)
+- **VSCode Great Icons** - a big pack of icons (200+) for your files: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=emmanuelbeziat.vscode-great-icons)
+- **vscode-icons** - bring real icons to your VSCode: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons)
+
+## Browser extensions
+
+- **Floccus** - sync your bookmarks privately across browsers and devices: [chrome](https://chromewebstore.google.com/detail/floccus-bookmarks-sync/fnaicdffflnofjppbagibeoednhnbjhg) [firefox](https://addons.mozilla.org/en-US/firefox/addon/floccus/) [github](https://github.com/floccusaddon/floccus) [website](https://floccus.org/)
+- **LinkAce** - self-hosted tool for effortlessly archiving, organizing, and sharing your favorite web links: [chrome](https://chromewebstore.google.com/detail/yet-another-linkace-exten/ladekkfhihppgfcjgaimgggecekfhmho) [docker](https://hub.docker.com/r/linkace/linkace) [github](https://github.com/Kovah/LinkAce) [website](https://www.linkace.org/)
+- **linkding** - self-hosted bookmark manager that is designed be to be minimal, fast, and easy to set up using Docker: [chrome](https://chromewebstore.google.com/detail/linkding-extension/beakmhbijpdhipnjhnclmhgjlddhidpe) [docker](https://hub.docker.com/r/sissbruecker/linkding) [firefox](https://addons.mozilla.org/en-US/firefox/addon/linkding-extension/) [github](https://github.com/sissbruecker/linkding) [website](https://linkding.link/)
+
+## Utility scripts
+
+- **MDwiki** - static single-file Markdown-based CMS/Wiki made with only client-side JavaScript and HTML5: [github](https://github.com/Dynalon/mdwiki) [website](https://dynalon.github.io/mdwiki/)
+- **tinyfilemanager** - single-file PHP file manager: [github](https://github.com/prasathmani/tinyfilemanager) [website](https://tinyfilemanager.github.io/)
+- **unzipper** - simple PHP page to extract or compress .zip, .gz, .rar archives via browser: [github](https://github.com/ndeet/unzipper)
+
+## Guides and tutorials
+
+- **Alpine answer file** - how to use the Alpine Linux setup-alpine answer file: [link](https://docs.alpinelinux.org/user-handbook/0.1a/Installing/setup_alpine.html#_answer_files)
+- **GitHub hide email** - how to hide your email address in your Git commits but still get contributions to show up on your GitHub profile: [link](https://saraford.net/2017/02/19/how-to-hide-your-email-address-in-your-git-commits-but-still-get-contributions-to-show-up-on-your-github-profile-050/)
+- **Web Bluetooth Terminal** - website (PWA) that can connect with remote devices that support BLE (Bluetooth Low Energy, a.k.a. Bluetooth Smart) via serial protocol: [github](https://github.com/loginov-rocks/Web-Bluetooth-Terminal) [tutorial](https://loginov-rocks.medium.com/how-to-make-a-web-app-for-your-own-bluetooth-low-energy-device-arduino-2af8d16fdbe8) [website](https://loginov-rocks.github.io/Web-Bluetooth-Terminal/)
+
+## Learning material
+
+- **Google SRE** - Google Site Reliability Engineering book: [website](https://sre.google/sre-book/table-of-contents/)
