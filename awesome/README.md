@@ -100,7 +100,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Portmap.io** - free port forwarding, supports SSH and OpenVPN: [website](https://portmap.io/)
 - **Quizizz** - create and share online quizzes easily: [website](https://quizizz.com/)
 - **SQLite Viewer Web App** - inspect SQLite databases from your browser: [website](https://sqliteviewer.app/)
-- **Snapdrop** - web app to transfer files across devices: [github](https://github.com/RobinLinus/snapdrop) [website](https://snapdrop.net/)
+- **PairDrop** - web app to transfer files across devices: [github](https://github.com/schlagmichdoch/PairDrop) [website](https://pairdrop.net/)
 - **Suno** - AI music generator with vocals and lyrics, generates whole complete songs: [website](https://suno.com/) [website](https://suno.com/explore)
 - **Swagger** - API documentation for everyone: [website](https://swagger.io/)
 - **Tinkercad** - in-browser 3D design and electronics simulation: [website](https://www.tinkercad.com/)
