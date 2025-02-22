@@ -183,6 +183,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Trivy** - vulnerability/misconfiguration/secret scanner for container images, repos, servers, projects and other artifacts: [docker](https://hub.docker.com/r/aquasec/trivy) [github](https://github.com/aquasecurity/trivy) [website](https://aquasecurity.github.io/trivy/)
 - **Wine** - run Windows applications on Linux: [website](https://www.winehq.org/)
 - **Winetricks** - an easy way to work around problems in Wine: [docs](https://github.com/Winetricks/winetricks/wiki) [github](https://github.com/Winetricks/winetricks)
+- **Yabridge** - transparent way to use Windows VST2, VST3 and CLAP plugins on Linux: [github](https://github.com/robbert-vdh/yabridge) [tutorial](https://interfacinglinux.com/2024/01/22/windows-audio-plugins-on-linux-with-yabridge/) [tutorial](https://reaperonlinux.com/it/howto/yabridge) [youtube](https://www.youtube.com/watch?v=u6J6nQyA3ug)
 - **bat** - cat with syntax highlighting and git integration: [apt](https://packages.debian.org/bookworm/bat) [choco](https://community.chocolatey.org/packages/Bat) [github](https://github.com/sharkdp/bat)
 - **dive** - tool for exploring layers in a Docker image: [docker](https://hub.docker.com/r/wagoodman/dive) [github](https://github.com/wagoodman/dive)
 - **envsubst** - substitutes the values of environment variables: [docs](https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html)
