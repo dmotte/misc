@@ -319,6 +319,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## Technologies and standards
 
+- **CLAP** - CLever Audio Plugin, an interface that provides a stable ABI to define a standard for DAWs (Digital Audio Workstations) and audio plugins (synthesizers, audio effects, etc.) to work together: [github](https://github.com/free-audio/clap) [website](https://cleveraudio.org/)
 - **OpenAPI** - specification language for HTTP APIs that provides a standardized means to define your API to others: [website](https://www.openapis.org/)
 - **PWA** - Progressive Web Application: [guide](https://web.dev/progressive-web-apps/)
 - **WebAssembly** - WASM is a binary instruction format for a stack-based virtual machine: [website](https://webassembly.org/)
