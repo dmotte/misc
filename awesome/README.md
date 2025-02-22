@@ -181,6 +181,8 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Podman** - tool for managing OCI containers and pods, similar to Docker but rootless and daemonless: [apt](https://packages.debian.org/bookworm/podman) [github](https://github.com/containers/podman) [website](https://podman.io/)
 - **Termshark** - terminal TUI for tshark, inspired by Wireshark: [apt](https://packages.debian.org/bookworm/termshark) [github](https://github.com/gcla/termshark) [website](https://termshark.io/)
 - **Trivy** - vulnerability/misconfiguration/secret scanner for container images, repos, servers, projects and other artifacts: [docker](https://hub.docker.com/r/aquasec/trivy) [github](https://github.com/aquasecurity/trivy) [website](https://aquasecurity.github.io/trivy/)
+- **Wine** - run Windows applications on Linux: [website](https://www.winehq.org/)
+- **Winetricks** - an easy way to work around problems in Wine: [docs](https://github.com/Winetricks/winetricks/wiki) [github](https://github.com/Winetricks/winetricks)
 - **bat** - cat with syntax highlighting and git integration: [apt](https://packages.debian.org/bookworm/bat) [choco](https://community.chocolatey.org/packages/Bat) [github](https://github.com/sharkdp/bat)
 - **dive** - tool for exploring layers in a Docker image: [docker](https://hub.docker.com/r/wagoodman/dive) [github](https://github.com/wagoodman/dive)
 - **envsubst** - substitutes the values of environment variables: [docs](https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html)
