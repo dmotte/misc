@@ -14,7 +14,7 @@ set -e
 
 # Usage example:
 #   PROOT_ADD_OPTIONS='--kernel-release=5.4.0-faked' \
-#     ./run-proot-env.sh myenv uname -a
+#     ./standalone-proot.sh myenv uname -a
 
 # Useful links:
 # - https://proot-me.github.io/
