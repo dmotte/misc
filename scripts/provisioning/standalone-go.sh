@@ -3,7 +3,7 @@
 set -e
 
 # To run this script without downloading it:
-# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/get-standalone-go.sh) amd64 1.20.7
+# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-go.sh) amd64 1.20.7
 
 # To change Go environment via the ~/go symlink (if you have multiple Go environments installed):
 # rm ~/go && ln -s ~/apps/go1.20.7/go ~/go

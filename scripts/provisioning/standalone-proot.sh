@@ -2,6 +2,8 @@
 
 set -e
 
+# TODO rework this script to install a proot environment in a directory as standalone
+
 # This script runs a command inside a custom PRoot environment. You can create
 # several environments with different names
 

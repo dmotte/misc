@@ -3,7 +3,7 @@
 set -e
 
 # To run this script without downloading it:
-# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/get-standalone-vscode.sh) linux-x64
+# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-vscode.sh) linux-x64
 
 # Ensure that some variables are defined
 : "${1:?}"
