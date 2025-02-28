@@ -2,6 +2,8 @@
 
 set -e
 
+# TODO make this similar to the other provisioning scripts
+
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-go.sh) amd64 1.20.7
 

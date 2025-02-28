@@ -2,6 +2,10 @@
 
 set -e
 
+# TODO make this similar to the other provisioning scripts
+# TODO add support for data directory
+# TODO option --launcher=default or --launcher=/path/to/vscode.desktop or --launcher= (default, no launcher is created)
+
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-vscode.sh) linux-x64
 

@@ -2,6 +2,7 @@
 
 set -e
 
+# TODO make this similar to the other provisioning scripts
 # TODO rework this script to install a proot environment in a directory as standalone
 
 # This script runs a command inside a custom PRoot environment. You can create
