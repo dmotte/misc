@@ -2,57 +2,84 @@
 
 set -e
 
-# TODO make this similar to the other provisioning scripts
+# This script can be used to set up a specific version of Go as a standalone
+# installation in a specific directory
+
+# Tested on Debian 12 (bookworm)
 
 # To run this script without downloading it:
-# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-go.sh) amd64 1.20.7
+# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-go.sh) -sp 1.20.7
 
-# To change Go environment via the ~/go symlink (if you have multiple Go environments installed):
+# Example of how to change Go environment via the ~/go symlink (if you have
+# multiple Go environments installed):
 # rm ~/go && ln -s ~/apps/go1.20.7/go ~/go
 
-# Ensure that some variables are defined
-: "${1:?}" "${2:?}"
+options=$(getopt -o +a:c:d:sp -l arch: -l checksum: -l install-dir: \
+    -l symlink -l symlink-to-path -- "$@")
+eval "set -- $options"
 
-readonly main_dir=${STANDALONE_GO_MAIN_DIR:-$HOME/apps/go$2}
-readonly archive_url=https://go.dev/dl/go$2.linux-$1.tar.gz
-readonly archive_path=$main_dir/archive.tar.gz
+arch=amd64
+checksum=''
+install_dir=''
+symlink=n
+symlink_to_path=n
+
+while :; do
+    case $1 in
+        -a|--arch) shift; arch=$1;;
+        -c|--checksum) shift; checksum=$1;;
+        -d|--install-dir) shift; install_dir=$1;;
+        -s|--symlink) symlink=y;;
+        -p|--symlink-to-path) symlink_to_path=y;;
+        --) shift; break;;
+    esac
+    shift
+done
+
+readonly version=$1
+
+[ -n "$version" ] || { echo 'Version cannot be empty' >&2; exit 1; }
+
+[ -n "$install_dir" ] || install_dir=$HOME/apps/go$version
 
 ################################################################################
 
-if [ -d "$main_dir" ]; then
-    main_dir_old=$main_dir-old-$(date -u +%Y-%m-%d-%H%M%S)
-    echo "Directory $main_dir already exists. Moving to $main_dir_old"
-    mv -T "$main_dir" "$main_dir_old"
+if [ -d "$install_dir" ]; then
+    echo "Directory $install_dir already exists" >&2; exit 1
 fi
 
-mkdir -p "$main_dir"
+mkdir -p "$install_dir"
+
+readonly archive_url="https://go.dev/dl/go$version.linux-$arch.tar.gz"
+readonly archive_path="$install_dir/archive.tar.gz"
 
 echo "Downloading $archive_url to $archive_path"
 curl -fLo "$archive_path" "$archive_url"
 
-echo "Extracting $archive_path to $main_dir"
-tar -xzf "$archive_path" -C "$main_dir"
-
-echo -n 'Installed app version: '
-"$main_dir/go/bin/go" version
-
-################################################################################
-
-if [ -e ~/go ]; then
-    echo 'Skipping symlink creation as ~/go already exists'
-else
-    echo 'Creating ~/go symlink'
-    ln -s "$main_dir/go" ~/go
+if [ -n "$checksum" ]; then
+    echo "$checksum $archive_path" | sha256sum -c
 fi
 
-# shellcheck disable=SC2016
-readonly line='export PATH="$PATH:$HOME/go/bin"'
-if grep -Fx "$line" ~/.profile >/dev/null 2>&1; then
-    echo 'Skipping PATH addition in ~/.profile as it seems already present'
-else
-    echo "Adding $line to ~/.profile"
-    echo "$line" >> ~/.profile
-    echo 'You may have to log out and back in for it to take effect'
+echo "Extracting $archive_path to $install_dir"
+tar -xzf "$archive_path" -C "$install_dir"
+
+if [ "$symlink" = y ]; then
+    if [ -e ~/go ]; then
+        echo 'Skipping symlink creation as ~/go already exists'
+    else
+        echo 'Creating ~/go symlink'
+        ln -s "$install_dir/go" ~/go
+    fi
 fi
 
-echo 'Installation completed successfully'
+if [ "$symlink_to_path" = y ]; then
+    # shellcheck disable=SC2016
+    readonly line='export PATH="$PATH:$HOME/go/bin"'
+    if grep -Fx "$line" ~/.profile >/dev/null 2>&1; then
+        echo 'Skipping PATH addition in ~/.profile as it seems already present'
+    else
+        echo "Adding $line to ~/.profile"
+        echo "$line" >> ~/.profile
+        echo 'You may have to log out and back in for it to take effect'
+    fi
+fi
