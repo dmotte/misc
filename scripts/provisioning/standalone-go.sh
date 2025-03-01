@@ -50,6 +50,8 @@ fi
 
 mkdir -p "$install_dir"
 
+readonly app_dir="$install_dir/go"
+
 readonly archive_url="https://go.dev/dl/go$version.linux-$arch.tar.gz"
 readonly archive_path="$install_dir/archive.tar.gz"
 
@@ -68,7 +70,7 @@ if [ "$symlink" = y ]; then
         echo 'Skipping symlink creation as ~/go already exists'
     else
         echo 'Creating ~/go symlink'
-        ln -s "$install_dir/go" ~/go
+        ln -s "$app_dir" ~/go
     fi
 fi
 

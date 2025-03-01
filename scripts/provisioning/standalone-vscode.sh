@@ -49,10 +49,12 @@ fi
 
 ################################################################################
 
+readonly app_dir="$install_dir/vscode"
+
 if [ "$update" = y ]; then
     if [ -d "$install_dir" ]; then
         echo "Directory $install_dir already exists. Installed app version:"
-        "$install_dir/vscode/bin/code" -v
+        "$app_dir/bin/code" -v
 
         install_dir_old=$install_dir-old-$(date -u +%Y-%m-%d-%H%M%S)
         echo "Moving $install_dir to $install_dir_old"
@@ -82,18 +84,18 @@ if [ -n "$checksum" ]; then
     echo "$checksum $archive_path" | sha256sum -c
 fi
 
-echo "Extracting $archive_path to $install_dir/vscode"
+echo "Extracting $archive_path to $app_dir"
 if [ "$os" = win32 ]; then
-    unzip -q "$archive_path" -d "$install_dir/vscode"
+    unzip -q "$archive_path" -d "$app_dir"
 else
     tar -xzf "$archive_path" -C "$install_dir"
-    mv -T "$install_dir/VSCode-$os-$arch" "$install_dir/vscode"
+    mv -T "$install_dir/VSCode-$os-$arch" "$app_dir"
 fi
 
 echo 'Installed app version:'
-"$install_dir/vscode/bin/code" -v
+"$app_dir/bin/code" -v
 
-readonly data_dir=$install_dir/vscode/data
+readonly data_dir=$app_dir/data
 
 if [ "$update" = y ] && [ -n "$install_dir_old" ]; then
     readonly data_old=$install_dir_old/vscode/data
@@ -119,10 +121,10 @@ if [ -n "$launcher" ]; then
     install -m644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
 Name=Visual Studio Code
-Exec=$install_dir/vscode/code %f
+Exec=$app_dir/code %f
 Comment=Visual Studio Code
 Terminal=false
-Icon=$install_dir/vscode/resources/app/resources/linux/code.png
+Icon=$app_dir/resources/app/resources/linux/code.png
 Type=Application
 EOF
 fi
