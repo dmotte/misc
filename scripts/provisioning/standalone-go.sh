@@ -36,9 +36,7 @@ while :; do
     shift
 done
 
-readonly version=$1
-
-[ -n "$version" ] || { echo 'Version cannot be empty' >&2; exit 1; }
+readonly version=${1:?}
 
 [ -n "$install_dir" ] || install_dir=$HOME/apps/go$version
 
