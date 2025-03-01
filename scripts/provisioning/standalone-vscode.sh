@@ -90,6 +90,9 @@ else
     mv -T "$install_dir/VSCode-$os-$arch" "$install_dir/vscode"
 fi
 
+echo 'Installed app version:'
+"$install_dir/vscode/bin/code" -v
+
 readonly data_dir=$install_dir/vscode/data
 
 if [ "$update" = y ] && [ -n "$install_dir_old" ]; then
@@ -110,9 +113,6 @@ if [ "$create_data" = y ] && [ ! -d "$data_dir" ]; then
     echo "Creating data dir $data_dir"
     mkdir "$data_dir"
 fi
-
-echo 'Installed app version:'
-"$install_dir/vscode/bin/code" -v
 
 if [ -n "$launcher" ]; then
     echo "Creating launcher file $launcher"
