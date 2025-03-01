@@ -45,7 +45,7 @@ Some pieces of code I find useful for some reason.
 - `ss -tulpn`
 - `df -h`
 - `du -sh`
-- `zip -r archive.zip folder/`
+- `zip -r archive.zip folder/`, `unzip -q archive.zip -d folder/`
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
