@@ -6,6 +6,11 @@ set -e
 # TODO add support for data directory
 # TODO option --launcher=default or --launcher=/path/to/vscode.desktop or --launcher= (default, no launcher is created)
 
+# This script can be used to set up a standalone installation of Visual Studio
+# Code in a specific directory
+
+# Tested on Debian 12 (bookworm)
+
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-vscode.sh) linux-x64
 
