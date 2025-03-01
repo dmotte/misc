@@ -82,7 +82,7 @@ if [ -n "$checksum" ]; then
     echo "$checksum $archive_path" | sha256sum -c
 fi
 
-echo "Extracting $archive_path to $install_dir"
+echo "Extracting $archive_path to $install_dir/vscode"
 if [ "$os" = win32 ]; then
     unzip -q "$archive_path" -d "$install_dir/vscode"
 else
