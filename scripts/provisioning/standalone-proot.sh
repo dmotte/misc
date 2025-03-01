@@ -2,80 +2,105 @@
 
 set -e
 
-# TODO make this similar to the other provisioning scripts
-# TODO rework this script to install a proot environment in a directory as standalone
-
-# This script runs a command inside a custom PRoot environment. You can create
-# several environments with different names
+# This script can be used to set up a standalone installation of a specific
+# version of PRoot with a custom tarball in a specific directory
 
 # Tested on Debian 12 (bookworm)
 
 # It also works (I tested it) when run as a regular user (non-root) inside an
-# unprivileged Podman container (i.e. created as a regular user on the host)
+# unprivileged Podman container (i.e. created by a regular user on the host)
 
 # Usage example:
-#   PROOT_ADD_OPTIONS='--kernel-release=5.4.0-faked' \
-#     ./standalone-proot.sh myenv uname -a
+#   ./standalone-proot.sh myproot --kernel-release=5.4.0-faked --cwd=/
+#   myproot/main.sh uname -a
+
+# TODO test the usage example
 
 # Useful links:
 # - https://proot-me.github.io/
 # - https://wiki.termux.com/wiki/PRoot
 # - https://github.com/termux/proot-distro/blob/master/proot-distro.sh
 
-cd "$(dirname "$0")"
+options=$(getopt -o + -l binary-url: -l binary-checksum: \
+    -l tarball-url: -l tarball-checksum: -l tarball-top-dir: -- "$@")
+eval "set -- $options"
 
-readonly proot_tarball_url=${PROOT_TARBALL_URL:-https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz}
-readonly proot_tarball_checksum=${PROOT_TARBALL_CHECKSUM:-164932ab77a0b94a8e355c9b68158a5b76d5abef89ada509488c44ff54655d61}
-readonly proot_tarball_top_dir=${PROOT_TARBALL_TOP_DIR:-debian-bookworm-x86_64}
-readonly proot_binary_url=${PROOT_BINARY_URL:-https://proot.gitlab.io/proot/bin/proot}
-readonly proot_binary_checksum=${PROOT_BINARY_CHECKSUM:-b7f2adf5a225000a164f4905aabefeebe11c4c1d5bedff5e1fe8866c48dd70d2}
-readonly proot_workdir=${PROOT_WORKDIR:-/root}
+binary_url=https://proot.gitlab.io/proot/bin/proot
+binary_checksum=''
+tarball_url=https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz
+tarball_checksum=''
+tarball_top_dir=debian-bookworm-x86_64
 
-readonly tarball_path=tarball.tar.xz
-readonly proot_path=./proot
-readonly envs_dir=envs
+while :; do
+    case $1 in
+        --binary-url) shift; binary_url=$1;;
+        --binary-checksum) shift; binary_checksum=$1;;
+        --tarball-url) shift; tarball_url=$1;;
+        --tarball-checksum) shift; tarball_checksum=$1;;
+        --tarball-top-dir) shift; tarball_top_dir=$1;;
+        --) shift; break;;
+    esac
+    shift
+done
 
-readonly env_name=${1:?}; shift
+readonly install_dir=${1:?}; shift
 
-[[ "$env_name" =~ ^[0-9A-Za-z-]+$ ]] ||
-    { echo 'Invalid env name' >&2; exit 1; }
+add_options=("$@")
 
-if [ ! -e "$tarball_path" ]; then
-    echo "Downloading tarball $proot_tarball_url to $tarball_path"
-    curl -fLo "$tarball_path" "$proot_tarball_url"
-    echo "$proot_tarball_checksum $tarball_path" | sha256sum -c
+################################################################################
+
+if [ -d "$install_dir" ]; then
+    echo "Directory $install_dir already exists" >&2; exit 1
 fi
 
-if [ ! -e "$proot_path" ]; then
-    echo "Downloading PRoot binary $proot_binary_url to $proot_path"
-    curl -fLo "$proot_path" "$proot_binary_url"
-    echo "$proot_binary_checksum $proot_path" | sha256sum -c
-    chmod +x "$proot_path"
+mkdir -p "$install_dir"
+
+readonly binary_path="$install_dir/proot"
+readonly tarball_path="$install_dir/tarball.tar.xz"
+readonly rootfs_path="$install_dir/rootfs"
+readonly main_sh_path="$install_dir/main.sh"
+
+echo "Downloading PRoot binary $binary_url to $binary_path"
+curl -fLo "$binary_path" "$binary_url"
+
+if [ -n "$binary_checksum" ]; then
+    echo "$binary_checksum $binary_path" | sha256sum -c
 fi
 
-readonly rootfs_dir=$envs_dir/$env_name
-rootfs_dir_tmp=$rootfs_dir-tmp-$(date -u +%Y-%m-%d-%H%M%S)
+chmod +x "$binary_path"
 
-if [ ! -d "$rootfs_dir" ]; then
-    mkdir -p "$rootfs_dir_tmp"
+echo "Downloading tarball $tarball_url to $tarball_path"
+curl -fLo "$tarball_path" "$tarball_url"
 
-    echo "Extracting tarball $tarball_path to $rootfs_dir"
-    tar -x --auto-compress -f "$tarball_path" \
-        --exclude="$proot_tarball_top_dir"/{dev,proc,sys,tmp} \
-        --recursive-unlink --preserve-permissions -C "$rootfs_dir_tmp"
-    mv -T "$rootfs_dir_tmp/$proot_tarball_top_dir" "$rootfs_dir"
-    rm -r "$rootfs_dir_tmp"
+if [ -n "$tarball_checksum" ]; then
+    echo "$tarball_checksum $tarball_path" | sha256sum -c
 fi
 
-if [ $# = 0 ]; then set -- bash; fi
+echo "Extracting tarball $tarball_path to $rootfs_path"
+tar -x --auto-compress -f "$tarball_path" \
+    --exclude="$tarball_top_dir"/{dev,proc,sys,tmp} \
+    --recursive-unlink --preserve-permissions -C "$install_dir"
+mv -T "$install_dir/$tarball_top_dir" "$rootfs_path"
 
-# shellcheck disable=SC2086
-"$proot_path" \
-    --rootfs="$rootfs_dir" --root-id --cwd="$proot_workdir" \
-    --bind=/{dev,proc,sys,tmp} \
-    --bind=/etc/{host.conf,hosts,nsswitch.conf,resolv.conf} \
-    $PROOT_ADD_OPTIONS \
-    /usr/bin/env -i \
-        HOME=/root LANG="$LANG" TERM="$TERM" \
-        PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-        "$@"
+# TODO make sure that it works well with "exec"
+
+echo "Creating script $main_sh_path"
+install -m755 /dev/stdin "$main_sh_path" << EOF
+#!/bin/bash
+
+set -e
+
+basedir=\$(dirname "\$0")
+
+if [ \$# = 0 ]; then set -- bash; fi
+
+exec "\$basedir/proot" \\
+    --rootfs="\$basedir/rootfs" --root-id \\
+    --bind=/{dev,proc,sys,tmp} \\
+    --bind=/etc/{host.conf,hosts,nsswitch.conf,resolv.conf} \\
+    ${add_options[*]@Q} \\
+    /usr/bin/env -i \\
+        HOME=/root LANG="\$LANG" TERM="\$TERM" \\
+        PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \\
+        "\$@"
+EOF
