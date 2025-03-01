@@ -2,8 +2,8 @@
 
 set -e
 
-# This script can be used to set up a specific version of Go as a standalone
-# installation in a specific directory
+# This script can be used to set up a standalone installation of a specific
+# version of Go in a specific directory
 
 # Tested on Debian 12 (bookworm)
 
