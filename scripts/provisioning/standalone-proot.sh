@@ -11,10 +11,8 @@ set -e
 # unprivileged Podman container (i.e. created by a regular user on the host)
 
 # Usage example:
-#   ./standalone-proot.sh myproot --kernel-release=5.4.0-faked --cwd=/
+#   ./standalone-proot.sh --cwd=/root myproot --kernel-release=5.4.0-faked
 #   myproot/main.sh uname -a
-
-# TODO test the usage example
 
 # Useful links:
 # - https://proot-me.github.io/
@@ -22,7 +20,8 @@ set -e
 # - https://github.com/termux/proot-distro/blob/master/proot-distro.sh
 
 options=$(getopt -o + -l binary-url: -l binary-checksum: \
-    -l tarball-url: -l tarball-checksum: -l tarball-top-dir: -- "$@")
+    -l tarball-url: -l tarball-checksum: -l tarball-top-dir: \
+    -l cwd: -- "$@")
 eval "set -- $options"
 
 binary_url=https://proot.gitlab.io/proot/bin/proot
@@ -30,6 +29,7 @@ binary_checksum=''
 tarball_url=https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz
 tarball_checksum=''
 tarball_top_dir=debian-bookworm-x86_64
+cwd=/
 
 while :; do
     case $1 in
@@ -38,6 +38,7 @@ while :; do
         --tarball-url) shift; tarball_url=$1;;
         --tarball-checksum) shift; tarball_checksum=$1;;
         --tarball-top-dir) shift; tarball_top_dir=$1;;
+        --cwd) shift; cwd=$1;;
         --) shift; break;;
     esac
     shift
@@ -82,8 +83,6 @@ tar -x --auto-compress -f "$tarball_path" \
     --recursive-unlink --preserve-permissions -C "$install_dir"
 mv -T "$install_dir/$tarball_top_dir" "$rootfs_path"
 
-# TODO make sure that it works well with "exec"
-
 echo "Creating script $main_sh_path"
 install -m755 /dev/stdin "$main_sh_path" << EOF
 #!/bin/bash
@@ -95,7 +94,7 @@ basedir=\$(dirname "\$0")
 if [ \$# = 0 ]; then set -- bash; fi
 
 exec "\$basedir/proot" \\
-    --rootfs="\$basedir/rootfs" --root-id \\
+    --rootfs="\$basedir/rootfs" --root-id --cwd=${cwd@Q} \\
     --bind=/{dev,proc,sys,tmp} \\
     --bind=/etc/{host.conf,hosts,nsswitch.conf,resolv.conf} \\
     ${add_options[*]@Q} \\
