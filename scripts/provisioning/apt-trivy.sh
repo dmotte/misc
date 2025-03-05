@@ -37,7 +37,7 @@ done
 cert=$(fetch_and_check \
     https://aquasecurity.github.io/trivy-repo/deb/public.key \
     51ca5d1384095c462099add67e46b028e0df0ff741c0f95ad30f561c4fad1ad4)
-echo "$cert" | gpg --dearmor -o /usr/share/keyrings/trivy.gpg
+echo "$cert" | gpg --dearmor --yes -o /usr/share/keyrings/trivy.gpg
 
 [ -e /etc/apt/sources.list.d/trivy.sources ] || changing=y
 

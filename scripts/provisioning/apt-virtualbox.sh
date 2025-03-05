@@ -44,7 +44,8 @@ done
 cert=$(fetch_and_check \
     https://www.virtualbox.org/download/oracle_vbox_2016.asc \
     49e6801d45f6536232c11be6cdb43fa8e0198538d29d1075a7e10165e1fbafe2)
-echo "$cert" | gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox-2016.gpg
+echo "$cert" |
+    gpg --dearmor --yes -o /usr/share/keyrings/oracle-virtualbox-2016.gpg
 
 [ -e /etc/apt/sources.list.d/virtualbox.sources ] || changing=y
 
