@@ -75,6 +75,9 @@ fi
 if [ "$symlink_to_path" = y ]; then
     # shellcheck disable=SC2016
     readonly line='export PATH="$PATH:$HOME/go/bin"'
+    # We add the line to ~/.profile instead of ~/.bashrc so that Go will also
+    # be detected by graphical applications that don't read ~/.bashrc, such as
+    # Visual Studio Code or other IDEs
     if grep -Fx "$line" ~/.profile >/dev/null 2>&1; then
         echo 'Skipping PATH addition in ~/.profile as it seems already present'
     else
