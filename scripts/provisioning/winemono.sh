@@ -40,4 +40,5 @@ curl -fLo "$tmp_installer" "$installer_url"
 echo "Verifying checksum for $tmp_installer"
 echo "$installer_checksum" "$tmp_installer" | sha256sum -c
 
+echo "Copying $tmp_installer to $installer_path"
 install -DTm644 "$tmp_installer" "$installer_path"
