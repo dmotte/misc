@@ -29,12 +29,17 @@ wine-10.0)
     ;;
 esac
 
+if [ -e "$installer_path" ]; then
+    echo "File $installer_path already exists. Skipping download"
+    exit
+fi
+
 tmpdir=$(mktemp -d --tmpdir winemono-XXXXXXXXXX)
 trap 'rm -rf $tmpdir' EXIT
 
 readonly tmp_installer=$tmpdir/tmp-installer
 
-echo "Downloading Wine Mono installer $installer_url to $tmp_installer"
+echo "Downloading $installer_url to $tmp_installer"
 curl -fLo "$tmp_installer" "$installer_url"
 
 echo "Verifying checksum for $tmp_installer"
