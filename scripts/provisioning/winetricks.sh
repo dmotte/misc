@@ -5,6 +5,9 @@ set -e
 # This script installs Winetricks by downloading it directly from the official
 # GitHub repository
 
+# Inspired by the official guide:
+# https://github.com/Winetricks/winetricks?tab=readme-ov-file#scripted-install
+
 # Tested on Debian 12 (bookworm)
 
 # Usage example: ./winetricks.sh 20250102
