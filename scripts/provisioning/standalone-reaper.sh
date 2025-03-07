@@ -11,15 +11,16 @@ set -e
 # Tested on Debian 12 (bookworm)
 
 # To run this script without downloading it:
-# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-reaper.sh) -lauto 7.34
+# bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-reaper.sh) -ulauto 7.34
 
-options=$(getopt -o +a:c:d:l: -l arch: -l checksum: -l install-dir: \
-    -l launcher: -- "$@")
+options=$(getopt -o +a:c:d:ul: -l arch: -l checksum: -l install-dir: \
+    -l update -l launcher: -- "$@")
 eval "set -- $options"
 
 arch=x86_64
 checksum=''
 install_dir="$HOME/apps/reaper"
+update=n
 launcher=''
 
 while :; do
@@ -27,6 +28,7 @@ while :; do
         -a|--arch) shift; arch=$1;;
         -c|--checksum) shift; checksum=$1;;
         -d|--install-dir) shift; install_dir=$1;;
+        -u|--update) update=y;;
         -l|--launcher) shift; launcher=$1;;
         --) shift; break;;
     esac
