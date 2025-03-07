@@ -93,8 +93,6 @@ if [ "$update" = y ] && [ -n "$install_dir_old" ]; then
     fi
 fi
 
-# TODO check why this subdirectory $app_dir/REAPER; maybe it's better to move out of it
-
 if [ -n "$launcher" ]; then
     echo "Creating launcher file $launcher"
     install -m644 /dev/stdin "$launcher" << EOF
