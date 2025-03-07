@@ -81,20 +81,6 @@ mv -T "$install_dir/reaper_linux_$arch" "$app_dir"
 echo 'Installed app version:'
 head -1 "$app_dir/REAPER/whatsnew.txt"
 
-readonly data_dir=$app_dir/data
-
-if [ "$update" = y ] && [ -n "$install_dir_old" ]; then
-    readonly data_old=$install_dir_old/reaper/data
-
-    if [ -d "$data_old" ]; then
-        echo "Moving data dir from $data_old to $data_dir"
-        mv -T "$data_old" "$data_dir"
-    else
-        echo 'Not moving data dir from the old installation because it does' \
-            'not exist'
-    fi
-fi
-
 if [ -n "$launcher" ]; then
     echo "Creating launcher file $launcher"
     install -m644 /dev/stdin "$launcher" << EOF
