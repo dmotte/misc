@@ -5,6 +5,9 @@ set -e
 # This script can be used to set up a standalone installation of Cockos REAPER
 # in a specific directory
 
+# Note: by default the configuration is stored in ~/.config/REAPER. See the
+# readme-linux.txt file in the downloaded tarball for more details
+
 # Tested on Debian 12 (bookworm)
 
 # To run this script without downloading it:
