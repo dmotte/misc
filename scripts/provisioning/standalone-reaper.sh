@@ -47,7 +47,7 @@ readonly app_dir="$install_dir/reaper"
 if [ "$update" = y ]; then
     if [ -d "$install_dir" ]; then
         echo "Directory $install_dir already exists. Installed app version:"
-        "$app_dir/bin/TODO" -v
+        head -1 "$app_dir/REAPER/whatsnew.txt"
 
         install_dir_old=$install_dir-old-$(date -u +%Y-%m-%d-%H%M%S)
         echo "Moving $install_dir to $install_dir_old"
@@ -77,7 +77,7 @@ tar -xJf "$archive_path" -C "$install_dir"
 mv -T "$install_dir/reaper_linux_$arch" "$app_dir"
 
 echo 'Installed app version:'
-"$app_dir/bin/TODO" -v
+head -1 "$app_dir/REAPER/whatsnew.txt"
 
 readonly data_dir=$app_dir/data
 
