@@ -20,6 +20,10 @@ subcmd_info() {
     local commit; commit=$(git -C "$basedir" rev-parse --short HEAD)
     echo "MotteKit version $version (commit $commit)"
     echo
+    echo '/!\ WARNING: this tool can potentially harm your system! Use it at' \
+        'your own risk, and make sure you always understand what you are' \
+        'doing before proceeding.'
+    echo
     echo 'Available subcommands:'
     echo
     subcmd_paths=$(
