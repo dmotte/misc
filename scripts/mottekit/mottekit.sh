@@ -22,20 +22,18 @@ subcmd_info() {
     echo
     echo 'Available subcommands:'
     echo
-    for i in "${builtin_subcmds[@]}"; do
-        echo "- (builtin) $i"
-    done
-    for i in "$basedir"/overrides/*.sh; do
-        [ -e "$i" ] || continue
-        echo "- (overrides) $(basename "${i%.sh}")"
-    done
-    for i in "$basedir"/sub/*.sh; do
-        [ -e "$i" ] || continue
-        echo "- (sub) $(basename "${i%.sh}")"
-    done
-    for i in "$basedir"/../*.sh; do
-        [ -e "$i" ] || continue
-        echo "- (..) $(basename "${i%.sh}")"
+    subcmd_paths=$(
+        # Fake path for builtin subcommands
+        printf 'builtin/%s.sh\n' "${builtin_subcmds[@]}"
+
+        [ -e overrides ] && find overrides -type f -name '*.sh'
+
+        find sub .. -type f -name '*.sh'
+    )
+    echo "$subcmd_paths" | while read -r i; do
+        parent=$(echo "$i" | cut -d/ -f1)
+        subpath=$(echo "$i" | cut -d/ -f2-)
+        echo "- ($parent) ${subpath%.sh}"
     done
 }
 # shellcheck disable=SC2317
