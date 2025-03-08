@@ -4,7 +4,7 @@
 
 You can use this script to interact with the [Watson](https://github.com/TailorDev/Watson) command line utility, saving all the data into the directory where the script is located.
 
-- Website: http://tailordev.github.io/Watson/
+- Website: https://tailordev.github.io/Watson/
 - GitHub: https://github.com/TailorDev/Watson
 - PyPI: https://pypi.org/project/td-watson/
 
