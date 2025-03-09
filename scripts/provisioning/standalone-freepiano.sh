@@ -5,8 +5,9 @@ set -e
 # This script can be used to set up a standalone installation of FreePiano
 # in a specific directory
 
-# Tested on Debian 12 (bookworm) with Wine 10.0 and "winetricks fonts allfonts"
-# installed, and Windows 10 with Git Bash
+# Tested on:
+#   - Debian 12 (bookworm) + Wine 10.0 + "winetricks fonts allfonts"
+#   - Git Bash on Windows 10
 
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-freepiano.sh) -lauto 2.2.2.1
