@@ -110,7 +110,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Watch2Gether** - watch videos together simultaneously: [website](https://w2g.tv/)
 - **Waymarked Trails** - explore hiking, cycling, and many other routes, with maps and information from OpenStreetMap: [website](https://waymarkedtrails.org/)
 - **Xournal++ Online** - open-source and cross-platform note-taking software: [gitlab](https://gitlab.com/TheOneWithTheBraid/xournalpp_mobile) [website](https://xournal.online/)
-- **ZeroTier One** - connect all of your devices on a single network that you provision and control: [website](https://www.zerotier.com/)
+- **ZeroTier One** - connect all of your devices on a single network that you provision and control: [choco](https://community.chocolatey.org/packages/zerotier-one) [website](https://www.zerotier.com/)
 - **command-not-found.com** - find packages related to specific commands: [website](https://command-not-found.com/)
 - **localhost.run** - SSH tunneling port forwarding service to expose server applications on HTTPS, similar to portmap.io but it exposes on HTTPS and works also without creating an account: [website](https://localhost.run/)
 - **ngrok** - globally distributed reverse proxy, similar to portmap.io: [choco](https://community.chocolatey.org/packages/ngrok) [docker](https://hub.docker.com/r/ngrok/ngrok) [website](https://ngrok.com/)
