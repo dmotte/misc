@@ -5,7 +5,7 @@ set -e
 # This script can be used to set up a standalone installation of Visual Studio
 # Code in a specific directory
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 12 (bookworm) and Windows 10 with Git Bash
 
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-vscode.sh) -ulauto
@@ -45,7 +45,12 @@ if [ -z "$os" ]; then
     fi
 fi
 
-[ "$launcher" != auto ] || launcher=~/.local/share/applications/vscode.desktop
+if [ "$launcher" = auto ]; then
+    if [ "$os" = win32 ]
+        then launcher=~/Desktop/'Visual Studio Code.lnk'
+        else launcher=~/.local/share/applications/vscode.desktop
+    fi
+fi
 
 ################################################################################
 
@@ -118,7 +123,10 @@ fi
 
 if [ -n "$launcher" ]; then
     echo "Creating launcher file $launcher"
-    install -m644 /dev/stdin "$launcher" << EOF
+    if [ "$os" = win32 ]; then
+        create-shortcut "$app_dir/Code.exe" "$launcher"
+    else
+        install -m644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
 Name=Visual Studio Code
 Exec=$app_dir/code %f
@@ -127,4 +135,5 @@ Terminal=false
 Icon=$app_dir/resources/app/resources/linux/code.png
 Type=Application
 EOF
+    fi
 fi
