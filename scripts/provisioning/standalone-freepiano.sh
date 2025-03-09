@@ -35,13 +35,13 @@ readonly version=${1:?}
 
 if [ -z "$os" ]; then
     if [[ "$(uname)" = MINGW* ]]
-        then os=win32
+        then os=windows
         else os=linux
     fi
 fi
 
 if [ "$launcher" = auto ]; then
-    if [ "$os" = win32 ]
+    if [ "$os" = windows ]
         then launcher=~/Desktop/FreePiano.lnk
         else launcher=~/.local/share/applications/freepiano.desktop
     fi
@@ -72,7 +72,7 @@ unzip -q "$archive_path" -d "$install_dir"
 
 if [ -n "$launcher" ]; then
     echo "Creating launcher file $launcher"
-    if [ "$os" = win32 ]; then
+    if [ "$os" = windows ]; then
         create-shortcut "$app_dir/freepiano.exe" "$launcher"
     else
         install -m644 /dev/stdin "$launcher" << EOF
