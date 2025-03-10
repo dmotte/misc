@@ -4,7 +4,7 @@ set -e
 
 basedir=$(dirname "$0")
 
-readonly builtin_subcmds=(info help version update)
+readonly builtin_subcmds=(info help version update source)
 
 # shellcheck disable=SC2317
 subcmd_info() {
@@ -57,6 +57,19 @@ subcmd_update() {
     # We run the pull in a Bash process spawned with "exec" because this
     # script could be changed by it
     exec bash -ec "git -C ${basedir@Q} pull"
+}
+
+# shellcheck disable=SC2317
+subcmd_source() {
+    readonly subcmd_name=${1:?}
+
+    for i in "$basedir"/{overrides,sub,..}/"$subcmd_name.sh"; do
+        [ -e "$i" ] || continue
+        # shellcheck disable=SC2093
+        exec cat "$i"
+    done
+
+    echo "Subcommand not found: $subcmd_name" >&2; exit 1
 }
 
 ################################################################################
