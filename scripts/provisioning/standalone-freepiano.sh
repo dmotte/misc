@@ -82,7 +82,7 @@ Name=FreePiano
 Exec=wine $app_dir/freepiano.exe %f
 Comment=FreePiano
 Terminal=false
-Icon=$app_dir/freepiano.exe
+# Icon=$app_dir/freepiano.exe
 Type=Application
 EOF
     fi
