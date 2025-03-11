@@ -1,0 +1,78 @@
+FreePiano 2.2
+
+GroupCount	1
+Group	Set	0
+KeySignature	Set	0
+Velocity	In_0	Set	80
+Velocity	In_1	Set	100
+Sustain	Out_0	Set	0
+Keydown	2	Note	In_0	Db4
+Label	2	2
+Keydown	3	Note	In_0	Eb4
+Label	3	3
+Keydown	5	Note	In_0	Gb4
+Label	5	5
+Keydown	6	Note	In_0	Ab4
+Label	6	6
+Keydown	7	Note	In_0	Bb4
+Label	7	7
+Keydown	9	Note	In_0	Db5
+Label	9	9
+Keydown	0	Note	In_0	Eb5
+Label	0	0
+Keydown	Q	Note	In_0	C4
+Label	Q	Q
+Keydown	W	Note	In_0	D4
+Label	W	W
+Keydown	E	Note	In_0	E4
+Label	E	E
+Keydown	R	Note	In_0	F4
+Label	R	R
+Keydown	T	Note	In_0	G4
+Label	T	T
+Keydown	Y	Note	In_0	A4
+Label	Y	Y
+Keydown	U	Note	In_0	B4
+Label	U	U
+Keydown	I	Note	In_0	C5
+Label	I	I
+Keydown	O	Note	In_0	D5
+Label	O	O
+Keydown	P	Note	In_0	E5
+Label	P	P
+Label	S	S
+Keydown	S	Note	In_0	Db3
+Label	D	D
+Keydown	D	Note	In_0	Eb3
+Label	G	G
+Keydown	G	Note	In_0	Gb3
+Label	H	H
+Keydown	H	Note	In_0	Ab3
+Label	J	J
+Keydown	J	Note	In_0	Bb3
+Label	L	L
+Keydown	L	Note	In_0	Db4
+Label	:	.
+Keydown	:	Note	In_0	Eb4
+Label	Z	Z
+Keydown	Z	Note	In_0	C3
+Label	X	X
+Keydown	X	Note	In_0	D3
+Label	C	C
+Keydown	C	Note	In_0	E3
+Label	V	V
+Keydown	V	Note	In_0	F3
+Label	B	B
+Keydown	B	Note	In_0	G3
+Label	N	N
+Keydown	N	Note	In_0	A3
+Label	M	M
+Keydown	M	Note	In_0	B3
+Label	<	.
+Keydown	<	Note	In_0	C4
+Label	>	.
+Keydown	>	Note	In_0	D4
+Label	?	.
+Keydown	?	Note	In_0	E4
+Keydown	Left	Octave	In_0	Dec	1
+Keydown	Right	Octave	In_0	Inc	1
