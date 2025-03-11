@@ -53,7 +53,7 @@ Label	J	J
 Keydown	L	Note	In_0	Db4
 Label	L	L
 Keydown	:	Note	In_0	Eb4
-Label	:	.
+Label	:	:
 Keydown	Z	Note	In_0	C3
 Label	Z	Z
 Keydown	X	Note	In_0	D3
@@ -69,10 +69,10 @@ Label	N	N
 Keydown	M	Note	In_0	B3
 Label	M	M
 Keydown	<	Note	In_0	C4
-Label	<	.
+Label	<	<
 Keydown	>	Note	In_0	D4
-Label	>	.
+Label	>	>
 Keydown	?	Note	In_0	E4
-Label	?	.
+Label	?	?
 Keydown	Left	Octave	In_0	Dec	1
 Keydown	Right	Octave	In_0	Inc	1
