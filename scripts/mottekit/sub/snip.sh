@@ -8,4 +8,4 @@ readonly text=${1:?}
 
 reporoot=$(git rev-parse --show-toplevel)
 
-grep -Fi --color=auto "$text" "$reporoot/snippets/README.md"
+exec grep -Fi --color=auto "$text" "$reporoot/snippets/README.md"
