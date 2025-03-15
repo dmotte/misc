@@ -12,6 +12,9 @@ set -e
 
 # Tested on Debian 12 (bookworm)
 
+# Note: if you encounter "unmet dependencies" issues with APT, you can try to
+# run "rm -rf /var/lib/apt/lists/*" and then retry
+
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 fetch_and_check() { # Src: https://github.com/dmotte/misc
