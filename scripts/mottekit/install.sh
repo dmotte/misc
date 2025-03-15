@@ -16,20 +16,18 @@ for i in "${path_dirs[@]}"; do
 done
 
 [ -z "$entrypoint" ] && {
-    echo 'Cannot find a location in PATH suitable for installing the' \
-        'MotteKit entrypoint. You must have one of the following' \
-        'directories in your PATH:' >&2
-    echo "${path_dirs[*]@Q}" >&2
-    echo 'As a quick fix, you might possibly want to consider one of the' \
-        'following:' >&2
-    cat << 'EOF' >&2
-    echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
-    echo 'export PATH="$PATH:$HOME/bin"' >> ~/.bashrc
+    cat << EOF >&2
+Cannot find a location in PATH suitable for installing the MotteKit \
+entrypoint. You must have one of the following directories in your PATH:
+${path_dirs[*]@Q}
+As a quick fix, you might possibly want to consider one of the following:
+    echo 'export PATH="\$PATH:\$HOME/.local/bin"' >> ~/.bashrc
+    echo 'export PATH="\$PATH:\$HOME/bin"' >> ~/.bashrc
+And then close and reopen your terminal to update the value of the PATH \
+environment variable.
+Warning: please make sure you always understand what you are doing before \
+proceeding.
 EOF
-    echo 'And then close and reopen your terminal to update the value of' \
-        'the PATH environment variable.' >&2
-    echo 'Warning: please make sure you always understand what you are' \
-        'doing before proceeding.' >&2
     exit 1
 }
 
