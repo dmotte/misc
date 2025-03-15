@@ -4,7 +4,7 @@ set -e
 
 basedir=$(dirname "$0")
 
-readonly builtin_subcmds=(info help version update source)
+readonly builtin_subcmds=(info help version update source sudo)
 
 # shellcheck disable=SC2317
 subcmd_info() {
@@ -71,6 +71,9 @@ subcmd_source() {
 
     echo "Subcommand not found: $subcmd_name" >&2; exit 1
 }
+
+# shellcheck disable=SC2317
+subcmd_sudo() { exec sudo bash "$0" "$@"; }
 
 ################################################################################
 
