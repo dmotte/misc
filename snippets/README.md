@@ -276,7 +276,8 @@ EOF
 - `MSYS=winsymlinks:nativestrict sudo ln -s original.txt link.txt`
 - `[[ "$(uname)" = MINGW* ]]; echo $?`
 - `MSYS_NO_PATHCONV=1 '/c/Program Files/VeraCrypt/VeraCrypt.exe' /q /v '\Device\Harddisk1\Partition1' /l X /m ro /m label='My label'`
-- `MSYS_NO_PATHCONV=1 '/c/Program Files/VeraCrypt/VeraCrypt.exe' /q /d X`
+- `'/c/Program Files/VeraCrypt/VeraCrypt.exe' //q //v '\Device\Harddisk1\Partition1' //l X //m ro //m label='My label'`
+- `'/c/Program Files/VeraCrypt/VeraCrypt.exe' //q //d X`
 - `create-shortcut ~/apps/myapp.exe ~/Desktop/myapp.lnk`
 
 ## Termux
