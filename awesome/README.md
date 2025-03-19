@@ -391,7 +391,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## Browser extensions
 
-- **Floccus** - sync your bookmarks privately across browsers and devices: [chrome](https://chromewebstore.google.com/detail/floccus-bookmarks-sync/fnaicdffflnofjppbagibeoednhnbjhg) [firefox](https://addons.mozilla.org/en-US/firefox/addon/floccus/) [github](https://github.com/floccusaddon/floccus) [website](https://floccus.org/)
+- **Floccus** - sync your bookmarks privately across browsers and devices: [chrome](https://chromewebstore.google.com/detail/floccus-bookmarks-sync/fnaicdffflnofjppbagibeoednhnbjhg) [fdroid](https://f-droid.org/packages/org.handmadeideas.floccus/) [firefox](https://addons.mozilla.org/en-US/firefox/addon/floccus/) [github](https://github.com/floccusaddon/floccus) [playstore](https://play.google.com/store/apps/details?id=org.handmadeideas.floccus) [website](https://floccus.org/)
 - **LinkAce** - self-hosted tool for effortlessly archiving, organizing, and sharing your favorite web links: [chrome](https://chromewebstore.google.com/detail/yet-another-linkace-exten/ladekkfhihppgfcjgaimgggecekfhmho) [docker](https://hub.docker.com/r/linkace/linkace) [github](https://github.com/Kovah/LinkAce) [website](https://www.linkace.org/)
 - **linkding** - self-hosted bookmark manager that is designed be to be minimal, fast, and easy to set up using Docker: [chrome](https://chromewebstore.google.com/detail/linkding-extension/beakmhbijpdhipnjhnclmhgjlddhidpe) [docker](https://hub.docker.com/r/sissbruecker/linkding) [firefox](https://addons.mozilla.org/en-US/firefox/addon/linkding-extension/) [github](https://github.com/sissbruecker/linkding) [website](https://linkding.link/)
 
