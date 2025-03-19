@@ -2,10 +2,19 @@
 
 set -e
 
-readonly mottekit_dir=~/.mottekit
+readonly misc_repo_path=$1
 
-[ -e "$mottekit_dir" ] &&
-    { echo "The $mottekit_dir directory already exists" >&2; exit 1; }
+if [ -n "$misc_repo_path" ]; then
+    misc_repo_path=$(realpath "$misc_repo_path")
+
+    [ -d "$misc_repo_path" ] ||
+        { echo "Dir $misc_repo_path not found" >&2; exit 1; }
+else
+    readonly mottekit_dir=~/.mottekit
+
+    [ -e "$mottekit_dir" ] &&
+        { echo "The $mottekit_dir directory already exists" >&2; exit 1; }
+fi
 
 path_dirs=(~/.local/bin ~/bin)
 
@@ -37,15 +46,17 @@ EOF
 command -v git >/dev/null ||
     { echo 'The git command is required but cannot be found' >&2; exit 1; }
 
-echo "Creating the MotteKit directory $mottekit_dir"
-mkdir "$mottekit_dir"
+if [ -z "$misc_repo_path" ]; then
+    echo "Creating the MotteKit directory $mottekit_dir"
+    mkdir "$mottekit_dir"
 
-readonly repo_url=https://github.com/dmotte/misc.git \
-    repo_dir=$mottekit_dir/misc
-echo "Cloning $repo_url into $repo_dir"
-git clone "$repo_url" "$repo_dir"
+    readonly misc_repo_url=https://github.com/dmotte/misc.git \
+        misc_repo_path=$mottekit_dir/misc
+    echo "Cloning $misc_repo_url into $misc_repo_path"
+    git clone "$misc_repo_url" "$misc_repo_path"
+fi
 
-readonly mottekit_script=$repo_dir/scripts/mottekit/mottekit.sh
-echo "Creating MotteKit entrypoint at $entrypoint"
+readonly mottekit_script=$misc_repo_path/scripts/mottekit/mottekit.sh
+echo "Creating entrypoint at $entrypoint that invokes $mottekit_script"
 echo $'#!/bin/bash\nexec bash '"${mottekit_script@Q}"' "$@"' |
     install -DT /dev/stdin "$entrypoint"
