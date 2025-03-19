@@ -2,7 +2,7 @@
 
 set -e
 
-readonly misc_repo_path=$1
+misc_repo_path=$1
 
 if [ -n "$misc_repo_path" ]; then
     misc_repo_path=$(realpath "$misc_repo_path")
@@ -50,8 +50,8 @@ if [ -z "$misc_repo_path" ]; then
     echo "Creating the MotteKit directory $mottekit_dir"
     mkdir "$mottekit_dir"
 
-    readonly misc_repo_url=https://github.com/dmotte/misc.git \
-        misc_repo_path=$mottekit_dir/misc
+    readonly misc_repo_url=https://github.com/dmotte/misc.git
+    misc_repo_path=$mottekit_dir/misc
     echo "Cloning $misc_repo_url into $misc_repo_path"
     git clone "$misc_repo_url" "$misc_repo_path"
 fi
