@@ -11,6 +11,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/mot
 ## Development installation
 
 ```bash
+git clone https://github.com/dmotte/misc.git ~/git/misc
 bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/mottekit/install.sh) ~/git/misc
 ```
 
