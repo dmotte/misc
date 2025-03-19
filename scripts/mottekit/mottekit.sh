@@ -19,6 +19,7 @@ subcmd_info() {
         --date=format-local:'v%Y.%m.%d.%H%M' --format='%cd')
     local commit; commit=$(git -C "$basedir" rev-parse --short HEAD)
     echo "MotteKit version $version (commit $commit)"
+    echo "Installed at $basedir"
     echo
     echo '/!\ WARNING: this tool can potentially harm your system! Use it at' \
         'your own risk, and make sure you always understand what you are' \
