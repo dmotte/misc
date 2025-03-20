@@ -14,10 +14,10 @@ function querySelectorOrErr(selectors) {
 
 try {
   const inputReviewEvent = querySelectorOrErr(
-    "input[type='hidden'][name='pull_request_review[event]']"
+    "input[type='hidden'][name='pull_request_review[event]']",
   );
   const formSubmitReview = querySelectorOrErr(
-    "form#pull_requests_submit_review"
+    "form#pull_requests_submit_review",
   );
 
   inputReviewEvent.value = "approve";
