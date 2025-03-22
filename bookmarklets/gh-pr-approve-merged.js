@@ -1,5 +1,4 @@
-// Bookmarklet to instantly approve a GitHub PR (Pull Request) even if it's
-// merged
+// Bookmarklet to approve an already merged GitHub PR (Pull Request)
 
 // Tested on https://github.com/.../.../pull/.../files on 2025-03-20 with
 // Google Chrome version 130.0.6723.59 (Official Build) (64-bit)
