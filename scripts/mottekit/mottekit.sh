@@ -53,11 +53,19 @@ subcmd_version() { subcmd_info "$@"; }
 
 # shellcheck disable=SC2317
 subcmd_update() {
-    echo 'Updating MotteKit'
+    reporoot=$(git -C "$basedir" rev-parse --show-toplevel)
+    reposdir=$(dirname "$reporoot")
 
-    # We run the pull in a Bash process spawned with "exec" because this
-    # script could be changed by it
-    exec bash -ec "git -C ${basedir@Q} pull"
+    if [ -d "$reposdir/dmotte" ] && [ -d "$reposdir/dmotte.github.io" ]; then
+        echo 'Updating all the repos'
+        exec bash "$reporoot/scripts/github-bak-all-repos.sh" \
+            users/dmotte "$reposdir"
+    else
+        echo 'Updating MotteKit'
+        # We run the pull in a Bash process spawned with "exec" because this
+        # script could be changed by it
+        exec bash -ec "git -C ${reporoot@Q} pull"
+    fi
 }
 
 # shellcheck disable=SC2317

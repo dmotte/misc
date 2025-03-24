@@ -8,12 +8,6 @@
 bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/mottekit/install.sh)
 ```
 
-To update:
-
-```bash
-mottekit update
-```
-
 ## Installation with all the repos
 
 ```bash
@@ -22,14 +16,14 @@ bash ~/.ghdmotte/misc/scripts/mottekit/install.sh ~/.ghdmotte/misc
 mottekit github-bak-all-repos users/dmotte ~/.ghdmotte
 ```
 
-To update:
-
-```bash
-mottekit github-bak-all-repos users/dmotte ~/.ghdmotte
-```
-
 ## Usage
 
 ```bash
 mottekit help
+```
+
+To update:
+
+```bash
+mottekit update
 ```
