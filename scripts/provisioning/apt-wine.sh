@@ -15,6 +15,9 @@ set -e
 # Note: if you encounter "unmet dependencies" issues with APT, you can try to
 # run "rm -rf /var/lib/apt/lists/*" and then retry
 
+# If you want to enable the "Show dot files" Wine option:
+#   wine reg add 'HKCU\Software\Wine' /v ShowDotFiles /t REG_SZ /d Y /f
+
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 fetch_and_check() { # Src: https://github.com/dmotte/misc
