@@ -55,6 +55,7 @@ Some pieces of code I find useful for some reason.
 - `strings /proc/1234/environ | grep -i MY_ENV_VAR`
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
 - `python3 -mhttp.server`
+- `php -S 127.0.0.1:8080 -t mydir`
 - `sleep infinity`
 - `dig @ns1.example.com www.example.com`
 - `git pull --no-edit && git add . && { git commit "-m$(date +%s)" || :; } && git push`
