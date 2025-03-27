@@ -372,6 +372,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Remote - SSH** - use any remote machine with an SSH server as your development environment: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
 - **Remote - SSH: Editing Configuration Files** - syntax colorization, keyword intellisense, and simple snippets when editing SSH configuration files: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
 - **Remote - WSL** - use any folder in the Windows Subsystem for Linux (WSL) as your development environment: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+- **Serial Monitor** - send and receive text from serial ports: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-serial-monitor)
 - **ShellCheck** - integrate ShellCheck, a linter for shell scripts: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
 - **Trailing Spaces** - highlight trailing spaces and delete them in a flash: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
 - **XML Tools** - XML Formatting, XQuery, and XPath Tools: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=dotjoshjohnson.xml)
