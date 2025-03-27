@@ -379,6 +379,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **autopep8** - formatting support for Python files using the autopep8 formatter: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-python.autopep8)
 - **bioSyntax** - syntax highlighting tool for computational biology: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=reageyao.biosyntax)
 - **gotemplate-syntax** - language support for Go text/template: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=casualjim.gotemplate)
+- **rust-analyzer** - Rust language support for Visual Studio Code: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 - **vscode-pdf** - display PDF files in VSCode: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=tomoki1207.pdf)
 
 ### Color themes
