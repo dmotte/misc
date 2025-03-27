@@ -376,6 +376,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **ShellCheck** - integrate ShellCheck, a linter for shell scripts: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
 - **Trailing Spaces** - highlight trailing spaces and delete them in a flash: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
 - **XML Tools** - XML Formatting, XQuery, and XPath Tools: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=dotjoshjohnson.xml)
+- **autopep8** - formatting support for Python files using the autopep8 formatter: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-python.autopep8)
 - **bioSyntax** - syntax highlighting tool for computational biology: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=reageyao.biosyntax)
 - **gotemplate-syntax** - language support for Go text/template: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=casualjim.gotemplate)
 - **vscode-pdf** - display PDF files in VSCode: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=tomoki1207.pdf)
