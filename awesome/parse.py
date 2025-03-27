@@ -69,7 +69,7 @@ LINK_VALIDATORS = {
 
     'vsmarketplace': lambda x: re.match(
         r'^https://marketplace\.visualstudio\.com/items'
-        r'\?itemName=[0-9a-z.-]+$', x),
+        r'\?itemName=[0-9A-Za-z.-]+$', x),
 }
 
 
