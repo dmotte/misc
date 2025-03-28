@@ -137,6 +137,7 @@ Some pieces of code I find useful for some reason.
 - `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config=/dev/null sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `rclone check myremote:/remote-src-dir ./local-dest-dir`
 - `rclone --config=/dev/null serve -v sftp --user=myuser --pass=mypass .`
+- `curl -fsSL https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
