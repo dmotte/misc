@@ -13,6 +13,7 @@ install -DT <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scri
 mkdir ~/.hackdates/jobs
 
 for i in kubectl helm; do
+    echo "Installing Hackdates job $i"
     install -DT <(curl -fsSL "https://raw.githubusercontent.com/dmotte/misc/main/scripts/hackdates/jobs/$i.sh") "$HOME/.hackdates/jobs/$i.sh"
 done
 ```
