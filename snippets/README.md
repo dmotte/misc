@@ -111,6 +111,7 @@ Some pieces of code I find useful for some reason.
 - `ping my.dns.domain.10-0-0-1.nip.io`, `ping my.dns.domain.lvh.me`
 - `socat TCP4-LISTEN:9000,fork,reuseaddr - >/dev/null`, `dd if=/dev/zero bs=1M count=1024 status=progress | socat - TCP:192.168.0.2:9000`
 - `curl -fLo ~/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x ~/.local/bin/kubectl`
+- `curl -fL https://get.helm.sh/helm-v3.17.2-linux-amd64.tar.gz | tar -xvz --strip-components=1 -C ~/.local/bin linux-amd64/helm`
 - `sudo dd if=/dev/mmcblk2 status=progress | gzip -c | split -b4GB - mmcblk2.img.gz.part`
   - `md5sum mmcblk2.img.gz.part* > MD5SUMS`
   - `cat mmcblk2.img.gz.part* | gunzip -c | sudo dd of=/dev/mmcblk2 status=progress`
