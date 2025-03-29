@@ -20,6 +20,8 @@ done
 
 ## Usage
 
+You can leverage **[Shellmind](../shellmind)** to periodically ask the user to run this command:
+
 ```bash
 time ~/.hackdates/main.sh; echo $?
 ```
