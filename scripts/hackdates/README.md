@@ -17,3 +17,9 @@ for i in kubectl helm; do
     install -DT <(curl -fsSL "https://raw.githubusercontent.com/dmotte/misc/main/scripts/hackdates/jobs/$i.sh") "$HOME/.hackdates/jobs/$i.sh"
 done
 ```
+
+## Usage
+
+```bash
+time ~/.hackdates/main.sh; echo $?
+```
