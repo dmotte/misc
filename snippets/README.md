@@ -294,6 +294,7 @@ EOF
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
+- `(mymetric > 0.50) and on() (4*60+20 <= hour()*60+minute() <= 4*60+40)`
 
 ## Python
 
