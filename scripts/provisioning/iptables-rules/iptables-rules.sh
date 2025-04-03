@@ -42,6 +42,8 @@ apt_update_if_old() {
 
 ################################################################################
 
+[ -e /etc/iptables ] || changing=y
+
 for i in 4 6; do # Do not save current rules to /etc/iptables/rules.v*
     echo "iptables-persistent iptables-persistent/autosave_v$i boolean false"
 done | debconf-set-selections -v
@@ -49,7 +51,7 @@ done | debconf-set-selections -v
 dpkg -s iptables-persistent >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y iptables-persistent; }
 
-[ -e /etc/iptables ] || changing=y
+chmod 600 /etc/iptables
 
 [ -z "$rules_v4" ] || tr -d '\r' <"$rules_v4" |
     install -m600 /dev/stdin /etc/iptables/rules.v4
