@@ -3,6 +3,7 @@
 :FORWARD DROP [0:0] # Do not touch the FORWARD chain! Only Docker can do so
 :OUTPUT ACCEPT [0:0]
 :DOCKER-USER - [0:0]
+:ACCEPT-TRUSTED - [0:0]
 
 ################################################################################
 ##################################### INPUT ####################################
@@ -14,12 +15,19 @@
 # Allow all incoming packets for already established connections
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
+# Very trivial port knocking.
+# Warning: this configuration accepts the knock sequence even if other (wrong)
+# ports are accessed in between! Not suitable for production
+-A INPUT -i eth+ -p tcp --dport 1111 -m recent --name knock01 --set -j DROP
+-A INPUT -i eth+ -p tcp --dport 2222 -m recent --rcheck --name knock01 --seconds 5 --reap -m recent --name knock01 --remove -m recent --name knock02 --set -j DROP
+-A INPUT -i eth+ -p tcp --dport 3333 -m recent --rcheck --name knock02 --seconds 5 --reap -m recent --name knock02 --remove -m recent --name knock03 --set -j DROP
+
 # Allow packets to the DHCP client from the eth* network interfaces
 -A INPUT -i eth+ -p udp --dport 68 -j ACCEPT
 
-# Allow incoming SSH from the allowed network interfaces
--A INPUT -i eth+ -p tcp --dport 22 -j ACCEPT
--A INPUT -i zt+ -p tcp --dport 22 -j ACCEPT
+# Allow incoming SSH from trusted clients from the allowed network interfaces
+-A INPUT -i eth+ -p tcp --dport 22 -j ACCEPT-TRUSTED
+-A INPUT -i zt+ -p tcp --dport 22 -j ACCEPT-TRUSTED
 
 # Allow incoming ZeroTier (default port number) from the eth* network interfaces
 -A INPUT -i eth+ -p tcp --dport 9993 -j ACCEPT
@@ -115,6 +123,23 @@
 -A DOCKER-USER -d 224.0.0.0/4 -j DROP
 -A DOCKER-USER -d 240.0.0.0/4 -j DROP
 -A DOCKER-USER -d 255.255.255.255/32 -j DROP
+
+# Default policy: (none) (RETURN to parent chain)
+
+################################################################################
+################################ ACCEPT-TRUSTED ################################
+################################################################################
+
+# Allow trusted IP addresses
+# For info about the IP ranges assigned to ISPs see:
+# https://www.nirsoft.net/countryip/
+-A ACCEPT-TRUSTED -s 1.1.0.0/16 -j ACCEPT
+-A ACCEPT-TRUSTED -s 2.2.0.0/16 -j ACCEPT
+-A ACCEPT-TRUSTED -s 3.3.0.0/16 -j ACCEPT
+
+# Allow IP addresses that have successfully performed the port knocking
+# sequence, but only once
+-A ACCEPT-TRUSTED -m recent --rcheck --name knock03 --seconds 5 --reap -m recent --name knock03 --remove -j ACCEPT
 
 # Default policy: (none) (RETURN to parent chain)
 
