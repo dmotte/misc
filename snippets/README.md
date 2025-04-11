@@ -241,14 +241,14 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 - `kubectl exec -it mypod -- bash`
 - `kubectl delete pod/mypod`
 - `kubectl config current-context`, `kubectl config use-context mycontext`
-- `kubectl --context=mycontext -n mynamespace get pod`
+- `kubectl --context mycontext -n mynamespace get pod`
 - `kubectl port-forward pod/mypod '8080:80'`
 - `kubectl get secret/mysecret -ojsonpath={.data.password} | base64 -d; echo`
 - `kubectl cordon mynode`, `kubectl drain --ignore-daemonsets --delete-emptydir-data mynode`
 - `kubectl rollout restart sts/mysts`
 - `time kubectl api-resources --verbs=list -oname | xargs -n1 kubectl get -A -owide --show-kind --ignore-not-found`
 - `helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update`
-- `helm --kube-context=mycontext -n mynamespace list`
+- `helm --kube-context mycontext -n mynamespace list`, `helm list -Aa`
 
 ```bash
 kubectl apply -f- << 'EOF'
