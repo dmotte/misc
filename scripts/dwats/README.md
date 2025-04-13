@@ -41,17 +41,17 @@ Alternatively, you can invoke the script from anywhere you want, and specify the
 WATSON_DIR="$HOME/my/custom/dwats/data" "$dwats" report -Gac
 ```
 
-You can also invoke the script **without parameters**, to get a **REPL** prompt:
-
-```bash
-"$dwats"
-DWATS_STARTUP_REPORT=true "$dwats"
-```
-
 Or even create an **`lwats.sh`** (**L**ocal **Wats**on) script that always invokes `dwats.sh` with the same data directory:
 
 ```bash
 cd ~/my/custom/dwats/data
 
 install -T <(echo -e '#!/bin/bash\ncd "$(dirname "$0")"\nexec '"${dwats@Q}"' "$@"') lwats.sh
+```
+
+You can also invoke the script **without parameters**, to get a **REPL** prompt:
+
+```bash
+"$dwats"
+DWATS_STARTUP_REPORT=true "$dwats"
 ```
