@@ -13,6 +13,8 @@ fi
 
 [ -n "$WATSON_DIR" ] || export WATSON_DIR=$PWD
 
+[ "$DWATS_DEBUG" = true ] && echo "WATSON_DIR: $WATSON_DIR" >&2
+
 if [ $# != 0 ]; then exec "$py" -mwatson "$@"; fi
 
 prev_i=''
