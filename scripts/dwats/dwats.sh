@@ -11,7 +11,7 @@ fi
 
 [ -e "$py" ] || { echo "Python binary $py not found" >&2; exit 1; }
 
-export WATSON_DIR=${WATSON_DIR:-$PWD}
+[ -n "$WATSON_DIR" ] || export WATSON_DIR=$PWD
 
 if [ $# != 0 ]; then exec "$py" -mwatson "$@"; fi
 
