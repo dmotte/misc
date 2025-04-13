@@ -50,6 +50,7 @@ Some pieces of code I find useful for some reason.
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
 - `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`
+- `read -rp 'Press ENTER to continue...'`
 - `diff <(ls -l) <(ls -la)`
 - `ps -aux --sort -pcpu | head -10`
 - `strings /proc/1234/environ | grep -i MY_ENV_VAR`
