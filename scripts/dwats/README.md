@@ -53,5 +53,5 @@ You can also invoke the script **without parameters**, to get a **REPL** prompt:
 
 ```bash
 "$dwats"
-DWATS_STARTUP_REPORT=true "$dwats"
+DWATS_DEBUG=true DWATS_STARTUP_REPORT=true "$dwats"
 ```
