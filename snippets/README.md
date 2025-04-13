@@ -40,7 +40,7 @@ Some pieces of code I find useful for some reason.
 - `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
 - `find -printf '%p %s %T@\n'`
 - `tree -paugh --inodes`
-- `find | grep -i pattern`
+- `find . | grep -i pattern`, `find . -iname '*pattern*'`
 - `cp -Rvt/media/destdisk /media/sourcedisk/folder`
 - `ss -tulpn`
 - `df -h`
@@ -59,7 +59,7 @@ Some pieces of code I find useful for some reason.
 - `sleep infinity`
 - `dig @ns1.example.com www.example.com`
 - `git pull --no-edit && git add . && { git commit "-m$(date +%s)" || :; } && git push`
-- `find -type d -name .git | while read -r i; do echo "${i:0:-5}"; done`
+- `find . -type d -name .git | while read -r i; do echo "${i:0:-5}"; done`
 - `git describe --tags --exact-match`, `git describe --tags --dirty`
 - `[ -z "$(git status -s)" ]`
 - `git reset --soft HEAD^ && git push --force`
