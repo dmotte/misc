@@ -2,7 +2,7 @@
 
 **D**irectory-based **Wats**on.
 
-You can use this script to interact with the [Watson](https://github.com/TailorDev/Watson) command line utility, saving all the data into a **custom directory** (by default the **working directory**, i.e. where the script is invoked from).
+You can use this script to interact with the [Watson](https://github.com/TailorDev/Watson) command line utility, storing all data in a **custom directory** (defaulting to the **working directory**).
 
 - Website: https://tailordev.github.io/Watson/
 - GitHub: https://github.com/TailorDev/Watson
@@ -48,10 +48,10 @@ You can also invoke the script **without parameters**, to get a **REPL** prompt:
 DWATS_STARTUP_REPORT=true "$dwats"
 ```
 
-Or even create a **standalone directory** with an additional script that always invokes `dwats.sh` with the same data dir:
+Or even create an **`lwats.sh`** (**L**ocal **Wats**on) script that always invokes `dwats.sh` with the same data directory:
 
 ```bash
 cd ~/my/custom/dwats/data
 
-install -T <(echo -e '#!/bin/bash\ncd "$(dirname "$0")"\nexec '"${dwats@Q}"' "$@"') dwats.sh
+install -T <(echo -e '#!/bin/bash\ncd "$(dirname "$0")"\nexec '"${dwats@Q}"' "$@"') lwats.sh
 ```
