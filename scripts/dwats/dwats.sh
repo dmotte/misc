@@ -8,11 +8,9 @@ if [[ "$(uname)" = MINGW* ]]
     then py=$basedir/venv/Scripts/python
     else py=$basedir/venv/bin/python3
 fi
-
 [ -e "$py" ] || { echo "Python binary $py not found" >&2; exit 1; }
 
 [ -n "$WATSON_DIR" ] || export WATSON_DIR=$PWD
-
 [ "$DWATS_DEBUG" = true ] && echo "WATSON_DIR: $WATSON_DIR" >&2
 
 if [ $# != 0 ]; then exec "$py" -mwatson "$@"; fi
