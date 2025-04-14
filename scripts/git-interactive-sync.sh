@@ -6,23 +6,21 @@ echo 'Pulling from the remote'
 git pull
 
 echo 'Checking the repo status'
-if [ -n "$(git status -s)" ]; then
-    git status
+[ -n "$(git status -s)" ] || { echo 'The status is empty. Exiting'; exit; }
 
-    echo 'Enter a commit message to stage + commit + push, or leave it' \
-        'empty to skip.'
-    read -rp 'Message: ' msg
+git status
 
-    if [ -n "$msg" ]; then
-        echo 'Staging all the changes'
-        git add .
+echo 'Enter a commit message to stage all the changes + commit + push, or' \
+    'leave it empty to exit.'
+read -rp 'Message: ' msg
 
-        echo 'Creating Git commit'
-        git commit -m "$msg"
+[ -n "$msg" ] || { echo 'No message provided. Exiting'; exit; }
 
-        echo 'Pushing to the remote'
-        git push
-    fi
-else
-    echo 'The status is empty'
-fi
+echo 'Staging all the changes'
+git add .
+
+echo 'Creating Git commit'
+git commit -m "$msg"
+
+echo 'Pushing to the remote'
+git push
