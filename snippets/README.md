@@ -38,7 +38,7 @@ Some pieces of code I find useful for some reason.
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
-- `find -printf '%p %s %T@\n'`
+- `find . -printf '%p %s %T@\n'`
 - `tree -paugh --inodes`
 - `find . | grep -i pattern`, `find . -iname '*pattern*'`
 - `git ls-files --full-name '*pattern*'`
