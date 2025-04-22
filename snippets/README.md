@@ -43,6 +43,7 @@ Some pieces of code I find useful for some reason.
 - `tree -paugh --inodes`
 - `find . | grep -i pattern`, `find . -iname '*pattern*'`
 - `git ls-files --full-name '*pattern*'`
+- `git ls-files | xargs -rd\\n sha256sum`
 - `cp -Rvt/media/destdisk /media/sourcedisk/folder`
 - `ss -tulpn`
 - `df -h`
