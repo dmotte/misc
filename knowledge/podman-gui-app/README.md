@@ -7,7 +7,7 @@ This guide explains how to run a **GUI application** in a **Podman** container.
 Start a _Podman_ **container** with the proper "X11 forwarding" options, using the following command:
 
 ```bash
-podman run -it --rm -eDISPLAY -eXAUTHORITY -v/tmp/.X11-unix:/tmp/.X11-unix:ro -v"$XAUTHORITY:$XAUTHORITY:ro" docker.io/library/debian:12
+podman run -it --rm -eDISPLAY -v/tmp/.X11-unix:/tmp/.X11-unix:ro -v"$XAUTHORITY:/root/.Xauthority:ro" docker.io/library/debian:12
 ```
 
 Inside the container, you can **install** and **run** your GUI application. Example:
