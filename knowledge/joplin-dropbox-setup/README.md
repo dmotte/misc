@@ -25,9 +25,11 @@ TODO clear all the data by using `Delete local data and re-download from sync ta
 
 TODO create some data from scratch
 
+TODO create master password and enable encryption
+
 TODO force push to Dropbox
 
-TODO Note: it's recommended to use Joplin Desktop to create data from scratch because, unlike Joplin Mobile, you can generate clean encrypted data without unwanted notes, attachments, etc. (TODO check if this is correct)
+TODO Note: it's recommended to use Joplin Desktop to create data from scratch because, unlike Joplin Mobile, you can generate clean encrypted data without unwanted notes, attachments, etc.
 
 ## Download zip backup from Dropbox
 
