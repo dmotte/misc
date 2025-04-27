@@ -82,7 +82,7 @@ Some pieces of code I find useful for some reason.
 - `systemctl list-timers`
 - `: "${myvar:=myvalue}"`, `export MY_ENV_VAR="${MY_ENV_VAR:-myvalue}"`
 - `socat - TCP:example.com:80`
-- `socat UNIX-LISTEN:/tmp/my.sock,mode=666,fork -`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
+- `socat UNIX-LISTEN:/tmp/my.sock,mode=666,fork,unlink-early -`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use `systemctl --user` as a linger-enabled user
 - `nano -Sav filename`, `vim -R filename`
 - `nano -AEJ80 -ST4 -ailmq filename`
