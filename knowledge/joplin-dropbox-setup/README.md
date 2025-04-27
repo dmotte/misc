@@ -39,11 +39,9 @@ TODO download the `Apps/Joplin` Dropbox folder as zip file. In order to do that,
 
 TODO Important: download a zip backup of the Dropbox data before proceeding. See related section
 
-TODO clear all the data by manually deleting all the default notes and notebooks, and empty the Trash
+TODO setup sync with Dropbox and run the first sync. After that, you'll notice that some items are created in the Dropbox `Apps/Joplin` folder: they are the default notes and attachments uploaded from the Joplin Mobile app. Replace all the content of the `Apps/Joplin` folder in your Dropbox account with the content of the zip file downloaded previously, and then run the sync again to force the Joplin Mobile app to delete such unwanted items.
 
-TODO setup sync with Dropbox
-
-TODO you will have attachment conflicts after the first sync, because Joplin has some notes and attachments by default. You can just delete them (see screenshots) or maybe you can run the first sync and then reupload the previous content (i.e. entirely replace all the content of the `Apps/Joplin` folder in your Dropbox account with the content of the zip file) and then run the sync again (TODO check if Joplin Mobile doesn't complain after such operation)
+> **Note**: we use this custom approach to forcefully delete the default Joplin Mobile notes and attachments because simply deleting them manually from the app would only mark them as deleted, but they would still remain in both the app's storage and Dropbox. This is a quirk of how Joplin handles deletions.
 
 ## Read zip backup using Joplin Desktop
 
