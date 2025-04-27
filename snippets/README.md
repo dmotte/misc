@@ -236,7 +236,7 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 - `journalctl --user -u podman-kube@$(systemd-escape ~/kube.yaml)`
 - `ls -la ~/.local/share/containers/storage/volumes`
 - `(read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
-- `echo -e "{\"main\":\"$(base64 -w0 < mykey.pem)\"}" | podman secret create mykey -`
+- `echo -e "{\"main\":\"$(base64 -w0 mykey.pem)\"}" | podman secret create mykey -`
 - `podman image ls -a`, `podman image prune -af`
 
 ## Shell snippets for Kubernetes
