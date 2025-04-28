@@ -1,12 +1,12 @@
 # joplin-dropbox-setup
 
-This guide explains how to set up **[Joplin](https://joplinapp.org/)** synchronization with **[Dropbox](https://www.dropbox.com/)**, both on **PC** (with _Joplin Desktop_) and on an _Android_ **smartphone** (with the _Joplin Mobile_ app).
+This guide explains how to set up **[Joplin](https://joplinapp.org/)** **end-to-end encrypted** synchronization with **[Dropbox](https://www.dropbox.com/)**, both on **PC** (with _Joplin Desktop_) and on an _Android_ **smartphone** (with the _Joplin Mobile_ app).
 
 ## Upload data to Dropbox
 
-TODO start Joplin Desktop in a Docker container
+It's recommended to use **Joplin Desktop** to **create your initial data** (notes, attachments, notebooks, etc.) because, unlike _Joplin Mobile_, it makes it much easier to start **from scratch**, i.e. without unwanted default notes and attachments.
 
-We can run Joplin Desktop in a Docker container using https://github.com/dmotte/docker-xfwd:
+You can run _Joplin Desktop_ in a Docker container using [`dmotte/docker-xfwd`](https://github.com/dmotte/docker-xfwd):
 
 ```bash
 docker build -t img-joplin01:latest - << 'EOF'
@@ -21,15 +21,31 @@ docker run -d --name=joplin01 -v/tmp/.X11-unix/X0:/opt/xfwd/host.sock:ro -v"${XA
 docker exec -it -{u,eUSER=}mainuser -{eHOME=,w}/home/mainuser joplin01 joplin --no-sandbox
 ```
 
-TODO clear all the data by using `Delete local data and re-download from sync target` without setting any sync target
+Once the application opens, you will notice that some **default data** is already present:
 
-TODO create some data from scratch
+![](img/screen01-desktop-default-data.png)
 
-TODO create master password and enable encryption
+To completely **remove it**, go to `Tools` &rarr; `Options` &rarr; `Synchronization` and click on `Show Advanced Settings`, then on the `Delete local data and re-download from sync target` button. Since we didn't set up a synchronization target yet, Joplin will just remove all the data.
 
-TODO force push to Dropbox
+Now we need to enable **end-to-end encryption**: go to `Tools` &rarr; `Options` &rarr; `Encryption` and click on `Enable encryption`, enter a password and click `OK`.
 
-TODO Note: it's recommended to use Joplin Desktop to create data from scratch because, unlike Joplin Mobile, you can generate clean encrypted data without unwanted notes, attachments, etc.
+![](img/screen02-desktop-encryption.png)
+
+Now you can **create your initial data**.
+
+To **set up synchronization** with your _Dropbox_ account, go to `Tools` &rarr; `Options` &rarr; `Synchronization`, set the `Synchronization target` to `Dropbox` and click `OK`. Then go back to the main screen and click the `Synchronize` button:
+
+![](img/screen03-desktop-synchronize.png)
+
+Follow the procedure to **authorize the application**:
+
+![](img/screen04-desktop-authorize.png)
+
+![](img/screen05-desktop-allow.png)
+
+Once the synchronization is set up, _Joplin Desktop_ will synchronize your data to the **`Apps/Joplin` folder** in your _Dropbox_ account:
+
+![](img/screen06-dropbox-content.png)
 
 ## Download zip backup from Dropbox
 
