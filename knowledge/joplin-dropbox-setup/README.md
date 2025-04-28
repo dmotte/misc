@@ -4,7 +4,7 @@ This guide explains how to set up **[Joplin](https://joplinapp.org/)** **end-to-
 
 ## Upload initial data to Dropbox
 
-It's recommended to use **Joplin Desktop** to **create your initial data** (notes, attachments, notebooks, etc.) because, unlike _Joplin Mobile_, it makes it much easier to start **from scratch**, i.e. without unwanted default notes and attachments.
+It's recommended to use **Joplin Desktop** to **create your initial data** (notes, attachments, notebooks, etc.) because, unlike _Joplin Mobile_, it makes it easy to start **from scratch**, i.e. without unwanted default notes and attachments.
 
 You can run _Joplin Desktop_ in a Docker container using [`dmotte/docker-xfwd`](https://github.com/dmotte/docker-xfwd):
 
@@ -83,7 +83,7 @@ You can do so by clicking on the alert itself:
 
 ![](img/screen14-mobile-set-psw-screen.png)
 
-After you **run the first synchronization** successfully, you'll notice that some items are created in the Dropbox `Apps/Joplin` folder: they are the **default notes and attachments** uploaded from the _Joplin Mobile_ app:
+After you **run the first synchronization** successfully, you'll notice that some items have been created in the Dropbox `Apps/Joplin` folder: they are the **default notes and attachments** uploaded from the _Joplin Mobile_ app:
 
 ![](img/screen15-mobile-created-remote-items.png)
 
@@ -113,6 +113,6 @@ Once the application opens, go to `Tools` &rarr; `Options` &rarr; `Synchronizati
 
 ![](img/screen17-desktop-sync-fs.png)
 
-> **Note**: you need to enter the path of the directory **where the `info.json` file is located**.
+> **Note**: basically you need to enter the path of the directory **where the `info.json` file is located**.
 
 Click on the `Apply` button. Then click on `Show Advanced Settings` and then on the `Delete local data and re-download from sync target` button.
