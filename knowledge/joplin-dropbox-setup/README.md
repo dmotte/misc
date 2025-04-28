@@ -63,7 +63,7 @@ Install the **[Joplin Mobile](https://play.google.com/store/apps/details?id=net.
 
 Let's keep it there for now; we will remove it later.
 
-To **set up synchronization** with your _Dropbox_ account, go to `Configuration` &rarr; `Synchronization`, set the `Synchronization target` to `Dropbox` and click `OK`. Then go back to the main screen and click on the `Synchronize` button:
+To **set up synchronization** with your _Dropbox_ account, go to `Configuration` &rarr; `Synchronization`, set the `Synchronization target` to `Dropbox` and click the save button. Then go back to the main screen and click on the `Synchronize` button:
 
 ![](img/screen09-mobile-synchronize.png)
 
@@ -73,15 +73,23 @@ Follow the procedure to **authorize the application**:
 
 ![](img/screen11-mobile-allow.png)
 
-TODO encryption
+Then click on the `Synchronize` button again. At this point, an alert should appear, saying that the remote data is end-to-end encrypted and you need to **set your decryption password**:
 
-After you **run the first synchronization**, you'll notice that some items are created in the Dropbox `Apps/Joplin` folder: they are the **default notes and attachments** uploaded from the _Joplin Mobile_ app:
+![](img/screen12-mobile-sync-fail.png)
 
-TODO img/screen12-mobile-TODO.png
+![](img/screen13-mobile-set-psw-alert.png)
 
-To get rid of them, after the first sync is completed, **replace all the content of the `Apps/Joplin` _Dropbox_ folder** with the content of the **zip file** you downloaded previously, and then run the synchronization again. This should force the _Joplin Mobile_ app to delete such unwanted items from its local storage.
+You can do so by clicking on the alert itself:
 
-TODO img/screen13-mobile-TODO.png
+![](img/screen14-mobile-set-psw-screen.png)
+
+After you **run the first synchronization** successfully, you'll notice that some items are created in the Dropbox `Apps/Joplin` folder: they are the **default notes and attachments** uploaded from the _Joplin Mobile_ app:
+
+![](img/screen15-mobile-created-remote-items.png)
+
+To get rid of them, after the first sync is completed, **replace all the content of the `Apps/Joplin` _Dropbox_ folder** with the content of the **zip file** you downloaded previously, and then run the synchronization again. This should force the _Joplin Mobile_ app to delete such unwanted items from its local storage:
+
+![](img/screen16-mobile-deleted-local-items.png)
 
 > **Note**: we use this custom approach to **forcefully delete** the default _Joplin Mobile_ notes and attachments because simply deleting them manually from the app **would only mark them as deleted**, but they would still remain in both the app's local storage and _Dropbox_. This is a quirk of how _Joplin_ handles deletions.
 
