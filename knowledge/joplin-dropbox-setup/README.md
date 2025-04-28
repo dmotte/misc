@@ -87,7 +87,7 @@ After you **run the first synchronization** successfully, you'll notice that som
 
 ![](img/screen15-mobile-created-remote-items.png)
 
-To get rid of them, after the first sync is completed, **replace all the content of the `Apps/Joplin` _Dropbox_ folder** with the content of the **zip file** you downloaded previously, and then run the synchronization again. This should force the _Joplin Mobile_ app to delete such unwanted items from its local storage:
+To get rid of them, after the first sync is completed, close the _Joplin Mobile_ app. While **keeping it closed** (so the synchronization cannot run), **replace all the content of the `Apps/Joplin` _Dropbox_ folder** with the content of the **zip file** you downloaded previously. Then run the synchronization again. This should force the _Joplin Mobile_ app to delete such unwanted items from its local storage:
 
 ![](img/screen16-mobile-deleted-local-items.png)
 
