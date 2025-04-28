@@ -1,6 +1,6 @@
 # joplin-dropbox-setup
 
-TODO intro
+This guide explains how to set up **[Joplin](https://joplinapp.org/)** synchronization with **[Dropbox](https://www.dropbox.com/)**, both on **PC** (with _Joplin Desktop_) and on an _Android_ **smartphone** (with the _Joplin Mobile_ app).
 
 ## Upload data to Dropbox
 
