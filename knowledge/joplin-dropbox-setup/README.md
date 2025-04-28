@@ -1,8 +1,8 @@
 # joplin-dropbox-setup
 
-This guide explains how to set up **[Joplin](https://joplinapp.org/)** **end-to-end encrypted** synchronization with **[Dropbox](https://www.dropbox.com/)**, both on **PC** (with _Joplin Desktop_) and on an _Android_ **smartphone** (with the _Joplin Mobile_ app).
+This guide explains how to set up **[Joplin](https://joplinapp.org/)** **end-to-end encrypted** synchronization with **[Dropbox](https://www.dropbox.com/)**, both on a **PC** (with _Joplin Desktop_) and on an _Android_ **smartphone** (with the _Joplin Mobile_ app).
 
-## Upload data to Dropbox
+## Upload initial data to Dropbox
 
 It's recommended to use **Joplin Desktop** to **create your initial data** (notes, attachments, notebooks, etc.) because, unlike _Joplin Mobile_, it makes it much easier to start **from scratch**, i.e. without unwanted default notes and attachments.
 
@@ -33,7 +33,7 @@ Now we need to enable **end-to-end encryption**: go to `Tools` &rarr; `Options` 
 
 Now you can **create your initial data**.
 
-To **set up synchronization** with your _Dropbox_ account, go to `Tools` &rarr; `Options` &rarr; `Synchronization`, set the `Synchronization target` to `Dropbox` and click `OK`. Then go back to the main screen and click the `Synchronize` button:
+To **set up synchronization** with your _Dropbox_ account, go to `Tools` &rarr; `Options` &rarr; `Synchronization`, set the `Synchronization target` to `Dropbox` and click `OK`. Then go back to the main screen and click on the `Synchronize` button:
 
 ![](img/screen03-desktop-synchronize.png)
 
@@ -49,7 +49,9 @@ Once the synchronization is set up, _Joplin Desktop_ will synchronize your data 
 
 ## Download zip backup from Dropbox
 
-TODO download the `Apps/Joplin` Dropbox folder as zip file. In order to do that, head over to the Dropbox web interface, click on the folder's three-dot icon (`More`) and click on `Download`. See screenshot
+You can download a backup (**zip** file) of your **encrypted Joplin data** from _Dropbox_ at any time: simply locate the **`Apps/Joplin` folder** in the _Dropbox_ web interface, click on the folder's **three-dot icon** (`More`) and then on `Download`:
+
+![](img/screen07-dropbox-download.png)
 
 ## Set up Joplin Mobile
 
