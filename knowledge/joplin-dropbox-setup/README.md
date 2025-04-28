@@ -95,10 +95,24 @@ To get rid of them, after the first sync is completed, **replace all the content
 
 ## Read zip backup using Joplin Desktop
 
-TODO extract the zip file to a directory
+This section explains how to read the contents of a **zip backup** (created with the procedure described in the [Download zip backup from Dropbox](#download-zip-backup-from-dropbox) section) using _Joplin Desktop_, without involving _Dropbox_ at all.
 
-TODO start _Joplin Desktop_ in a Docker container like described in the previous section, but mount the directory with the `-v ...` Docker option
+First of all, **extract** the contents of the zip archive to some directory on your PC. Example command:
 
-TODO set sync target to local filesystem directory
+```bash
+unzip -q Joplin.zip -d ~/mynotes
+```
 
-TODO force pull with `Delete local data and re-download from sync target`
+Then start _Joplin Desktop_ in a Docker container like we did in the [Upload initial data to Dropbox](#upload-initial-data-to-dropbox) section, but with an additional `-v` flag to the `docker run` command like the following, to **mount the extracted directory** in the container:
+
+```bash
+docker run ... -v"$HOME/mynotes:/mynotes" img-joplin01:latest
+```
+
+Once the application opens, go to `Tools` &rarr; `Options` &rarr; `Synchronization`, set the `Synchronization target` to `File system` and enter the full path of the **directory that contains the extracted content** (as seen from inside the container):
+
+![](img/screen17-desktop-sync-fs.png)
+
+> **Note**: you need to enter the path of the directory **where the `info.json` file is located**.
+
+Click on the `Apply` button. Then click on `Show Advanced Settings` and then on the `Delete local data and re-download from sync target` button.
