@@ -20,6 +20,21 @@ There are a lot of **graphical partitioning tools** that support creating _LUKS_
 
 Also [GNOME Disks](https://apps.gnome.org/DiskUtility/) supports creating encrypted partitions.
 
+If you want to use the **command line** instead (e.g. for systems without a graphical interface):
+
+```bash
+sudo cryptsetup luksFormat /dev/sdb1
+sudo cryptsetup open /dev/sdb1 sdb1-crypt
+sudo mkfs.ext4 /dev/mapper/sdb1-crypt
+sudo cryptsetup close sdb1-crypt
+```
+
+> **Note**: to install the `cryptsetup` tool on _Debian 12_ (_bookworm_): `sudo apt update && sudo apt install -y cryptsetup`
+
+> **Note**: the `cryptsetup luksFormat` and `cryptsetup open` commands will interactively ask you for the passphrase.
+
+> **Note**: the name `sdb1-crypt` is just an example; you can choose any name you want.
+
 ## Mounting an encrypted partition
 
 To **mount** an encrypted partition, you can use one of the **GUI tools** [mentioned above](#creating-an-encrypted-partition).
@@ -32,11 +47,7 @@ sudo mkdir /mnt/sdb1-crypt
 sudo mount /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
 ```
 
-> **Note**: to install the `cryptsetup` tool on _Debian 12_ (_bookworm_): `sudo apt update && sudo apt install -y cryptsetup`
-
 > **Note**: the `cryptsetup open` command will interactively ask you for the passphrase.
-
-> **Note**: the name `sdb1-crypt` is just an example; you can choose any name you want.
 
 To **unmount** the partition:
 
