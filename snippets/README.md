@@ -170,6 +170,15 @@ done
     { echo 'Timeout waiting for systemd user session' >&2; exit 1; }
 ```
 
+```bash
+dd if=/dev/zero of=myimage.img bs=1M count=1024 status=progress
+/usr/sbin/mkfs.ext4 myimage.img
+sudo mkdir /mnt/myimage
+sudo mount myimage.img /mnt/myimage
+
+sudo umount /mnt/myimage
+```
+
 ## Shell snippets for Docker
 
 - `docker run -it --rm docker.io/library/debian:12`
