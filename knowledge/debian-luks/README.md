@@ -35,6 +35,13 @@ sudo cryptsetup close sdb1-crypt
 
 > **Note**: the name `sdb1-crypt` is just an example; you can choose any name you want.
 
+You can also do the same using an **`.img` file** instead of a real partition:
+
+```bash
+dd if=/dev/zero of=myimage.img bs=1M count=1024 status=progress
+sudo cryptsetup luksFormat myimage.img
+```
+
 ## Mounting an encrypted partition
 
 To **mount** an encrypted partition, you can use one of the **GUI tools** [mentioned above](#creating-an-encrypted-partition).
