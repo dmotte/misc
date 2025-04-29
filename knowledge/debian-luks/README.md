@@ -32,6 +32,8 @@ sudo mkdir /mnt/sdb1-crypt
 sudo mount /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
 ```
 
+> **Note**: to install the `cryptsetup` tool on _Debian 12_ (_bookworm_): `sudo apt update && sudo apt install -y cryptsetup`
+
 > **Note**: the `cryptsetup luksOpen` command will interactively ask you for the passphrase.
 
 > **Note**: the name `sdb1-crypt` is just an example; you can choose any name you want.
