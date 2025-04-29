@@ -27,14 +27,14 @@ To **mount** an encrypted partition, you can use one of the **GUI tools** [menti
 If you want to use the **command line** instead (e.g. for systems without a graphical interface):
 
 ```bash
-sudo cryptsetup luksOpen /dev/sdb1 sdb1-crypt
+sudo cryptsetup open /dev/sdb1 sdb1-crypt
 sudo mkdir /mnt/sdb1-crypt
 sudo mount /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
 ```
 
 > **Note**: to install the `cryptsetup` tool on _Debian 12_ (_bookworm_): `sudo apt update && sudo apt install -y cryptsetup`
 
-> **Note**: the `cryptsetup luksOpen` command will interactively ask you for the passphrase.
+> **Note**: the `cryptsetup open` command will interactively ask you for the passphrase.
 
 > **Note**: the name `sdb1-crypt` is just an example; you can choose any name you want.
 
@@ -43,7 +43,7 @@ To **unmount** the partition:
 ```bash
 sudo umount /mnt/sdb1-crypt
 sudo rm -r /mnt/sdb1-crypt
-sudo cryptsetup luksClose sdb1-crypt
+sudo cryptsetup close sdb1-crypt
 ```
 
 ## Mounting at system startup
