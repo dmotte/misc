@@ -145,6 +145,8 @@ Some pieces of code I find useful for some reason.
 - `rclone check myremote:/remote-src-dir ./local-dest-dir`
 - `rclone --config=/dev/null serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass .`
 - `curl -fsSL https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
+- `ssh myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
+- `ssh myuser@192.168.0.123 -p2222 -NvL/tmp/my.sock:127.0.0.1:8080`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
