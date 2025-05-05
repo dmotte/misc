@@ -140,11 +140,11 @@ Some pieces of code I find useful for some reason.
 - `echo -e '[mygdrive]\ntype = drive\nscope = drive\nroot_folder_id = ...' > ~/.config/rclone/rclone.conf`, `rclone config reconnect mygdrive:`
 - `echo -e "[mycrypt]\ntype = crypt\nremote = mygdrive\npassword = $(echo mypass | rclone obscure -)" >> ~/.config/rclone/rclone.conf`
 - `rclone lsf myremote:`
-- `rclone --config=/dev/null lsf -R --format=pst . | LC_ALL=C sort`
+- `rclone --config= lsf -R --format=pst . | LC_ALL=C sort`
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dest-dir`
-- `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config=/dev/null sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
+- `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `rclone check myremote:/remote-src-dir ./local-dest-dir`
-- `rclone --config=/dev/null serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass .`
+- `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass .`
 - `curl -fsSL https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
 - `ssh myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
 - `ssh myuser@192.168.0.123 -p2222 -NvL/tmp/my.sock:127.0.0.1:8080`
