@@ -18,11 +18,11 @@ runs:
       env:
         INPUT_PRINT: ${{ inputs.print }}
       run: |
-        env_before_script=$(env | LC_ALL=C sort)
+        env_before_script=$(env | LC_ALL=C sort -t= -k1,1)
 
         ${{ inputs.script }}
 
-        env_after_script=$(env | LC_ALL=C sort)
+        env_after_script=$(env | LC_ALL=C sort -t= -k1,1)
 
         get_changed_env_vars() {
             comm -13 <(echo "$env_before_script") <(echo "$env_after_script")
