@@ -136,6 +136,7 @@ Some pieces of code I find useful for some reason.
   - `restic snapshots`, `restic ls latest`, `restic check --read-data`
   - `restic restore latest -t my-target-dir`
 - `RCLONE_CONFIG=rclone.conf rclone config`, `rclone config --config=rclone.conf`
+- `RCLONE_CONFIG= rclone config file`, `rclone --config= config file`
 - `echo -e '[mygdrive]\ntype = drive\nscope = drive\nroot_folder_id = ...' > ~/.config/rclone/rclone.conf`, `rclone config reconnect mygdrive:`
 - `echo -e "[mycrypt]\ntype = crypt\nremote = mygdrive\npassword = $(echo mypass | rclone obscure -)" >> ~/.config/rclone/rclone.conf`
 - `rclone lsf myremote:`
