@@ -5,7 +5,7 @@ set -e
 # This script produces a report about your Git repo in which, for each line of
 # code, the timestamp it was written is reported
 
-# Usage example: ./git-code-age.sh | LC_ALL=C sort -t, -k1
+# Usage example: ./git-code-age.sh | LC_ALL=C sort -t, -k1,1n
 
 [ -z "$1" ] || cd "$1"
 
