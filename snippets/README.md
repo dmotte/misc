@@ -38,7 +38,7 @@ Some pieces of code I find useful for some reason.
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
-- `find mydir -printf '%y %T@ %s %P\n' | LC_ALL=C sort -k4`
+- `find mydir -mindepth 1 -printf '%y %T@ %s %P\n' | LC_ALL=C sort -k4`
 - `find mydir -type d -printf 'DIR -1 %P/\n' -o -type f -printf '%T@ %s %P\n' | LC_ALL=C sort -k3`
 - `find . -type f -exec sha256sum {} +`
 - `tree -paugh --inodes`
