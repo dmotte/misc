@@ -141,7 +141,7 @@ Some pieces of code I find useful for some reason.
 - `echo -e '[mygdrive]\ntype = drive\nscope = drive\nroot_folder_id = ...' > ~/.config/rclone/rclone.conf`, `rclone config reconnect mygdrive:`
 - `echo -e "[mycrypt]\ntype = crypt\nremote = mygdrive\npassword = $(echo mypass | rclone obscure -)" >> ~/.config/rclone/rclone.conf`
 - `rclone lsf myremote:`
-- `rclone --config= lsf -R --format=pst --time-format=RFC3339 . | LC_ALL=C sort -t\; -k1,1 | sed -E 's/\/;-1;[^;]+$/\/;-1;DIR/'`
+- `rclone --config= lsf -R --format=pst --time-format=RFC3339 . | sed -E 's/\/;-1;[^;]+$/\/;-1;DIR/' | LC_ALL=C sort -t\; -k1,1`
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dest-dir`
 - `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `rclone check myremote:/remote-src-dir ./local-dest-dir`
