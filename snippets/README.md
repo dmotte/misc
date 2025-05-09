@@ -146,6 +146,7 @@ Some pieces of code I find useful for some reason.
 - `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `rclone check myremote:/remote-src-dir ./local-dest-dir`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass .`
+- `rclone --config= serve -v webdav --dir-cache-time=0 --disable-dir-list --addr=unix:///tmp/my.sock .`
 - `curl -fsSL https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
 - `ssh myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
 - `ssh myuser@192.168.0.123 -p2222 -NvL/tmp/my.sock:127.0.0.1:8080`

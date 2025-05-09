@@ -32,7 +32,7 @@ Now upload your new blank Git bare repo onto the `mycrypt` remote:
 And finally you can **serve** your end-to-end encrypted Git remote with **WebDAV**:
 
 ```bash
-./rclone serve webdav -v --dir-cache-time=0 --disable-dir-list --addr=127.0.0.1:8001 --user=git --pass=changeme mycrypt:/
+./rclone serve -v webdav --dir-cache-time=0 --disable-dir-list --addr=127.0.0.1:8001 --user=git --pass=changeme mycrypt:/
 ```
 
 > **Warning**: this is just an example. It's considered a bad practice to specify passwords with command-line flags.
