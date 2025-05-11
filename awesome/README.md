@@ -178,7 +178,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 - **Devbox** - portable, isolated and reproducible development environments: [github](https://github.com/jetify-com/devbox) [website](https://www.jetify.com/devbox)
 - **Glances** - cross-platform system monitoring tool written in Python: [apt](https://packages.debian.org/bookworm/glances) [github](https://github.com/nicolargo/glances) [pypi](https://pypi.org/project/Glances/) [website](https://nicolargo.github.io/glances/)
-- **PRoot** - chroot, mount --bind, and binfmt_misc without privilege/setup. Rootless fake root wrapper rootfs, also works in Termux: [docs](https://wiki.termux.com/wiki/PRoot) [github](https://github.com/proot-me/proot) [website](https://proot-me.github.io/)
+- **PRoot** - chroot, mount --bind, and binfmt_misc without privilege/setup. Rootless fake root wrapper rootfs, also works in Termux: [apt](https://packages.debian.org/bookworm/proot) [docs](https://wiki.termux.com/wiki/PRoot) [github](https://github.com/proot-me/proot) [website](https://proot-me.github.io/)
 - **Podman** - tool for managing OCI containers and pods, similar to Docker but rootless and daemonless: [apt](https://packages.debian.org/bookworm/podman) [github](https://github.com/containers/podman) [website](https://podman.io/)
 - **Termshark** - terminal TUI for tshark, inspired by Wireshark: [apt](https://packages.debian.org/bookworm/termshark) [github](https://github.com/gcla/termshark) [website](https://termshark.io/)
 - **Trivy** - vulnerability/misconfiguration/secret scanner for container images, repos, servers, projects and other artifacts: [docker](https://hub.docker.com/r/aquasec/trivy) [github](https://github.com/aquasecurity/trivy) [website](https://aquasecurity.github.io/trivy/)
