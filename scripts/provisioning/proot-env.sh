@@ -2,8 +2,8 @@
 
 set -e
 
-# This script can be used to set up a standalone installation of a specific
-# version of PRoot with a custom tarball in a specific directory
+# This script can be used to set up a PRoot environment using a custom tarball
+# in a specific directory
 
 # Tested on Debian 12 (bookworm)
 
@@ -11,21 +11,18 @@ set -e
 # unprivileged Podman container (i.e. created by a regular user on the host)
 
 # Usage example:
-#   ./standalone-proot.sh --cwd=/root myproot --kernel-release=5.4.0-faked
-#   myproot/main.sh uname -a
+#   ./proot-env.sh --cwd=/root myproot --kernel-release=5.4.0-faked
+#   ./myproot/main.sh uname -a
 
 # Useful links:
 # - https://proot-me.github.io/
 # - https://wiki.termux.com/wiki/PRoot
 # - https://github.com/termux/proot-distro/blob/master/proot-distro.sh
 
-options=$(getopt -o + -l binary-url: -l binary-checksum: \
-    -l tarball-url: -l tarball-checksum: -l tarball-top-dir: \
-    -l cwd: -- "$@")
+options=$(getopt -o + -l tarball-url: -l tarball-checksum: \
+    -l tarball-top-dir: -l cwd: -- "$@")
 eval "set -- $options"
 
-binary_url=https://proot.gitlab.io/proot/bin/proot
-binary_checksum=''
 tarball_url=https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz
 tarball_checksum=''
 tarball_top_dir=debian-bookworm-x86_64
@@ -33,8 +30,6 @@ cwd=/
 
 while :; do
     case $1 in
-        --binary-url) shift; binary_url=$1;;
-        --binary-checksum) shift; binary_checksum=$1;;
         --tarball-url) shift; tarball_url=$1;;
         --tarball-checksum) shift; tarball_checksum=$1;;
         --tarball-top-dir) shift; tarball_top_dir=$1;;
@@ -56,19 +51,9 @@ fi
 
 mkdir -p "$install_dir"
 
-readonly binary_path="$install_dir/proot"
 readonly tarball_path="$install_dir/tarball.tar.xz"
 readonly rootfs_path="$install_dir/rootfs"
 readonly main_sh_path="$install_dir/main.sh"
-
-echo "Downloading PRoot binary $binary_url to $binary_path"
-curl -fLo "$binary_path" "$binary_url"
-
-if [ -n "$binary_checksum" ]; then
-    echo "$binary_checksum $binary_path" | sha256sum -c
-fi
-
-chmod +x "$binary_path"
 
 echo "Downloading tarball $tarball_url to $tarball_path"
 curl -fLo "$tarball_path" "$tarball_url"
@@ -93,7 +78,7 @@ basedir=\$(dirname "\$0")
 
 if [ \$# = 0 ]; then set -- bash; fi
 
-exec "\$basedir/proot" \\
+exec proot \\
     --rootfs="\$basedir/rootfs" --root-id --cwd=${cwd@Q} \\
     --bind=/{dev,proc,sys,tmp} \\
     --bind=/etc/{host.conf,hosts,nsswitch.conf,resolv.conf} \\
