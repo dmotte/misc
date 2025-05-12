@@ -34,17 +34,17 @@ def main(argv=None):
 
     parser.add_argument('-i', '--interval', type=int, default=5 * 60,
                         help='Interval for the main loop (in seconds) '
-                        '(default: 5 * 60)')
+                        '(default: %(default)s)')
 
     parser.add_argument('-l', '--load05', type=float, default=1.0,
                         help='Threshold for the maximum load in the last 5 '
-                        'minutes (default: 1.0)')
+                        'minutes (default: %(default)s)')
     parser.add_argument('-m', '--mem-avail-mb', type=float, default=1024,
                         help='Threshold for the minimum available memory '
-                        '(in megabytes) (default: 1024)')
+                        '(in megabytes) (default: %(default)s)')
     parser.add_argument('-s', '--swap-free-mb', type=float, default=1024,
                         help='Threshold for the minimum free swap memory '
-                        '(in megabytes) (default: 1024)')
+                        '(in megabytes) (default: %(default)s)')
 
     parser.add_argument('-p', '--ignore-partitions', type=str, default='',
                         help='Comma-separated list of partitions to skip '
@@ -52,21 +52,23 @@ def main(argv=None):
                         '(default: none)')
     parser.add_argument('-b', '--boot-free-mb', type=float, default=100,
                         help='Threshold for the minimum free disk space on '
-                        'boot partitions (in megabytes) (default: 100)')
+                        'boot partitions (in megabytes) (default: '
+                        '%(default)s)')
     parser.add_argument('-f', '--disk-free-mb', type=float, default=10240,
                         help='Threshold for the minimum free disk space on '
-                        'normal partitions (in megabytes) (default: 10240)')
+                        'normal partitions (in megabytes) (default: '
+                        '%(default)s)')
 
     parser.add_argument('-k', '--disk-io-kbps', type=float, default=1024,
                         help='Threshold for the maximum disk I/O throughput '
-                        '(in kilobytes per second) (default: 1024)')
+                        '(in kilobytes per second) (default: %(default)s)')
     parser.add_argument('-n', '--net-io-kbps', type=float, default=1024,
                         help='Threshold for the maximum network I/O throughput '
-                        '(in kilobytes per second) (default: 1024)')
+                        '(in kilobytes per second) (default: %(default)s)')
 
     parser.add_argument('-t', '--temp', type=float, default=50,
                         help='Threshold for the maximum temperature '
-                        '(in degrees Celsius) (default: 50)')
+                        '(in degrees Celsius) (default: %(default)s)')
 
     args = parser.parse_args(argv[1:])
     args.ignore_partitions = [] if args.ignore_partitions == '' \

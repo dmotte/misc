@@ -23,7 +23,7 @@ def main(argv=None):
 
     parser.add_argument('-i', '--interval', type=str, default='5m',
                         help='Length of time each candle represents '
-                        '(default: 5m)')
+                        '(default: %(default)s)')
 
     parser.add_argument('-d', '--dt-start', type=lambda x: dup.parse(x),
                         default=dt.now(tz.utc) - timedelta(hours=1),

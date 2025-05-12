@@ -31,7 +31,7 @@ def main(argv=None):
 
     parser.add_argument('-i', '--interval', type=str, default='1d',
                         help='Length of time each candle represents '
-                        '(default: 1d)')
+                        '(default: %(default)s)')
 
     parser.add_argument('-d', '--dt-start', type=lambda x: dup.parse(x),
                         default=dt.now().astimezone() - timedelta(days=30),

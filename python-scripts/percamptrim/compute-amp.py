@@ -71,16 +71,16 @@ def main(argv=None):
     parser.add_argument('file_in', metavar='FILE_IN', type=str,
                         nargs='?', default='-',
                         help='Input file. If set to "-" then stdin is used '
-                        '(default: -)')
+                        '(default: %(default)s)')
     parser.add_argument('file_out', metavar='FILE_OUT', type=str,
                         nargs='?', default='-',
                         help='Output file. If set to "-" then stdout is used '
-                        '(default: -)')
+                        '(default: %(default)s)')
 
     parser.add_argument('-p', '--perc-clipping', type=float, default=0.0001,
                         help='Percentage (from 0 to 1) of samples of the '
                         'trimmed audio that are allowed to clip '
-                        '(default: 0.0001)')
+                        '(default: %(default)s)')
 
     parser.add_argument('-f', '--format', type=str, default='',
                         help='If specified, formats the float values with this '

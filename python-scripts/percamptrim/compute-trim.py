@@ -85,20 +85,20 @@ def main(argv=None):
     parser.add_argument('file_in', metavar='FILE_IN', type=str,
                         nargs='?', default='-',
                         help='Input file. If set to "-" then stdin is used '
-                        '(default: -)')
+                        '(default: %(default)s)')
     parser.add_argument('file_out', metavar='FILE_OUT', type=str,
                         nargs='?', default='-',
                         help='Output file. If set to "-" then stdout is used '
-                        '(default: -)')
+                        '(default: %(default)s)')
 
     parser.add_argument('-l', '--level-start', type=float, default=0.0005,
                         help='Threshold (from 0 to 1) for trimming the start '
                         'of the audio. If 0, the start will not be trimmed '
-                        '(default: 0.0005)')
+                        '(default: %(default)s)')
     parser.add_argument('-L', '--level-end', type=float, default=0.0005,
                         help='Threshold (from 0 to 1) for trimming the end '
                         'of the audio. If 0, the end will not be trimmed '
-                        '(default: 0.0005)')
+                        '(default: %(default)s)')
 
     parser.add_argument('-f', '--format', type=str, default='',
                         help='If specified, formats the float values with this '
