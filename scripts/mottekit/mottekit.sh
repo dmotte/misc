@@ -31,8 +31,7 @@ subcmd_info() {
     find_with_category() { find "${1:?}" -type f -name "${2:?}" \
         -printf "${3:?} %P\n"; }
 
-    # We generate fake paths for builtin subcommands
-    items=$(printf 'builtin %s.sh\n' "${builtin_subcmds[@]}")
+    items=$(printf 'builtin %s\n' "${builtin_subcmds[@]}")
 
     if [ -e "$basedir/overrides" ]; then
         items+=$'\n'$(find_with_category "$basedir/overrides" '*.sh' overrides)
@@ -43,7 +42,7 @@ subcmd_info() {
     done
 
     echo "$items" | while read -r category subpath; do
-        echo "- ($category) ${subpath%.sh}"
+        echo "- ($category) ${subpath%.*}"
     done
 }
 # shellcheck disable=SC2317
