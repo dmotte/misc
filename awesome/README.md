@@ -350,8 +350,8 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 ## Visual Studio Code Extensions
 
 - **C/C++** - add language support for C/C++: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+- **Container Tools** - makes it easy to create, manage, and debug containerized applications: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers)
 - **Dart** - support for the Dart programming language: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=dart-code.dart-code)
-- **Docker** - build, manage, and deploy containerized applications: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 - **DotENV** - syntax highlighting support for Environment (.env) files: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
 - **Excel Viewer** - custom editors and previews for CSV files and Excel spreadsheets: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=grapecity.gc-excelviewer)
 - **Flutter** - support for effectively editing, refactoring, running, and reloading Flutter mobile apps: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=dart-code.flutter)
