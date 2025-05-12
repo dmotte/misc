@@ -1,0 +1,13 @@
+# multiserve
+
+This script can be used to **serve a directory via HTTP**, like `python3 -mhttp.server`, but with support for **dir path translations**.
+
+## Usage
+
+> **Important**: this has been tested with **Python 3.11.2** on **Debian 12** (_bookworm_).
+
+Example:
+
+```bash
+python3 main.py -b127.0.0.1 -P8080 -dwww /img www-img
+```
