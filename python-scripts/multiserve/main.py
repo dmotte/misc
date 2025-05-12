@@ -34,7 +34,7 @@ def main(argv=None):
 
     parser.add_argument('-p', '--protocol', type=str, default='HTTP/1.0',
                         help='Conform to this HTTP version (default: '
-                             '%(default)s)')
+                        '%(default)s)')
 
     parser.add_argument('-d', '--directory', type=str, default=os.getcwd(),
                         help='Serve this directory (default: current '
