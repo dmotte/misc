@@ -28,18 +28,18 @@ subcmd_info() {
     echo 'Available subcommands:'
     echo
 
-    find_with_category() { find "${1:?}" -type f -name '*.sh' \
-        -printf "${2:?} %P\n"; }
+    find_with_category() { find "${1:?}" -type f -name "${2:?}" \
+        -printf "${3:?} %P\n"; }
 
     # We generate fake paths for builtin subcommands
     items=$(printf 'builtin %s.sh\n' "${builtin_subcmds[@]}")
 
     if [ -e "$basedir/overrides" ]; then
-        items+=$'\n'$(find_with_category "$basedir/overrides" overrides)
+        items+=$'\n'$(find_with_category "$basedir/overrides" '*.sh' overrides)
     fi
 
     for i in sub ..; do
-        items+=$'\n'$(find_with_category "$basedir/$i" "$i")
+        items+=$'\n'$(find_with_category "$basedir/$i" '*.sh' "$i")
     done
 
     echo "$items" | while read -r category subpath; do
