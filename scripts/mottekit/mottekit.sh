@@ -32,6 +32,9 @@ print_subcmds() {
             *.py) name="${name%.py}";;
         esac
 
+        local bn; bn=${name##*/}
+        [ "$name" != "$bn/$bn" ] || name="$bn"
+
         echo "$category $name"
     done
 
@@ -39,6 +42,9 @@ print_subcmds() {
         -type f -name 'cli.py' -printf "pypkg %P\n" |
     while read -r category name; do
         name="${name%/cli.py}"
+
+        local bn; bn=${name##*/}
+        [ "$name" != "$bn/$bn" ] || name="$bn"
 
         echo "$category $name"
     done
@@ -56,11 +62,11 @@ get_subcmd_path() {
     done
 
     for i in \
-        "$basedir/overrides/$name"{,/main}.{sh,py} \
-        "$basedir/sub/$name"{,/main}.{sh,py} \
-        "$basedir/../$name"{,/main}.sh \
-        "$basedir/../../python-scripts/$name"{,/main}.py \
-        "$basedir/../../../$name/cli.py" \
+        "$basedir/overrides/$name"{,/main,"/$name"}.{sh,py} \
+        "$basedir/sub/$name"{,/main,"/$name"}.{sh,py} \
+        "$basedir/../$name"{,/main,"/$name"}.sh \
+        "$basedir/../../python-scripts/$name"{,/main,"/$name"}.py \
+        "$basedir/../../../$name"{,"/$name"}/cli.py \
     ; do
         [ -e "$i" ] || continue
         echo "$i"; return
