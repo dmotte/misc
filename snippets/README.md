@@ -213,6 +213,9 @@ gpg -k && gpg -K
 
 gpg --passwd mykey
 
+gpg -er mykey myfile.txt; gpg -do myfile.txt myfile.txt.gpg
+date | gpg -aer mykey -o mymsg.txt.asc; gpg -d mymsg.txt.asc
+
 gpg --delete-secret-and-public-key mykey
 ```
 
