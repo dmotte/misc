@@ -6,6 +6,64 @@ basedir=$(dirname "$0")
 
 readonly builtin_subcmds=(info help version update source sudo)
 
+# Prints all the subcommands in the format "category name"
+# shellcheck disable=SC2317
+print_subcmds() {
+    {
+        printf 'builtin %s\n' "${builtin_subcmds[@]}"
+
+        if [ -e "$basedir/overrides" ]; then
+            find "$basedir/overrides" -type f -name '*.sh' -printf "ovr %P\n"
+            find "$basedir/overrides" -type f -name '*.py' -printf "ovr %P\n"
+        fi
+
+        find "$basedir/sub" -type f -name '*.sh' -printf "sub %P\n"
+        find "$basedir/sub" -type f -name '*.py' -printf "sub %P\n"
+
+        find "$basedir/.." -type f -name '*.sh' -printf ".. %P\n"
+
+        find "$basedir/../../python-scripts" -mindepth 2 -maxdepth 2 \
+            -type f -name '*.py' -printf "pyscr %P\n"
+
+        find "$basedir/../../.." -mindepth 3 -maxdepth 3 \
+            -type f -name 'cli.py' -printf "pypkg %P\n"
+    } | while read -r category name; do
+        name="${name%/main.sh}"
+        name="${name%/main.py}"
+        name="${name%/cli.py}"
+        name="${name%.*}"
+
+        echo "$category $name"
+    done
+}
+
+# Prints the path of a subcommand's script file, or "builtin" if builtin, or
+# "none" if not found
+# shellcheck disable=SC2317
+get_subcmd_path() {
+    local name=${1:?}
+
+    for i in "${builtin_subcmds[@]}"; do
+        [ "$i" = "$name" ] || continue
+        echo builtin; return
+    done
+
+    for i in \
+        "$basedir/overrides/$name".{sh,py} \
+        "$basedir/sub/$name".{sh,py} \
+        "$basedir/../$name.sh" \
+        "$basedir/../$name/main.sh" \
+        "$basedir/../../python-scripts/$name.py" \
+        "$basedir/../../python-scripts/$name/main.py" \
+        "$basedir/../../../$name/cli.py" \
+    ; do
+        [ -e "$i" ] || continue
+        echo "$i"; return
+    done
+
+    echo none
+}
+
 # shellcheck disable=SC2317
 subcmd_info() {
     echo " __  __       _   _       _  ___ _   "
@@ -27,23 +85,8 @@ subcmd_info() {
     echo
     echo 'Available subcommands:'
     echo
-
-    find_with_category() { find "${1:?}" -type f -name "${2:?}" \
-        -printf "${3:?} %P\n"; }
-
-    items=$(printf 'builtin %s\n' "${builtin_subcmds[@]}")
-
-    if [ -e "$basedir/overrides" ]; then
-        items+=$'\n'$(find_with_category "$basedir/overrides" '*.sh' overrides)
-    fi
-
-    for i in sub ..; do
-        items+=$'\n'$(find_with_category "$basedir/$i" '*.sh' "$i")
-    done
-
-    echo "$items" | while read -r category subpath; do
-        echo "- ($category) ${subpath%.*}"
-    done
+    local items; items=$(print_subcmds)
+    echo "$items" | sed -E 's/^([^ ]+) (.+)$/- (\1) \2/'
 }
 # shellcheck disable=SC2317
 subcmd_help() { subcmd_info "$@"; }
@@ -52,6 +95,7 @@ subcmd_version() { subcmd_info "$@"; }
 
 # shellcheck disable=SC2317
 subcmd_update() {
+    local reporoot reposdir
     reporoot=$(git -C "$basedir" rev-parse --show-toplevel)
     reposdir=$(dirname "$reporoot")
 
@@ -69,15 +113,16 @@ subcmd_update() {
 
 # shellcheck disable=SC2317
 subcmd_source() {
-    readonly subcmd_name=${1:?}
+    local name=${1:?}
 
-    for i in "$basedir"/{overrides,sub,..}/"$subcmd_name.sh"; do
-        [ -e "$i" ] || continue
-        # shellcheck disable=SC2093
-        exec cat "$i"
-    done
+    local path; path=$(get_subcmd_path "$name")
 
-    echo "Subcommand not found: $subcmd_name" >&2; exit 1
+    [ "$path" != builtin ] ||
+        { echo "Subcommand $name is builtin" >&2; exit 1; }
+    [ "$path" != none ] ||
+        { echo "Subcommand $name not found" >&2; exit 1; }
+
+    exec cat "$path"
 }
 
 # shellcheck disable=SC2317
@@ -85,17 +130,57 @@ subcmd_sudo() { exec sudo bash "$0" "$@"; }
 
 ################################################################################
 
-readonly subcmd=${1:-"${builtin_subcmds[0]}"}; shift || :
+name=${1:-"${builtin_subcmds[0]}"}; shift || :
 
-for i in "${builtin_subcmds[@]}"; do
-    [ "$i" != "$subcmd" ] || { "subcmd_$i" "$@"; exit; }
-done
-for i in "$basedir"/{overrides,sub,..}/"$subcmd.sh"; do
-    [ -e "$i" ] || continue
-    path=$(realpath "$i")
-    # shellcheck disable=SC2093
-    exec bash "$path" "$@"
-done
+path=$(get_subcmd_path "$name")
 
-echo "Invalid MotteKit subcommand: $subcmd. Run \"mottekit help\" for help" >&2
-exit 1
+[ "$path" != none ] || {
+    echo "Invalid MotteKit subcommand: $name." \
+        'Run "mottekit help" for help' >&2
+    exit 1
+}
+
+[ "$path" != builtin ] || { "subcmd_$name" "$@"; exit; }
+
+path=$(realpath "$path")
+
+[[ "$path" = *.sh ]] && exec bash "$path" "$@"
+
+if [[ "$(uname)" = MINGW* ]]; then py=python; else py=python3; fi
+if [[ "$(uname)" = MINGW* ]]
+    then venvpy=venv/Scripts/python
+    else venvpy=venv/bin/python3
+fi
+
+[[ "$path" = */cli.py ]] && {
+    [ -d "$basedir/venv" ] || {
+        echo "Creating venv $basedir/venv" >&2
+        "$py" -mvenv "$basedir/venv"
+    }
+
+    pkgpath=$(realpath "$(dirname "$path")/..")
+    pkgname=$(basename "$pkgpath")
+    entrypoint=$(basename "$(dirname "$path")")
+
+    "$basedir/$venvpy" -mpip show "$pkgname" >/dev/null 2>&1 ||
+        "$basedir/$venvpy" -mpip install -e "$pkgpath"
+
+    exec "$basedir/$venvpy" -m"$entrypoint" "$@"
+}
+[[ "$path" = *.py ]] && {
+    dirpath=$(realpath "$(dirname "$path")")
+
+    if [ -e "$dirpath/requirements.txt" ] &&
+        grep -Fx '/venv/' "$dirpath/.gitignore" >/dev/null 2>&1; then
+        [ -d "$dirpath/venv" ] || {
+            echo "Creating venv $dirpath/venv" >&2
+            "$py" -mvenv "$dirpath/venv"
+
+            "$dirpath/$venvpy" -mpip install -r "$dirpath/requirements.txt"
+        }
+
+        exec "$dirpath/$venvpy" "$path" "$@"
+    else
+        exec "$py" "$path" "$@"
+    fi
+}
