@@ -216,6 +216,12 @@ gpg --passwd mykey
 gpg -er mykey myfile.txt; gpg -do myfile.txt myfile.txt.gpg
 date | gpg -aer mykey -o mymsg.txt.asc; gpg -d mymsg.txt.asc
 
+gpg -ao mykey-pub.asc --export mykey; gpg -ao mykey-sec.asc --export-secret-key mykey
+gpg --import mykey-pub.asc mykey-sec.asc
+
+gpg --export-ownertrust > otrust.txt
+rm ~/.gnupg/trustdb.gpg && gpg --import-ownertrust < otrust.txt
+
 gpg --delete-secret-and-public-key mykey
 ```
 
