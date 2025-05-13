@@ -58,10 +58,8 @@ get_subcmd_path() {
     for i in \
         "$basedir/overrides/$name".{sh,py} \
         "$basedir/sub/$name".{sh,py} \
-        "$basedir/../$name.sh" \
-        "$basedir/../$name/main.sh" \
-        "$basedir/../../python-scripts/$name.py" \
-        "$basedir/../../python-scripts/$name/main.py" \
+        "$basedir/../$name"{,/main}.sh \
+        "$basedir/../../python-scripts/$name"{,/main}.py \
         "$basedir/../../../$name/cli.py" \
     ; do
         [ -e "$i" ] || continue
