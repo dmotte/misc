@@ -24,14 +24,21 @@ print_subcmds() {
 
         find "$basedir/../../python-scripts" -mindepth 2 -maxdepth 2 \
             -type f -name '*.py' -printf "pyscr %P\n"
-
-        find "$basedir/../../.." -mindepth 3 -maxdepth 3 \
-            -type f -name 'cli.py' -printf "pypkg %P\n"
     } | while read -r category name; do
-        name="${name%/main.sh}"
-        name="${name%/main.py}"
+        case $name in
+            */main.sh) name="${name%/main.sh}";;
+            */main.py) name="${name%/main.py}";;
+            *.sh) name="${name%.sh}";;
+            *.py) name="${name%.py}";;
+        esac
+
+        echo "$category $name"
+    done
+
+    find "$basedir/../../.." -mindepth 3 -maxdepth 3 \
+        -type f -name 'cli.py' -printf "pypkg %P\n" |
+    while read -r category name; do
         name="${name%/cli.py}"
-        name="${name%.*}"
 
         echo "$category $name"
     done
