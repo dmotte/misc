@@ -16,6 +16,14 @@ bash ~/.ghdmotte/misc/scripts/mottekit/install.sh ~/.ghdmotte/misc
 mottekit github-bak-all-repos users/dmotte ~/.ghdmotte
 ```
 
+## Additional requirements
+
+In order to make the **Python scripts** work, you also need to install the following packages:
+
+```bash
+sudo apt-get update && sudo apt-get install -y python3-pip python3-venv
+```
+
 ## Usage
 
 ```bash
