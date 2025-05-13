@@ -220,7 +220,7 @@ gpg -ao mykey-pub.asc --export mykey; gpg -ao mykey-sec.asc --export-secret-key 
 gpg --import mykey-pub.asc mykey-sec.asc
 
 gpg --export-ownertrust > otrust.txt
-rm ~/.gnupg/trustdb.gpg && gpg --import-ownertrust < otrust.txt
+rm ~/.gnupg/trustdb.gpg && gpg --import-ownertrust otrust.txt
 
 gpg --delete-secret-and-public-key mykey
 ```
