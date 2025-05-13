@@ -48,6 +48,14 @@ print_subcmds() {
 
         echo "$category $name"
     done
+
+    find "$basedir/../../.." -mindepth 3 -maxdepth 3 \
+        -type f -path '*/example/*.py' -printf "pyscr %P\n" |
+    while read -r category name; do
+        name="${name%.py}"
+
+        echo "$category $name"
+    done
 }
 
 # Prints the path of a subcommand's script file, or "builtin" if builtin, or
@@ -67,6 +75,7 @@ get_subcmd_path() {
         "$basedir/../$name"{,/main,"/$name"}.sh \
         "$basedir/../../python-scripts/$name"{,/main,"/$name"}.py \
         "$basedir/../../../$name"{,"/$name"}/cli.py \
+        "$basedir/../../../$name.py" \
     ; do
         [ -e "$i" ] || continue
         echo "$i"; return
