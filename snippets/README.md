@@ -193,6 +193,29 @@ fuse2fs myimage.img ~/myimage
 fusermount -u ~/myimage
 ```
 
+```bash
+gpg --full-gen-key
+
+gpg --batch --gen-key << 'EOF'
+Key-Type: EDDSA
+Key-Curve: ed25519
+Key-Usage: sign
+Subkey-Type: ECDH
+Subkey-Curve: cv25519
+Subkey-Usage: encrypt
+Passphrase: abc
+Name-Real: mykey
+Expire-Date: 0
+%commit
+EOF
+
+gpg -k && gpg -K
+
+gpg --passwd mykey
+
+gpg --delete-secret-and-public-key mykey
+```
+
 ## Shell snippets for Docker
 
 - `docker run -it --rm docker.io/library/debian:12`
