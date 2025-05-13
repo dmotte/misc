@@ -9,16 +9,16 @@ readonly builtin_subcmds=(info help version update source sudo)
 # Prints all the subcommands in the format "category name"
 # shellcheck disable=SC2317
 print_subcmds() {
-    {
-        printf 'builtin %s\n' "${builtin_subcmds[@]}"
+    printf 'builtin %s\n' "${builtin_subcmds[@]}"
 
+    {
         if [ -e "$basedir/overrides" ]; then
-            find "$basedir/overrides" -type f -name '*.sh' -printf "ovr %P\n"
-            find "$basedir/overrides" -type f -name '*.py' -printf "ovr %P\n"
+            find "$basedir/overrides" -type f \
+                \( -name '*.sh' -o -name '*.py' \) -printf "ovr %P\n"
         fi
 
-        find "$basedir/sub" -type f -name '*.sh' -printf "sub %P\n"
-        find "$basedir/sub" -type f -name '*.py' -printf "sub %P\n"
+        find "$basedir/sub" -type f \
+            \( -name '*.sh' -o -name '*.py' \) -printf "sub %P\n"
 
         find "$basedir/.." -type f -name '*.sh' -printf ".. %P\n"
 
@@ -85,8 +85,7 @@ subcmd_info() {
     echo
     echo 'Available subcommands:'
     echo
-    local items; items=$(print_subcmds)
-    echo "$items" | sed -E 's/^([^ ]+) (.+)$/- (\1) \2/'
+    print_subcmds | sed -E 's/^([^ ]+) (.+)$/- (\1) \2/'
 }
 # shellcheck disable=SC2317
 subcmd_help() { subcmd_info "$@"; }
