@@ -221,6 +221,8 @@ gpg --import mykey-pub.asc mykey-sec.asc
 
 gpg --export-ownertrust > otrust.txt
 rm ~/.gnupg/trustdb.gpg && gpg --import-ownertrust otrust.txt
+gpg --edit-key 0123456789ABCDEF0123456789ABCDEF01234567 trust quit
+echo '0123456789ABCDEF0123456789ABCDEF01234567:6:' | gpg --import-ownertrust
 
 gpg --delete-secret-and-public-key mykey
 ```
