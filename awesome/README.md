@@ -350,8 +350,8 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## AI models
 
-- **Hugging Face Space: OpenDalle V1.1 GPU Demo** - image generation AI: [website](https://huggingface.co/spaces/mrfakename/OpenDalleV1.1-GPU-Demo)
-- **Hugging Face Space: SmallThinker-3B Chat Demo** - text-based AI: [website](https://huggingface.co/spaces/PowerInfer/SmallThinker-Demo)
+- **OpenDalle V1.1** - image generation AI: [webapp](https://huggingface.co/spaces/mrfakename/OpenDalleV1.1-GPU-Demo) [website](https://huggingface.co/dataautogpt3/OpenDalleV1.1)
+- **SmallThinker-3B Chat** - text-based chat AI: [webapp](https://huggingface.co/spaces/PowerInfer/SmallThinker-Demo)
 
 ## Visual Studio Code Extensions
 
