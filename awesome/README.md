@@ -346,6 +346,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Vuetify** - Vue UI library with beautifully handcrafted Material components for creating web and mobile apps: [github](https://github.com/vuetifyjs/vuetify) [website](https://vuetifyjs.com/) [youtube](https://www.youtube.com/watch?v=CjXgoYo86yY)
 - **Yew** - framework for creating WASM web apps with Rust: [docs](https://yew.rs/docs/more/deployment) [github](https://github.com/yewstack/yew) [website](https://yew.rs/)
 - **ccxt** - JavaScript / TypeScript / Python / C# / PHP cryptocurrency trading library with support for 100+ exchanges: [github](https://github.com/ccxt/ccxt) [pypi](https://pypi.org/project/ccxt/) [website](https://docs.ccxt.com/#/)
+- **imagededup** - Python library for finding duplicate images: [github](https://github.com/idealo/imagededup) [pypi](https://pypi.org/project/imagededup/) [website](https://idealo.github.io/imagededup/)
 - **starry-night** - Markdown renderer with syntax highlighting, like GitHub, but free and open source and JavaScript: [github](https://github.com/wooorm/starry-night)
 
 ## Visual Studio Code Extensions
