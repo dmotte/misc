@@ -196,6 +196,7 @@ def main():
         output['errors'] = errors
 
     json.dump(output, sys.stdout, indent=2, default=str)
+    print()
 
     if len(errors) > 0:
         return 1
