@@ -350,6 +350,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## AI models
 
+- **ACE-Step** - open-source foundation model for music generation: [github](https://github.com/ace-step/ACE-Step) [webapp](https://huggingface.co/spaces/ACE-Step/ACE-Step) [website](https://ace-step.com/) [website](https://ace-step.github.io/) [website](https://huggingface.co/ACE-Step/ACE-Step-v1-3.5B) [youtube](https://www.youtube.com/watch?v=PO_u7xEaL5I)
 - **OpenDalle V1.1** - image generation AI: [webapp](https://huggingface.co/spaces/mrfakename/OpenDalleV1.1-GPU-Demo) [website](https://huggingface.co/dataautogpt3/OpenDalleV1.1)
 - **SmallThinker-3B Chat** - text-based chat AI: [webapp](https://huggingface.co/spaces/PowerInfer/SmallThinker-Demo)
 
