@@ -70,6 +70,11 @@ LINK_VALIDATORS = {
     'vsmarketplace': lambda x: re.match(
         r'^https://marketplace\.visualstudio\.com/items'
         r'\?itemName=[0-9A-Za-z.-]+$', x),
+
+    'huggingface': lambda x: re.match(r'^https://huggingface\.co/[0-9A-Za-z-]+'
+                                      r'(/[0-9A-Za-z.-]+)?$', x),
+    'spaces': lambda x: re.match(r'^https://huggingface\.co/spaces'
+                                 r'/[0-9A-Za-z-]+(/[0-9A-Za-z.-]+)?$', x),
 }
 
 
