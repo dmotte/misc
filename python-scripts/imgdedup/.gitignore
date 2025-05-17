@@ -1,0 +1,7 @@
+/venv/
+
+/img/
+/img-*/
+
+/output.json
+/output-*.json
