@@ -21,5 +21,6 @@ Then you can use the script like this:
 time venv/bin/python3 main.py -mPHash images/
 time venv/bin/python3 main.py -mCNN -Ss.8 images/
 
-time venv/bin/python3 main.py -mCNN -Ss-1 images/ output.json
+time venv/bin/python3 main.py -mCNN -Ss-1 images/ output-01.json
+jq 'map_values(map(select(.[1] | tonumber > 0.9)))' output-01.json > output-02.json
 ```
