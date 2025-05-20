@@ -2,6 +2,8 @@
 
 /img/
 /img-*/
+/images/
+/images-*/
 
 /output.json
 /output-*.json

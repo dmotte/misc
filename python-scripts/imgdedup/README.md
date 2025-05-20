@@ -18,6 +18,8 @@ venv/bin/python3 -mpip install -r requirements.txt
 Then you can use the script like this:
 
 ```bash
-time venv/bin/python3 main.py -mPHash myimages
-time venv/bin/python3 main.py -mCNN -Ss.8 myimages
+time venv/bin/python3 main.py -mPHash images/
+time venv/bin/python3 main.py -mCNN -Ss.8 images/
+
+time venv/bin/python3 main.py -mCNN -Ss-1 images/ output.json
 ```
