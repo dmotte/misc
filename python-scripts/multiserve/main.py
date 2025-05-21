@@ -105,8 +105,10 @@ def main(argv=None):
 
             if token_query is not None:
                 if self.path == f'/auth?token={token_query}':
-                    # We received the query token, so let's switch to
-                    # cookie-based authentication
+                    if debug_mode:
+                        print('Received query token. Switching to '
+                              'cookie-based authentication')
+
                     token_query = None
 
                     cookie_attrs = ''.join(f'; {x}' for x in args.cookie_attr)
