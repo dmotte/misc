@@ -4,8 +4,13 @@ import argparse
 import contextlib
 import http.server
 import os
+import random
 import socket
+import string
 import sys
+
+from http import HTTPStatus, cookies
+
 
 # Inspired by
 # https://github.com/python/cpython/blob/27ed64575d34f04029ba1d353810f3db4f4f045b/Lib/http/server.py
@@ -40,6 +45,16 @@ def main(argv=None):
                         help='Serve this directory (default: current '
                         'directory)')
 
+    parser.add_argument('-t', '--token-auth', action='store_true',
+                        help='Protect the webserver with a token-based '
+                        'mechanism')
+    parser.add_argument('-l', '--token-len', type=int, default=64,
+                        help='Length for the token-based authentication, if '
+                        'enabled (default: %(default)s)')
+    parser.add_argument('-c', '--cookie-attr', type=str, nargs='*', default=[],
+                        help='Attributes for the token cookie. Example: '
+                        '["HttpOnly", "Path=/"]')
+
     parser.add_argument('aliases', metavar='ALIASES', type=str, nargs='*',
                         help='List of path translations, i.e. (served path, '
                         'real path) pairs, as array of items (e.g. '
@@ -56,6 +71,16 @@ def main(argv=None):
 
     if debug_mode:
         print('args:', args)
+
+    TOKEN_COOKIE_NAME = 'multiserve-token'
+
+    token_query, token_cookie = None, None
+    if args.token_auth:
+        sysrand = random.SystemRandom()
+        token_query = ''.join(sysrand.choices(
+            string.ascii_letters + string.digits, k=args.token_len))
+        token_cookie = ''.join(sysrand.choices(
+            string.ascii_letters + string.digits, k=args.token_len))
 
     class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         def translate_path(self, path):
@@ -75,6 +100,45 @@ def main(argv=None):
 
             return super().translate_path(path)
 
+        def send_head(self):
+            nonlocal token_query, token_cookie
+
+            if token_query is not None:
+                if self.path == f'/auth?token={token_query}':
+                    # We received the query token, so let's switch to
+                    # cookie-based authentication
+                    token_query = None
+
+                    cookie_attrs = ''.join(f'; {x}' for x in args.cookie_attr)
+
+                    self.send_response(HTTPStatus.FOUND)
+                    self.send_header('Location', '/')
+                    self.send_header('Set-Cookie', TOKEN_COOKIE_NAME + '=' +
+                                     token_cookie + cookie_attrs)
+                    self.end_headers()
+                    self.wfile.write(b'Found')
+                    return None
+                else:
+                    self.send_response(HTTPStatus.UNAUTHORIZED)
+                    self.end_headers()
+                    self.wfile.write(b'Unauthorized')
+                    return None
+
+            if token_cookie is not None:
+                parsed_cookies = cookies.SimpleCookie(
+                    self.headers.get('Cookie', ''))
+                parsed_cookie = parsed_cookies.get(TOKEN_COOKIE_NAME)
+                cookie_value = None if parsed_cookie is None \
+                    else parsed_cookie.value
+
+                if token_cookie != cookie_value:
+                    self.send_response(HTTPStatus.UNAUTHORIZED)
+                    self.end_headers()
+                    self.wfile.write(b'Unauthorized')
+                    return None
+
+            return super().send_head()
+
     class DualStackServer(http.server.ThreadingHTTPServer):
         def server_bind(self):
             # Suppress exception when protocol is IPv4
@@ -82,6 +146,16 @@ def main(argv=None):
                 self.socket.setsockopt(
                     socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
             return super().server_bind()
+
+        def serve_forever(self, *fargs, **fkwargs):
+            if args.token_auth:
+                host, port = self.socket.getsockname()[:2]
+                url_host = f'[{host}]' if ':' in host else host
+
+                print('URL with token: '
+                      f'http://{url_host}:{port}/auth?token={token_query}')
+
+            return super().serve_forever(*fargs, **fkwargs)
 
         def finish_request(self, request, client_address):
             self.RequestHandlerClass(request, client_address, self,
