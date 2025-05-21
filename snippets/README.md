@@ -151,7 +151,7 @@ Some pieces of code I find useful for some reason.
 - `curl -fsSL https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
 - `ssh myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
 - `ssh myuser@192.168.0.123 -p2222 -NvL/tmp/my.sock:127.0.0.1:8080`
-- `LC_ALL=C sed -i 's/[^ -~]/?/g' myfile.txt`
+- `LC_ALL=C grep --color '[^ -~]' myfile.txt`, `LC_ALL=C sed -i 's/[^ -~]/?/g' myfile.txt`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
