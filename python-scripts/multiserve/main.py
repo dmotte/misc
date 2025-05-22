@@ -85,6 +85,11 @@ def main(argv=None):
     class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         def translate_path(self, path):
             for k, v in args.aliases.items():
+                if path == k or path.startswith((k + '?', k + '#')):
+                    # This should trigger a redirect when the alias root is
+                    # requested without trailing slash in the path
+                    return v
+
                 if path.startswith(k + '/'):
                     if debug_mode:
                         print(f'Translating path {path} based on prefix {k}')
