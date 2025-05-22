@@ -30,7 +30,8 @@ def main(argv=None):
         argv = sys.argv
 
     parser = argparse.ArgumentParser(description='Serve a directory via HTTP, '
-                                     'with optional path translations')
+                                     'with support for some additional '
+                                     'features')
 
     parser.add_argument('-b', '--bind', type=str, default=None,
                         help='Bind to this address (default: all interfaces)')

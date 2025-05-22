@@ -1,6 +1,6 @@
 # serveplus
 
-This script can be used to **serve a directory via HTTP**, like `python3 -mhttp.server`, but with support for **dir path translations**.
+This script can be used to **serve a directory via HTTP**, like `python3 -mhttp.server`, but with support for some **additional features**.
 
 ## Usage
 
