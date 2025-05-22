@@ -1,4 +1,4 @@
-# multiserve
+# serveplus
 
 This script can be used to **serve a directory via HTTP**, like `python3 -mhttp.server`, but with support for **dir path translations**.
 
@@ -11,5 +11,5 @@ Examples:
 ```bash
 python3 main.py -b127.0.0.1 -P8080 -dwww /img www-img
 
-MULTISERVE_DEBUG=true python3 main.py -b127.0.0.1 -dwww -tl16 -c HttpOnly Path=/ -- /img www-img
+SERVEPLUS_DEBUG=true python3 main.py -b127.0.0.1 -dwww -tl16 -c HttpOnly Path=/ -- /img www-img
 ```

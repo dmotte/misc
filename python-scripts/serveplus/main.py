@@ -65,14 +65,14 @@ def main(argv=None):
     args.aliases = {k.rstrip('/'): v.rstrip('/')
                     for k, v in pair_items_to_dict(args.aliases).items()}
 
-    debug_mode = os.getenv('MULTISERVE_DEBUG', 'false') == 'true'
+    debug_mode = os.getenv('SERVEPLUS_DEBUG', 'false') == 'true'
 
     ############################################################################
 
     if debug_mode:
         print('args:', args)
 
-    TOKEN_COOKIE_NAME = 'multiserve-token'
+    TOKEN_COOKIE_NAME = 'serveplus-token'
 
     token_query, token_cookie = None, None
     if args.token_auth:
