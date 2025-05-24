@@ -6,8 +6,9 @@ The **accepted JSON input format** is more or less the same format used by the *
 
 | Operating System     | Browser       | Bookmarks file path                                                     |
 | -------------------- | ------------- | ----------------------------------------------------------------------- |
-| Windows 10           | Google Chrome | `%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Bookmarks` |
 | Debian 12 (Bookworm) | Chromium      | `~/.config/chromium/Default/Bookmarks`                                  |
+| Debian 12 (Bookworm) | Google Chrome | `~/.config/google-chrome/Default/Bookmarks`                             |
+| Windows 10           | Google Chrome | `%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Bookmarks` |
 
 Or you can take a look at the `input-*.json` files inside this directory.
 
