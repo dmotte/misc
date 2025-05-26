@@ -48,6 +48,7 @@ Some pieces of code I find useful for some reason.
 - `cp -Rvt/media/destdisk /media/sourcedisk/folder`
 - `ss -tulpn`
 - `df -h`
+- `free -htvw`
 - `du -sh`
 - `zip -r archive.zip folder/`, `unzip -q archive.zip -d folder/`
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`
