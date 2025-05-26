@@ -231,6 +231,16 @@ echo '0123456789ABCDEF0123456789ABCDEF01234567:6:' | gpg --import-ownertrust
 gpg --delete-secret-and-public-key mykey
 ```
 
+```bash
+sudo dd if=/dev/zero of=/swapfile-additional bs=1M count=10240
+sudo chmod 600 /swapfile-additional
+sudo mkswap /swapfile-additional
+
+sudo swapon /swapfile-additional; sudo swapoff /swapfile-additional
+
+echo '/swapfile-additional none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
 ## Shell snippets for Docker
 
 - `docker run -it --rm docker.io/library/debian:12`
