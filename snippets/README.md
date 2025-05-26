@@ -152,6 +152,8 @@ Some pieces of code I find useful for some reason.
 - `ssh myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
 - `ssh myuser@192.168.0.123 -p2222 -NvL/tmp/my.sock:127.0.0.1:8080`
 - `LC_ALL=C grep --color '[^ -~]' myfile.txt`, `LC_ALL=C sed -i 's/[^ -~]/?/g' myfile.txt`
+- `sed -Ei 's/^#?force_color_prompt=.*$/force_color_prompt=yes/' ~/.bashrc`
+- `for i in grep fgrep egrep; do sed -Ei "s/^    #?(alias $i='$i --color=auto')/    \1/" ~/.bashrc; done`
 
 ```bash
 install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
