@@ -7,17 +7,17 @@ set -e
 
 # Tested on Debian 12 (bookworm)
 
-[ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
-
-options=$(getopt -o +n:e:w: -l name:,event-expr:,workdir: -- "$@")
+options=$(getopt -o +un:e:w: -l user,name:,event-expr:,workdir: -- "$@")
 eval "set -- $options"
 
+user=n
 name='' # Warning: some characters are forbidden. See the code below
 event_expr=''
 workdir=''
 
 while :; do
     case $1 in
+        -u|--user) user=y;;
         -n|--name) shift; name=$1;;
         -e|--event-expr) shift; event_expr=$1;;
         -w|--workdir) shift; workdir=$1;;
@@ -27,6 +27,18 @@ while :; do
 done
 
 command=$* # Warning: some characters are forbidden. See the code below
+
+if [ "$user" = y ]; then
+    [ "$EUID" != 0 ] ||
+        { echo 'Must run as a regular user if --user is set' >&2; exit 1; }
+    scoped_systemctl() { systemctl --user "$@"; }
+    readonly systemd_units_dir=~/.config/systemd/user
+else
+    [ "$EUID" = 0 ] ||
+        { echo 'Must run as root if --user is not set' >&2; exit 1; }
+    scoped_systemctl() { systemctl "$@"; }
+    readonly systemd_units_dir=/etc/systemd/system
+fi
 
 [[ "$name" =~ ^[0-9A-Za-z-]+$ ]] || { echo "Invalid name: $name" >&2; exit 1; }
 
@@ -40,11 +52,11 @@ command=$* # Warning: some characters are forbidden. See the code below
 
 if [ -n "$workdir" ]; then line_workdir=WorkingDirectory=$workdir; fi
 
-[ -e "/etc/systemd/system/$name.service" ] || changing=y
+[ -e "$systemd_units_dir/$name.service" ] || changing=y
 
 echo "Creating $name service and timer"
 
-cat << EOF > "/etc/systemd/system/$name.service"
+cat << EOF > "$systemd_units_dir/$name.service"
 [Unit]
 Description=$name service
 After=network.target network-online.target systemd-networkd.service NetworkManager.service connman.service
@@ -56,7 +68,7 @@ $line_workdir
 ExecStart=$command
 EOF
 
-cat << EOF > "/etc/systemd/system/$name.timer"
+cat << EOF > "$systemd_units_dir/$name.timer"
 [Unit]
 Description=$name timer
 
@@ -69,7 +81,7 @@ WantedBy=timers.target
 EOF
 
 echo "Reloading systemd config and enabling $name timer"
-systemctl daemon-reload; systemctl enable "$name.timer"
+scoped_systemctl daemon-reload; scoped_systemctl enable "$name.timer"
 
 ################################################################################
 
@@ -77,5 +89,5 @@ if [ "$SYSTEMD_TIMER_RESTART" = always ] || {
     [ "$SYSTEMD_TIMER_RESTART" = when-changed ] && [ "$changing" = y ]
 }; then
     echo "Restarting $name timer"
-    systemctl restart "$name.timer"
+    scoped_systemctl restart "$name.timer"
 fi
