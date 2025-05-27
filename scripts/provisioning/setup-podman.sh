@@ -24,12 +24,12 @@ if [ "$mode" = system ]; then
     [ "$EUID" = 0 ] ||
         { echo 'Must run as root if mode=system is used' >&2; exit 1; }
     scoped_systemctl() { systemctl "$@"; }
-    systemd_units_dir=/etc/systemd/system
+    readonly systemd_units_dir=/etc/systemd/system
 elif [ "$mode" = user ]; then
     [ "$EUID" != 0 ] ||
         { echo 'Must run as a regular user if mode=user is used' >&2; exit 1; }
     scoped_systemctl() { systemctl --user "$@"; }
-    systemd_units_dir=~/.config/systemd/user
+    readonly systemd_units_dir=~/.config/systemd/user
 else
     echo 'Invalid mode' >&2; exit 1
 fi
