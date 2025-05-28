@@ -165,10 +165,9 @@ path=$(realpath "$path")
 
 [[ "$path" = *.sh ]] && exec bash "$path" "$@"
 
-if [[ "$(uname)" = MINGW* ]]; then py=python; else py=python3; fi
 if [[ "$(uname)" = MINGW* ]]
-    then venvpy=venv/Scripts/python
-    else venvpy=venv/bin/python3
+    then readonly py=python venvpy=venv/Scripts/python
+    else readonly py=python3 venvpy=venv/bin/python3
 fi
 
 [[ "$path" = */cli.py ]] && {
