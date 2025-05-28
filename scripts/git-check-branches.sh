@@ -2,6 +2,9 @@
 
 set -e
 
+# Usage example:
+#   time ./git-check-branches.sh ~/git/myrepo01 ~/git/myrepo02; echo $?
+
 result=0
 
 for arg; do
