@@ -23,8 +23,9 @@ services:
     entrypoint:
       - /bin/sh
       - -ec
+      # Note: not using install's "-T" flag as it's not supported in Alpine
       - |
-        install -DTm644 /dev/stdin \
+        install -Dm644 /dev/stdin \
           /etc/grafana/provisioning/datasources/loki.yml << 'EOF'
         ---
         apiVersion: 1
