@@ -34,7 +34,7 @@ Some pieces of code I find useful for some reason.
 - `for i in *.mp3; do echo "$i"; ffmpeg -i "$i" -af volumedetect -vn -sn -dn -f null /dev/null 2>&1 | grep -E '^\[Parsed_volumedetect.+_volume: .+$'; done`
 - `ffmpeg -i input.mp3 -filter:a 'dynaudnorm=p=0.9:s=5' output.mp3`
 - `ffmpeg -i input.mp3 -map 0:a -c:a copy -map_metadata -1 output.mp3`
-- `watch -n.2 date`
+- `watch -n.2 date`, `watch -pn3 'date && sleep 2'`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `nohup mycommand &`, `pgrep mycommand`, `pkill mycommand`
@@ -79,7 +79,7 @@ Some pieces of code I find useful for some reason.
 - `withprefix() { while read -r i; do echo "$1$i"; done }`
 - `echo Message | mail -s Subject recipient@example.com`
 - `iostat -o JSON`
-- `S_COLORS=always watch -d -n.5 --color iostat`
+- `S_COLORS=always watch -dpn.5 --color iostat`
 - `systemctl -a | grep -Fi myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -Fi myunit` (also disabled ones)
 - `systemctl list-timers`
 - `: "${myvar:=myvalue}"`, `export MY_ENV_VAR="${MY_ENV_VAR:-myvalue}"`
