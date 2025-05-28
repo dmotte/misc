@@ -69,7 +69,7 @@ tar -x --auto-compress -f "$tarball_path" \
 mv -T "$install_dir/$tarball_top_dir" "$rootfs_path"
 
 echo "Creating script $main_sh_path"
-install -m755 /dev/stdin "$main_sh_path" << EOF
+install -Tm755 /dev/stdin "$main_sh_path" << EOF
 #!/bin/bash
 
 set -e

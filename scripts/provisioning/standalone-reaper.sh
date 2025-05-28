@@ -83,7 +83,7 @@ head -1 "$app_dir/REAPER/whatsnew.txt"
 
 if [ -n "$launcher" ]; then
     echo "Creating launcher file $launcher"
-    install -m644 /dev/stdin "$launcher" << EOF
+    install -Tm644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
 Name=REAPER standalone
 Exec=$app_dir/REAPER/reaper %f

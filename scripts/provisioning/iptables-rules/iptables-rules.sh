@@ -54,9 +54,9 @@ dpkg -s iptables-persistent >/dev/null 2>&1 ||
 chmod 700 /etc/iptables
 
 [ -z "$rules_v4" ] || tr -d '\r' <"$rules_v4" |
-    install -m600 /dev/stdin /etc/iptables/rules.v4
+    install -Tm600 /dev/stdin /etc/iptables/rules.v4
 [ -z "$rules_v6" ] || tr -d '\r' <"$rules_v6" |
-    install -m600 /dev/stdin /etc/iptables/rules.v6
+    install -Tm600 /dev/stdin /etc/iptables/rules.v6
 
 ################################################################################
 

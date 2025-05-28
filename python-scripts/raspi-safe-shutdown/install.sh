@@ -23,7 +23,7 @@ install -dm700 /opt/raspi-safe-shutdown
 
 echo 'Creating raspi-safe-shutdown service files'
 
-install -m700 raspi-safe-shutdown.py /opt/raspi-safe-shutdown/main.py
+install -Tm700 raspi-safe-shutdown.py /opt/raspi-safe-shutdown/main.py
 
 cat << EOF > /etc/systemd/system/raspi-safe-shutdown.service
 [Unit]

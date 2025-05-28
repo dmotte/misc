@@ -91,7 +91,7 @@ fi
 
 echo 'Creating lognot service files'
 
-install -m700 /dev/stdin /opt/lognot/tg.sh << EOF
+install -Tm700 /dev/stdin /opt/lognot/tg.sh << EOF
 #!/bin/bash
 
 set -e

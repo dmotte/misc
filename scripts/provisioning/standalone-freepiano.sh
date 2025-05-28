@@ -79,7 +79,7 @@ if [ -n "$launcher" ]; then
     if [ "$os" = windows ]; then
         create-shortcut "$app_dir/freepiano.exe" "$launcher"
     else
-        install -m644 /dev/stdin "$launcher" << EOF
+        install -Tm644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
 Name=FreePiano
 Exec=wine $app_dir/freepiano.exe %f

@@ -39,11 +39,11 @@ apt_update_if_old() {
 dpkg -s python3-psutil >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y python3-psutil; }
 
-install -d -o"$running_user" -g"$running_user" -m700 /opt/perfmon
+install -o"$running_user" -g"$running_user" -dm700 /opt/perfmon
 
 echo 'Creating perfmon service files'
 
-install -o"$running_user" -g"$running_user" -m700 \
+install -o"$running_user" -g"$running_user" -Tm700 \
     perfmon.py /opt/perfmon/main.py
 
 cat << EOF > /etc/systemd/system/perfmon.service

@@ -126,7 +126,7 @@ if [ -n "$launcher" ]; then
     if [ "$os" = win32 ]; then
         create-shortcut "$app_dir/Code.exe" "$launcher"
     else
-        install -m644 /dev/stdin "$launcher" << EOF
+        install -Tm644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
 Name=Visual Studio Code
 Exec=$app_dir/code %f

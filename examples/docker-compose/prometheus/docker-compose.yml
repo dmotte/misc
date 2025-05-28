@@ -20,7 +20,7 @@ services:
       - /bin/sh
       - -ec
       - |
-        install -Dm644 /dev/stdin \
+        install -DTm644 /dev/stdin \
           /etc/grafana/provisioning/datasources/prometheus.yml << 'EOF'
         ---
         apiVersion: 1

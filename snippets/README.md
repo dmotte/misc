@@ -157,11 +157,11 @@ Some pieces of code I find useful for some reason.
 - `sed -Ei 's/^(\s+)#\s*(alias [ef]?grep='\''[ef]?grep --color=auto'\'')/\1\2/' ~/.bashrc`
 
 ```bash
-install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
+install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
     'ATTR{vendor}=="0x1234", ATTR{device}=="0x5678", ATTR{remove}="1"') \
     /etc/udev/rules.d/99-disable-pci-example.rules
 udevadm trigger -vcadd -spci -avendor=0x1234 -adevice=0x5678
-install -m600 <(echo 'ACTION=="add", SUBSYSTEM=="usb",' \
+install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="usb",' \
     'ATTR{idVendor}=="1a2b", ATTR{idProduct}=="3c4d", ATTR{remove}="1"') \
     /etc/udev/rules.d/99-disable-usb-example.rules
 udevadm trigger -vcadd -susb -aidVendor=1a2b -aidProduct=3c4d
@@ -271,7 +271,7 @@ RUN apt-get update && \
 EXPOSE 22
 RUN useradd -UGsudo -ms/bin/bash mainuser && \
     echo 'mainuser ALL=(ALL) NOPASSWD: ALL' | \
-        install -m440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
+        install -Tm440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
     echo mainuser:changeme | chpasswd # Warning: very bad password!
 ENTRYPOINT ["/usr/sbin/sshd", "-De"]
 EOF
@@ -289,7 +289,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 RUN useradd -UGsudo -ms/bin/bash mainuser && \
     echo 'mainuser ALL=(ALL) NOPASSWD: ALL' | \
-        install -m440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
+        install -Tm440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
     echo mainuser:changeme | chpasswd # Warning: very bad password!
 USER mainuser
 ENV USER=mainuser HOME=/home/mainuser

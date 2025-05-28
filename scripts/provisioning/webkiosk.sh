@@ -46,7 +46,7 @@ fi
 
 echo 'Creating kiosk service files'
 
-install -okioskuser -gkioskuser -m644 /dev/stdin ~kioskuser/.xinitrc << 'EOF'
+install -okioskuser -gkioskuser -Tm644 /dev/stdin ~kioskuser/.xinitrc << 'EOF'
 #!/bin/bash
 
 set -e
@@ -90,7 +90,7 @@ EOF
 
 sed -i "s|{{ webkiosk_url }}|$webkiosk_url|" ~kioskuser/.xinitrc
 
-install -okioskuser -gkioskuser -m644 /dev/stdin ~kioskuser/.profile << 'EOF'
+install -okioskuser -gkioskuser -Tm644 /dev/stdin ~kioskuser/.profile << 'EOF'
 # If $DISPLAY is not defined and I'm on TTY7
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 7 ]; then
     # Run startx replacing the current process
