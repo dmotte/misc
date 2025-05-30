@@ -156,6 +156,7 @@ Some pieces of code I find useful for some reason.
 - `LC_ALL=C grep --color '[^ -~]' myfile.txt`, `LC_ALL=C sed -i 's/[^ -~]/?/g' myfile.txt`
 - `sed -Ei 's/^#?force_color_prompt=.*$/force_color_prompt=yes/' ~/.bashrc`
 - `sed -Ei 's/^(\s+)#\s*(alias [ef]?grep='\''[ef]?grep --color=auto'\'')/\1\2/' ~/.bashrc`
+- `{ base64 -w256 myfile.txt; echo; echo 'Hello, World!'; } | { while read -r i; do [ -n "$i" ] || break; echo "$i"; done | base64 -d | cat -A; cat -A; }`
 
 ```bash
 install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
