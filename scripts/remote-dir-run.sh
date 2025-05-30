@@ -13,6 +13,9 @@ set -e
 # with "/c/Windows/System32/OpenSSH/ssh.exe", or $GIT_SSH if you have it set.
 # Or you could use ${GIT_SSH:-ssh} to cover both cases
 
+# Note: you can leverage SSH multiplexing to avoid being asked for the
+# password/passphrase twice
+
 # For debugging purposes:
 #   RDR_DEBUG=true RDR_EVAL=exit ./remote-dir-run.sh mydir foo ++ bar baz
 
