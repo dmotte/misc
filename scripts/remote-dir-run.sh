@@ -2,8 +2,8 @@
 
 set -e
 
-# This script copies a local directory onto a remote server and runs the
-# main.sh script inside it
+# This script copies a local directory to a remote server and runs the main.sh
+# script inside it
 
 # Usage example:
 #   RDR_REMOTE_TAR_OPTIONS=-v ./remote-dir-run.sh mydir \
