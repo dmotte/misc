@@ -124,6 +124,7 @@ Some pieces of code I find useful for some reason.
 - `sudo dd if=/dev/mmcblk2 status=progress | gzip -c | split -b4GB - mmcblk2.img.gz.part`
   - `md5sum mmcblk2.img.gz.part* > MD5SUMS`
   - `cat mmcblk2.img.gz.part* | gunzip -c | sudo dd of=/dev/mmcblk2 status=progress`
+- `gzip -tv myfile.txt.gz`
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
 - `comm <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright') --total`
 - `sunodl() { curl -fLO https://cdn1.suno.ai/$1.mp3; }`
@@ -250,7 +251,7 @@ echo '/swapfile-additional none swap sw 0 0' | sudo tee -a /etc/fstab
 - `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox tar -cvzC/v . > mybackup.tar.gz`
 - `docker run --rm -v myvolume:/v -i docker.io/library/busybox tar -xvzC/v < mybackup.tar.gz`
 - `docker create --name=tmp01 docker.io/library/busybox`
-  - `docker cp tmp01:/bin - | gzip > mybin.tar.gz`
+  - `docker cp tmp01:/bin - | gzip -c > mybin.tar.gz`
   - `docker cp tmp01:/bin/sh - | tar -xv`
   - `docker rm -v tmp01`
 - `docker run -d --name=mydind01 --privileged docker.io/library/docker:dind`
