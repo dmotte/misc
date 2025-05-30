@@ -32,7 +32,7 @@ echo "::group::$0: Preparation"
 echo '::endgroup::'
 
 echo "::group::$0: Project metadata"
-    proj_name=$(sed -En 's/^name = (.+)$/\1/p' setup.cfg | head -1)
+    proj_name=$(sed -En 's/^name = (.+)$/\1/p' setup.cfg | head -n1)
     echo "- &#x1F333; Project name: \`$proj_name\`" |
         tee -a "$CICD_SUMMARY"
 
