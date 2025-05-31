@@ -307,6 +307,7 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 
 - `sudo XDG_RUNTIME_DIR=/run/user/1001 -iu myuser`
 - `podman ps -ap`
+- `podman ps -qfname=mycontainer; echo $?`
 - `systemctl --user status podman-kube@$(systemd-escape ~/kube.yaml)`
 - `journalctl --user -u podman-kube@$(systemd-escape ~/kube.yaml)`
 - `ls -la ~/.local/share/containers/storage/volumes`
