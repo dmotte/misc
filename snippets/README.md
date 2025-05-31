@@ -81,6 +81,7 @@ Some pieces of code I find useful for some reason.
 - `iostat -o JSON`
 - `S_COLORS=always watch -dpn.5 --color iostat`
 - `systemctl -a | grep -Fi myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -Fi myunit` (also disabled ones)
+- `systemctl is-active -q myunit; echo $?`
 - `systemctl list-timers`
 - `: "${myvar:=myvalue}"`, `export MY_ENV_VAR="${MY_ENV_VAR:-myvalue}"`
 - `socat - TCP:example.com:80`
