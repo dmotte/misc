@@ -21,8 +21,8 @@ Some pieces of code I find useful for some reason.
 - `latest_commit=$(git rev-parse HEAD)`
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
-- `tar -cvzf archive.tar.gz folder/`, `tar -xvzf archive.tar.gz`
-- `tar -cvzf archive.tar.gz -g snapshot.snar -C folder/ .`, `tar -xvzf archive.tar.gz -g snapshot.snar -C folder/`
+- `tar -cvzf archive.tar.gz mydir`, `tar -xvzf archive.tar.gz`
+- `tar -cvzf archive.tar.gz -g snapshot.snar -C mydir .`, `tar -xvzf archive.tar.gz -g snapshot.snar -C mydir`
 - `curl -fLO https://...`, `curl -fLo target.zip https://...`
 - `curl -I https://example.com/`, `curl -i https://example.com/`
 - `top` and then press `xcV`. Then `W` to save the config
@@ -45,12 +45,12 @@ Some pieces of code I find useful for some reason.
 - `find . | grep -i pattern`, `find . -iname '*pattern*'`
 - `git ls-files --full-name '*pattern*'`
 - `git ls-files | xargs -rd\\n sha256sum`
-- `cp -Rvt/media/destdisk /media/sourcedisk/folder`
+- `cp -Rvt/media/destdisk /media/sourcedisk/mydir`
 - `ss -tulpn`
 - `df -h`
 - `free -htvw`
 - `du -sh`
-- `zip -r archive.zip folder/`, `unzip -q archive.zip -d folder/`
+- `zip -r archive.zip mydir`, `unzip -q archive.zip -d mydir`
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
