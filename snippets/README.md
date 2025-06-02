@@ -248,7 +248,7 @@ echo '/swapfile-additional none swap sw 0 0' | sudo tee -a /etc/fstab
 
 ## Shell snippets for Docker
 
-- `docker run -it --rm docker.io/library/debian:12`
+- `docker run -it --rm --log-driver=none docker.io/library/debian:12`
 - `docker run -d --name=mydeb01 docker.io/library/debian:12 sleep infinity`, `docker exec -it mydeb01 bash`, `docker rm -f mydeb01`
 - `docker ps -a --format {{.Names}}`
 - `docker rm -fv mycontainer`
@@ -259,7 +259,7 @@ echo '/swapfile-additional none swap sw 0 0' | sudo tee -a /etc/fstab
   - `docker cp tmp01:/bin/sh - | tar -xv`
   - `docker rm -v tmp01`
 - `docker run -d --name=mydind01 --privileged docker.io/library/docker:dind`
-- `docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive docker.io/library/python:3`
+- `docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock --log-driver=none docker.io/wagoodman/dive docker.io/library/python:3`
 - `docker-compose down -v && docker-compose up -d --build && docker-compose logs -ft`
 - `docker-compose exec mycontainer bash`
 - `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S '0.0.0.0:8080' -t /v`

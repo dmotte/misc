@@ -23,7 +23,7 @@ python3 main.py < input.json > output.html
 Or with _Docker_:
 
 ```bash
-docker run -i --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" python:3 python3 /v/main.py < input.json > output.html
+docker run -i --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" --log-driver=none python:3 python3 /v/main.py < input.json > output.html
 ```
 
 If you want to run the script without downloading it:
