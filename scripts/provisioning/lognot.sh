@@ -99,7 +99,7 @@ set -e
 bot_token=${bot_token@Q}
 chat_id=${chat_id@Q}
 
-curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
+exec curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
     -dchat_id="\$chat_id" --data-urlencode text@- --fail-with-body -w'\n'
 EOF
 
