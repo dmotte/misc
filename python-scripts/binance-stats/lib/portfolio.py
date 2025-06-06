@@ -17,20 +17,20 @@ class Portfolio:
                  allow_negative: bool = False):
         if numtype not in (float, Decimal):
             raise ValueError(f'Invalid number type: {numtype}')
-        self.__numtype = numtype
+        self._numtype = numtype
 
         self.allow_negative = allow_negative
 
         balances = {coin: numtype(balance)
                     for coin, balance in balances.items()}
-        self.__balances = {coin: balance for coin, balance in balances.items()
+        self._balances = {coin: balance for coin, balance in balances.items()
                            if not self.is_zero(balance)}
 
     def is_zero(self, value: float | Decimal) -> bool:
         '''
         Returns True if value is equal to zero, False otherwise
         '''
-        if self.__numtype == Decimal:
+        if self._numtype == Decimal:
             return value.is_zero()
         else:
             return value == 0
@@ -40,20 +40,20 @@ class Portfolio:
         '''
         The type used for numbers
         '''
-        return self.__numtype
+        return self._numtype
 
     def change(self, coin: str, amount: float | Decimal) -> 'Portfolio':
         '''
         Changes the balance of a specific coin in the portfolio by the
         specified amount
         '''
-        amount = self.__numtype(amount)
+        amount = self._numtype(amount)
 
         if self.is_zero(amount):
             return self
 
-        if coin in self.__balances:
-            balance = self.__balances[coin] + amount
+        if coin in self._balances:
+            balance = self._balances[coin] + amount
         else:
             balance = amount
 
@@ -62,9 +62,9 @@ class Portfolio:
                              f'after change by {amount}')
 
         if self.is_zero(balance):
-            del self.__balances[coin]
+            del self._balances[coin]
         else:
-            self.__balances[coin] = balance
+            self._balances[coin] = balance
 
         return self
 
@@ -72,15 +72,15 @@ class Portfolio:
         '''
         Retrieves the balance of a specific coin in the portfolio
         '''
-        return self.__balances.get(coin, self.__numtype(0))
+        return self._balances.get(coin, self._numtype(0))
 
     def copy(self) -> 'Portfolio':
         '''
         Returns a copy of the portfolio
         '''
-        copy = Portfolio(numtype=self.__numtype,
+        copy = Portfolio(numtype=self._numtype,
                          allow_negative=self.allow_negative)
-        copy.__balances = self.__balances.copy()
+        copy._balances = self._balances.copy()
         return copy
 
     def composition(self, reverse: bool = False) -> dict[str, float | Decimal]:
@@ -90,7 +90,7 @@ class Portfolio:
         '''
         return dict(
             sorted(
-                self.__balances.items(),
+                self._balances.items(),
                 key=lambda x: x[0],
                 reverse=reverse))
 
@@ -99,10 +99,10 @@ class Portfolio:
         Compares the current portfolio with another one, and returns the
         differences in balances for each coin
         '''
-        coins = sorted(set(self.__balances.keys()) |
-                       set(other.__balances.keys()))
+        coins = sorted(set(self._balances.keys()) |
+                       set(other._balances.keys()))
 
-        portfolio = Portfolio(numtype=self.__numtype, allow_negative=True)
+        portfolio = Portfolio(numtype=self._numtype, allow_negative=True)
 
         balances = {coin: self.get(coin) - other.get(coin) for coin in coins}
 

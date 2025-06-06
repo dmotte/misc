@@ -90,21 +90,21 @@ class OHLCV:
         numtype = type(candles[0]['open'])
         if numtype not in (float, Decimal):
             raise ValueError(f'Invalid number type: {numtype}')
-        self.__numtype = numtype
+        self._numtype = numtype
 
-        self.__base = base
-        self.__quote = quote
-        self.__candles = candles
+        self._base = base
+        self._quote = quote
+        self._candles = candles
 
         td_interval = candles[1]['datetime'] - candles[0]['datetime']
-        self.__interval = Interval.from_timedelta(td_interval)
+        self._interval = Interval.from_timedelta(td_interval)
 
-        self.__start = candles[0]['datetime']
-        self.__end = candles[-1]['datetime'] + td_interval
+        self._start = candles[0]['datetime']
+        self._end = candles[-1]['datetime'] + td_interval
 
         # Sanity checks
 
-        prev_datetime = self.__start - td_interval
+        prev_datetime = self._start - td_interval
         for candle in candles:
             candle_datetime = candle['datetime']
             td_found = candle_datetime - prev_datetime
@@ -119,42 +119,42 @@ class OHLCV:
         '''
         The type used for numbers
         '''
-        return self.__numtype
+        return self._numtype
 
     @property
     def base(self) -> str:
         '''
         Base currency of the pair
         '''
-        return self.__base
+        return self._base
 
     @property
     def quote(self) -> str:
         '''
         Quote currency of the pair
         '''
-        return self.__quote
+        return self._quote
 
     @property
     def interval(self) -> Interval:
         '''
         Length of time of each candle
         '''
-        return self.__interval
+        return self._interval
 
     @property
     def start(self) -> dt:
         '''
         Start datetime of the OHLCV data, inclusive
         '''
-        return self.__start
+        return self._start
 
     @property
     def end(self) -> dt:
         '''
         End datetime of the OHLCV data, exclusive
         '''
-        return self.__end
+        return self._end
 
     def load(base: str, quote: str, file: TextIO,
              numtype: type[float | Decimal] = float) -> 'OHLCV':
@@ -184,16 +184,16 @@ class OHLCV:
         Estimates the value of the asset at a given datetime `d` using linear
         interpolation
         '''
-        if d < self.__candles[0]['datetime']:
+        if d < self._candles[0]['datetime']:
             raise LookupError(f'No valid candle for datetime {d} '
                               '(it\'s too early)')
 
-        for i, candle in enumerate(self.__candles):
-            if candle['datetime'] + self.__interval.timedelta() > d:
+        for i, candle in enumerate(self._candles):
+            if candle['datetime'] + self._interval.timedelta() > d:
                 # Linear interpolation
                 return candle['open'] + (candle['close'] - candle['open']) * \
-                    self.__numtype(
-                        (d - candle['datetime']) / self.__interval.timedelta())
+                    self._numtype(
+                        (d - candle['datetime']) / self._interval.timedelta())
 
         raise LookupError(f'No valid candle for datetime {d} (it\'s too late)')
 
@@ -208,13 +208,13 @@ class OHLCVDir:
                  numtype: type[float | Decimal] = float):
         if numtype not in (float, Decimal):
             raise ValueError(f'Invalid number type: {numtype}')
-        self.__numtype = numtype
+        self._numtype = numtype
 
-        self.__dir = dir
-        self.__year_first = year_first
-        self.__year_last = year_last
+        self._dir = dir
+        self._year_first = year_first
+        self._year_last = year_last
 
-        self.__ohlcvs = nest()  # Levels: pair -> interval -> year
+        self._ohlcvs = nest()  # Levels: pair -> interval -> year
 
         for file in pathlib.Path(dir).glob('*.csv'):
             match = re.search(
@@ -243,35 +243,35 @@ class OHLCVDir:
                 raise ValueError('Year mismatch between OHLCV file name '
                                  f'({year}) and content ({ohlcv.start.year})')
 
-            self.__ohlcvs[f'{base}/{quote}'][interval][year] = ohlcv
+            self._ohlcvs[f'{base}/{quote}'][interval][year] = ohlcv
 
     @property
     def numtype(self) -> type[float | Decimal]:
         '''
         The type used for numbers
         '''
-        return self.__numtype
+        return self._numtype
 
     @property
     def dir(self) -> str:
         '''
         Directory from which the OHLCV data was loaded
         '''
-        return self.__dir
+        return self._dir
 
     @property
     def year_first(self) -> int:
         '''
         First year, inclusive
         '''
-        return self.__year_first
+        return self._year_first
 
     @property
     def year_last(self) -> int:
         '''
         Last year, inclusive
         '''
-        return self.__year_last
+        return self._year_last
 
     def val(self, base: str, quote: str, d: dt) -> float | Decimal:
         '''
@@ -279,8 +279,8 @@ class OHLCVDir:
         OHLCV object available in the set
         '''
         if base == quote:
-            return self.__numtype(1)
+            return self._numtype(1)
 
-        pair_branch: defaultdict = self.__ohlcvs[f'{base}/{quote}']
+        pair_branch: defaultdict = self._ohlcvs[f'{base}/{quote}']
         ohlcv: OHLCV = pair_branch[min(pair_branch.keys())][d.year]
         return ohlcv.val(d)
