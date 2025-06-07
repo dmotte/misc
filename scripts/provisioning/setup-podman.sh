@@ -30,9 +30,7 @@ elif [ "$mode" = user ]; then
         { echo 'Must run as a regular user if mode=user is used' >&2; exit 1; }
     scoped_systemctl() { systemctl --user "$@"; }
     readonly systemd_units_dir=~/.config/systemd/user
-else
-    echo 'Invalid mode' >&2; exit 1
-fi
+else echo 'Invalid mode' >&2; exit 1; fi
 
 options=$(getopt -o +cs:a:k:p: -l compose -l socket: -l auto-update: \
     -l kube-extra-args: -l unprivileged-port-start: -- "$@")
@@ -135,6 +133,4 @@ if [ "$mode" = system ] && {
     [ "$SYSCTL_RELOAD" = always ] || {
         [ "$SYSCTL_RELOAD" = when-changed ] && [ "$changing" = y ]
     }
-}; then
-    sysctl --system
-fi
+}; then sysctl --system; fi
