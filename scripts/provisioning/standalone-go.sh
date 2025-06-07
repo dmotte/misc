@@ -12,7 +12,7 @@ set -e
 
 # Example of how to change Go environment via the ~/go symlink (if you have
 # multiple Go environments installed):
-# rm ~/go && ln -s ~/apps/go1.20.7/go ~/go
+# ln -Tfs ~/apps/go1.20.7/go ~/go
 
 options=$(getopt -o +a:c:d:sp -l arch: -l checksum: -l install-dir: \
     -l symlink -l symlink-to-path -- "$@")
@@ -68,7 +68,7 @@ if [ "$symlink" = y ]; then
         echo 'Skipping symlink creation as ~/go already exists'
     else
         echo 'Creating ~/go symlink'
-        ln -s "$app_dir" ~/go
+        ln -Ts "$app_dir" ~/go
     fi
 fi
 
