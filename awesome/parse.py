@@ -20,66 +20,66 @@ LINK_VALIDATORS = {
     'link': validate_https,
 
     'youtube': lambda x: any([
-        re.match(r'^https://www\.youtube\.com/watch'
-                 r'\?v=[0-9A-Za-z-_]{11}$', x),
-        re.match(r'^https://www\.youtube\.com/playlist'
-                 r'\?list=[0-9A-Za-z-_]{34}$', x),
-        re.match(r'^https://www\.youtube\.com/watch'
-                 r'\?v=[0-9A-Za-z-_]{11}'
-                 r'&list=[0-9A-Za-z-_]{34}'
-                 r'&index=[0-9]+$', x),
+        re.fullmatch(r'^https://www\.youtube\.com/watch'
+                     r'\?v=[0-9A-Za-z-_]{11}$', x),
+        re.fullmatch(r'^https://www\.youtube\.com/playlist'
+                     r'\?list=[0-9A-Za-z-_]{34}$', x),
+        re.fullmatch(r'^https://www\.youtube\.com/watch'
+                     r'\?v=[0-9A-Za-z-_]{11}'
+                     r'&list=[0-9A-Za-z-_]{34}'
+                     r'&index=[0-9]+$', x),
     ]),
 
-    'github': lambda x: re.match(r'^https://github\.com/[0-9A-Za-z-]+'
-                                 r'(/[0-9A-Za-z._-]+)?$', x),
-    'gitlab': lambda x: re.match(r'^https://gitlab\.com/[0-9A-Za-z-]+'
-                                 r'(/[0-9A-Za-z._-]+)?$', x),
-    'sourceforge': lambda x: re.match(r'^https://sourceforge\.net/projects'
-                                      r'/[0-9a-z-]+/$', x),
+    'github': lambda x: re.fullmatch(r'^https://github\.com/[0-9A-Za-z-]+'
+                                     r'(/[0-9A-Za-z._-]+)?$', x),
+    'gitlab': lambda x: re.fullmatch(r'^https://gitlab\.com/[0-9A-Za-z-]+'
+                                     r'(/[0-9A-Za-z._-]+)?$', x),
+    'sourceforge': lambda x: re.fullmatch(r'^https://sourceforge\.net/projects'
+                                          r'/[0-9a-z-]+/$', x),
 
-    'apt': lambda x: re.match(r'^https://packages\.debian\.org/bookworm'
-                              r'/[0-9a-z-]+$', x),
-    'choco': lambda x: re.match(r'^https://community\.chocolatey\.org/packages'
-                                r'/[0-9A-Za-z.-]+$', x),
+    'apt': lambda x: re.fullmatch(r'^https://packages\.debian\.org/bookworm'
+                                  r'/[0-9a-z-]+$', x),
+    'choco': lambda x: re.fullmatch(r'^https://community\.chocolatey\.org'
+                                    r'/packages/[0-9A-Za-z.-]+$', x),
 
-    'npm': lambda x: re.match(r'^https://www\.npmjs\.com/package'
-                              r'(/@[0-9a-z-]+)?/[0-9a-z-]+$', x),
-    'pypi': lambda x: re.match(r'^https://pypi\.org/project'
-                               r'/[0-9A-Za-z-]+/$', x),
+    'npm': lambda x: re.fullmatch(r'^https://www\.npmjs\.com/package'
+                                  r'(/@[0-9a-z-]+)?/[0-9a-z-]+$', x),
+    'pypi': lambda x: re.fullmatch(r'^https://pypi\.org/project'
+                                   r'/[0-9A-Za-z-]+/$', x),
 
     'docker': lambda x: any([
-        re.match(r'^https://hub\.docker\.com/r'
-                 r'/[0-9a-z-]+/[0-9a-z-]+$', x),
-        re.match(r'^https://hub\.docker\.com/_/[0-9a-z-]+$', x),
-        re.match(r'^https://quay\.io/repository'
-                 r'/[0-9a-z-]+/[0-9a-z-]+$', x),
+        re.fullmatch(r'^https://hub\.docker\.com/r'
+                     r'/[0-9a-z-]+/[0-9a-z-]+$', x),
+        re.fullmatch(r'^https://hub\.docker\.com/_/[0-9a-z-]+$', x),
+        re.fullmatch(r'^https://quay\.io/repository'
+                     r'/[0-9a-z-]+/[0-9a-z-]+$', x),
     ]),
 
     'helm': validate_https,
 
-    'fdroid': lambda x: re.match(r'^https://f-droid\.org/packages'
-                                 r'/[0-9a-z._]+/$', x),
-    'playstore': lambda x: re.match(r'^https://play\.google\.com/store/apps'
-                                    r'/details\?id=[0-9A-Za-z._]+$', x),
+    'fdroid': lambda x: re.fullmatch(r'^https://f-droid\.org/packages'
+                                     r'/[0-9a-z._]+/$', x),
+    'playstore': lambda x: re.fullmatch(r'^https://play\.google\.com/store/apps'
+                                        r'/details\?id=[0-9A-Za-z._]+$', x),
 
-    'chrome': lambda x: re.match(r'^https://chromewebstore\.google\.com/detail'
-                                 r'/[0-9a-z-]+/[a-z]{32}$', x),
-    'firefox': lambda x: re.match(r'^https://addons\.mozilla\.org/en-US'
-                                  r'/firefox/addon/[0-9a-z-]+/$', x),
+    'chrome': lambda x: re.fullmatch(r'^https://chromewebstore\.google\.com'
+                                     r'/detail/[0-9a-z-]+/[a-z]{32}$', x),
+    'firefox': lambda x: re.fullmatch(r'^https://addons\.mozilla\.org/en-US'
+                                      r'/firefox/addon/[0-9a-z-]+/$', x),
 
-    'vsmarketplace': lambda x: re.match(
+    'vsmarketplace': lambda x: re.fullmatch(
         r'^https://marketplace\.visualstudio\.com/items'
         r'\?itemName=[0-9A-Za-z.-]+$', x),
 
-    'huggingface': lambda x: re.match(r'^https://huggingface\.co/[0-9A-Za-z-]+'
-                                      r'(/[0-9A-Za-z.-]+)?$', x),
-    'spaces': lambda x: re.match(r'^https://huggingface\.co/spaces'
-                                 r'/[0-9A-Za-z-]+(/[0-9A-Za-z.-]+)?$', x),
+    'huggingface': lambda x: re.fullmatch(
+        r'^https://huggingface\.co/[0-9A-Za-z-]+(/[0-9A-Za-z.-]+)?$', x),
+    'spaces': lambda x: re.fullmatch(r'^https://huggingface\.co/spaces'
+                                     r'/[0-9A-Za-z-]+(/[0-9A-Za-z.-]+)?$', x),
 }
 
 
 def parse_link(s: str) -> dict:
-    match = re.search(r'^\[([^\[\]]+)\]\(([^\(\)]+)\)$', s)
+    match = re.fullmatch(r'^\[([^\[\]]+)\]\(([^\(\)]+)\)$', s)
     if match is None:
         raise ValueError(f'Cannot parse link: {s}')
 
@@ -98,7 +98,7 @@ def parse_link(s: str) -> dict:
 
 
 def parse_item(s: str) -> dict:
-    match = re.search(r'^- \*\*([^\*]+)\*\* - ([^:]+): (.+)$', s)
+    match = re.fullmatch(r'^- \*\*([^\*]+)\*\* - ([^:]+): (.+)$', s)
     if match is None:
         raise ValueError(f'Cannot parse item: {s}')
 
@@ -122,7 +122,7 @@ def parse_item(s: str) -> dict:
 
 
 def parse_header(s: str) -> tuple[int, str]:
-    match = re.search(r'^(#+) (.+)$', s)
+    match = re.fullmatch(r'^(#+) (.+)$', s)
     if match is None:
         raise ValueError(f'Cannot parse header: {s}')
 
