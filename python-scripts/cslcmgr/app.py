@@ -43,7 +43,7 @@ def get_config():
         raise ValueError('The first token cannot be empty')
 
     for i, id in enumerate(cfg_lists['ids']):
-        if not CODESPACE_ID_REGEX.match(id):
+        if not CODESPACE_ID_REGEX.fullmatch(id):
             raise ValueError('Invalid codespace ID: ' + id)
 
         if i >= len_tokens:
