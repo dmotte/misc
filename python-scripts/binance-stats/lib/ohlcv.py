@@ -217,7 +217,7 @@ class OHLCVDir:
         self._ohlcvs = nest()  # Levels: pair -> interval -> year
 
         for file in pathlib.Path(dir).glob('*.csv'):
-            match = re.search(
+            match = re.fullmatch(
                 r'^([0-9]+)-([0-9A-Z]+)-([0-9A-Z]+)-([0-9A-Za-z]+)\.csv$',
                 file.name)
 
