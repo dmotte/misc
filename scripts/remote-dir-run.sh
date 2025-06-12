@@ -85,7 +85,7 @@ fi
 
 ################################################################################
 
-if [ -n "$RDR_EVAL" ]; then eval "$RDR_EVAL"; fi
+[ -z "$RDR_EVAL" ] || eval "$RDR_EVAL"
 
 # Operations are split in two separate connections because we want the
 # "$local_dir/main.sh" script to be able to read from our end's stdin
