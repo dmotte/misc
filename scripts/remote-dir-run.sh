@@ -19,6 +19,10 @@ set -e
 # For debugging purposes:
 #   RDR_DEBUG=true RDR_EVAL=exit ./remote-dir-run.sh mydir foo ++ bar baz
 
+# Note: the RDR_ESCAPE_SCRIPTS feature is useful when using SSH with a command
+# that ends in "bash -c" or similar, because SSH joins all the command
+# arguments into a single string before sending them to the remote shell
+
 readonly local_dir=${1:?}; shift
 
 [ -e "$local_dir/main.sh" ] || { echo 'File main.sh not found' >&2; exit 1; }
