@@ -48,8 +48,8 @@ if [ -n "$RDR_ADD_CMD2_ARGS" ]; then
 fi
 
 if [ "$RDR_DEBUG" = true ]; then
-    echo 'cmd1:' "${cmd1[@]}"
-    echo 'cmd2:' "${cmd2[@]}"
+    echo "cmd1: ${cmd1[*]@Q}"
+    echo "cmd2: ${cmd2[*]@Q}"
     echo "remote_cmd: $remote_cmd"
 fi
 
