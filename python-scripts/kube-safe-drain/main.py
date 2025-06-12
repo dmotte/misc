@@ -4,8 +4,8 @@ import json
 import sys
 
 
-CONTROLLER_KINDS_SKIP = ['CronJob', 'DaemonSet']
-CONTROLLER_KINDS_ACCEPT = ['Deployment', 'StatefulSet']
+CONTROLLER_KINDS_SKIP = ('CronJob', 'DaemonSet')
+CONTROLLER_KINDS_ACCEPT = ('Deployment', 'StatefulSet')
 
 
 def leaves(tree: dict, key_children: str, key_get: str):
@@ -64,7 +64,8 @@ def controllers_tree(resources: list, res: dict):
     ]}
 
 
-def workloads_to_restart(resources: list, kinds_skip: list, kinds_accept: list):
+def workloads_to_restart(resources: list,
+                         kinds_skip: list | tuple, kinds_accept: list | tuple):
     '''
     Gets the list of the Kubernetes workloads that need to be restarted, i.e.
     the workloads that have at least one pod running on a cordoned node
@@ -81,10 +82,10 @@ def workloads_to_restart(resources: list, kinds_skip: list, kinds_accept: list):
     workloads = {}
 
     for node_name in cordoned_nodes_names:
-        for pod in [
+        for pod in (
             r for r in resources
             if r['kind'] == 'Pod' and r['spec']['nodeName'] == node_name
-        ]:
+        ):
             for ctrl in leaves(controllers_tree(resources, pod),
                                'controllers', 'resource'):
                 ns = ctrl['metadata']['namespace']
