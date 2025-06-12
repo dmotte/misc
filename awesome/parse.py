@@ -19,7 +19,7 @@ LINK_VALIDATORS = {
     'webapp': validate_https,
     'link': validate_https,
 
-    'youtube': lambda x: any([
+    'youtube': lambda x: any((
         re.fullmatch(r'^https://www\.youtube\.com/watch'
                      r'\?v=[0-9A-Za-z-_]{11}$', x),
         re.fullmatch(r'^https://www\.youtube\.com/playlist'
@@ -28,7 +28,7 @@ LINK_VALIDATORS = {
                      r'\?v=[0-9A-Za-z-_]{11}'
                      r'&list=[0-9A-Za-z-_]{34}'
                      r'&index=[0-9]+$', x),
-    ]),
+    )),
 
     'github': lambda x: re.fullmatch(r'^https://github\.com/[0-9A-Za-z-]+'
                                      r'(/[0-9A-Za-z._-]+)?$', x),
@@ -47,13 +47,13 @@ LINK_VALIDATORS = {
     'pypi': lambda x: re.fullmatch(r'^https://pypi\.org/project'
                                    r'/[0-9A-Za-z-]+/$', x),
 
-    'docker': lambda x: any([
+    'docker': lambda x: any((
         re.fullmatch(r'^https://hub\.docker\.com/r'
                      r'/[0-9a-z-]+/[0-9a-z-]+$', x),
         re.fullmatch(r'^https://hub\.docker\.com/_/[0-9a-z-]+$', x),
         re.fullmatch(r'^https://quay\.io/repository'
                      r'/[0-9a-z-]+/[0-9a-z-]+$', x),
-    ]),
+    )),
 
     'helm': validate_https,
 
