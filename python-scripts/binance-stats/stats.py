@@ -24,14 +24,14 @@ def compute_portfolios(records: list[dict]) -> dict[str, Portfolio]:
     for x in records:
         spot.change(x['coin'], x['change'])
 
-        if x['operation'] in [
+        if x['operation'] in (
             'Simple Earn Flexible Redemption',
             'Simple Earn Flexible Subscription',
             'Simple Earn Locked Redemption',
             'Simple Earn Locked Subscription',
             'Staking Purchase',
             'Staking Redemption',
-        ]:
+        ):
             earn.change(x['coin'], -x['change'])
 
     return {'spot': spot, 'earn': earn}
