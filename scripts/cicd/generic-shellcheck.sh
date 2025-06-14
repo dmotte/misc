@@ -9,6 +9,9 @@ echo "::group::$0: Preparation"
     shellcheck --version
 echo '::endgroup::'
 
-scripts=$(find . -name \*.sh)
+if [ "$SHELLCHECK_USE_GIT_LS_FILES" = true ]
+    then scripts=$(git ls-files \*.sh)
+    else scripts=$(find . -name \*.sh)
+fi
 echo 'Scripts to check:'; echo "$scripts"
 echo -n "$scripts" | xargs -rd\\n shellcheck
