@@ -10,8 +10,8 @@ echo "::group::$0: Preparation"
 echo '::endgroup::'
 
 if [ "$SHELLCHECK_USE_GIT_LS_FILES" = true ]
-    then scripts=$(git ls-files \*.sh)
-    else scripts=$(find . -name \*.sh)
+    then files=$(git ls-files \*.sh)
+    else files=$(find . -name \*.sh)
 fi
-echo 'Scripts to check:'; echo "$scripts"
-echo -n "$scripts" | xargs -rd\\n shellcheck
+echo 'Files to check:'; echo "$files"
+echo -n "$files" | xargs -rd\\n shellcheck
