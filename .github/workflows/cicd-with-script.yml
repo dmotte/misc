@@ -8,6 +8,7 @@ on:
       run-shellcheck: { type: boolean, required: false, default: true }
       run-trivy: { type: boolean, required: false, default: true }
       runs-on: { type: string, required: false, default: ubuntu-latest }
+      fetch-depth: { type: number, required: false, default: 1 }
       script: { type: string, required: false, default: "" }
     secrets:
       secret01: { required: false }
@@ -56,6 +57,8 @@ jobs:
     needs: [prettier, shellcheck, trivy]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: ${{ inputs.fetch-depth }}
       - uses: dmotte/misc/actions/run-cicd-script@main
         with:
           script: ${{ inputs.script }}
