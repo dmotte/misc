@@ -13,6 +13,7 @@ Some pieces of code I find useful for some reason.
 - `git tag v1.2.3 && git push --tags`
 - `git diff --no-index dir1/ dir2/`
 - `git diff --cached > my.patch`, `git apply my.patch`
+- `git diff --quiet HEAD^ HEAD -- .`
 - `git clean -dfnX`
 - `git remote set-url origin git@github.com:octocat/hello-world.git`
 - `git config --global credential.helper "cache --timeout=$((10*365*24*60*60))"`
