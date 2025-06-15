@@ -12,6 +12,7 @@ jobs:
     permissions: { id-token: write, pages: write }
     uses: dmotte/misc/.github/workflows/cicd-with-script.yml@main
     with:
+      fetch-depth: 2
       script: |
         export MISC_SCRIPTS_DIR="$GITHUB_ACTION_PATH/../../scripts"
         find . -type f \( -name 'cicd.sh' -o -name 'cicd-*.sh' \) |
