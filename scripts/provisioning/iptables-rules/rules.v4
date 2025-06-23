@@ -16,11 +16,11 @@
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
 # Very trivial port knocking.
-# Warning: this configuration accepts the knock sequence even if other (wrong)
+# Warning: these configurations accept a knock sequence even if other (wrong)
 # ports are accessed in between! Not suitable for production
--A INPUT -i eth+ -p tcp --dport 1111 -m recent --name knock01 --set -j DROP
--A INPUT -i eth+ -p tcp --dport 2222 -m recent --rcheck --name knock01 --seconds 5 --reap -m recent --name knock01 --remove -m recent --name knock02 --set -j DROP
--A INPUT -i eth+ -p tcp --dport 3333 -m recent --rcheck --name knock02 --seconds 5 --reap -m recent --name knock02 --remove -m recent --name knock03 --set -j DROP
+-A INPUT -i eth+ -p tcp --dport 1111 -m recent --name knock-main-01 --set -j DROP
+-A INPUT -i eth+ -p tcp --dport 2222 -m recent --rcheck --name knock-main-01 --seconds 5 --reap -m recent --name knock-main-01 --remove -m recent --name knock-main-02 --set -j DROP
+-A INPUT -i eth+ -p tcp --dport 3333 -m recent --rcheck --name knock-main-02 --seconds 5 --reap -m recent --name knock-main-02 --remove -m recent --name knock-main-03 --set -j DROP
 
 # Allow packets to the DHCP client from the eth* network interfaces
 -A INPUT -i eth+ -p udp --dport 68 -j ACCEPT
@@ -137,9 +137,9 @@
 -A ACCEPT-TRUSTED -s 2.2.0.0/16 -j ACCEPT
 -A ACCEPT-TRUSTED -s 3.3.0.0/16 -j ACCEPT
 
-# Allow IP addresses that have successfully performed the port knocking
-# sequence, but only once
--A ACCEPT-TRUSTED -m recent --rcheck --name knock03 --seconds 5 --reap -m recent --name knock03 --remove -j ACCEPT
+# Allow IP addresses that have successfully performed the "knock-main" port
+# knocking sequence, but only once
+-A ACCEPT-TRUSTED -m recent --rcheck --name knock-main-03 --seconds 5 --reap -m recent --name knock-main-03 --remove -j ACCEPT
 
 # Default policy: (none) (RETURN to parent chain)
 
