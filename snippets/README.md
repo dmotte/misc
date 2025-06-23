@@ -127,7 +127,7 @@ Some pieces of code I find useful for some reason.
 - `sudo dd if=/dev/mmcblk2 status=progress | gzip -c | split -b4GB - mmcblk2.img.gz.part`
   - `md5sum mmcblk2.img.gz.part* > MD5SUMS`
   - `cat mmcblk2.img.gz.part* | gunzip -c | sudo dd of=/dev/mmcblk2 status=progress`
-- `sudo parted /dev/sdb -s 'mklabel gpt'`, `sudo parted /dev/sdb -s 'mkpart "" 0% 100%'`, `sudo mkfs.ext4 /dev/sdb1 -L mylabel`
+- `sudo parted /dev/sdb -s 'mklabel gpt mkpart "" 0% 100%'`, `sudo mkfs.ext4 /dev/sdb1 -L mylabel`
 - `gzip -tv myfile.txt.gz`
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
 - `comm <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright') --total`
