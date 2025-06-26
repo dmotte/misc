@@ -64,7 +64,7 @@ if [ "$add_to_path" = y ]; then
     # shellcheck disable=SC2016
     readonly line='export PATH="$PATH:$HOME/.local/share/yabridge"'
     if grep -Fx "$line" ~/.bashrc >/dev/null 2>&1; then
-        echo 'Skipping PATH addition in ~/.bashrc as it seems already present'
+        echo 'Skipping PATH addition to ~/.bashrc as it seems already present'
     else
         echo "Adding $line to ~/.bashrc"
         echo "$line" >> ~/.bashrc
