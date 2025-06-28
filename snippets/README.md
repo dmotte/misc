@@ -8,7 +8,7 @@ Some pieces of code I find useful for some reason.
 - `tmux setw -g mouse on`
 - `eval "$(ssh-agent)"`, `ssh-add -t1800` (30 minutes), `ssh-add -l`, `eval "$(ssh-agent -k)"`
 - `git log --graph --oneline`
-- `git fsck`
+- `git fsck --strict`
 - `git clone --depth=1 ...`
 - `git tag v1.2.3 && git push --tags`
 - `git diff --no-index dir1/ dir2/`
