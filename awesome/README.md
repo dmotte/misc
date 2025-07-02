@@ -189,6 +189,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **git-remote-gcrypt** - git remote helper to push and pull from repositories PGP-encrypted with GnuPG, using a custom format: [apt](https://packages.debian.org/bookworm/git-remote-gcrypt) [github](https://github.com/spwhitton/git-remote-gcrypt) [website](https://spwhitton.name/tech/code/git-remote-gcrypt/)
 - **hexedit** - viewer and editor in hexadecimal or ASCII for files or devices: [apt](https://packages.debian.org/bookworm/hexedit) [docs](https://rigaux.org/hexedit.html) [github](https://github.com/pixel/hexedit)
 - **htop** - ncurses-based process viewer similar to top: [apt](https://packages.debian.org/bookworm/htop) [github](https://github.com/htop-dev/htop) [website](https://htop.dev/)
+- **ipcalc** - calculate broadcast, network and range from an IPv4 address or CIDR notation: [apt](https://packages.debian.org/bookworm/ipcalc) [github](https://github.com/kjokjo/ipcalc) [website](https://jodies.de/ipcalc)
 - **lnav** - log files navigator TUI: [apt](https://packages.debian.org/bookworm/lnav) [github](https://github.com/tstack/lnav) [website](https://lnav.org/)
 - **lynx** - classic non-graphical (text-mode / TUI) web browser: [apt](https://packages.debian.org/bookworm/lynx) [website](https://lynx.invisible-island.net/)
 - **ncdu** - ncurses TUI disk usage analyzer: [apt](https://packages.debian.org/bookworm/ncdu) [website](https://dev.yorhel.nl/ncdu)
