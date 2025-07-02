@@ -1,3 +1,3 @@
-pillow==11.2.*
+pillow==11.3.*
 torch==2.7.*
-transformers==4.51.*
+transformers==4.53.*
