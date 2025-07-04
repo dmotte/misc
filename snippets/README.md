@@ -164,6 +164,7 @@ Some pieces of code I find useful for some reason.
 - `sed -Ei 's/^(\s+)#\s*(alias [ef]?grep='\''[ef]?grep --color=auto'\'')/\1\2/' ~/.bashrc`
 - `{ base64 -w256 myfile.txt; echo; echo 'Hello, World!'; } | { while read -r i; do [ -n "$i" ] || break; echo "$i"; done | base64 -d | cat -A; cat -A; }`
 - `bn=${path##*/}` (similar to `basename "$path"`), `dn=${path%/*}` (similar to `dirname "$path"`)
+- `gnome-session-inhibit --app-id org.gnome.Terminal.desktop --reason 'Unsaved work' --inhibit logout:suspend --inhibit-only`
 
 ```bash
 install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
