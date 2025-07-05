@@ -124,6 +124,7 @@ Some pieces of code I find useful for some reason.
 - `curl -fLo ~/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x ~/.local/bin/kubectl`
 - `curl -fL https://get.helm.sh/helm-v3.17.2-linux-amd64.tar.gz | tar -xvz --strip-components=1 -C ~/.local/bin linux-amd64/helm`
 - `curl -fL https://github.com/derailed/k9s/releases/download/v0.40.10/k9s_Linux_amd64.tar.gz | tar -xvzC ~/.local/bin k9s`
+- `curl -fL https://downloads.rclone.org/rclone-current-linux-amd64.zip | bsdtar -xOf- 'rclone-*-linux-amd64/rclone' | install -T /dev/stdin ~/.local/bin/rclone`
 - `curl -fL https://github.com/restic/restic/releases/latest/download/restic_0.18.0_linux_amd64.bz2 | bunzip2 -c | install -T /dev/stdin ~/.local/bin/restic`
 - `sudo dd if=/dev/mmcblk2 status=progress | gzip -c | split -b4GB - mmcblk2.img.gz.part`
   - `md5sum mmcblk2.img.gz.part* > MD5SUMS`
