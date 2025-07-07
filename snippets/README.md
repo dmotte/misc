@@ -145,6 +145,7 @@ Some pieces of code I find useful for some reason.
   - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD_COMMAND='echo mypassword'`
   - `restic snapshots`, `restic ls latest`, `restic check --read-data`
   - `restic restore latest --delete -vvt my-target-dir --dry-run`
+  - `restic -r sftp://myuser@192.168.0.123:2222//my-restic-repo snapshots`
 - `RCLONE_CONFIG=rclone.conf rclone config`, `rclone config --config=rclone.conf`
 - `RCLONE_CONFIG= rclone config file`, `rclone --config= config file`
 - `echo -e '[mygdrive]\ntype = drive\nscope = drive\nroot_folder_id = ...' > ~/.config/rclone/rclone.conf`, `rclone config reconnect mygdrive:`
