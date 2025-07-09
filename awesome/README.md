@@ -77,6 +77,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 - **Asciinema** - record and share your terminal sessions: [website](https://asciinema.org/)
 - **Backtest by Curvo** - in-browser finance tool for investment portfolio backtesting: [website](https://backtest.curvo.eu/)
+- **Bitwarden** - open-source password management service: [github](https://github.com/bitwarden/server) [website](https://bitwarden.com/)
 - **CircuitJS1** - electronic circuit simulator that runs in the browser: [github](https://github.com/sharpie7/circuitjs1) [webapp](https://lushprojects.com/circuitjs/circuitjs.html) [webapp](https://www.falstad.com/circuit/circuitjs.html) [website](https://lushprojects.com/circuitjs/) [website](https://www.falstad.com/circuit/)
 - **CircuitVerse** - webapp to design circuits quickly and easily with a modern and intuitive UI: [website](https://circuitverse.org/)
 - **Commando** - generates Docker Alpine images on-demand with all the commands you need: [github](https://github.com/lukaszlach/commando) [website](https://command-not-found.com/)
