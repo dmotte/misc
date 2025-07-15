@@ -142,7 +142,7 @@ Some pieces of code I find useful for some reason.
 - `rsync -Phavn --delete --stats ~/sourcedir/ ~/targetdir/` (trailing slashes needed!)
 - `restic -r my-restic-repo -p<(echo mypassword) init`
   - `env -C my-files restic -r "$(realpath my-restic-repo)" -p<(echo mypassword) backup -vn .`
-  - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD_COMMAND='echo mypassword'`
+  - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD=mypassword`
   - `restic snapshots`, `restic ls latest`, `restic check --read-data`
   - `restic restore latest --delete -vvt my-target-dir --dry-run`
   - `restic -r sftp://myuser@192.168.0.123:2222//my-restic-repo snapshots`
