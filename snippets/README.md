@@ -22,8 +22,8 @@ Some pieces of code I find useful for some reason.
 - `latest_commit=$(git rev-parse HEAD)`
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
-- `tar -cvzf archive.tar.gz mydir`, `tar -xvzf archive.tar.gz`
-- `tar -cvzf archive.tar.gz -g snapshot.snar -C mydir .`, `tar -xvzf archive.tar.gz -g snapshot.snar -C mydir`
+- `tar -cvzf myarchive.tar.gz mydir`, `tar -xvzf myarchive.tar.gz`
+- `tar -cvzf myarchive.tar.gz -g snapshot.snar -C mydir .`, `tar -xvzf myarchive.tar.gz -g snapshot.snar -C mydir`
 - `curl -fLO https://...`, `curl -fLo target.zip https://...`
 - `curl -I https://example.com/`, `curl -i https://example.com/`
 - `top` and then press `xcV`. Then `W` to save the config
@@ -52,7 +52,7 @@ Some pieces of code I find useful for some reason.
 - `df -h`
 - `free -htvw`
 - `du -sh`
-- `zip -r archive.zip mydir`, `unzip -q archive.zip -d mydir`
+- `zip -r myarchive.zip mydir`, `unzip -q myarchive.zip -d mydir`
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
@@ -145,6 +145,7 @@ Some pieces of code I find useful for some reason.
   - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD=mypassword`
   - `restic snapshots`, `restic ls latest`, `restic check --read-data`
   - `restic restore latest --delete -vvt my-target-dir --dry-run`
+  - `restic dump latest / -t myarchive.tar`
   - `restic -r sftp://myuser@192.168.0.123:2222//my-restic-repo snapshots`
 - `RCLONE_CONFIG=rclone.conf rclone config`, `rclone config --config=rclone.conf`
 - `RCLONE_CONFIG= rclone config file`, `rclone --config= config file`
