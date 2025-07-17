@@ -143,7 +143,7 @@ Some pieces of code I find useful for some reason.
 - `restic -r my-restic-repo -p<(echo mypassword) init`, `exec 3<<<mypassword; restic -r my-restic-repo -p/dev/fd/3 init; exec 3<&-`
   - `env -C my-files restic -r "$(realpath my-restic-repo)" -p<(echo mypassword) backup -vn .`
   - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD=mypassword`
-  - `restic snapshots`, `restic ls latest`, `restic check --read-data`
+  - `restic snapshots`, `restic ls -l latest`, `restic check --read-data`
   - `restic restore latest --delete -vvt my-target-dir --dry-run`
   - `restic dump latest / -t myarchive.tar`
   - `restic -r sftp://myuser@192.168.0.123:2222//my-restic-repo snapshots`
