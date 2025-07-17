@@ -9,8 +9,9 @@ set -e
 #   RDR_REMOTE_TAR_OPTIONS=-v ./remote-dir-run.sh mydir \
 #     ssh user@hostname -p2222
 
-# Note: if you're using Git Bash on Windows, you may want to replace "ssh"
-# with "/c/Windows/System32/OpenSSH/ssh.exe", or $GIT_SSH if you have it set.
+# Note: if you're using Git Bash on Windows, you might want to replace "ssh"
+# with "/c/Windows/System32/OpenSSH/ssh.exe", or $GIT_SSH if you have it set,
+# to be able to use the keys from Windows OpenSSH Authentication Agent.
 # Or you could use ${GIT_SSH:-ssh} to cover both cases
 
 # Note: you can leverage SSH multiplexing to avoid being asked for the
