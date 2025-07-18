@@ -140,7 +140,7 @@ Some pieces of code I find useful for some reason.
 - `date | gpg -ac --batch --cipher-algo=AES256 --no-symkey-cache --passphrase-file=<(echo MyPassphrase) -o encrypted.asc`, `gpg -d --batch --no-symkey-cache --passphrase-file=<(echo MyPassphrase) encrypted.asc | sha256sum`
 - `echo -e 'default-cache-ttl 0\nmax-cache-ttl 0' >> ~/.gnupg/gpg-agent.conf && gpgconf -R`
 - `rsync -Phavn --delete --stats ~/sourcedir/ ~/targetdir/` (trailing slashes needed!)
-- `restic -r my-restic-repo -p<(echo mypassword) init`, `exec 3<<<mypassword; restic -r my-restic-repo -p/dev/fd/3 init; exec 3<&-`
+- `exec 3<<<mypassword; restic -r my-restic-repo -p/dev/fd/3 init; exec 3<&-`
   - `env -C my-files restic -r "$(realpath my-restic-repo)" -p<(echo mypassword) backup -vn --skip-if-unchanged .`
   - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD=mypassword`
   - `restic snapshots`, `restic ls -l latest`, `restic check --read-data`
