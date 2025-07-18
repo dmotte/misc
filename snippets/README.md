@@ -141,10 +141,10 @@ Some pieces of code I find useful for some reason.
 - `echo -e 'default-cache-ttl 0\nmax-cache-ttl 0' >> ~/.gnupg/gpg-agent.conf && gpgconf -R`
 - `rsync -Phavn --delete --stats ~/sourcedir/ ~/targetdir/` (trailing slashes needed!)
 - `exec 3<<<mypassword; restic -r my-restic-repo -p/dev/fd/3 init; exec 3<&-`
-  - `env -C my-files restic -r "$(realpath my-restic-repo)" -p<(echo mypassword) backup -vn --skip-if-unchanged .`
+  - `env -C myfiles restic -r "$(realpath my-restic-repo)" -p<(echo mypassword) backup -vn --skip-if-unchanged .`
   - `export RESTIC_REPOSITORY="$(realpath my-restic-repo)" RESTIC_PASSWORD=mypassword`
   - `restic snapshots`, `restic ls -l latest`, `restic check --read-data`
-  - `restic restore latest --delete -vvt my-target-dir --dry-run`
+  - `restic restore latest --delete -vvt myfiles --dry-run`
   - `restic dump latest / -t myarchive.tar`
   - `restic -r sftp://myuser@192.168.0.123:2222//my-restic-repo snapshots`
   - `mkdir mymountpoint && restic mount mymountpoint`, `cat mymountpoint/snapshots/latest/myfile.txt`
