@@ -9,7 +9,7 @@ const rules = {
   "stackoverflow.com": ["div#hot-network-questions"],
   "youtube.com": [
     "div.style-scope.ytd-watch-next-secondary-results-renderer",
-    "a.ytp-suggestion-set",
+    "div.html5-endscreen.ytp-player-content.videowall-endscreen",
   ],
 };
 
