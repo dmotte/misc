@@ -175,6 +175,7 @@ Some pieces of code I find useful for some reason.
 - `dconf watch /`, `dconf dump /`, `dconf write /org/gtk/gtk4/settings/file-chooser/show-hidden true`
 - `gsettings list-schemas --print-paths`, `gsettings set org.gtk.gtk4.Settings.FileChooser show-hidden true`
 - `inotifywait -cmqr mydir`, `inotifywait -eMODIFY -t10 myfile.log`
+- `[ -z "$(lsof +D mydir)" ]`
 
 ```bash
 install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
