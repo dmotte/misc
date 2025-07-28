@@ -410,9 +410,12 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## Browser extensions
 
+- **Dark Reader** - dark mode for every website: [chrome](https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh) [firefox](https://addons.mozilla.org/en-US/firefox/addon/darkreader/) [github](https://github.com/darkreader/darkreader) [website](https://darkreader.org/)
 - **Floccus** - sync your bookmarks privately across browsers and devices: [chrome](https://chromewebstore.google.com/detail/floccus-bookmarks-sync/fnaicdffflnofjppbagibeoednhnbjhg) [fdroid](https://f-droid.org/packages/org.handmadeideas.floccus/) [firefox](https://addons.mozilla.org/en-US/firefox/addon/floccus/) [github](https://github.com/floccusaddon/floccus) [playstore](https://play.google.com/store/apps/details?id=org.handmadeideas.floccus) [website](https://floccus.org/)
 - **LinkAce** - self-hosted tool for effortlessly archiving, organizing, and sharing your favorite web links: [chrome](https://chromewebstore.google.com/detail/yet-another-linkace-exten/ladekkfhihppgfcjgaimgggecekfhmho) [docker](https://hub.docker.com/r/linkace/linkace) [github](https://github.com/Kovah/LinkAce) [website](https://www.linkace.org/)
 - **linkding** - self-hosted bookmark manager that is designed be to be minimal, fast, and easy to set up using Docker: [chrome](https://chromewebstore.google.com/detail/linkding-extension/beakmhbijpdhipnjhnclmhgjlddhidpe) [docker](https://hub.docker.com/r/sissbruecker/linkding) [firefox](https://addons.mozilla.org/en-US/firefox/addon/linkding-extension/) [github](https://github.com/sissbruecker/linkding) [website](https://linkding.link/)
+- **uBlock Origin** - free and open-source ad content blocker: [chrome](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm) [firefox](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/) [github](https://github.com/gorhill/uBlock) [website](https://ublockorigin.com/)
+- **uBlock Origin Lite** - free and open-source ad content blocker (Manifest V3-based): [chrome](https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh) [github](https://github.com/gorhill/uBlock) [website](https://ublockorigin.com/)
 
 ## Utility scripts
 
