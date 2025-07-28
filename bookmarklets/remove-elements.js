@@ -5,17 +5,20 @@
 
 // javascript:(function(){
 
-function removeByQuery(selectors) {
-  return document.querySelectorAll(selectors).forEach((x) => x.remove());
-}
+const rules = {
+  "stackoverflow.com": ["div#hot-network-questions"],
+  "youtube.com": [
+    "div.style-scope.ytd-watch-next-secondary-results-renderer",
+    "a.ytp-suggestion-set",
+  ],
+};
 
-if (window.location.hostname.endsWith("youtube.com")) {
-  removeByQuery("div.style-scope.ytd-watch-next-secondary-results-renderer");
-  removeByQuery("a.ytp-suggestion-set");
-}
+const hostname = window.location.hostname;
 
-if (window.location.hostname.endsWith("stackoverflow.com")) {
-  removeByQuery("div#hot-network-questions");
+for (const [hn, selectors] of Object.entries(rules)) {
+  if (hostname.endsWith(hn))
+    for (const s of selectors)
+      document.querySelectorAll(s).forEach((elem) => elem.remove());
 }
 
 // })();
