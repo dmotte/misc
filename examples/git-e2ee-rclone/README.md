@@ -19,7 +19,7 @@ Then set up a new **Rclone `crypt` remote** following the official instructions 
 Create a new empty **bare Git repo** locally, and enable and run the **`post-update` hook** for it ([required for "dumb" WebDAV Git remotes](https://cets.seas.upenn.edu/answers/git-repository.html)):
 
 ```bash
-git init --bare repo01.git
+git init --bare -bmain repo01.git
 (cd repo01.git/hooks && cp -T post-update{.sample,} && ./post-update)
 ```
 
