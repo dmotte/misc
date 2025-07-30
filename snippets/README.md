@@ -176,6 +176,7 @@ Some pieces of code I find useful for some reason.
 - `gsettings list-schemas --print-paths`, `gsettings set org.gtk.gtk4.Settings.FileChooser show-hidden true`
 - `inotifywait -cmqr mydir`, `inotifywait -eMODIFY -t10 myfile.log`
 - `[ -z "$(lsof +D mydir)" ]`
+- `echo 'rename oldname newname' | sftp -b- -P2222 myuser@192.168.0.123`
 
 ```bash
 install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
