@@ -113,6 +113,7 @@ Some pieces of code I find useful for some reason.
 - `arr=(one two 'three four'); escaped_items=("${arr[@]@Q}"); echo "${escaped_items[0]}"; escaped_str="${arr[*]@Q}"; echo "$escaped_str"`
 - `bash -ec 'echo "${0@Q} - ${*@Q}"' bash hey 'hello world'`
 - `mapfile -t arr < <(echo 'hey "hello world"' | xargs -n1)`
+- `printf '%s\n' "${arr[@]}"`
 - `vlc -vvv -Idummy --no-audio screen:// --screen-fps=10 --sout='#transcode{vcodec=MJPG,scale=0.5}:standard{access=http,mux=mpjpeg,dst=:8080/}' --sout-http-mime='multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a' --live-caching=100`
 - `modprobe -r mymod01 mymod02`, `echo -e 'blacklist mymod01\nblacklist mymod02' > /etc/modprobe.d/blacklist-mymod.conf`
 - `bind -x '"\e": mycommand'`
