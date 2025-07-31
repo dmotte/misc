@@ -140,6 +140,7 @@ Some pieces of code I find useful for some reason.
 - `shred -u myfile.txt`
 - `gpg -ac --cipher-algo=AES256 --no-symkey-cache -o encrypted.asc <(date)`, `gpg -d --no-symkey-cache encrypted.asc`
 - `date | gpg -ac --batch --cipher-algo=AES256 --no-symkey-cache --passphrase-file=<(echo MyPassphrase) -o encrypted.asc`, `gpg -d --batch --no-symkey-cache --passphrase-file=<(echo MyPassphrase) encrypted.asc | sha256sum`
+- `gpgconf -v --list-options gpg-agent`
 - `echo -e 'default-cache-ttl 0\nmax-cache-ttl 0' >> ~/.gnupg/gpg-agent.conf && gpgconf --reload`
 - `rsync -Phavn --delete --stats ~/sourcedir/ ~/targetdir/` (trailing slashes needed!)
 - `exec 3<<<mypassword; restic -r my-restic-repo -p/dev/fd/3 init; exec 3<&-`
