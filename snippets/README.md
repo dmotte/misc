@@ -166,9 +166,9 @@ Some pieces of code I find useful for some reason.
 - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass .`
 - `rclone --config= serve -v webdav --dir-cache-time=0 --disable-dir-list --addr=unix:///tmp/my.sock .`
 - `curl -fsSL https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
-- `ssh myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
-- `ssh myuser@192.168.0.123 -p2222 -NvL/tmp/my.sock:127.0.0.1:8080`
-- `ssh -NvMS~/.ssh/cm-%C myuser@192.168.0.123`, `ssh -S~/.ssh/cm-%C myuser@192.168.0.123`
+- `ssh -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
+- `ssh -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvL/tmp/my.sock:127.0.0.1:8080`
+- `ssh -oServerAliveInterval=30 -NvMS~/.ssh/cm-%C myuser@192.168.0.123`, `ssh -S~/.ssh/cm-%C myuser@192.168.0.123`
 - `ssh -Jmyjumpuser@myjumphost.example.com:2222 myuser@192.168.0.123`
 - `LC_ALL=C grep --color '[^ -~]' myfile.txt`, `LC_ALL=C sed -i 's/[^ -~]/?/g' myfile.txt`
 - `sed -Ei 's/^#?force_color_prompt=.*$/force_color_prompt=yes/' ~/.bashrc`
