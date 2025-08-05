@@ -181,6 +181,7 @@ Some pieces of code I find useful for some reason.
 - `inotifywait -cmqr mydir`, `inotifywait -eMODIFY -t10 myfile.log`
 - `[ -z "$(lsof +D mydir)" ]`
 - `echo 'rename oldname newname' | sftp -b- -P2222 myuser@192.168.0.123`
+- `coproc MYPROC { pinentry-gnome3; }; echo -e 'SETPROMPT My prompt\nGETPIN\nBYE' >&"${MYPROC[1]}"; sed -En 's/^D (.+)$/\1/p' <&"${MYPROC[0]}"`
 
 ```bash
 install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
