@@ -154,7 +154,7 @@ Some pieces of code I find useful for some reason.
   - `mkdir mymountpoint && restic mount mymountpoint`, `cat mymountpoint/snapshots/latest/myfile.txt`
   - `restic snapshots latest --json | jq -r '.[0].id'`
   - `restic diff --metadata a1b2 c3d4`
-  - `GPG_TTY=$(tty) restic --password-command='gpg -dq encrypted.asc' snapshots`
+  - `GPG_TTY=$(tty) restic --password-command='gpg -dq encrypted.asc' snapshots` (to make `pinentry-curses` work)
 - `RCLONE_CONFIG=rclone.conf rclone config`, `rclone config --config=rclone.conf`
 - `RCLONE_CONFIG= rclone config file`, `rclone --config= config file`
 - `echo -e '[mygdrive]\ntype = drive\nscope = drive\nroot_folder_id = ...' > ~/.config/rclone/rclone.conf`, `rclone config reconnect mygdrive:`
