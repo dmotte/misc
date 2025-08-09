@@ -11,7 +11,7 @@ import yfinance as yf
 import pandas as pd
 
 
-def is_aware(d: dt):
+def is_aware(d: dt) -> bool:
     '''
     Returns true if the datetime object `d` is timezone-aware, false otherwise.
     See https://docs.python.org/3/library/datetime.html#determining-if-an-object-is-aware-or-naive
@@ -19,7 +19,7 @@ def is_aware(d: dt):
     return d.tzinfo is not None and d.tzinfo.utcoffset(d) is not None
 
 
-def main(argv=None):
+def main(argv: list[str] = None) -> int:
     if argv is None:
         argv = sys.argv
 

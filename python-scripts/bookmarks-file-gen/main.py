@@ -5,7 +5,7 @@ import sys
 from typing import TextIO
 
 
-def xmlescape(x: str):
+def xmlescape(x: str) -> str:
     x = x.replace('&', '&amp;')
     x = x.replace('<', '&lt;')
     x = x.replace('>', '&gt;')
@@ -14,7 +14,7 @@ def xmlescape(x: str):
     return x
 
 
-def print_item(file: TextIO, item: dict, indent: int = 0):
+def print_item(file: TextIO, item: dict, indent: int = 0) -> None:
     str_indent = '    ' * indent
 
     esc_name = xmlescape(item['name'])
@@ -34,7 +34,7 @@ def print_item(file: TextIO, item: dict, indent: int = 0):
         raise ValueError('Unsupported item type: ' + str(item['type']))
 
 
-def main():
+def main() -> int:
     input = json.load(sys.stdin)
 
     print('<!DOCTYPE NETSCAPE-Bookmark-file-1>')

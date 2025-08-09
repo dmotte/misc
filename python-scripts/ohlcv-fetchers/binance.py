@@ -11,7 +11,7 @@ from dateutil import parser as dup
 import ccxt
 
 
-def main(argv=None):
+def main(argv: list[str] = None) -> int:
     if argv is None:
         argv = sys.argv
 

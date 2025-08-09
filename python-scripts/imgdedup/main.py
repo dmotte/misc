@@ -8,7 +8,7 @@ import sys
 from contextlib import ExitStack
 
 
-def main(argv=None):
+def main(argv: list[str] = None) -> int:
     if argv is None:
         argv = sys.argv
 

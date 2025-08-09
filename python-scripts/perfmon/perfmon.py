@@ -8,7 +8,7 @@ import time
 import psutil
 
 
-def eval_alert_condition(name: str, value, op: str, threshold):
+def eval_alert_condition(name: str, value, op: str, threshold) -> str | None:
     '''
     Returns a message (string) if the condition is satisfied and an alert
     should be triggered, None otherwise
@@ -23,7 +23,7 @@ def eval_alert_condition(name: str, value, op: str, threshold):
     return None
 
 
-def main(argv=None):
+def main(argv: list[str] = None) -> int:
     if argv is None:
         argv = sys.argv
 
@@ -82,7 +82,7 @@ def main(argv=None):
 
     msgs = []
 
-    def add_msg_if_any(*fargs):
+    def add_msg_if_any(*fargs) -> None:
         if args.debug:
             print('Evaluating', fargs)
         msg = eval_alert_condition(*fargs)

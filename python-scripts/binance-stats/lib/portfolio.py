@@ -14,7 +14,7 @@ class Portfolio:
 
     def __init__(self, balances: dict[str, float | Decimal] = {},
                  numtype: type[float | Decimal] = Decimal,
-                 allow_negative: bool = False):
+                 allow_negative: bool = False) -> None:
         if numtype not in (float, Decimal):
             raise ValueError(f'Invalid number type: {numtype}')
         self._numtype = numtype

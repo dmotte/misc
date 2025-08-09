@@ -2,10 +2,11 @@
 
 import csv
 
+from collections.abc import Iterator
 from datetime import datetime as dt
 from datetime import timezone as tz
 from decimal import Decimal
-from typing import TextIO
+from typing import Any, TextIO
 
 
 def load_records(file: TextIO) -> list[dict]:
@@ -54,7 +55,7 @@ def load_records(file: TextIO) -> list[dict]:
     return records
 
 
-def records_before(records: list[dict], dt_end: dt):
+def records_before(records: list[dict], dt_end: dt) -> Iterator[dict[str, Any]]:
     '''
     Returns only the records before a specific datetime.
     Warning: it assumes that the records are already sorted in ascending order!

@@ -14,7 +14,7 @@ T_BLINK = 100  # in milliseconds
 BLINK_COUNT = 5
 
 
-def main():
+def main() -> int:
     print('Raspi-safe-shutdown started. Waiting for the user to press the',
           'shutdown button')
 
@@ -35,7 +35,7 @@ def main():
             if GPIO.input(SHUTDOWN_BTN):
                 print('The button is still pressed. Shutting down')
 
-                for i in range(BLINK_COUNT):
+                for _ in range(BLINK_COUNT):
                     GPIO.output(SHUTDOWN_LED, GPIO.LOW)
                     time.sleep(T_BLINK / 1000.0)
                     GPIO.output(SHUTDOWN_LED, GPIO.HIGH)

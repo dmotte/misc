@@ -13,7 +13,7 @@ from decimal import Decimal
 from lib.ohlcv import Interval, OHLCV
 
 
-def test_interval():
+def test_interval() -> None:
     cases = [
         (Interval.SEC01, '1s', timedelta(seconds=1)),
         (Interval.MIN01, '1m', timedelta(minutes=1)),
@@ -38,7 +38,7 @@ def test_interval():
         assert td == interval.timedelta()
 
 
-def test_ohlcv():
+def test_ohlcv() -> None:
     with pytest.raises(ValueError) as exc_info:
         OHLCV('BASE', 'QUOTE', [
             {

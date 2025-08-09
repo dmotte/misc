@@ -7,7 +7,7 @@ from datetime import datetime as dt
 from croniter import croniter
 
 
-def main():
+def main() -> int:
     iter = croniter('*/2 * * * *', ret_type=dt)  # every 2 minutes
 
     while True:

@@ -52,14 +52,14 @@ def compute_values(audio: AudioSegment, perc_clipping: float = 0) -> dict:
     }
 
 
-def print_values(values: dict, file: TextIO, fmt_float: str = ''):
+def print_values(values: dict, file: TextIO, fmt_float: str = '') -> None:
     func_float = str if fmt_float == '' else lambda x: fmt_float.format(x)
 
     for k, v in values.items():
         print(f'{k}={func_float(v) if isinstance(v, float) else v}', file=file)
 
 
-def main(argv=None):
+def main(argv: list[str] = None) -> int:
     if argv is None:
         argv = sys.argv
 

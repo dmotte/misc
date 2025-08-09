@@ -5,15 +5,18 @@ import re
 import requests
 import sys
 
-from types import SimpleNamespace
+from collections.abc import Callable
 from flask import Flask, jsonify, send_file, redirect
+from flask.typing import ResponseReturnValue
+from requests import Response
+from types import SimpleNamespace
 
 GITHUB_API_VERSION = '2022-11-28'
 
 CODESPACE_ID_REGEX = re.compile(r'^[0-9A-Za-z-]+$')
 
 
-def get_config():
+def get_config() -> SimpleNamespace:
     cfg_lists = {
         k: [] if v is None else v.split(',')
         for k, v in {
@@ -67,7 +70,11 @@ def get_config():
     )
 
 
-def github_api_call(cfg, app, req_method, url_suffix, id, callback):
+def github_api_call(
+    cfg: SimpleNamespace, app: Flask, req_method: Callable[..., Response],
+    url_suffix: str, id: str,
+    callback: Callable[[Response], ResponseReturnValue],
+) -> ResponseReturnValue:
     if id not in cfg.codespaces:
         return jsonify({'message': 'Codespace not found'}), 404
 
@@ -87,7 +94,7 @@ def github_api_call(cfg, app, req_method, url_suffix, id, callback):
         return jsonify({'message': 'Server error'}), 500
 
 
-def create_app():
+def create_app() -> Flask:
     cfg = get_config()
 
     if cfg.ui:
@@ -105,11 +112,11 @@ def create_app():
     app.logger.debug('Configuration: %s', cfg)
 
     @app.route('/list', endpoint='list')
-    def route_list():
+    def route_list() -> ResponseReturnValue:
         return jsonify({'codespaces': list(cfg.codespaces.keys())}), 200
 
     @app.route('/state/<id>', endpoint='state')
-    def route_state(id):
+    def route_state(id: str) -> ResponseReturnValue:
         return github_api_call(
             cfg, app, requests.get, '', id,
             lambda resp: (jsonify({
@@ -119,14 +126,14 @@ def create_app():
         )
 
     @app.route('/start/<id>', methods=['POST'], endpoint='start')
-    def route_start(id):
+    def route_start(id: str) -> ResponseReturnValue:
         return github_api_call(
             cfg, app, requests.post, '/start', id,
             lambda resp: (jsonify({'message': 'OK'}), 200)
         )
 
     @app.route('/stop/<id>', methods=['POST'], endpoint='stop')
-    def route_stop(id):
+    def route_stop(id: str) -> ResponseReturnValue:
         return github_api_call(
             cfg, app, requests.post, '/stop', id,
             lambda resp: (jsonify({'message': 'OK'}), 200)
@@ -135,7 +142,7 @@ def create_app():
     return app
 
 
-def main():
+def main() -> int:
     # Run the Flask local development server if the script is executed directly
     create_app().run()
 

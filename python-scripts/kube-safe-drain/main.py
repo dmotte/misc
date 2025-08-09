@@ -3,12 +3,15 @@
 import json
 import sys
 
+from collections.abc import ValuesView
+from typing import Any
+
 
 CONTROLLER_KINDS_SKIP = ('CronJob', 'DaemonSet')
 CONTROLLER_KINDS_ACCEPT = ('Deployment', 'StatefulSet')
 
 
-def leaves(tree: dict, key_children: str, key_get: str):
+def leaves(tree: dict, key_children: str, key_get: str) -> list:
     if len(tree[key_children]) == 0:
         return [tree[key_get]]
 
@@ -19,7 +22,7 @@ def leaves(tree: dict, key_children: str, key_get: str):
     ]
 
 
-def res2ref(res: dict):
+def res2ref(res: dict) -> dict[str, Any]:
     '''
     Converts a resource dict into a resource reference, i.e. a dict with only
     namespace, kind and name
@@ -31,7 +34,7 @@ def res2ref(res: dict):
     }
 
 
-def resolve_ref(resources: list, ref: dict):
+def resolve_ref(resources: list, ref: dict) -> Any:
     '''
     Given a resource reference (a dict with namespace, kind and name), scans
     the resources list to find the associated resource
@@ -49,7 +52,7 @@ def resolve_ref(resources: list, ref: dict):
     return matches[0]
 
 
-def controllers_tree(resources: list, res: dict):
+def controllers_tree(resources: list, res: dict) -> dict[str, Any]:
     '''
     Given a resource dict, recursively builds the tree of all its controllers
     '''
@@ -65,7 +68,8 @@ def controllers_tree(resources: list, res: dict):
 
 
 def workloads_to_restart(resources: list,
-                         kinds_skip: list | tuple, kinds_accept: list | tuple):
+                         kinds_skip: list | tuple, kinds_accept: list | tuple,
+                         ) -> ValuesView:
     '''
     Gets the list of the Kubernetes workloads that need to be restarted, i.e.
     the workloads that have at least one pod running on a cordoned node
@@ -104,7 +108,7 @@ def workloads_to_restart(resources: list,
     return workloads.values()
 
 
-def main():
+def main() -> int:
     input = json.load(sys.stdin)
 
     workloads = workloads_to_restart(

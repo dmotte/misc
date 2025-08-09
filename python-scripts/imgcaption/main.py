@@ -6,7 +6,7 @@ from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
 
 
-def main():
+def main() -> int:
     print('Loading BLIP processor and model', file=sys.stderr)
 
     processor: BlipProcessor = BlipProcessor.from_pretrained(

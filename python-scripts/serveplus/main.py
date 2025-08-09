@@ -10,6 +10,8 @@ import string
 import sys
 
 from http import HTTPStatus, cookies
+from io import BytesIO
+from typing import BinaryIO
 
 
 # Inspired by
@@ -25,7 +27,7 @@ def pair_items_to_dict(items: list[str]) -> dict[str, str]:
     return {items[i]: items[i + 1] for i in range(0, len_items, 2)}
 
 
-def main(argv=None):
+def main(argv: list[str] = None) -> int:
     if argv is None:
         argv = sys.argv
 
@@ -84,7 +86,7 @@ def main(argv=None):
             string.ascii_letters + string.digits, k=args.token_len))
 
     class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
-        def translate_path(self, path):
+        def translate_path(self, path: str) -> str:
             for k, v in args.aliases.items():
                 if path == k or path.startswith((k + '?', k + '#')):
                     # This should trigger a redirect when the alias root is
@@ -106,7 +108,7 @@ def main(argv=None):
 
             return super().translate_path(path)
 
-        def send_head(self):
+        def send_head(self) -> BytesIO | BinaryIO | None:
             nonlocal token_query, token_cookie
 
             if token_query is not None:
@@ -148,14 +150,14 @@ def main(argv=None):
             return super().send_head()
 
     class DualStackServer(http.server.ThreadingHTTPServer):
-        def server_bind(self):
+        def server_bind(self) -> None:
             # Suppress exception when protocol is IPv4
             with contextlib.suppress(Exception):
                 self.socket.setsockopt(
                     socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
             return super().server_bind()
 
-        def serve_forever(self, *fargs, **fkwargs):
+        def serve_forever(self, *fargs, **fkwargs) -> None:
             if args.token_auth:
                 host, port = self.socket.getsockname()[:2]
                 url_host = f'[{host}]' if ':' in host else host
@@ -165,7 +167,7 @@ def main(argv=None):
 
             return super().serve_forever(*fargs, **fkwargs)
 
-        def finish_request(self, request, client_address):
+        def finish_request(self, request, client_address) -> None:
             self.RequestHandlerClass(request, client_address, self,
                                      directory=args.directory)
 

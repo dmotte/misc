@@ -10,7 +10,7 @@ from decimal import Decimal
 from lib.portfolio import Portfolio
 
 
-def test_portfolio():
+def test_portfolio() -> None:
     with pytest.raises(ValueError) as exc_info:
         Portfolio(numtype=int)
     assert exc_info.value.args == ('Invalid number type: <class \'int\'>',)
@@ -29,7 +29,7 @@ def test_portfolio():
     assert not p.is_zero(p.get('AAA'))
 
 
-def test_portfolio_negative():
+def test_portfolio_negative() -> None:
     p = Portfolio({'AAA': 5, 'BBB': 7}, allow_negative=True)
 
     assert p.numtype == Decimal
@@ -39,7 +39,7 @@ def test_portfolio_negative():
     assert p.get('AAA') == Decimal(-1)
 
 
-def test_portfolio_float():
+def test_portfolio_float() -> None:
     p = Portfolio({'AAA': 5, 'BBB': 7}, numtype=float)
 
     assert p.numtype == float
@@ -77,7 +77,7 @@ def test_portfolio_float():
     assert str(p.copy().change('AAA', -1).diff(p)) == '{"AAA": -1.0}'
 
 
-def test_portfolio_load():
+def test_portfolio_load() -> None:
     csv01 = textwrap.dedent('''\
         Coin,Amount
         AAA,123

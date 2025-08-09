@@ -83,7 +83,7 @@ class OHLCV:
     Volume) candlestick data for a trading pair
     '''
 
-    def __init__(self, base: str, quote: str, candles: list[dict]):
+    def __init__(self, base: str, quote: str, candles: list[dict]) -> None:
         if len(candles) < 2:
             raise ValueError('Not enough candles. Minimum required: 2')
 
@@ -205,7 +205,7 @@ class OHLCVDir:
     '''
 
     def __init__(self, dir: str, year_first: int, year_last: int,
-                 numtype: type[float | Decimal] = float):
+                 numtype: type[float | Decimal] = float) -> None:
         if numtype not in (float, Decimal):
             raise ValueError(f'Invalid number type: {numtype}')
         self._numtype = numtype

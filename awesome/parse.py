@@ -132,7 +132,7 @@ def parse_header(s: str) -> tuple[int, str]:
     return level, name
 
 
-def check_items_sorted(data: dict):
+def ensure_items_sorted(data: dict) -> None:
     prev_name = ''
 
     for child in data:
@@ -142,10 +142,10 @@ def check_items_sorted(data: dict):
                                  f'after {prev_name}')
             prev_name = child['name']
         elif child['type'] == 'section':
-            check_items_sorted(child['children'])
+            ensure_items_sorted(child['children'])
 
 
-def main():
+def main() -> int:
     data = []
     errors = []
 
@@ -182,7 +182,7 @@ def main():
             except Exception as e:
                 errors.append(e)
 
-    check_items_sorted(data)
+    ensure_items_sorted(data)
 
     ############################################################################
 
