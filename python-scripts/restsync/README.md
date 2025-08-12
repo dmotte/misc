@@ -10,6 +10,8 @@ This script can be used to **synchronize a folder** between multiple hosts using
 
 > **Important**: this has been tested with **restic v0.18.0** and **Python 3.12.4** on **Windows 10**.
 
+For instructions on how to use this script, you can refer to the help message:
+
 ```bash
-./invoke.sh TODO?
+python3 main.py --help
 ```
