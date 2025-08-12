@@ -1,0 +1,7 @@
+/lib/__pycache__/
+
+/data/
+/data-*/
+
+/state.yml
+/state-*.yml
