@@ -146,7 +146,7 @@ def subcmd_need(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
     match args.mode:
         case 'pull': check_pull = True
         case 'push': check_push = True
-        case '': check_pull, check_push = True, True
+        case 'all': check_pull, check_push = True, True
         case _: raise ValueError(f'Invalid mode: {args.mode}')
 
     ensure_consistent_data_state(rsvars.data_dir, rsvars.state_file)
@@ -340,9 +340,9 @@ def get_argumentparser(prog: str | None = None,
     subparser = subparsers.add_parser('need', help='Check if a pull and/or '
                                       'push is needed')
     subparser.add_argument('mode', metavar='MODE', type=str,
-                           nargs='?', default='',
+                           nargs='?', default='all',
                            help='Check mode. It can be "pull", "push", or '
-                           'empty string to check both (default: empty string)')
+                           '"all" to check both (default: %(default)s)')
     subparser.set_defaults(func=subcmd_need)
 
     subparser = subparsers.add_parser('pull', help='Pull remote changes')
