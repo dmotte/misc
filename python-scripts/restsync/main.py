@@ -348,9 +348,14 @@ def main(argv: list[str] = None) -> int:
         restic_cmd = os.getenv('RESTSYNC_RESTIC_CMD', 'restic')
 
         if args.ssh_mux:
+            ctl_path = '~/.ssh/cm-restsync-%C'
+
             stack.enter_context(ssh_mux(shlex.split(ssh_cmd) +
                                         ['-oServerAliveInterval=30'] +
-                                        sftp_details.ssh_args))
+                                        sftp_details.ssh_args, ctl_path))
+
+            ssh_cmd += f' -S{ctl_path}'
+            sftp_cmd += f' -oControlPath={ctl_path}'
 
         rinv = ResticInvoker(sftp_details, pswretr.get,
                              ssh_cmd=ssh_cmd, sftp_cmd=sftp_cmd,
