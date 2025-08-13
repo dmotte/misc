@@ -81,7 +81,7 @@ class ResticInvoker:
         sftp_path = self.sftp_details.path
 
         subprocess.run(
-            self.sftp_cmd_full,
+            shlex.split(self.sftp_cmd_full),
             input=f'rename {sftp_path} {sftp_path}-locked',
             stdout=subprocess.DEVNULL, text=True, check=True)
 
@@ -97,7 +97,7 @@ class ResticInvoker:
         sftp_path = self.sftp_details.path
 
         subprocess.run(
-            self.sftp_cmd_full,
+            shlex.split(self.sftp_cmd_full),
             input=f'rename {sftp_path}-locked {sftp_path}',
             stdout=subprocess.DEVNULL, text=True, check=True)
 

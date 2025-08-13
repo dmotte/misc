@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import shlex
 import subprocess
 
 from getpass import getpass
@@ -59,7 +60,7 @@ class PasswordRetriever:
         if self.env_var_name_cmd != '':
             cmd = os.getenv(self.env_var_name_cmd, '')
             if cmd != '':
-                self._psw = subprocess.check_output(cmd, text=True)
+                self._psw = subprocess.check_output(shlex.split(cmd), text=True)
                 return self._psw
 
         if self.env_var_name_file != '':
