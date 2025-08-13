@@ -250,6 +250,9 @@ def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
             if repl_argv[0] in ('exit', 'quit'):
                 break
 
+            if repl_argv[0] == 'help':
+                repl_argv = ['--help']
+
             run_repl_argv(repl_argv)
         except EOFError:  # The user hit CTRL+D
             break
