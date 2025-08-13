@@ -231,6 +231,14 @@ def subcmd_push(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 
 
 def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
+    try:
+        # Even if not used directly, importing the "readline" module enables
+        # arrow-key navigation, input history, and basic line editing for
+        # "input()" prompts on Unix-like systems
+        import readline
+    except ImportError:
+        pass
+
     parser = get_argumentparser(prog='restsync', repl=True)
 
     def run_repl_argv(repl_argv: list[str]):
