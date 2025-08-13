@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-import atexit
 import difflib
 import os
 import shlex
@@ -245,38 +244,39 @@ def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         repl_args = parser.parse_args(repl_argv)
         repl_args.func(rsvars, repl_args)
 
-    if len(args.run_at_exit) > 0:
-        atexit.register(lambda: run_repl_argv(args.run_at_exit))
+    try:
+        while True:
+            try:
+                repl_argv = shlex.split(input('restsync> '))
 
-    while True:
-        try:
-            repl_argv = shlex.split(input('restsync> '))
+                if len(repl_argv) == 0:
+                    continue
 
-            if len(repl_argv) == 0:
-                continue
+                if repl_argv[0] in ('exit', 'quit'):
+                    break
 
-            if repl_argv[0] in ('exit', 'quit'):
+                if repl_argv[0] == 'help':
+                    repl_argv = ['--help']
+
+                run_repl_argv(repl_argv)
+            except EOFError:  # The user hit CTRL+D
                 break
-
-            if repl_argv[0] == 'help':
-                repl_argv = ['--help']
-
-            run_repl_argv(repl_argv)
-        except EOFError:  # The user hit CTRL+D
-            break
-        except KeyboardInterrupt:
-            print('Caught CTRL+C. Exiting', file=sys.stderr)
-            break
-        except SystemExit:
-            # Note: the SystemExit error is raised by argparse on parse errors.
-            # We need to catch it to prevent exiting the REPL
-            pass
-        except (RuntimeError, ValueError) as e:
-            print(e, file=sys.stderr)
-        except subprocess.CalledProcessError:
-            pass
-        except BaseException:
-            traceback.print_exc()
+            except KeyboardInterrupt:
+                print('Caught CTRL+C. Exiting', file=sys.stderr)
+                break
+            except SystemExit:
+                # Note: the SystemExit error is raised by argparse on parse
+                # errors. We need to catch it to prevent exiting the REPL
+                pass
+            except (RuntimeError, ValueError) as e:
+                print(e, file=sys.stderr)
+            except subprocess.CalledProcessError:
+                pass
+            except BaseException:
+                traceback.print_exc()
+    finally:
+        if len(args.run_at_exit) > 0:
+            run_repl_argv(args.run_at_exit)
 
 
 def subcmd_bash(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
