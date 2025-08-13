@@ -35,6 +35,20 @@ def ensure_consistent_data_state(data_dir: str, state_file: str) -> None:
                            f'exists but directory {data_dir} doesn\'t')
 
 
+def resolve_snapshot_id(snapshot_id: str,
+                        rinv: ResticInvoker, state: dict,
+                        resolve_latest: bool = False) -> str:
+    '''
+    Resolves a special snapshot ID such as "latest", "state-latest", etc. to an
+    actual snapshot ID
+    '''
+    match snapshot_id:
+        case 'latest': return rinv.get_latest_snapshot_id() if resolve_latest \
+            else 'latest'
+        case 'state-latest': return state['latest-snapshot-id']
+        case _: return snapshot_id
+
+
 def check_need_pull(rinv: ResticInvoker, data_dir: str, state: dict) -> bool:
     '''
     Returns True if there are some remote changes to pull, False otherwise
@@ -93,9 +107,18 @@ def subcmd_init(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         'latest-snapshot-id': rsvars.rinv.get_latest_snapshot_id()})
 
 
+def subcmd_resolve(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
+    print(resolve_snapshot_id(
+        args.snapshot_id, rsvars.rinv,
+        state_read(rsvars.state_file) if args.snapshot_id.startswith('state-')
+        else {}, True))
+
+
 def subcmd_tree(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
     it = tree_local(rsvars.data_dir) if args.snapshot_id == 'local' \
-        else tree_snapshot(rsvars.rinv, args.snapshot_id)
+        else tree_snapshot(rsvars.rinv, resolve_snapshot_id(
+            args.snapshot_id, rsvars.rinv, state_read(rsvars.state_file)
+            if args.snapshot_id.startswith('state-') else {}, False))
 
     for line in it:
         print(line, end='')
@@ -106,9 +129,13 @@ def subcmd_diff(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         return
 
     it_a = tree_local(rsvars.data_dir) if args.id_a == 'local' \
-        else tree_snapshot(rsvars.rinv, args.id_a)
+        else tree_snapshot(rsvars.rinv, resolve_snapshot_id(
+            args.id_a, rsvars.rinv, state_read(rsvars.state_file)
+            if args.id_a.startswith('state-') else {}, False))
     it_b = tree_local(rsvars.data_dir) if args.id_b == 'local' \
-        else tree_snapshot(rsvars.rinv, args.id_b)
+        else tree_snapshot(rsvars.rinv, resolve_snapshot_id(
+            args.id_b, rsvars.rinv, state_read(rsvars.state_file)
+            if args.id_b.startswith('state-') else {}, False))
 
     for line in difflib.unified_diff(list(it_a), list(it_b)):
         print(line, end='')
@@ -272,21 +299,31 @@ def get_argumentparser(prog: str | None = None,
                                       'restic repository')
     subparser.set_defaults(func=subcmd_init)
 
+    subparser = subparsers.add_parser('resolve', help='Resolve a special '
+                                      'snapshot ID')
+    subparser.add_argument('snapshot_id', metavar='SNAPSHOT_ID', type=str,
+                           help='Special snapshot ID to be resolved. Examples: '
+                           'state-latest, latest')
+    subparser.set_defaults(func=subcmd_resolve)
+
     subparser = subparsers.add_parser('tree', help='Build the CSV tree of the '
                                       'local data directory or a remote '
                                       'restic snapshot')
     subparser.add_argument('snapshot_id', metavar='SNAPSHOT_ID', type=str,
-                           help='Snapshot ID, or "local" for the local data '
-                           'directory')
+                           help='Snapshot ID (will be resolved according to '
+                           'the "resolve" subcmd), or "local" for the local '
+                           'data directory')
     subparser.set_defaults(func=subcmd_tree)
 
     subparser = subparsers.add_parser('diff', help='Compare two CSV trees')
     subparser.add_argument('id_a', metavar='ID_A', type=str,
-                           help='First snapshot ID, or "local" for the local '
-                           'data directory')
+                           help='First snapshot ID (will be resolved '
+                           'according to the "resolve" subcmd), or "local" '
+                           'for the local data directory')
     subparser.add_argument('id_b', metavar='ID_B', type=str,
-                           help='Second snapshot ID, or "local" for the local '
-                           'data directory')
+                           help='Second snapshot ID (will be resolved '
+                           'according to the "resolve" subcmd), or "local" '
+                           'for the local data directory')
     subparser.set_defaults(func=subcmd_diff)
 
     subparser = subparsers.add_parser('need', help='Check if a pull and/or '
