@@ -151,7 +151,7 @@ def subcmd_need(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 
     ensure_consistent_data_state(rsvars.data_dir, rsvars.state_file)
 
-    state = state_read(rsvars.state_file)
+    state = state_read(rsvars.state_file, True)
 
     need_pull: bool | None = None
     need_push: bool | None = None
@@ -191,7 +191,7 @@ def subcmd_pull(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         if not args.force:
             print('Ensuring that a push is not needed')
             if check_need_push(rsvars.rinv, rsvars.data_dir,
-                               state_read(rsvars.state_file)):
+                               state_read(rsvars.state_file, True)):
                 raise RuntimeError('Cannot pull: need-push is true')
 
         rsvars.rinv.restic(['restore', 'latest', '--delete', '-vt',
@@ -216,7 +216,7 @@ def subcmd_push(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         if not args.force:
             print('Ensuring that a pull is not needed')
             if check_need_pull(rsvars.rinv, rsvars.data_dir,
-                               state_read(rsvars.state_file)):
+                               state_read(rsvars.state_file, True)):
                 raise RuntimeError('Cannot push: need-pull is true')
 
         rsvars.rinv.restic('backup -v --skip-if-unchanged .',

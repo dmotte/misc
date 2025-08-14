@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 
+import os
 import re
 
 
-def state_read(state_file: str) -> dict:
+def state_read(state_file: str, empty_if_file_not_found: bool = False) -> dict:
     '''
     Reads a state file and returns its data as a Python object
     '''
+    if empty_if_file_not_found and not os.path.exists(state_file):
+        return {}
+
     data = {}
 
     with open(state_file, 'r') as f:
