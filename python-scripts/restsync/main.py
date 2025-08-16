@@ -304,8 +304,8 @@ def get_argumentparser(prog: str | None = None,
     subparsers = parser.add_subparsers(metavar='SUBCMD', required=True)
 
     subparser = subparsers.add_parser('restic', help='Run a restic command')
-    subparser.add_argument('args', metavar='ARGS', type=str, nargs='*',
-                           help='Command arguments')
+    subparser.add_argument('args', metavar='ARGS', type=str,
+                           nargs=argparse.REMAINDER, help='Command arguments')
     subparser.set_defaults(func=subcmd_restic)
 
     subparser = subparsers.add_parser('init', help='Initialize the remote '
@@ -360,7 +360,8 @@ def get_argumentparser(prog: str | None = None,
     if repl:
         subparser = subparsers.add_parser('bash', help='Start a Bash shell '
                                           'as a subprocess')
-        subparser.add_argument('args', metavar='ARGS', type=str, nargs='*',
+        subparser.add_argument('args', metavar='ARGS', type=str,
+                               nargs=argparse.REMAINDER,
                                help='Bash command arguments')
         subparser.set_defaults(func=subcmd_bash)
 
