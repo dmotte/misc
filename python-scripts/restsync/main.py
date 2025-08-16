@@ -247,6 +247,9 @@ def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         repl_args = parser.parse_args(repl_argv)
         repl_args.func(rsvars, repl_args)
 
+    if len(args.run_at_startup) > 0:
+        run_repl_argv(args.run_at_startup)
+
     try:
         while True:
             try:
@@ -365,6 +368,8 @@ def get_argumentparser(prog: str | None = None,
                                           help='Exit REPL')
     else:
         subparser = subparsers.add_parser('repl', help='Start a REPL')
+        subparser.add_argument('-a', '--run-at-startup', type=str, nargs='*',
+                               default=[], help='Run command at startup')
         subparser.add_argument('-e', '--run-at-exit', type=str, nargs='*',
                                default=[], help='Run command at exit')
         subparser.set_defaults(func=subcmd_repl)
