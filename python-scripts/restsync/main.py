@@ -261,9 +261,8 @@ def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
                 run_repl_argv(repl_argv)
             except EOFError:  # The user hit CTRL+D
                 break
-            except KeyboardInterrupt:
-                print('Caught CTRL+C. Exiting', file=sys.stderr)
-                break
+            except KeyboardInterrupt:  # The user hit CTRL+C
+                pass
             except SystemExit:
                 # Note: the SystemExit error is raised by argparse on parse
                 # errors. We need to catch it to prevent exiting the REPL
