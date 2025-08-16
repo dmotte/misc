@@ -6,6 +6,7 @@ import os
 import shlex
 import subprocess
 import sys
+import time
 import traceback
 
 from contextlib import ExitStack
@@ -182,6 +183,48 @@ def subcmd_need(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
             f'Unexpected need_pull-need_push combination: {combination}')
 
 
+def subcmd_watch(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
+    if args.cmd_pull == '' and args.cmd_push == '' and args.cmd_pull_push == '':
+        raise RuntimeError('You should provide at least one command to run')
+
+    check_pull = args.cmd_pull_push != '' or args.cmd_pull != ''
+    check_push = args.cmd_pull_push != '' or args.cmd_push != ''
+
+    interval: int = args.interval
+    cmd_pull: list[str] = shlex.split(args.cmd_pull)
+    cmd_push: list[str] = shlex.split(args.cmd_push)
+    cmd_pull_push: list[str] = shlex.split(args.cmd_pull_push)
+
+    while True:
+        ensure_consistent_data_state(rsvars.data_dir, rsvars.state_file)
+
+        state = state_read(rsvars.state_file, True)
+
+        need_pull: bool | None = None
+        need_push: bool | None = None
+        if check_pull:
+            print('Checking for remote changes to pull')
+            need_pull = check_need_pull(rsvars.rinv, rsvars.data_dir, state)
+            print(f'need-pull: {str(need_pull).lower()}')
+        if check_push:
+            print('Checking for local changes to push')
+            need_push = check_need_push(rsvars.rinv, rsvars.data_dir, state)
+            print(f'need-push: {str(need_push).lower()}')
+
+        if need_pull:
+            print(f'Running {cmd_pull}')
+            subprocess.check_call(cmd_pull)
+        if need_push:
+            print(f'Running {cmd_push}')
+            subprocess.check_call(cmd_push)
+        if need_pull and need_push:
+            print(f'Running {cmd_pull_push}')
+            subprocess.check_call(cmd_pull_push)
+
+        print(f'Sleeping {interval} seconds')
+        time.sleep(interval)
+
+
 def subcmd_pull(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
     ensure_consistent_data_state(rsvars.data_dir, rsvars.state_file)
 
@@ -346,6 +389,20 @@ def get_argumentparser(prog: str | None = None,
                            help='Check mode. It can be "pull", "push", or '
                            '"all" to check both (default: %(default)s)')
     subparser.set_defaults(func=subcmd_need)
+
+    subparser = subparsers.add_parser('watch', help='Periodically check if a '
+                                      'pull and/or push is needed, and run '
+                                      'custom commands accordingly')
+    subparser.add_argument('-i', '--interval', type=int, default=5 * 60,
+                           help='Interval (in seconds) (default: %(default)s)')
+    subparser.add_argument('--cmd-pull', type=str, default='',
+                           help='Command to run when a pull is needed')
+    subparser.add_argument('--cmd-push', type=str, default='',
+                           help='Command to run when a push is needed')
+    subparser.add_argument('--cmd-pull-push', type=str, default='',
+                           help='Command to run when both pull AND push are '
+                           'needed')
+    subparser.set_defaults(func=subcmd_watch)
 
     subparser = subparsers.add_parser('pull', help='Pull remote changes')
     subparser.add_argument('-f', '--force', action='store_true',
