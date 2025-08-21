@@ -419,6 +419,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## Utility scripts
 
+- **Eruda** - console (like Google Chrome DevTools) for mobile browsers: [github](https://github.com/liriliri/eruda) [website](https://eruda.liriliri.io/)
 - **MDwiki** - static single-file Markdown-based CMS/Wiki made with only client-side JavaScript and HTML5: [github](https://github.com/Dynalon/mdwiki) [website](https://dynalon.github.io/mdwiki/)
 - **tinyfilemanager** - single-file PHP file manager: [github](https://github.com/prasathmani/tinyfilemanager) [website](https://tinyfilemanager.github.io/)
 - **unzipper** - simple PHP page to extract or compress .zip, .gz, .rar archives via browser: [github](https://github.com/ndeet/unzipper)
