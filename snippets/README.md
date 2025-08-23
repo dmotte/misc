@@ -391,6 +391,7 @@ EOF
 - `'/c/Program Files/VeraCrypt/VeraCrypt.exe' //q //v '\Device\Harddisk1\Partition1' //l X //m ro //m label='My label'`
 - `'/c/Program Files/VeraCrypt/VeraCrypt.exe' //q //d X`
 - `create-shortcut ~/apps/myapp.exe ~/Desktop/myapp.lnk`
+- `cygpath -w /d/mymusic/*.mp3 | xargs -rd\\n vlc`
 
 ## Termux
 
