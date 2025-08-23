@@ -4,7 +4,7 @@ set -e
 
 # This script runs VLC detached from the terminal window
 
-readonly vlc_win=/c/Program Files/VideoLAN/VLC/vlc.exe
+readonly vlc_win='/c/Program Files/VideoLAN/VLC/vlc.exe'
 
 if command -v vlc >/dev/null; then
     vlc=vlc
