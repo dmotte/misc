@@ -38,7 +38,7 @@ Some pieces of code I find useful for some reason.
 - `watch -n.2 date`, `watch -pn3 'date && sleep 2'`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
-- `nohup ping localhost > myoutput.txt &`, `pgrep -fx 'ping localhost'`, `pkill -fx 'ping localhost'`
+- `nohup ping localhost > myoutput.txt & disown`, `pgrep -fx 'ping localhost'`, `pkill -fx 'ping localhost'`, `nohup sleep infinity >/dev/null 2>&1 & disown`
 - `pgrep -fxu"$EUID" '^python3 '"$HOME"'/myscript\.py$'`
 - `find mydir -mindepth 1 -printf '%y %T@ %s %P\n' | LC_ALL=C sort -k4`
 - `find mydir -type d -printf 'DIR -1 %P/\n' -o -type f -printf '%T@ %s %P\n' | LC_ALL=C sort -k3`
@@ -64,7 +64,6 @@ Some pieces of code I find useful for some reason.
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
 - `python3 -mhttp.server`
 - `php -S 127.0.0.1:8080 -t mydir`
-- `sleep infinity`
 - `dig @ns1.example.com www.example.com`
 - `git pull --no-edit && git add . && { git commit "-m$(date +%s)" || :; } && git push`
 - `find . -type d -name .git | while read -r i; do echo "${i:0:-5}"; done`
