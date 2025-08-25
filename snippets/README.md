@@ -393,6 +393,7 @@ EOF
 - `'/c/Program Files/VeraCrypt/VeraCrypt.exe' //q //d X`
 - `create-shortcut ~/apps/myapp.exe ~/Desktop/myapp.lnk`
 - `cygpath -w /d/mymusic/*.mp3 | xargs -rd\\n vlc`
+- `msg \* MyMessage`
 
 ## Termux
 
