@@ -185,6 +185,7 @@ Some pieces of code I find useful for some reason.
 - `echo 'rename oldname newname' | sftp -b- -oControlPath=~/.ssh/cm-%C -P2222 myuser@192.168.0.123`
 - `coproc MYPROC { pinentry-gnome3; }; echo -e 'SETPROMPT My prompt\nGETPIN\nBYE' >&"${MYPROC[1]}"; sed -En 's/^D (.+)$/\1/p' <&"${MYPROC[0]}"`
 - `upower -e`, `upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E '^\s+energy-full\S*:'`, `upower -d`
+- `notify() { gdbus call --session --dest=org.freedesktop.Notifications --object-path=/org/freedesktop/Notifications --method=org.freedesktop.Notifications.Notify -- '' 0 "$1" "$2" "$3" '[]' '{}' -1; }` (see https://specifications.freedesktop.org/notification-spec/1.3/protocol.html#command-notify), `notify folder-open MyTitle MyText`, `notify ~/myicon.png MyTitle MyText`
 
 ```bash
 install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
