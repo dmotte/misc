@@ -180,7 +180,7 @@ Some pieces of code I find useful for some reason.
 - `gnome-session-inhibit --app-id org.gnome.Terminal.desktop --reason 'Unsaved work' --inhibit logout:suspend --inhibit-only`
 - `dconf watch /`, `dconf dump /`, `dconf write /org/gtk/gtk4/settings/file-chooser/show-hidden true`
 - `gsettings list-schemas --print-paths`, `gsettings set org.gtk.gtk4.Settings.FileChooser show-hidden true`
-- `inotifywait -cmqr mydir`, `inotifywait -eMODIFY -t10 myfile.log`
+- `inotifywait -cmqr mydir`, `inotifywait -eMODIFY,ATTRIB,CLOSE_WRITE,MOVED_TO,MOVED_FROM,MOVE,MOVE_SELF,CREATE,DELETE,DELETE_SELF,UNMOUNT -t10 myfile.log`
 - `[ -z "$(lsof +D mydir)" ]`
 - `echo 'rename oldname newname' | sftp -b- -oControlPath=~/.ssh/cm-%C -P2222 myuser@192.168.0.123`
 - `coproc MYPROC { pinentry-gnome3; }; echo -e 'SETPROMPT My prompt\nGETPIN\nBYE' >&"${MYPROC[1]}"; sed -En 's/^D (.+)$/\1/p' <&"${MYPROC[0]}"`
