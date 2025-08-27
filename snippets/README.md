@@ -54,7 +54,7 @@ Some pieces of code I find useful for some reason.
 - `free -htvw`
 - `du -sh`
 - `zip -r myarchive.zip mydir`, `unzip -q myarchive.zip -d mydir`
-- `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`
+- `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`, `date -Ins`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
 - `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`
