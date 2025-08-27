@@ -22,6 +22,7 @@ Some pieces of code I find useful for some reason.
 - `latest_commit=$(git rev-parse HEAD)`
 - `grep -IRi --exclude-dir=.git pattern`
 - `type python3`
+- `unset HISTFILE`
 - `tar -cvzf myarchive.tar.gz mydir`, `tar -xvzf myarchive.tar.gz`
 - `tar -cvzf myarchive.tar.gz -g snapshot.snar -C mydir .`, `tar -xvzf myarchive.tar.gz -g snapshot.snar -C mydir`
 - `curl -fLO https://...`, `curl -fLo target.zip https://...`
