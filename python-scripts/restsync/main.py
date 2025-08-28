@@ -176,7 +176,7 @@ def subcmd_need(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         case (False, False): print('Everything in sync')
         case (True, True): print(
             'Conflict detected! To fix: run "diff local latest", choose what '
-            'to discard, and then run either "pull force" or "push force" '
+            'to discard, and then run either "pull --force" or "push --force" '
             'accordingly (beware! That will discard respectively local or '
             'remote changes)')
         case _: raise ValueError(
