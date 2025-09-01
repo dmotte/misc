@@ -54,6 +54,7 @@ Some pieces of code I find useful for some reason.
 - `free -htvw`
 - `du -sh`
 - `zip -r myarchive.zip mydir`, `unzip -q myarchive.zip -d mydir`
+- `7z a myarchive.7z mydir`, `7z a myarchive.zip mydir`, `7z x myarchive.7z`, `7z x myarchive.7z -osomedir`, `7z x myarchive.7z -o\*`
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`, `date -Ins`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
