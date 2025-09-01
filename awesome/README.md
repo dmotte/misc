@@ -285,7 +285,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ### Multi-platform
 
-- **7-Zip** - open source file archiver application with a high compression ratio: [apt](https://packages.debian.org/bookworm/7zip) [choco](https://community.chocolatey.org/packages/7zip) [website](https://www.7-zip.org/)
+- **7-Zip** - open source file archiver application with a high compression ratio: [apt](https://packages.debian.org/bookworm/7zip) [choco](https://community.chocolatey.org/packages/7zip) [docs](https://documentation.help/7-Zip/) [website](https://www.7-zip.org/)
 - **Audacity** - cross-platform software for recording and editing sounds: [apt](https://packages.debian.org/bookworm/audacity) [choco](https://community.chocolatey.org/packages/audacity) [website](https://www.audacityteam.org/)
 - **DB Browser for SQLite** - visual open source tool to create, design, and edit SQLite database files: [choco](https://community.chocolatey.org/packages/sqlitebrowser) [github](https://github.com/sqlitebrowser/sqlitebrowser) [website](https://sqlitebrowser.org/)
 - **EncryptPad** - view and edit symmetrically encrypted text files: [github](https://github.com/evpo/EncryptPad) [website](https://evpo.net/encryptpad/)
