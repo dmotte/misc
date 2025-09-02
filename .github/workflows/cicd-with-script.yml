@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: inputs.run-prettier
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - if: inputs.run-prettier
         uses: dmotte/misc/actions/run-cicd-script@main
         with:
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: inputs.run-shellcheck
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - if: inputs.run-shellcheck
         uses: dmotte/misc/actions/run-cicd-script@main
         with:
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: inputs.run-trivy
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - if: inputs.run-trivy
         uses: dmotte/misc/actions/run-cicd-script@main
         with:
@@ -56,7 +56,7 @@ jobs:
     if: inputs.script != ''
     needs: [prettier, shellcheck, trivy]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: ${{ inputs.fetch-depth }}
       - uses: dmotte/misc/actions/run-cicd-script@main
