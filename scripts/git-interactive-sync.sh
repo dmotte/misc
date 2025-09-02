@@ -2,6 +2,10 @@
 
 set -e
 
+readonly repo_dir=${1:-.}
+
+cd "$repo_dir"
+
 echo 'Pulling from the remote'
 git pull
 
