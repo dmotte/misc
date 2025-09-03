@@ -20,6 +20,11 @@ read -rp 'Message: ' msg
 
 [ -n "$msg" ] || { echo 'No message provided. Exiting'; exit; }
 
+if [ "$GITSYNC_CONFIRMATION" = true ]; then
+    read -rp 'Are you sure [y/N]? ' sure
+    [[ "${sure:-n}" =~ ^[Yy]$ ]] || { echo 'Aborted. Exiting'; exit; }
+fi
+
 echo 'Staging all the changes'
 git add .
 
