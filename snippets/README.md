@@ -97,6 +97,7 @@ Some pieces of code I find useful for some reason.
 - `vboxmanage startvm myvm --type=headless`
 - `vboxmanage controlvm myvm acpipowerbutton`
 - `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
+- `vboxmanage getextradata global GUI/SuppressMessages`, `vboxmanage setextradata global GUI/SuppressMessages all`
 - `echo 'Hello $USER!' | envsubst`
 - `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
 - `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`, `rustup update`, `cargo install rust-script`
