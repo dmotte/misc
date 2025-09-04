@@ -4,11 +4,12 @@ This Python script can be used to convert a **JSON** (`*.json`) file into a **NE
 
 The **accepted JSON input format** is more or less the same format used by the **Google Chrome / Chromium bookmarks file**. If you want to see an example of that file, you can find it at one of the following locations, based on the OS and browser you're using:
 
-| Operating System     | Browser       | Bookmarks file path                                        |
-| -------------------- | ------------- | ---------------------------------------------------------- |
-| Debian 12 (Bookworm) | Chromium      | `~/.config/chromium/Default/Bookmarks`                     |
-| Debian 12 (Bookworm) | Google Chrome | `~/.config/google-chrome/Default/Bookmarks`                |
-| Windows 10           | Google Chrome | `%LOCALAPPDATA%\Google\Chrome\User Data\Default\Bookmarks` |
+| Operating System     | Browser                                                                               | Bookmarks file path                                        |
+| -------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Debian 12 (Bookworm) | Chromium                                                                              | `~/.config/chromium/Default/Bookmarks`                     |
+| Debian 12 (Bookworm) | Google Chrome                                                                         | `~/.config/google-chrome/Default/Bookmarks`                |
+| Windows 10           | Chromium ([_Chocolatey_ package](https://community.chocolatey.org/packages/chromium)) | `%LOCALAPPDATA%\Chromium\User Data\Default\Bookmarks`      |
+| Windows 10           | Google Chrome                                                                         | `%LOCALAPPDATA%\Google\Chrome\User Data\Default\Bookmarks` |
 
 Or you can take a look at the `input-*.json` files inside this directory.
 
