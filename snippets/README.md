@@ -397,7 +397,7 @@ EOF
 - `'/c/Program Files/VeraCrypt/VeraCrypt.exe' //q //v '\Device\Harddisk1\Partition1' //l X //m ro //m label='My label'`
 - `'/c/Program Files/VeraCrypt/VeraCrypt.exe' //q //d X`
 - `create-shortcut ~/apps/myapp.exe ~/Desktop/myapp.lnk`
-- `create-shortcut ~/apps/myapp.exe "$APPDATA/Microsoft/Windows/Start Menu/Programs/Startup/myapp.lnk"`, `create-shortcut ~/apps/myapp.exe "$ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/myapp.lnk"`
+- `create-shortcut ~/apps/myapp.exe "$APPDATA/Microsoft/Windows/Start Menu/Programs/Startup/myapp.lnk"`, `sudo create-shortcut ~/apps/myapp.exe "$ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/myapp.lnk"`
 - `cygpath -w /d/mymusic/*.mp3 | xargs -rd\\n vlc`
 - `msg \* MyMessage`
 
