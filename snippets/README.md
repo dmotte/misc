@@ -399,7 +399,7 @@ EOF
 - `create-shortcut ~/apps/myapp.exe ~/Desktop/myapp.lnk`
 - `create-shortcut ~/apps/myapp.exe "$APPDATA/Microsoft/Windows/Start Menu/Programs/Startup/myapp.lnk"`, `sudo create-shortcut ~/apps/myapp.exe '/c/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/myapp.lnk'`
 - `cygpath -w /d/mymusic/*.mp3 | xargs -rd\\n vlc`
-- `msg \* MyMessage`
+- `msg \* MyMessage`, `date | msg \*`
 
 ## Termux
 
