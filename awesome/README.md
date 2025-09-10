@@ -260,6 +260,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **BRELS MIDI Editor** - open source MIDI editor with a simple, straightforward interface: [website](https://breno.sarmen.to/midi/)
 - **CS-Script** - ECMA-compliant C# based scripting plugin for Notepad++: [github](https://github.com/oleg-shilo/cs-script.npp) [website](https://www.cs-script.net/)
 - **Chocolatey** - package manager for Windows: [website](https://chocolatey.org/)
+- **Chocolatey GUI** - delicious GUI on top of the Chocolatey command line tool: [choco](https://community.chocolatey.org/packages/ChocolateyGUI) [docs](https://docs.chocolatey.org/en-us/chocolatey-gui/) [github](https://github.com/chocolatey/ChocolateyGUI)
 - **FreePiano** - play music with your computer keyboard, supports VSTs: [website](https://freepiano.tiwb.com/en/)
 - **HTTrack Website Copier** - recursively download a website from the internet to a local directory: [website](https://www.httrack.com/)
 - **ILSpy** - open-source .NET assembly browser and decompiler: [choco](https://community.chocolatey.org/packages/ilspy) [github](https://github.com/icsharpcode/ILSpy)
