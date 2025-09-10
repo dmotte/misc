@@ -387,7 +387,7 @@ EOF
 
 - `export MSYS_NO_PATHCONV=1`
 - `winpty rclone ncdu .`
-- `choco list --local-only`
+- `choco list`
 - `choco install -y gsudo`
 - `sudo choco upgrade -y all`
 - `sudo choco install -y winfsp rclone`, `rclone mount myremote: X: --volname='Volume label' --vfs-disk-space-total-size=2T`
