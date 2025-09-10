@@ -100,7 +100,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Portmap.io** - free port forwarding, supports SSH and OpenVPN: [website](https://portmap.io/)
 - **Quizizz** - create and share online quizzes easily: [website](https://quizizz.com/)
 - **SQLite Viewer Web App** - inspect SQLite databases from your browser: [website](https://sqliteviewer.app/)
-- **Schneegans Windows Unattend Generator** - XML answer files generator for Windows 10/11 unattended installation: [github](https://github.com/cschneegans/unattend-generator) [website](https://schneegans.de/windows/unattend-generator/)
+- **Schneegans Windows Unattend Generator** - XML answer files generator for Windows 10/11 unattended installation: [github](https://github.com/cschneegans/unattend-generator) [website](https://schneegans.de/windows/unattend-generator/) [youtube](https://www.youtube.com/watch?v=h9SpKVEc_Yo)
 - **Suno** - AI music generator with vocals and lyrics, generates whole complete songs: [website](https://suno.com/) [website](https://suno.com/explore)
 - **Swagger** - API documentation for everyone: [website](https://swagger.io/)
 - **Tinkercad** - in-browser 3D design and electronics simulation: [website](https://www.tinkercad.com/)
