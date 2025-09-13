@@ -68,4 +68,4 @@ args_ffmpeg+=(-af "volume=$gain_factor")
 
 [ "$clear_metadata" = y ] && args_ffmpeg+=(-map 0:a -map_metadata -1)
 
-ffmpeg -i "$file_in" "${args_ffmpeg[@]}" "$file_out"
+exec ffmpeg -i "$file_in" "${args_ffmpeg[@]}" "$file_out"
