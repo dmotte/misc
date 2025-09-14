@@ -278,6 +278,19 @@ sudo swapon /swapfile-additional; sudo swapoff /swapfile-additional
 echo '/swapfile-additional none swap sw 0 0' | sudo tee -a /etc/fstab
 ```
 
+```bash
+# Inspired by https://wiki.debian.org/DebianUnstable#Installation
+
+sudo cp -T /etc/apt/sources.list{,.old-$(date +%Y-%m-%d-%H%M%S)}
+
+sudo tee /etc/apt/sources.list << 'EOF'
+deb http://deb.debian.org/debian/ unstable main non-free-firmware
+deb-src http://deb.debian.org/debian/ unstable main non-free-firmware
+EOF
+
+sudo apt update && sudo apt full-upgrade
+```
+
 ## Shell snippets for Docker
 
 - `docker run -it --rm --log-driver=none docker.io/library/debian:12`
