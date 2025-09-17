@@ -398,7 +398,7 @@ EOF
 
 ## Git Bash (Windows)
 
-- `export MSYS_NO_PATHCONV=1`
+- `export MSYS_NO_PATHCONV=1`, `python -c'import sys;print(sys.argv)' foo bar`
 - `winpty rclone ncdu .`
 - `choco list`
 - `choco install -y gsudo`
