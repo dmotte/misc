@@ -22,10 +22,10 @@ Similar packages exist for other operating systems.
 
 Features:
 
-- uses **HTTP** only (port **80**), no HTTPS
-- **two Docker containers** are served, respectively at http://foo.lvh.me/ and http://bar.lvh.me/
-- the Traefik **dashboard** is active and in [**secure mode**](https://doc.traefik.io/traefik/operations/dashboard/#secure-mode) at http://dashboard.lvh.me/
-  - the login **credentials** are `admin:admin`
+- Uses **HTTP** only (port **80**), no HTTPS
+- **Two Docker containers** are served, respectively at http://foo.lvh.me/ and http://bar.lvh.me/
+- The Traefik **dashboard** is active and in [**secure mode**](https://doc.traefik.io/traefik/operations/dashboard/#secure-mode) at http://dashboard.lvh.me/
+  - The login **credentials** are `admin:admin`
 
 ## example-02
 
@@ -38,13 +38,13 @@ openssl req -newkey rsa:2048 -nodes -keyout server.key \
 
 Features:
 
-- uses **HTTPS** (port **443**)
-- the **URLs** to access the containers are https://foo.example.com/ and https://bar.example.com/
-- every request made to **port 80 is redirected to the HTTPS port** at the same path
-- there is a **custom permanent redirect** from https://example.com/ to https://www.example.com/
-- containers use the **main `bridged` Docker network** (`docker0`) instead of the default docker-compose stack network
-- container **labels** are used as dynamic configuration provider for Traefik
-- the Traefik **dashboard** is available at https://dashboard.example.com/
+- Uses **HTTPS** (port **443**)
+- The **URLs** to access the containers are https://foo.example.com/ and https://bar.example.com/
+- Every request made to **port 80 is redirected to the HTTPS port** at the same path
+- There is a **custom permanent redirect** from https://example.com/ to https://www.example.com/
+- Containers use the **main `bridged` Docker network** (`docker0`) instead of the default docker-compose stack network
+- Container **labels** are used as dynamic configuration provider for Traefik
+- The Traefik **dashboard** is available at https://dashboard.example.com/
 
 **Note**: it's a good thing to set the `traefik.http.routers.<name>.entryPoints=websecure` label for every container in this case, because otherwise the Traefik routers would bind to all the `entryPoint`s including `web`, which isn't secure because it uses HTTP.
 
@@ -61,17 +61,17 @@ It will be used to store the keys and certificates issued by _Let's Encrypt_.
 
 Features:
 
-- uses HTTPS with automatically-generated certificates, using **Let's Encrypt**
+- Uses HTTPS with automatically-generated certificates, using **Let's Encrypt**
 - **DNS domains** will be **automatically assigned** to the containers based on their name
-- the **`foo` container** listens on **port 8080** instead of 80
+- The **`foo` container** listens on **port 8080** instead of 80
 
 ## example-04
 
 Similar to [example-01](#example-01), but:
 
-- container **labels** are used as dynamic configuration provider for Traefik
-- the Traefik **dashboard** is served on **port 8080**, which is bound to **localhost only** in the `docker-compose.yml` file
-- the Traefik **dashboard** is accessible **without authentication**
+- Container **labels** are used as dynamic configuration provider for Traefik
+- The Traefik **dashboard** is served on **port 8080**, which is bound to **localhost only** in the `docker-compose.yml` file
+- The Traefik **dashboard** is accessible **without authentication**
 
 ## Additional tips
 

@@ -21,9 +21,9 @@ vagrant destroy -f
 
 Now, to be able to use your base box, you have to customize the `mybox.json` (the **catalog**) file. In particular you have to put in the right values for:
 
-- box **version**
-- absolute **URL** of the `package.box` file
-- **checksum** of the `package.box` file
+- Box **version**
+- Absolute **URL** of the `package.box` file
+- **Checksum** of the `package.box` file
 
 To **test** if your base box works, try to bring up `myvm`:
 

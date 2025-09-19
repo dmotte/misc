@@ -4,8 +4,8 @@
 
 Usual **boot key combinations**:
 
-- **fastboot** mode: hold volume down + plug in the USB cable to the PC
-- **recovery** mode: hold volume up + power button
+- **Fastboot** mode: hold volume down + plug in the USB cable to the PC
+- **Recovery** mode: hold volume up + power button
 
 If you want to boot into [**TWRP**](https://twrp.me/) without installing it, first boot the phone into **fastboot mode** and then, from the PC, run these commands:
 

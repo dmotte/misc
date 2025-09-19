@@ -17,7 +17,7 @@ In particular, pay attention to the following:
 - `d-i netcfg/get_hostname string ...`
 - `d-i netcfg/hostname string ...`
 - `d-i partman-auto/disk string ...`
-- the `d-i preseed/late_command` block at the bottom, which is just an example of what can be done
+- The `d-i preseed/late_command` block at the bottom, which is just an example of what can be done
 
 Download the **Debian installation image** from https://www.debian.org/ and flash it onto a **USB pendrive**. To do that you can use [Rufus](https://rufus.ie/en/).
 

@@ -22,11 +22,11 @@ The ideal scenario is therefore the following:
 
 - The **button** should be connected to the `GPIO_GEN0` pin (`BCM #17`)
 - The **red LED** (optional) should be connected to **3v3**
-  - it is ON when the board is powered, even if the OS is not running
+  - It is ON when the board is powered, even if the OS is not running
 - The **yellow LED** should be connected to the `GPIO_GEN1` pin (`BCM #18`)
-  - it is the indicator LED for the _raspi-safe-shutdown_ application
+  - It is the indicator LED for the _raspi-safe-shutdown_ application
 - The **green LED** (optional) should be connected to the `UART0_TXD` pin (`BCM #14`)
-  - it is ON only when the operating system is up and running
+  - It is ON only when the operating system is up and running
 
 To make the (optional) green LED work as explained, you need to have **Serial communication** enabled on the Raspberry Pi. To enable it, log in and execute the following command:
 

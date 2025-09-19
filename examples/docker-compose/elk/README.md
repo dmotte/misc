@@ -22,7 +22,7 @@ Then visit http://localhost:5601/.
 
 ## Links
 
-- for a complete _Kibana_ demo, see [demo.elastic.co](https://demo.elastic.co/)
+- For a complete _Kibana_ demo, see [demo.elastic.co](https://demo.elastic.co/)
 - [How to scrape Prometheus metrics](https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-metricset-prometheus-collector.html)
 - [Creating Alerts in Kibana Elasticsearch](https://www.youtube.com/watch?v=mKobmmDmD0Q)
 - https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-compose-file
