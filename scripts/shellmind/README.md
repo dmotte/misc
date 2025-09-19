@@ -10,10 +10,9 @@ Here is an example of how to set up the script to remind yourself to **perform s
 install -DT <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/shellmind/main.sh) ~/.shellmind/main.sh
 
 cat << 'EOF' >> ~/.shellmind/message.txt
-Kind reminder to keep your system up-to-date! Please run the following commands:
-- sudo apt update
-- sudo apt upgrade
-- touch ~/.shellmind/main.sh (to reschedule this reminder)
+Kind reminder to keep your system up-to-date! Please do the following:
+- Run "sudo apt update && sudo apt upgrade"
+- Run "touch ~/.shellmind/main.sh" (to reschedule this reminder)
 EOF
 
 echo "~/.shellmind/main.sh $((30*24*60*60))" >> ~/.bashrc
