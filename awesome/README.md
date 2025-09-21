@@ -13,6 +13,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## Android apps
 
+- **APK Explorer and Editor** - open-source APK explorer and editor, split APK, app bundle: [fdroid](https://f-droid.org/packages/com.apk.editor/) [github](https://github.com/apk-editor/APK-Explorer-Editor) [playstore](https://play.google.com/store/apps/details?id=com.apk.explorer) [website](https://apk-editor.github.io/)
 - **Audio Recorder** - open-source audio recorder for Android: [fdroid](https://f-droid.org/packages/com.github.axet.audiorecorder/) [gitlab](https://gitlab.com/axet/android-audio-recorder)
 - **Chubby Click** - FOSS metronome with the gigging musician in mind: [fdroid](https://f-droid.org/packages/agrigolo.chubbyclick/) [website](https://codeberg.org/agrigolo/chubby-click)
 - **Coffee** - keep display awake: [fdroid](https://f-droid.org/packages/com.github.muellerma.coffee/) [github](https://github.com/mueller-ma/Coffee)
