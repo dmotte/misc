@@ -415,6 +415,7 @@ EOF
 - `cygpath -w /d/mymusic/*.mp3 | xargs -rd\\n vlc`
 - `msg \* MyMessage`, `date | msg \*`
 - `reg add 'HKCU\Software\MyApp' //v MyValue //t REG_SZ //d MyData //f`, `sudo -d reg add 'HKLM\SOFTWARE\MyApp' //v MyValue //t REG_SZ //d MyData //f`
+- `reg delete 'HKCU\Software\Microsoft\Windows\CurrentVersion\Run' //v MyApp //f`, `sudo -d reg delete 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' //v MyApp //f`
 
 ## Termux
 
