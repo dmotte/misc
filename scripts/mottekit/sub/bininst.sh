@@ -46,3 +46,4 @@ bin_url=https://github.com/dmotte/$name/releases/latest/download/$name-$target_t
 
 echo "Downloading $bin_url to $bin_path"
 curl -fLo "$bin_path" "$bin_url"
+chmod +x "$bin_path"
