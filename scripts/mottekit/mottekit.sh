@@ -76,6 +76,7 @@ get_subcmd_path() {
         "$basedir/../../python-scripts/$name"{,/main,"/$name"}.py \
         "$basedir/../../../$name"{,"/$name"}/cli.py \
         "$basedir/../../../$name.py" \
+        "$name" \
     ; do
         [ -e "$i" ] || continue
         echo "$i"; return
@@ -202,3 +203,7 @@ fi
         exec "$py" "$path" "$@"
     fi
 }
+
+echo "Cannot run MotteKit subcommand: $name." \
+    'Run "mottekit help" for help' >&2
+exit 1
