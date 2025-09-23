@@ -24,7 +24,7 @@ for i in "${path_dirs[@]}"; do
         { entrypoint=$i/mottekit; break; }
 done
 
-[ -z "$entrypoint" ] && {
+[ -n "$entrypoint" ] || {
     cat << EOF >&2
 Cannot find a location in PATH suitable for installing the MotteKit \
 entrypoint. You must have one of the following directories in your PATH:

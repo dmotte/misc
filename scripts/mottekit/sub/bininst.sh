@@ -21,7 +21,7 @@ for i in "${path_dirs[@]}"; do
         { bin_path=$i/$name; break; }
 done
 
-[ -z "$bin_path" ] && {
+[ -n "$bin_path" ] || {
     cat << EOF >&2
 Cannot find a location in PATH suitable for installing the binary \
 file. You must have one of the following directories in your PATH:
