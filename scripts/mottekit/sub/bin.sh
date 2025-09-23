@@ -4,12 +4,12 @@ set -e
 
 readonly username=dmotte
 
-readonly name=${1:?}
+readonly name=${1:?}; shift
 
 ################################################################################
 
-[ "$BIN_OVERWRITE" != true ] && command -v "$name" &&
-    { echo "The $name binary is already installed" >&2; exit 1; }
+[ "$BIN_UPDATE" != true ] && command -v "$name" >/dev/null &&
+    exec "$name" "$@"
 
 ################################################################################
 
@@ -44,8 +44,8 @@ target_triple=$(curl -fsSL https://sh.rustup.rs/ |
 
 bin_url=https://github.com/$username/$name/releases/latest/download/$name-$target_triple
 
-################################################################################
-
 echo "Downloading $bin_url to $bin_path"
 curl -fLo "$bin_path" "$bin_url"
 chmod +x "$bin_path"
+
+exec "$name" "$@"
