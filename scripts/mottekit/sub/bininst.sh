@@ -2,6 +2,8 @@
 
 set -e
 
+readonly username=dmotte
+
 readonly name=${1:?}
 
 ################################################################################
@@ -40,7 +42,7 @@ EOF
 target_triple=$(curl -fsSL https://sh.rustup.rs/ |
     RUSTUP_INIT_SH_PRINT=arch bash)
 
-bin_url=https://github.com/dmotte/$name/releases/latest/download/$name-$target_triple
+bin_url=https://github.com/$username/$name/releases/latest/download/$name-$target_triple
 
 ################################################################################
 
