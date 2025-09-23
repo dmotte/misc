@@ -100,6 +100,7 @@ Some pieces of code I find useful for some reason.
 - `vboxmanage getextradata global GUI/SuppressMessages`, `vboxmanage setextradata global GUI/SuppressMessages all`
 - `echo 'Hello $USER!' | envsubst`
 - `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
+- `curl -fsSL https://sh.rustup.rs/ | RUSTUP_INIT_SH_PRINT=arch bash`
 - `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`, `rustup update`, `cargo install rust-script`
 - `export RUSTUP_HOME=~/my-portable-rust/rustup CARGO_HOME=~/my-portable-rust/cargo`, `bash <(curl -fsSL https://sh.rustup.rs/) -y --no-modify-path`, `~/my-portable-rust/cargo/bin/cargo run`
 - `mkfifo mypipe; while :; do date | tee mypipe; done`
