@@ -7,7 +7,7 @@ basedir=$(dirname "$0")
 readonly builtin_subcmds=(info help version update source sudo)
 
 # Prints all the subcommands in the format "category name"
-# shellcheck disable=SC2329
+# shellcheck disable=SC2317,SC2329
 print_subcmds() {
     printf 'builtin %s\n' "${builtin_subcmds[@]}"
 
@@ -84,7 +84,7 @@ get_subcmd_path() {
     echo none
 }
 
-# shellcheck disable=SC2329
+# shellcheck disable=SC2317,SC2329
 subcmd_info() {
     echo " __  __       _   _       _  ___ _   "
     echo "|  \/  | ___ | |_| |_ ___| |/ (_) |_ "
@@ -107,12 +107,12 @@ subcmd_info() {
     echo
     print_subcmds | sed -E 's/^([^ ]+) (.+)$/- (\1) \2/'
 }
-# shellcheck disable=SC2329
+# shellcheck disable=SC2317,SC2329
 subcmd_help() { subcmd_info "$@"; }
-# shellcheck disable=SC2329
+# shellcheck disable=SC2317,SC2329
 subcmd_version() { subcmd_info "$@"; }
 
-# shellcheck disable=SC2329
+# shellcheck disable=SC2317,SC2329
 subcmd_update() {
     local reporoot reposdir
     reporoot=$(git -C "$basedir" rev-parse --show-toplevel)
@@ -130,7 +130,7 @@ subcmd_update() {
     fi
 }
 
-# shellcheck disable=SC2329
+# shellcheck disable=SC2317,SC2329
 subcmd_source() {
     local name=${1:?}
 
@@ -144,7 +144,7 @@ subcmd_source() {
     exec cat "$path"
 }
 
-# shellcheck disable=SC2329
+# shellcheck disable=SC2317,SC2329
 subcmd_sudo() { exec sudo bash "$0" "$@"; }
 
 ################################################################################
