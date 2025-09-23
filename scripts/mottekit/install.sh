@@ -33,24 +33,31 @@ EOF
     exit 1
 }
 
-[ -e "$entrypoint" ] && {
+if [ "$MOTTEKIT_INSTALL_OVERWRITE" != true ] && [ -e "$entrypoint" ]; then
     cat << EOF >&2
 The entrypoint $entrypoint already exists.
 This may mean that MotteKit is already installed. If so, you can use \
 "mottekit update" to update it.
+Alternatively, set the MOTTEKIT_INSTALL_OVERWRITE environment variable to \
+"true" to ignore this check.
 EOF
     exit 1
-}
+fi
 
 ################################################################################
 
 readonly misc_repo_url=https://github.com/dmotte/misc.git
 readonly misc_repo_path=$repos_dir/misc
-echo "Cloning $misc_repo_url into $misc_repo_path"
-git clone "$misc_repo_url" "$misc_repo_path"
+if [ -d "$misc_repo_path" ]; then
+    echo "Pulling repo $misc_repo_path"
+    git -C "$misc_repo_path" pull
+else
+    echo "Cloning $misc_repo_url into $misc_repo_path"
+    git clone "$misc_repo_url" "$misc_repo_path"
+fi
 
 readonly github_owner=users/dmotte
-echo "Cloning all the other repos from GitHub owner $github_owner"
+echo "Getting all the other repos from GitHub owner $github_owner"
 bash "$misc_repo_path/scripts/github-bak-all-repos.sh" \
     "$github_owner" "$repos_dir"
 
