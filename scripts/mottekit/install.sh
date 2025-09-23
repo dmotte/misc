@@ -59,7 +59,7 @@ else
 fi
 
 readonly github_owner=users/dmotte
-echo "Getting all the other repos from GitHub owner $github_owner"
+echo "Getting all the other repos from GitHub owner $github_owner to $repos_dir"
 bash "$misc_repo_path/scripts/github-bak-all-repos.sh" \
     "$github_owner" "$repos_dir"
 
