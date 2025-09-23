@@ -2,19 +2,12 @@
 
 set -e
 
-misc_repo_path=$1
+readonly repos_dir=${1:-~/.ghdmotte}
 
-if [ -n "$misc_repo_path" ]; then
-    misc_repo_path=$(realpath "$misc_repo_path")
+command -v git >/dev/null ||
+    { echo 'The git command is required but cannot be found' >&2; exit 1; }
 
-    [ -d "$misc_repo_path" ] ||
-        { echo "Dir $misc_repo_path not found" >&2; exit 1; }
-else
-    readonly mottekit_dir=~/.mottekit
-
-    [ -e "$mottekit_dir" ] &&
-        { echo "The $mottekit_dir directory already exists" >&2; exit 1; }
-fi
+################################################################################
 
 readonly path_dirs=(~/.local/bin ~/bin)
 
@@ -40,21 +33,26 @@ EOF
     exit 1
 }
 
-[ -e "$entrypoint" ] &&
-    { echo "The entrypoint $entrypoint already exists" >&2; exit 1; }
+[ -e "$entrypoint" ] && {
+    cat << EOF >&2
+The entrypoint $entrypoint already exists.
+This may mean that MotteKit is already installed. If so, you can use \
+"mottekit update" to update it.
+EOF
+    exit 1
+}
 
-command -v git >/dev/null ||
-    { echo 'The git command is required but cannot be found' >&2; exit 1; }
+################################################################################
 
-if [ -z "$misc_repo_path" ]; then
-    echo "Creating the MotteKit directory $mottekit_dir"
-    mkdir "$mottekit_dir"
+readonly misc_repo_url=https://github.com/dmotte/misc.git
+readonly misc_repo_path=$repos_dir/misc
+echo "Cloning $misc_repo_url into $misc_repo_path"
+git clone "$misc_repo_url" "$misc_repo_path"
 
-    readonly misc_repo_url=https://github.com/dmotte/misc.git
-    misc_repo_path=$mottekit_dir/misc
-    echo "Cloning $misc_repo_url into $misc_repo_path"
-    git clone "$misc_repo_url" "$misc_repo_path"
-fi
+readonly github_owner=users/dmotte
+echo "Cloning all the other repos from GitHub owner $github_owner"
+bash "$misc_repo_path/scripts/github-bak-all-repos.sh" \
+    "$github_owner" "$repos_dir"
 
 readonly mottekit_script=$misc_repo_path/scripts/mottekit/mottekit.sh
 echo "Creating entrypoint at $entrypoint that invokes $mottekit_script"
