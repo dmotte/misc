@@ -40,8 +40,8 @@ if [ "$MOTTEKIT_INSTALL_OVERWRITE" != true ] && [ -e "$entrypoint" ]; then
 The entrypoint $entrypoint already exists.
 This may mean that MotteKit is already installed. If so, you can use \
 "mottekit update" to update it.
-Alternatively, set the MOTTEKIT_INSTALL_OVERWRITE environment variable to \
-"true" to ignore this check.
+Alternatively, set the environment variable MOTTEKIT_INSTALL_OVERWRITE=true to \
+ignore this check.
 EOF
     exit 1
 fi
