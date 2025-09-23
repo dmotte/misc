@@ -8,8 +8,9 @@ set -e
 
 readonly owner=${1:?} dest=${2:?}
 
-repos=$(bash "$(dirname "$0")/github-get-all-repos.sh" "$owner" \
-    '.archived == false and .fork == false')
+readonly filter=${GHBAK_FILTER:-.archived == false and .fork == false}
+
+repos=$(bash "$(dirname "$0")/github-get-all-repos.sh" "$owner" "$filter")
 repos=$(echo "$repos" | tr -d '\r')
 
 for i in "${owner#users/}" "${owner#orgs/}"; do
