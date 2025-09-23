@@ -8,8 +8,11 @@ readonly name=${1:?}; shift
 
 ################################################################################
 
-[ "$BIN_UPDATE" != true ] && command -v "$name" >/dev/null &&
-    exec "$name" "$@"
+if [ "$BIN_UPDATE" != true ] && command -v "$name" >/dev/null; then
+    [ "$BIN_NORUN" = true ] || exec "$name" "$@"
+    echo "Command $name already installed"
+    exit
+fi
 
 ################################################################################
 
@@ -44,8 +47,8 @@ target_triple=$(curl -fsSL https://sh.rustup.rs/ |
 
 bin_url=https://github.com/$username/$name/releases/latest/download/$name-$target_triple
 
-echo "Downloading $bin_url to $bin_path"
+echo "Downloading $bin_url to $bin_path" >&2
 curl -fLo "$bin_path" "$bin_url"
 chmod +x "$bin_path"
 
-exec "$name" "$@"
+[ "$BIN_NORUN" = true ] || exec "$name" "$@"
