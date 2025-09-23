@@ -16,7 +16,7 @@ else
         { echo "The $mottekit_dir directory already exists" >&2; exit 1; }
 fi
 
-path_dirs=(~/.local/bin ~/bin)
+readonly path_dirs=(~/.local/bin ~/bin)
 
 for i in "${path_dirs[@]}"; do
     [ "$PATH" = "$i" ] || [[ "$PATH" = *:"$i":* ]] ||

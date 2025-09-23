@@ -11,7 +11,7 @@ readonly name=${1:?}
 
 ################################################################################
 
-path_dirs=(~/.local/bin ~/bin)
+readonly path_dirs=(~/.local/bin ~/bin)
 
 for i in "${path_dirs[@]}"; do
     [ "$PATH" = "$i" ] || [[ "$PATH" = *:"$i":* ]] ||
