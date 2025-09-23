@@ -4,8 +4,10 @@ set -e
 
 readonly repos_dir=${1:-~/.ghdmotte}
 
-command -v git >/dev/null ||
-    { echo 'The git command is required but cannot be found' >&2; exit 1; }
+# Note: jq is required by github-bak-all-repos.sh
+for i in curl git jq; do
+    command -v "$i" >/dev/null || { echo "Command $i not found" >&2; exit 1; }
+done
 
 ################################################################################
 
