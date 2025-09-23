@@ -48,7 +48,10 @@ fi
 
 ################################################################################
 
-readonly misc_repo_url=https://github.com/dmotte/misc.git
+if [ "$MOTTEKIT_INSTALL_USE_SSH" = true ]
+    then readonly misc_repo_url=git@github.com:dmotte/misc.git
+    else readonly misc_repo_url=https://github.com/dmotte/misc.git
+fi
 readonly misc_repo_path=$repos_dir/misc
 if [ -d "$misc_repo_path" ]; then
     echo "Pulling repo $misc_repo_path"
@@ -62,7 +65,8 @@ readonly github_owner=users/dmotte
 if [ "$MOTTEKIT_INSTALL_ONLY_MISC" != true ]; then
     echo "Getting all the other repos from GitHub owner $github_owner" \
         "to $repos_dir"
-    bash "$misc_repo_path/scripts/github-bak-all-repos.sh" \
+    GHBAK_USE_SSH="$MOTTEKIT_INSTALL_USE_SSH" \
+        bash "$misc_repo_path/scripts/github-bak-all-repos.sh" \
         "$github_owner" "$repos_dir"
 fi
 
