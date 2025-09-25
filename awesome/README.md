@@ -104,6 +104,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Schneegans Windows Unattend Generator** - XML answer files generator for Windows 10/11 unattended installation: [github](https://github.com/cschneegans/unattend-generator) [website](https://schneegans.de/windows/unattend-generator/) [youtube](https://www.youtube.com/watch?v=h9SpKVEc_Yo)
 - **Suno** - AI music generator with vocals and lyrics, generates whole complete songs: [website](https://suno.com/) [website](https://suno.com/explore)
 - **Swagger** - API documentation for everyone: [website](https://swagger.io/)
+- **TOTP Token Generator by Dan Hersam** - generate TOTP tokens in the browser: [github](https://github.com/jaden/totp-generator) [website](https://totp.danhersam.com/)
 - **Tinkercad** - in-browser 3D design and electronics simulation: [website](https://www.tinkercad.com/)
 - **TradingView** - analysis platform and mobile app for traders and investors: [website](https://www.tradingview.com/)
 - **VirusTotal** - analyse suspicious files, domains, IPs and URLs to detect malware and other breaches: [website](https://www.virustotal.com/gui/home/upload)
