@@ -54,7 +54,7 @@ Some pieces of code I find useful for some reason.
 - `df -h`
 - `free -htvw`
 - `du -sh`
-- `zip -r myarchive.zip mydir`, `unzip -q myarchive.zip -d mydir`
+- `zip -r myarchive.zip mydir`, `unzip -oq myarchive.zip -d mydir`
 - `7z a myarchive.7z mydir`, `7z a myarchive.zip mydir`, `7z l myarchive.7z`, `7z x myarchive.7z`, `7z x myarchive.7z -osomedir`, `7z x myarchive.7z -o\*`
 - `7z a dummy -tzip -so mydir > myarchive.zip`
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`, `date -Ins`
