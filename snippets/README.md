@@ -193,6 +193,7 @@ Some pieces of code I find useful for some reason.
 - `upower -e`, `upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E '^\s+energy-full\S*:'`, `upower -d`
 - `fdo_notify() { gdbus call --session --dest=org.freedesktop.Notifications --object-path=/org/freedesktop/Notifications --method=org.freedesktop.Notifications.Notify -- '' 0 "$1" "$2" "$3" '[]' '{}' -1; }` (see https://specifications.freedesktop.org/notification-spec/1.3/protocol.html#command-notify), `fdo_notify folder-open MyTitle MyText`, `fdo_notify ~/myicon.png MyTitle MyText`
 - `wine reg add 'HKLM\SOFTWARE\MyApp' /v MyValue /t REG_SZ /d MyData /f /reg:64` (the `/reg:64` part is required for Wine, otherwise the value would be created under `HKLM\SOFTWARE\Wow6432Node\...`)
+- `inkscape --export-filename=myimage.png --export-type=png myimage.svg`
 
 ```bash
 install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
