@@ -22,6 +22,7 @@ Some pieces of code I find useful for some reason.
 - `reporoot=$(git rev-parse --show-toplevel)`
 - `latest_commit=$(git rev-parse HEAD)`
 - `grep -IRi --exclude-dir=.git pattern`
+- `tig`, `tig blame myfile.txt`
 - `type python3`
 - `unset HISTFILE`
 - `tar -cvzf myarchive.tar.gz mydir`, `tar -xvzf myarchive.tar.gz`
