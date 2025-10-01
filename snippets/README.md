@@ -169,6 +169,7 @@ Some pieces of code I find useful for some reason.
 - `rclone --config= lsf -R --format=pst --time-format=RFC3339 . | sed -E 's/\/;-1;[^;]+$/\/;-1;DIR/' | LC_ALL=C sort -t\; -k1,1`
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dest-dir`
 - `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
+- `rclone --config= sync -vn --create-empty-src-dirs . :sftp,host=192.168.0.123,port=2222,user=myuser:mydir`
 - `rclone check myremote:/remote-src-dir ./local-dest-dir`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass .`
 - `rclone --config= serve -v webdav --dir-cache-time=0 --disable-dir-list --addr=unix:///tmp/my.sock .`
