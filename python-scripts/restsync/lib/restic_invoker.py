@@ -8,7 +8,6 @@ import subprocess
 from collections.abc import Callable, Iterator
 from contextlib import ExitStack
 from typing import Any
-from urllib.parse import urlparse
 
 from .sftp_details import SFTPDetails
 
