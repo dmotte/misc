@@ -452,34 +452,34 @@ def main(argv: list[str] | None = None) -> int:
 
     sftp_details: SFTPDetails = SFTPDetails.parse(args.sftp_url, False)
 
-    with ExitStack() as stack:
-        ssh_cmd = os.getenv('RESTSYNC_SSH_CMD', 'ssh')
-        sftp_cmd = os.getenv('RESTSYNC_SFTP_CMD', 'sftp')
-        restic_cmd = os.getenv('RESTSYNC_RESTIC_CMD', 'restic')
+    ssh_cmd = os.getenv('RESTSYNC_SSH_CMD', 'ssh')
+    sftp_cmd = os.getenv('RESTSYNC_SFTP_CMD', 'sftp')
+    restic_cmd = os.getenv('RESTSYNC_RESTIC_CMD', 'restic')
 
-        if args.ssh_mux:
-            ctl_path = '~/.ssh/cm-restsync-%C'
+    try:
+        with ExitStack() as stack:
+            if args.ssh_mux:
+                ctl_path = '~/.ssh/cm-restsync-%C'
 
-            stack.enter_context(ssh_mux(shlex.split(ssh_cmd) +
-                                        ['-oServerAliveInterval=30'] +
-                                        sftp_details.ssh_args, ctl_path))
+                stack.enter_context(ssh_mux(shlex.split(ssh_cmd) +
+                                            ['-oServerAliveInterval=30'] +
+                                            sftp_details.ssh_args, ctl_path))
 
-            ssh_cmd += f' -S{ctl_path}'
-            sftp_cmd += f' -oControlPath={ctl_path}'
+                ssh_cmd += f' -S{ctl_path}'
+                sftp_cmd += f' -oControlPath={ctl_path}'
 
-        rinv = ResticInvoker(sftp_details, pswretr.get,
-                             ssh_cmd=ssh_cmd, sftp_cmd=sftp_cmd,
-                             restic_cmd=restic_cmd)
+            rinv = ResticInvoker(sftp_details, pswretr.get,
+                                 ssh_cmd=ssh_cmd, sftp_cmd=sftp_cmd,
+                                 restic_cmd=restic_cmd)
 
-        rsvars = RestsyncVars(rinv, args.data_dir, args.state_file)
+            rsvars = RestsyncVars(rinv, args.data_dir, args.state_file)
 
-        try:
             args.func(rsvars, args)
-        except (RuntimeError, ValueError) as e:
-            print(e, file=sys.stderr)
-            return 1
-        except subprocess.CalledProcessError as e:
-            return e.returncode
+    except (RuntimeError, ValueError) as e:
+        print(e, file=sys.stderr)
+        return 1
+    except subprocess.CalledProcessError as e:
+        return e.returncode
 
     return 0
 
