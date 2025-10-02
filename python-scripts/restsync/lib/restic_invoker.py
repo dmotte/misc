@@ -3,6 +3,7 @@
 import json
 import os
 import shlex
+import signal
 import subprocess
 
 from collections.abc import Callable, Iterator
@@ -165,9 +166,15 @@ class ResticInvoker:
             proc = self._restic_popen(args, stack,
                                       add_env, add_popen_kwargs, False)
 
-            returncode = proc.wait()
-            if returncode != 0:
-                raise subprocess.CalledProcessError(returncode, proc.args)
+            # We ignore CTRL+C temporarily here, so it will be handled by
+            # the child only
+            old_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
+            try:
+                returncode = proc.wait()
+                if returncode != 0:
+                    raise subprocess.CalledProcessError(returncode, proc.args)
+            finally:
+                signal.signal(signal.SIGINT, old_handler)
 
     def restic_json(self, args: list[str] | str,
                     add_env: dict[str, str] | None = None,
@@ -189,9 +196,16 @@ class ResticInvoker:
                 for _ in proc.stdout:
                     pass
 
-                returncode = proc.wait()
-                if returncode != 0:
-                    raise subprocess.CalledProcessError(returncode, proc.args)
+                # We ignore CTRL+C temporarily here, so it will be handled by
+                # the child only
+                old_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
+                try:
+                    returncode = proc.wait()
+                    if returncode != 0:
+                        raise subprocess.CalledProcessError(
+                            returncode, proc.args)
+                finally:
+                    signal.signal(signal.SIGINT, old_handler)
 
     def get_latest_snapshot_id(self) -> str:
         '''
