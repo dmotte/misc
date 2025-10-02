@@ -51,6 +51,23 @@ class SSHMux:
 
         return True, ctl_path_full
 
+    def stop(self) -> tuple[bool, str]:
+        '''
+        Stops the control master process, but only if self.ctl_path exists.
+        Returns a tuple consisting of:
+
+        - A bool indicating if the control master process was stopped
+        - A string containing the resolved path of self.ctl_path
+        '''
+        ctl_path_full = self.resolve_ctl_path()
+
+        if not os.path.exists(ctl_path_full):
+            return False, ctl_path_full
+
+        subprocess.check_call(self.ssh_args + [f'-S{self.ctl_path}', '-Oexit'])
+
+        return True, ctl_path_full
+
     @contextmanager
     def setup(self) -> Iterator[str]:
         '''
@@ -65,5 +82,4 @@ class SSHMux:
         try:
             yield ctl_path_full
         finally:
-            subprocess.check_call(
-                self.ssh_args + [f'-S{self.ctl_path}', '-Oexit'])
+            self.stop()
