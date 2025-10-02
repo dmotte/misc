@@ -39,26 +39,26 @@ class SSHMux:
         Starts the control master process, but only if self.ctl_path doesn't
         exist yet. Returns a tuple consisting of:
 
-        - A bool indicating if self.ctl_path already exists
+        - A bool indicating if a new control master process was started
         - A string containing the resolved path of self.ctl_path
         '''
         ctl_path_full = self.resolve_ctl_path()
 
         if os.path.exists(ctl_path_full):
-            return True, ctl_path_full
+            return False, ctl_path_full
 
         subprocess.check_call(self.ssh_args + [f'-NfMS{self.ctl_path}'])
 
-        return False, ctl_path_full
+        return True, ctl_path_full
 
     @contextmanager
     def setup(self) -> Iterator[str]:
         '''
         Sets up SSH multiplexing, but only if self.ctl_path doesn't exist yet
         '''
-        ctl_path_exists, ctl_path_full = self.start()
+        started, ctl_path_full = self.start()
 
-        if ctl_path_exists:
+        if not started:
             yield ctl_path_full
             return
 
