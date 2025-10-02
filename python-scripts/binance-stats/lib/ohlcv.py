@@ -67,6 +67,7 @@ class Interval(StrEnum):
 
     WEEK01 = '1w'
 
+    @staticmethod
     def from_timedelta(td: timedelta) -> 'Interval':
         s = _TIMEDELTA_TO_STRING.get(td)
         if s is None:
@@ -156,6 +157,7 @@ class OHLCV:
         '''
         return self._end
 
+    @staticmethod
     def load(base: str, quote: str, file: TextIO,
              numtype: type[float | Decimal] = float) -> 'OHLCV':
         '''

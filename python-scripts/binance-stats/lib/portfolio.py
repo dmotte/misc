@@ -111,6 +111,7 @@ class Portfolio:
 
         return portfolio
 
+    @staticmethod
     def load(file: TextIO, kcoin: str, kamount: str, **kwargs) -> 'Portfolio':
         '''
         Loads a portfolio from a CSV file
