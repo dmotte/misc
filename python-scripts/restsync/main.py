@@ -84,6 +84,8 @@ class RestsyncVars:
     'Path of the local data directory'
     state_file: str
     'Path of the local state file'
+    sshmux: SSHMux | None = None
+    'SSHMux instance'
 
 ################################################################################
 
@@ -458,13 +460,16 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         with ExitStack() as stack:
+            sshmux: SSHMux | None = None
+
             if args.ssh_mux:
                 ctl_path = '~/.ssh/cm-restsync-%C'
 
-                stack.enter_context(
-                    SSHMux(shlex.split(ssh_cmd) +
-                           ['-oServerAliveInterval=30'] +
-                           sftp_details.ssh_args, ctl_path).setup())
+                sshmux = SSHMux(shlex.split(ssh_cmd) +
+                                ['-oServerAliveInterval=30'] +
+                                sftp_details.ssh_args, ctl_path)
+
+                stack.enter_context(sshmux.setup())
 
                 ssh_cmd += f' -S{ctl_path}'
                 sftp_cmd += f' -oControlPath={ctl_path}'
@@ -473,7 +478,7 @@ def main(argv: list[str] | None = None) -> int:
                                  ssh_cmd=ssh_cmd, sftp_cmd=sftp_cmd,
                                  restic_cmd=restic_cmd)
 
-            rsvars = RestsyncVars(rinv, args.data_dir, args.state_file)
+            rsvars = RestsyncVars(rinv, args.data_dir, args.state_file, sshmux)
 
             args.func(rsvars, args)
     except (RuntimeError, ValueError) as e:
