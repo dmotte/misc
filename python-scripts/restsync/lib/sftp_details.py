@@ -46,6 +46,7 @@ class SFTPDetails:
         '''
         return self._get_args(False)
 
+    @staticmethod
     def parse(url: str, allow_psw: bool = False) -> 'SFTPDetails':
         '''
         Parses an SFTP URL
