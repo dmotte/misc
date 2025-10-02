@@ -16,7 +16,7 @@ from lib.csvtree import tree_local, tree_snapshot, trees_equal
 from lib.password_retriever import PasswordRetriever
 from lib.restic_invoker import ResticInvoker
 from lib.sftp_details import SFTPDetails
-from lib.sshmux import ssh_mux
+from lib.ssh_mux import SSHMux
 from lib.state import state_read, state_write
 
 
@@ -461,9 +461,10 @@ def main(argv: list[str] | None = None) -> int:
             if args.ssh_mux:
                 ctl_path = '~/.ssh/cm-restsync-%C'
 
-                stack.enter_context(ssh_mux(shlex.split(ssh_cmd) +
-                                            ['-oServerAliveInterval=30'] +
-                                            sftp_details.ssh_args, ctl_path))
+                stack.enter_context(
+                    SSHMux(shlex.split(ssh_cmd) +
+                           ['-oServerAliveInterval=30'] +
+                           sftp_details.ssh_args, ctl_path).setup())
 
                 ssh_cmd += f' -S{ctl_path}'
                 sftp_cmd += f' -oControlPath={ctl_path}'
