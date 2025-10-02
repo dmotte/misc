@@ -53,7 +53,7 @@ def compute_fiats(pin: Portfolio, d: dt, fiat: str,
     return pout
 
 
-def main(argv: list[str] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
 

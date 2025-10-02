@@ -23,7 +23,7 @@ def eval_alert_condition(name: str, value, op: str, threshold) -> str | None:
     return None
 
 
-def main(argv: list[str] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
 

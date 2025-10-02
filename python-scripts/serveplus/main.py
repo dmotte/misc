@@ -27,7 +27,7 @@ def pair_items_to_dict(items: list[str]) -> dict[str, str]:
     return {items[i]: items[i + 1] for i in range(0, len_items, 2)}
 
 
-def main(argv: list[str] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
 

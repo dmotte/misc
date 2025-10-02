@@ -437,7 +437,7 @@ def get_argumentparser(prog: str | None = None,
 
 ################################################################################
 
-def main(argv: list[str] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
 

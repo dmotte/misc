@@ -19,7 +19,7 @@ def is_aware(d: dt) -> bool:
     return d.tzinfo is not None and d.tzinfo.utcoffset(d) is not None
 
 
-def main(argv: list[str] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
 

@@ -59,7 +59,7 @@ def print_values(values: dict, file: TextIO, fmt_float: str = '') -> None:
         print(f'{k}={func_float(v) if isinstance(v, float) else v}', file=file)
 
 
-def main(argv: list[str] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
 
