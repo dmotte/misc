@@ -294,6 +294,12 @@ def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         if repl_argv[0] == 'help':
             repl_argv = ['--help']
 
+        if rsvars.sshmux_started and rsvars.sshmux is not None:
+            # Ensure the SSH control master process is started. This
+            # restarts the process in case it exited (e.g. due to
+            # connection lost)
+            rsvars.sshmux.start()
+
         repl_args = parser.parse_args(repl_argv)
         repl_args.func(rsvars, repl_args)
 
@@ -307,12 +313,6 @@ def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 
                 if len(repl_argv) == 0:
                     continue
-
-                if rsvars.sshmux_started and rsvars.sshmux is not None:
-                    # Ensure the SSH control master process is started. This
-                    # restarts the process in case it exited (e.g. due to
-                    # connection lost)
-                    rsvars.sshmux.start()
 
                 if repl_argv[0] in ('exit', 'quit'):
                     break
