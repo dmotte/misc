@@ -20,22 +20,26 @@ class SSHMux:
     ctl_path: str = '~/.ssh/cm-%C'
     'Control path'
 
+    def resolve_ctl_path(self) -> str:
+        '''
+        Resolves self.ctl_path to full path
+        '''
+        ssh_gen_cfg = subprocess.check_output(
+            self.ssh_args + [f'-GS{self.ctl_path}'], text=True)
+
+        for line in ssh_gen_cfg.splitlines():
+            match1 = re.fullmatch(r'^ControlPath\s+(.+)$', line, re.IGNORECASE)
+            if match1 is not None:
+                return match1.group(1)
+
+        raise ValueError('ControlPath not found in generated SSH config')
+
     @contextmanager
     def setup(self) -> Iterator[str]:
         '''
         Sets up SSH multiplexing, but only if self.ctl_path doesn't exist yet
         '''
-        ssh_gen_cfg = subprocess.check_output(
-            self.ssh_args + [f'-GS{self.ctl_path}'], text=True)
-
-        ctl_path_full = ''
-        for line in ssh_gen_cfg.splitlines():
-            match1 = re.fullmatch(r'^ControlPath\s+(.+)$', line, re.IGNORECASE)
-            if match1 is not None:
-                ctl_path_full = match1.group(1)
-                break
-        if ctl_path_full == '':
-            raise ValueError('ControlPath not found in generated SSH config')
+        ctl_path_full = self.resolve_ctl_path()
 
         if os.path.exists(ctl_path_full):
             yield ctl_path_full
