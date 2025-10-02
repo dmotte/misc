@@ -48,7 +48,6 @@ class SSHMux:
             return False, ctl_path_full
 
         subprocess.check_call(self.ssh_args + [f'-NfMS{self.ctl_path}'])
-
         return True, ctl_path_full
 
     def stop(self) -> tuple[bool, str]:
@@ -65,7 +64,6 @@ class SSHMux:
             return False, ctl_path_full
 
         subprocess.check_call(self.ssh_args + [f'-S{self.ctl_path}', '-Oexit'])
-
         return True, ctl_path_full
 
     @contextmanager
