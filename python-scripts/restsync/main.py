@@ -86,6 +86,11 @@ class RestsyncVars:
     'Path of the local state file'
     sshmux: SSHMux | None = None
     'SSHMux instance'
+    sshmux_started: bool = False
+    '''
+    Indicates if an SSH control master process was actually started by
+    self.sshmux
+    '''
 
 ################################################################################
 
@@ -283,7 +288,7 @@ def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
     except ImportError:
         pass
 
-    parser = get_argumentparser(prog='restsync', repl=True)
+    parser = get_argumentparser('restsync', True)
 
     def run_repl_argv(repl_argv: list[str]):
         if repl_argv[0] == 'help':
@@ -302,6 +307,12 @@ def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 
                 if len(repl_argv) == 0:
                     continue
+
+                if rsvars.sshmux_started and rsvars.sshmux is not None:
+                    # Ensure the SSH control master process is started. This
+                    # restarts the process in case it exited (e.g. due to
+                    # connection lost)
+                    rsvars.sshmux.start()
 
                 if repl_argv[0] in ('exit', 'quit'):
                     break
@@ -334,7 +345,7 @@ def subcmd_bash(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 
 def get_argumentparser(prog: str | None = None,
                        repl: bool = False) -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog=prog, description='Restsync')
+    parser = argparse.ArgumentParser(prog, description='Restsync')
 
     if not repl:
         parser.add_argument('-u', '--sftp-url', type=str, required=True,
@@ -461,6 +472,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         with ExitStack() as stack:
             sshmux: SSHMux | None = None
+            sshmux_started: bool = False
 
             if args.ssh_mux:
                 ctl_path = '~/.ssh/cm-restsync-%C'
@@ -469,7 +481,7 @@ def main(argv: list[str] | None = None) -> int:
                                 ['-oServerAliveInterval=30'] +
                                 sftp_details.ssh_args, ctl_path)
 
-                stack.enter_context(sshmux.setup())
+                sshmux_started, _ = stack.enter_context(sshmux.setup())
 
                 ssh_cmd += f' -S{ctl_path}'
                 sftp_cmd += f' -oControlPath={ctl_path}'
@@ -478,7 +490,8 @@ def main(argv: list[str] | None = None) -> int:
                                  ssh_cmd=ssh_cmd, sftp_cmd=sftp_cmd,
                                  restic_cmd=restic_cmd)
 
-            rsvars = RestsyncVars(rinv, args.data_dir, args.state_file, sshmux)
+            rsvars = RestsyncVars(rinv, args.data_dir, args.state_file,
+                                  sshmux, sshmux_started)
 
             args.func(rsvars, args)
     except (RuntimeError, ValueError) as e:
