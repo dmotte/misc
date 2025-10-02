@@ -67,17 +67,23 @@ class SSHMux:
         return True, ctl_path_full
 
     @contextmanager
-    def setup(self) -> Iterator[str]:
+    def setup(self) -> Iterator[tuple[bool, str]]:
         '''
-        Sets up SSH multiplexing, but only if self.ctl_path doesn't exist yet
+        Sets up SSH multiplexing using a context manager, but it actually
+        starts and stops the control master process only if self.ctl_path
+        doesn't exist yet. Returns a tuple consisting of:
+
+        - A bool indicating if a new control master process was actually
+          started (and will be stopped at the end)
+        - A string containing the resolved path of self.ctl_path
         '''
         started, ctl_path_full = self.start()
 
         if not started:
-            yield ctl_path_full
+            yield started, ctl_path_full
             return
 
         try:
-            yield ctl_path_full
+            yield started, ctl_path_full
         finally:
             self.stop()
