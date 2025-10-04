@@ -4,7 +4,10 @@ set -e
 
 readonly main_dir=${1:?}; shift
 
-readmes=$(find "$main_dir" -type f -iname README.md)
+# We need to work with absolute paths, otherwise this script would fail in
+# case a "./README.md" file exists
+realpath_main_dir=$(realpath "$main_dir")
+readmes=$(find "$realpath_main_dir" -type f -iname README.md)
 
 echo "$readmes" | while read -r i; do
     echo "Checking $i"
