@@ -22,4 +22,4 @@ xdg-open http://127.0.0.1:8000/
 ## Links
 
 - http://mdwiki.info/
-- https://github.com/Dynalon/mdwiki/
+- https://github.com/Dynalon/mdwiki
