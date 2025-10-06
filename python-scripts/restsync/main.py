@@ -255,9 +255,9 @@ def subcmd_pull(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
                                rsvars.excludes):
                 raise RuntimeError('Cannot pull: need-push is true')
 
-        rsvars.rinv.restic(['restore', 'latest', '--delete', '-vt'] +
+        rsvars.rinv.restic(['restore', 'latest', '--delete'] +
                            [f'--exclude={x}' for x in rsvars.excludes] +
-                           [rsvars.data_dir])
+                           ['-vt', rsvars.data_dir])
 
         state_write(rsvars.state_file, {
             'latest-snapshot-id': rsvars.rinv.get_latest_snapshot_id()})
