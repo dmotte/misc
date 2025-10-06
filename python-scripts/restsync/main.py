@@ -235,8 +235,9 @@ def subcmd_watch(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 def subcmd_pull(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
     ensure_consistent_data_state(rsvars.data_dir, rsvars.state_file)
 
-    print('Locking restic repo')
-    rsvars.rinv.lock()
+    if not args.no_lock:
+        print('Locking restic repo')
+        rsvars.rinv.lock()
     try:
         if not args.force:
             print('Ensuring that a push is not needed')
@@ -250,8 +251,9 @@ def subcmd_pull(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         state_write(rsvars.state_file, {
             'latest-snapshot-id': rsvars.rinv.get_latest_snapshot_id()})
     finally:
-        print('Unlocking restic repo')
-        rsvars.rinv.unlock()
+        if not args.no_lock:
+            print('Unlocking restic repo')
+            rsvars.rinv.unlock()
 
 
 def subcmd_push(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
@@ -260,8 +262,9 @@ def subcmd_push(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 
     ensure_consistent_data_state(rsvars.data_dir, rsvars.state_file)
 
-    print('Locking restic repo')
-    rsvars.rinv.lock()
+    if not args.no_lock:
+        print('Locking restic repo')
+        rsvars.rinv.lock()
     try:
         if not args.force:
             print('Ensuring that a pull is not needed')
@@ -275,8 +278,9 @@ def subcmd_push(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         state_write(rsvars.state_file, {
             'latest-snapshot-id': rsvars.rinv.get_latest_snapshot_id()})
     finally:
-        print('Unlocking restic repo')
-        rsvars.rinv.unlock()
+        if not args.no_lock:
+            print('Unlocking restic repo')
+            rsvars.rinv.unlock()
 
 
 def subcmd_repl(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
@@ -420,11 +424,15 @@ def get_argumentparser(prog: str | None = None,
     subparser = subparsers.add_parser('pull', help='Pull remote changes')
     subparser.add_argument('-f', '--force', action='store_true',
                            help='Forcefully overwrite any local changes')
+    subparser.add_argument('-l', '--no-lock', action='store_true',
+                           help='Disable locking (caution!)')
     subparser.set_defaults(func=subcmd_pull)
 
     subparser = subparsers.add_parser('push', help='Push local changes')
     subparser.add_argument('-f', '--force', action='store_true',
                            help='Forcefully overwrite any remote changes')
+    subparser.add_argument('-l', '--no-lock', action='store_true',
+                           help='Disable locking (caution!)')
     subparser.set_defaults(func=subcmd_push)
 
     if repl:
