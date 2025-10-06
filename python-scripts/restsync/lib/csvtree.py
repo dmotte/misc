@@ -6,6 +6,7 @@ import stat
 from collections.abc import Iterator
 from datetime import datetime as dt
 from itertools import zip_longest
+from pathlib import PurePath
 
 from .restic_invoker import ResticInvoker
 
@@ -30,7 +31,8 @@ def tree_snapshot(rinv: ResticInvoker, snapshot_id: str) -> Iterator[str]:
         yield f'{entry['path']};{entry['size']};{entry['mtime']}\n'
 
 
-def tree_local(root_path: str, path_prefix: str = '') -> Iterator[str]:
+def tree_local(root_path: str, excludes: list[str] = [],
+               path_prefix: str = '') -> Iterator[str]:
     '''
     Builds the CSV tree of a local directory
     '''
@@ -40,12 +42,15 @@ def tree_local(root_path: str, path_prefix: str = '') -> Iterator[str]:
     for entry in entries:
         rel_path = f'{path_prefix}{entry.name}'
 
+        if any(PurePath(rel_path).match(pattern) for pattern in excludes):
+            continue
+
         st = entry.stat(follow_symlinks=False)
 
         if stat.S_ISDIR(st.st_mode):
             yield f'{rel_path}/;-1;DIR\n'
             yield from tree_local(os.path.join(root_path, entry.name),
-                                  f'{rel_path}/')
+                                  excludes, f'{rel_path}/')
         else:
             yield f'{rel_path};{st.st_size};{int(st.st_mtime)}\n'
 

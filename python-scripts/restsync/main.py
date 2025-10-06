@@ -59,14 +59,15 @@ def check_need_pull(rinv: ResticInvoker, data_dir: str, state: dict) -> bool:
     return state['latest-snapshot-id'] != rinv.get_latest_snapshot_id()
 
 
-def check_need_push(rinv: ResticInvoker, data_dir: str, state: dict) -> bool:
+def check_need_push(rinv: ResticInvoker, data_dir: str, state: dict,
+                    excludes: list[str] = []) -> bool:
     '''
     Returns True if there are some local changes to push, False otherwise
     '''
     if not os.path.isdir(data_dir):
         return False
 
-    return not trees_equal(tree_local(data_dir),
+    return not trees_equal(tree_local(data_dir, excludes),
                            tree_snapshot(rinv, state['latest-snapshot-id']))
 
 ################################################################################
@@ -91,6 +92,8 @@ class RestsyncVars:
     Indicates if an SSH control master process was actually started by
     self.sshmux
     '''
+    excludes: list[str] = []
+    'Exclude patterns'
 
 ################################################################################
 
@@ -122,7 +125,8 @@ def subcmd_resolve(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 
 
 def subcmd_tree(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
-    it = tree_local(rsvars.data_dir) if args.snapshot_id == 'local' \
+    it = tree_local(rsvars.data_dir, rsvars.excludes) \
+        if args.snapshot_id == 'local' \
         else tree_snapshot(rsvars.rinv, resolve_snapshot_id(
             args.snapshot_id, rsvars.rinv, state_read(rsvars.state_file)
             if args.snapshot_id.startswith('state-') else {}, False))
@@ -135,11 +139,13 @@ def subcmd_diff(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
     if args.id_a == args.id_b:
         return
 
-    it_a = tree_local(rsvars.data_dir) if args.id_a == 'local' \
+    it_a = tree_local(rsvars.data_dir, rsvars.excludes) \
+        if args.id_a == 'local' \
         else tree_snapshot(rsvars.rinv, resolve_snapshot_id(
             args.id_a, rsvars.rinv, state_read(rsvars.state_file)
             if args.id_a.startswith('state-') else {}, False))
-    it_b = tree_local(rsvars.data_dir) if args.id_b == 'local' \
+    it_b = tree_local(rsvars.data_dir, rsvars.excludes) \
+        if args.id_b == 'local' \
         else tree_snapshot(rsvars.rinv, resolve_snapshot_id(
             args.id_b, rsvars.rinv, state_read(rsvars.state_file)
             if args.id_b.startswith('state-') else {}, False))
@@ -169,7 +175,8 @@ def subcmd_need(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         print(f'need-pull: {str(need_pull).lower()}')
     if check_push:
         print('Checking for local changes to push')
-        need_push = check_need_push(rsvars.rinv, rsvars.data_dir, state)
+        need_push = check_need_push(rsvars.rinv, rsvars.data_dir, state,
+                                    rsvars.excludes)
         print(f'need-push: {str(need_push).lower()}')
 
     combination = (need_pull, need_push)
@@ -215,7 +222,8 @@ def subcmd_watch(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
             print(f'need-pull: {str(need_pull).lower()}')
         if check_push:
             print('Checking for local changes to push')
-            need_push = check_need_push(rsvars.rinv, rsvars.data_dir, state)
+            need_push = check_need_push(rsvars.rinv, rsvars.data_dir, state,
+                                        rsvars.excludes)
             print(f'need-push: {str(need_push).lower()}')
 
         if need_pull:
@@ -242,7 +250,8 @@ def subcmd_pull(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
         if not args.force:
             print('Ensuring that a push is not needed')
             if check_need_push(rsvars.rinv, rsvars.data_dir,
-                               state_read(rsvars.state_file, True)):
+                               state_read(rsvars.state_file, True),
+                               rsvars.excludes):
                 raise RuntimeError('Cannot pull: need-push is true')
 
         rsvars.rinv.restic(['restore', 'latest', '--delete', '-vt',
@@ -358,6 +367,8 @@ def get_argumentparser(prog: str | None = None,
                             help='Enable SSH multiplexing')
         parser.add_argument('-d', '--data-dir', type=str, required=True,
                             help='Path of the local data directory')
+        parser.add_argument('-e', '--exclude', type=str, nargs='*', default=[],
+                            help='Exclude patterns. Example: [".ignore"]')
         parser.add_argument('-s', '--state-file', type=str, required=True,
                             help='Path of the local state file')
 
@@ -499,7 +510,7 @@ def main(argv: list[str] | None = None) -> int:
                                  restic_cmd=restic_cmd)
 
             rsvars = RestsyncVars(rinv, args.data_dir, args.state_file,
-                                  sshmux, sshmux_started)
+                                  sshmux, sshmux_started, args.exclude)
 
             args.func(rsvars, args)
     except (RuntimeError, ValueError) as e:
