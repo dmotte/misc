@@ -110,7 +110,8 @@ def subcmd_init(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
 
     rsvars.rinv.restic('init')
 
-    rsvars.rinv.restic('backup -v --skip-if-unchanged .',
+    rsvars.rinv.restic(['backup', '-v', '--skip-if-unchanged'] +
+                       [f'--exclude={x}' for x in rsvars.excludes] + ['.'],
                        add_popen_kwargs={'cwd': rsvars.data_dir})
 
     state_write(rsvars.state_file, {
@@ -254,8 +255,9 @@ def subcmd_pull(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
                                rsvars.excludes):
                 raise RuntimeError('Cannot pull: need-push is true')
 
-        rsvars.rinv.restic(['restore', 'latest', '--delete', '-vt',
-                            rsvars.data_dir])
+        rsvars.rinv.restic(['restore', 'latest', '--delete', '-vt'] +
+                           [f'--exclude={x}' for x in rsvars.excludes] +
+                           [rsvars.data_dir])
 
         state_write(rsvars.state_file, {
             'latest-snapshot-id': rsvars.rinv.get_latest_snapshot_id()})
@@ -281,7 +283,8 @@ def subcmd_push(rsvars: RestsyncVars, args: argparse.Namespace) -> None:
                                state_read(rsvars.state_file, True)):
                 raise RuntimeError('Cannot push: need-pull is true')
 
-        rsvars.rinv.restic('backup -v --skip-if-unchanged .',
+        rsvars.rinv.restic(['backup', '-v', '--skip-if-unchanged'] +
+                           [f'--exclude={x}' for x in rsvars.excludes] + ['.'],
                            add_popen_kwargs={'cwd': rsvars.data_dir})
 
         state_write(rsvars.state_file, {
