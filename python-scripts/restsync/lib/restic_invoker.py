@@ -21,7 +21,7 @@ class ResticInvoker:
     '''
 
     def __init__(self, sftp_details: SFTPDetails,
-                 restic_psw: str | Callable[[], str] = '',
+                 restic_psw: str | Callable[[], str | None] = '',
                  prio_restic_psw_env_vars: bool = True,
                  ssh_cmd: str = 'ssh', sftp_cmd: str = 'sftp',
                  restic_cmd: str = 'restic') -> None:
@@ -39,7 +39,7 @@ class ResticInvoker:
         )):
             # Prioritize the restic password environment variables if set
             restic_psw = ''
-        self.restic_psw: str | Callable[[], str] = restic_psw
+        self.restic_psw: str | Callable[[], str | None] = restic_psw
         'Password of the restic repo, or function that returns it'
 
         self.ssh_cmd: str = ssh_cmd
@@ -123,6 +123,8 @@ class ResticInvoker:
 
         psw = self.restic_psw if isinstance(self.restic_psw, str) \
             else self.restic_psw()
+        if psw is None:
+            psw = ''
 
         if psw != '':
             if os.name == 'nt':
@@ -186,6 +188,9 @@ class ResticInvoker:
         with ExitStack() as stack:
             proc = self._restic_popen(args, stack,
                                       add_env, add_popen_kwargs, True)
+
+            if proc.stdout is None:
+                raise RuntimeError('Subprocess stdout is None')
 
             try:
                 for line in proc.stdout:
