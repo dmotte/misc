@@ -10,7 +10,7 @@ import time
 import traceback
 
 from contextlib import ExitStack
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from lib.csvtree import tree_local, tree_snapshot, trees_equal
 from lib.password_retriever import PasswordRetriever
@@ -92,7 +92,7 @@ class RestsyncVars:
     Indicates if an SSH control master process was actually started by
     self.sshmux
     '''
-    excludes: list[str] = []
+    excludes: list[str] = field(default_factory=list)
     'Exclude patterns'
 
 ################################################################################
