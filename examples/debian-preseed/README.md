@@ -2,13 +2,13 @@
 
 This directory contains a [`preseed.cfg`](preseed.cfg) file, which is an example of how to use **Debian Preseed**.
 
-It has been developed starting from the [official Preseed example for Debian Bookworm](https://www.debian.org/releases/bookworm/example-preseed.txt) (SHA256 checksum: `7d634dd7f1ec07ee4e189963d824860b648de6d0e126dd730cbfbe265dcdabcc`).
+It has been developed starting from the [official Preseed example for Debian 13 (trixie)](https://www.debian.org/releases/trixie/example-preseed.txt) (SHA256 checksum: `5db6b4d2662b3fb94c10f5a67a1431e8ebfe1007bdc54652a366ffbfd513a4a3`).
 
 ## Usage
 
 > **Note**: in this guide, we assume that you have two machines: a **control host** (e.g. your PC) and a **remote host** (e.g. a physical server) on which you want to install Debian using Preseed.
 
-> **Important**: this has been tested with `debian-12.0.0-amd64-netinst.iso`.
+> **Important**: this has been tested with `debian-13.1.0-amd64-netinst.iso` (SHA256 checksum: `658b28e209b578fe788ec5867deebae57b6aac5fce3692bbb116bab9c65568b3`).
 
 **Customize** the [`preseed.cfg`](preseed.cfg) file and place it into some directory on your control host (e.g. `my-preseed-dir`) as **the only file**, as we're gonna serve that directory over HTTP in a while.
 
