@@ -6,8 +6,8 @@ The **accepted JSON input format** is more or less the same format used by the *
 
 | Operating System     | Browser                                                                               | Bookmarks file path                                        |
 | -------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| Debian 12 (Bookworm) | Chromium                                                                              | `~/.config/chromium/Default/Bookmarks`                     |
-| Debian 12 (Bookworm) | Google Chrome                                                                         | `~/.config/google-chrome/Default/Bookmarks`                |
+| Debian 12 (bookworm) | Chromium                                                                              | `~/.config/chromium/Default/Bookmarks`                     |
+| Debian 12 (bookworm) | Google Chrome                                                                         | `~/.config/google-chrome/Default/Bookmarks`                |
 | Windows 10           | Chromium ([_Chocolatey_ package](https://community.chocolatey.org/packages/chromium)) | `%LOCALAPPDATA%\Chromium\User Data\Default\Bookmarks`      |
 | Windows 10           | Google Chrome                                                                         | `%LOCALAPPDATA%\Google\Chrome\User Data\Default\Bookmarks` |
 
