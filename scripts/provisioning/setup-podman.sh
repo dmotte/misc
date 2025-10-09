@@ -5,7 +5,7 @@ set -e
 # This script can be used to install and configure Podman on Linux at system
 # level, or to configure Podman for a single user
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 # Usage example:
 #   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -cs0 -anever -p80
