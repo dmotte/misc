@@ -133,8 +133,8 @@ Some pieces of code I find useful for some reason.
 - `curl -fLo ~/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x ~/.local/bin/kubectl`
 - `curl -fL https://get.helm.sh/helm-v3.17.2-linux-amd64.tar.gz | tar -xvz --strip-components=1 -C ~/.local/bin linux-amd64/helm`
 - `curl -fL https://github.com/derailed/k9s/releases/download/v0.40.10/k9s_Linux_amd64.tar.gz | tar -xvzC ~/.local/bin k9s`
-- `curl -fL https://downloads.rclone.org/rclone-current-linux-amd64.zip | bsdtar -xOf- 'rclone-*-linux-amd64/rclone' | install -T /dev/stdin ~/.local/bin/rclone`
-- `curl -fL https://github.com/restic/restic/releases/latest/download/restic_0.18.0_linux_amd64.bz2 | bunzip2 -c | install -T /dev/stdin ~/.local/bin/restic`
+- `curl -fL https://downloads.rclone.org/rclone-current-linux-amd64.zip | bsdtar -xOf- 'rclone-*-linux-amd64/rclone' | install -Tv /dev/stdin ~/.local/bin/rclone`
+- `curl -fL https://github.com/restic/restic/releases/latest/download/restic_0.18.0_linux_amd64.bz2 | bunzip2 -c | install -Tv /dev/stdin ~/.local/bin/restic`
 - `curl -fLO https://github.com/rustdesk/rustdesk/releases/download/1.4.2/rustdesk-1.4.2-x86_64.deb && sudo apt-get update && sudo apt-get install -y libegl1 ./rustdesk-1.4.2-x86_64.deb`
 - `rustdesk --get-id`, `sudo rustdesk --password MyPassword1234` (while RustDesk is running)
 - `sudo dd if=/dev/mmcblk2 status=progress | gzip -c | split -b4GB - mmcblk2.img.gz.part`
@@ -145,7 +145,7 @@ Some pieces of code I find useful for some reason.
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
 - `comm <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright') --total`
 - `sunodl() { curl -fLO https://cdn1.suno.ai/$1.mp3; }`
-- `install -DT <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
+- `install -DTv <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
 - `shred -u myfile.txt`
 - `gpg -ac --cipher-algo=AES256 --no-symkey-cache -o encrypted.asc <(date)`, `gpg -d --no-symkey-cache encrypted.asc`
 - `date | gpg -ac --batch --cipher-algo=AES256 --no-symkey-cache --passphrase-file=<(echo MyPassphrase) -o encrypted.asc`, `gpg -d --batch --no-symkey-cache --passphrase=MyPassphrase encrypted.asc | sha256sum`
@@ -201,11 +201,11 @@ Some pieces of code I find useful for some reason.
 - `inkscape --export-filename=myimage.png --export-type=png myimage.svg`
 
 ```bash
-install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
+install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
     'ATTR{vendor}=="0x1234", ATTR{device}=="0x5678", ATTR{remove}="1"') \
     /etc/udev/rules.d/99-disable-pci-example.rules
 udevadm trigger -vcadd -spci -avendor=0x1234 -adevice=0x5678
-install -Tm600 <(echo 'ACTION=="add", SUBSYSTEM=="usb",' \
+install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="usb",' \
     'ATTR{idVendor}=="1a2b", ATTR{idProduct}=="3c4d", ATTR{remove}="1"') \
     /etc/udev/rules.d/99-disable-usb-example.rules
 udevadm trigger -vcadd -susb -aidVendor=1a2b -aidProduct=3c4d
@@ -328,7 +328,7 @@ RUN apt-get update && \
 EXPOSE 22
 RUN useradd -UGsudo -ms/bin/bash mainuser && \
     echo 'mainuser ALL=(ALL) NOPASSWD: ALL' | \
-        install -Tm440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
+        install -Tvm440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
     echo mainuser:changeme | chpasswd # Warning: very bad password!
 ENTRYPOINT ["/usr/sbin/sshd", "-De"]
 EOF
@@ -346,7 +346,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 RUN useradd -UGsudo -ms/bin/bash mainuser && \
     echo 'mainuser ALL=(ALL) NOPASSWD: ALL' | \
-        install -Tm440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
+        install -Tvm440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
     echo mainuser:changeme | chpasswd # Warning: very bad password!
 USER mainuser
 ENV USER=mainuser HOME=/home/mainuser
