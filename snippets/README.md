@@ -4,6 +4,9 @@ Some pieces of code I find useful for some reason.
 
 ## Bash
 
+- `install -DTvm600 src.txt dst.txt`, `install -Tvm700 src.sh dst.sh`
+- `install -vm600 -t ~/.ssh mykey_ed25519`
+- `install -o myuser -g mygroup -dvm700 mydir`, `install -dv -o myuser -g mygroup mydir`
 - `tmux new-session -As0`
 - `tmux setw -g mouse on`
 - `eval "$(ssh-agent)"`, `ssh-add -t1800` (30 minutes), `ssh-add -l`, `eval "$(ssh-agent -k)"`
