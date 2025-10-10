@@ -20,7 +20,7 @@ fdo_notify() { # Src: https://github.com/dmotte/misc/tree/main/snippets
         '' 0 "$1" "$2" "$3" '[]' '{}' -1
 }
 
-readonly icon=${DIRNOTIFY_ICON:-emblem-important}
+readonly icon=${DIRNOTIFY_ICON:-dialog-information}
 readonly interval=${DIRNOTIFY_SLEEP:-5}
 
 while :; do
