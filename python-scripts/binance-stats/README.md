@@ -20,7 +20,7 @@ venv/bin/python3 -mpip install -r requirements.txt
 Then download the necessary **OHLCV data**:
 
 ```bash
-mkdir ohlcv
+mkdir -v ohlcv
 
 mapfile -t coins < <(cat transactions/records-*.csv |
     venv/bin/python3 coins.py | tr -d '\r')

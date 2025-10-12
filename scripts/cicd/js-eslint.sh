@@ -28,7 +28,7 @@ echo "::group::$0: Preparation"
     npm --version
 
     if [ ! -d "$toolchain_dir" ]; then
-        mkdir "$toolchain_dir"
+        mkdir -v "$toolchain_dir"
         ( # Subshell
             cd "$toolchain_dir"
             npm init -y

@@ -9,7 +9,7 @@ This example runs _SFTPGo_ in **standard** mode (`sftpgo serve` command, the def
 ```bash
 cd example-standard/
 
-install -d -o1000 -g1000 data home
+install -dv -o1000 -g1000 data home
 # Initialize the SFTPGo database. This creates the sftpgo.db file
 docker-compose run --rm -v "$PWD/initial-data.json:/initial-data.json:ro" sftpgo sftpgo initprovider --loaddata-from=/initial-data.json
 
@@ -28,7 +28,7 @@ This example runs _SFTPGo_ in **portable** mode (`sftpgo portable` command).
 ```bash
 cd example-portable/
 
-install -d -o1000 -g1000 home serve
+install -dv -o1000 -g1000 home serve
 
 docker-compose down && docker-compose up
 ```

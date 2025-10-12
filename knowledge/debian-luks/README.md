@@ -50,7 +50,7 @@ If you want to use the **command line** instead (e.g. for systems without a grap
 
 ```bash
 sudo cryptsetup open /dev/sdb1 sdb1-crypt
-sudo mkdir /mnt/sdb1-crypt
+sudo mkdir -v /mnt/sdb1-crypt
 sudo mount /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
 ```
 
@@ -60,7 +60,7 @@ To **unmount** the partition:
 
 ```bash
 sudo umount /mnt/sdb1-crypt
-sudo rm -r /mnt/sdb1-crypt
+sudo rm -rv /mnt/sdb1-crypt
 sudo cryptsetup close sdb1-crypt
 ```
 
@@ -79,7 +79,7 @@ sudo blkid -sUUID -ovalue /dev/sdb1
 Create the **mountpoint**:
 
 ```bash
-sudo mkdir /mnt/sdb1-crypt
+sudo mkdir -v /mnt/sdb1-crypt
 ```
 
 Add the following line to `/etc/crypttab`, replacing the UUID with the correct value:

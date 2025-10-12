@@ -19,7 +19,7 @@ apt_update_if_old() {
 dpkg -s python3-rpi.gpio >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y python3-rpi.gpio; }
 
-install -dm700 /opt/raspi-safe-shutdown
+install -dvm700 /opt/raspi-safe-shutdown
 
 echo 'Creating raspi-safe-shutdown service files'
 

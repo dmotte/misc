@@ -13,7 +13,7 @@ docker build -t img-joplin01:latest - << 'EOF'
 FROM docker.io/dmotte/xfwd:latest
 RUN apt-get update && apt-get install -y curl libasound2 && \
     curl -fLo /joplin.deb https://github.com/laurent22/joplin/releases/latest/download/Joplin-3.2.13.deb && \
-    apt-get install -y /joplin.deb && rm /joplin.deb && rm -rf /var/lib/apt/lists/*
+    apt-get install -y /joplin.deb && rm -v /joplin.deb && rm -rf /var/lib/apt/lists/*
 EOF
 
 docker run -d --name=joplin01 -v/tmp/.X11-unix/X0:/opt/xfwd/host.sock:ro -v"${XAUTHORITY:?}:/opt/xfwd/host.xauth:ro" img-joplin01:latest

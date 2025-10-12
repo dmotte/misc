@@ -9,12 +9,12 @@ For example, some tools (such as `kubectl`) need to be installed as a standalone
 Here is an example of how to set this up, with some predefined **jobs**:
 
 ```bash
-install -DT <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/hackdates/main.sh) ~/.hackdates/main.sh
-mkdir ~/.hackdates/jobs
+install -DTv <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/hackdates/main.sh) ~/.hackdates/main.sh
+mkdir -v ~/.hackdates/jobs
 
 for i in kubectl helm; do
     echo "Installing Hackdates job $i"
-    install -T <(curl -fsSL "https://raw.githubusercontent.com/dmotte/misc/main/scripts/hackdates/jobs/$i.sh") "$HOME/.hackdates/jobs/$i.sh"
+    install -Tv <(curl -fsSL "https://raw.githubusercontent.com/dmotte/misc/main/scripts/hackdates/jobs/$i.sh") "$HOME/.hackdates/jobs/$i.sh"
 done
 ```
 

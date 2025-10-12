@@ -85,7 +85,7 @@ echo "::group::$0: Build"
             echo "- &#x1F4C1; Destination docs directory: \`$real_dst\`"
         } | tee -a "$CICD_SUMMARY"
 
-        mkdir -p "$real_dst"
+        mkdir -pv "$real_dst"
 
         if [ -n "$MKDOCS_DOCS_EXCLUDES" ]; then
             # shellcheck disable=SC2016

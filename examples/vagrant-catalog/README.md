@@ -8,7 +8,7 @@ First of all, if it's not your first time doing this, do a little cleanup:
 cd mybox
 
 vagrant destroy -f
-rm package.box
+rm -v package.box
 ```
 
 Then, without leaving the `mybox` directory, you can **build** the base box:

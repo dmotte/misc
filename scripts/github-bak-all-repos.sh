@@ -17,7 +17,7 @@ for i in "${owner#users/}" "${owner#orgs/}"; do
     [ "$i" = "$owner" ] || { readonly owner_name=$i; break; }
 done
 
-mkdir -p "$dest"
+mkdir -pv "$dest"
 
 cd "$dest"
 

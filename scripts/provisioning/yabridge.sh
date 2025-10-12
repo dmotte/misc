@@ -43,7 +43,7 @@ if [ -d "$app_dir" ]; then
     echo "Directory $app_dir already exists" >&2; exit 1
 fi
 
-mkdir -p "$install_dir"
+mkdir -pv "$install_dir"
 
 readonly archive_url="https://github.com/robbert-vdh/yabridge/releases/download/$version/yabridge-$version.tar.gz"
 readonly archive_path="$install_dir/yabridge.tar.gz"

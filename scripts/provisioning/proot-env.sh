@@ -49,7 +49,7 @@ if [ -d "$install_dir" ]; then
     echo "Directory $install_dir already exists" >&2; exit 1
 fi
 
-mkdir -p "$install_dir"
+mkdir -pv "$install_dir"
 
 readonly tarball_path="$install_dir/tarball.tar.xz"
 readonly rootfs_path="$install_dir/rootfs"

@@ -121,7 +121,7 @@ echo "::group::$0: Build (cargo build)"
 echo '::endgroup::'
 
 echo "::group::$0: Artifact"
-    mkdir -p cicd-artifact
+    mkdir -pv cicd-artifact
 
     echo "$build_targets" | while read -r i; do
         src=target/$i/release/$proj_name
@@ -130,8 +130,7 @@ echo "::group::$0: Artifact"
         [[ "$i" = *-pc-windows-* ]] && file_basename+=.exe
         dst=cicd-artifact/$file_basename
 
-        echo "Copying $src to $dst"
-        cp -T "$src" "$dst"
+        cp -Tv "$src" "$dst"
         echo "- &#x1F4E6; Artifact file: \`$file_basename\`" |
             tee -a "$CICD_SUMMARY"
     done

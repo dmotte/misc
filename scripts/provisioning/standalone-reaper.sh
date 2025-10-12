@@ -62,7 +62,7 @@ elif [ -d "$install_dir" ]; then
     echo "Directory $install_dir already exists" >&2; exit 1
 fi
 
-mkdir -p "$install_dir"
+mkdir -pv "$install_dir"
 
 readonly archive_url="https://www.reaper.fm/files/$major.x/reaper$major${minor}_linux_$arch.tar.xz"
 readonly archive_path=$install_dir/archive.tar.xz

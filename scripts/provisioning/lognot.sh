@@ -80,7 +80,7 @@ bot_token=${bot_token#bot}
 dpkg -s curl >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y curl; }
 
-install -dm700 /opt/lognot
+install -dvm700 /opt/lognot
 
 if [ ! -e /opt/lognot/msgbuf ]; then
     echo "Downloading msgbuf binary from $msgbuf_url"

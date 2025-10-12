@@ -46,7 +46,7 @@ Or even create an **`lwats.sh`** (**L**ocal **Wats**on) script that always invok
 ```bash
 cd ~/my/custom/dwats/data
 
-install -T <(echo -e '#!/bin/bash\nset -e\ncd "$(dirname "$0")"\nexec bash '"${dwats@Q}"' "$@"') lwats.sh
+install -Tv <(echo -e '#!/bin/bash\nset -e\ncd "$(dirname "$0")"\nexec bash '"${dwats@Q}"' "$@"') lwats.sh
 ```
 
 You can also invoke the script **without parameters**, to get a **REPL** prompt:

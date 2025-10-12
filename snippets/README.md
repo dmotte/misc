@@ -6,7 +6,7 @@ Some pieces of code I find useful for some reason.
 
 - `install -DTvm600 src.txt dst.txt`, `install -Tvm700 src.sh dst.sh`
 - `install -vm600 -t ~/.ssh mykey_ed25519`
-- `install -o myuser -g mygroup -dvm700 mydir`, `install -dv -o myuser -g mygroup mydir`
+- `install -omyuser -gmygroup -dvm700 mydir`, `install -dv -omyuser -gmygroup mydir`
 - `tmux new-session -As0`
 - `tmux setw -g mouse on`
 - `eval "$(ssh-agent)"`, `ssh-add -t1800` (30 minutes), `ssh-add -l`, `eval "$(ssh-agent -k)"`
@@ -164,7 +164,7 @@ Some pieces of code I find useful for some reason.
   - `restic restore latest --delete -vvt myfiles --dry-run`
   - `restic dump latest / -t myarchive.tar`
   - `restic -r sftp://myuser@192.168.0.123:2222//my-restic-repo snapshots`
-  - `mkdir mymountpoint && restic mount mymountpoint`, `cat mymountpoint/snapshots/latest/myfile.txt`
+  - `mkdir -v mymountpoint && restic mount mymountpoint`, `cat mymountpoint/snapshots/latest/myfile.txt`
   - `restic snapshots latest --json | jq -r '.[0].id'`
   - `restic diff --metadata a1b2 c3d4`
   - `GPG_TTY=$(tty) restic --password-command='gpg -dq encrypted.asc' snapshots` (to make `pinentry-curses` work)
@@ -292,7 +292,7 @@ echo '/swapfile-additional none swap sw 0 0' | sudo tee -a /etc/fstab
 ```bash
 # Inspired by https://wiki.debian.org/DebianUnstable#Installation
 
-sudo cp -T /etc/apt/sources.list{,.old-$(date +%Y-%m-%d-%H%M%S)}
+sudo cp -Tv /etc/apt/sources.list{,.old-$(date +%Y-%m-%d-%H%M%S)}
 
 sudo tee /etc/apt/sources.list << 'EOF'
 deb http://deb.debian.org/debian/ unstable main non-free-firmware
@@ -415,7 +415,7 @@ EOF
 - `choco install -y gsudo`
 - `sudo choco upgrade -y all`
 - `sudo choco install -y winfsp rclone`, `rclone mount myremote: X: --volname='Volume label' --vfs-disk-space-total-size=2T`
-- `MSYS=winsymlinks:nativestrict sudo ln -Ts original.txt link.txt`
+- `MSYS=winsymlinks:nativestrict sudo ln -Tsv original.txt link.txt`
 - `sudo -d mklink link.txt original.txt`, `sudo -d mklink //d dir-link dir-original`
 - `[[ "$(uname)" = MINGW* ]]; echo $?`
 - `MSYS_NO_PATHCONV=1 '/c/Program Files/VeraCrypt/VeraCrypt.exe' /q /v '\Device\Harddisk1\Partition1' /l X /m ro /m label='My label'`

@@ -72,7 +72,7 @@ elif [ -d "$install_dir" ]; then
     echo "Directory $install_dir already exists" >&2; exit 1
 fi
 
-mkdir -p "$install_dir"
+mkdir -pv "$install_dir"
 
 if [ "$os" = win32 ]; then
     readonly archive_url="https://code.visualstudio.com/sha/download?build=$build&os=$os-$arch-archive"

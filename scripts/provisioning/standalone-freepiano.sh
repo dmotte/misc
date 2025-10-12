@@ -59,7 +59,7 @@ if [ -d "$install_dir" ]; then
     echo "Directory $install_dir already exists" >&2; exit 1
 fi
 
-mkdir -p "$install_dir"
+mkdir -pv "$install_dir"
 
 readonly archive_url="https://sourceforge.net/projects/freepiano/files/freepiano_${version}_win64.zip"
 readonly archive_path=$install_dir/archive.zip
