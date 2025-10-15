@@ -17,7 +17,7 @@ Tested on the following setup:
 - _WordPress_ version **6.1**
 - _WP SQLite DB WordPress plugin_ version **1.3.1**
   - GitHub permalink: https://github.com/aaemnnosttv/wp-sqlite-db/blob/5d8af6bd9906b9dc95a06c9009965548e1b0ae49/src/db.php
-  - SHA256 checksum: `a4a4eb91ca3b2acb66a113b4c7d1b1b184ce284e7938083d4d2522743b369669`
+  - SHA-256 checksum: `a4a4eb91ca3b2acb66a113b4c7d1b1b184ce284e7938083d4d2522743b369669`
 
 ## Install Tiny File Manager
 
