@@ -177,7 +177,7 @@ Some pieces of code I find useful for some reason.
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dest-dir`
 - `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `rclone --config= sync -vn --create-empty-src-dirs . :sftp,host=192.168.0.123,port=2222,user=myuser:mydir`
-- `rclone check myremote:/remote-src-dir ./local-dest-dir`
+- `rclone check -v myremote:/remote-src-dir ./local-dest-dir`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass .`
 - `rclone --config= serve -v webdav --dir-cache-time=0 --disable-dir-list --addr=unix:///tmp/my.sock .`
 - `curl -fsSL https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
