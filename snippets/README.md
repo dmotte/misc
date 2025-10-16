@@ -66,7 +66,7 @@ Some pieces of code I find useful for some reason.
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`, `date -Ins`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
-- `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`
+- `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`, `set -o ignoreeof; exit() { echo 'Use "builtin exit" to exit'; }`
 - `read -rp 'Press ENTER to continue...'`
 - `diff <(ls -l) <(ls -la)`
 - `ps -aux --sort -pcpu | head -n10`
