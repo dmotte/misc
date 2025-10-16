@@ -179,6 +179,7 @@ Some pieces of code I find useful for some reason.
 - `rclone --config= sync -vn --create-empty-src-dirs . :sftp,host=192.168.0.123,port=2222,user=myuser:mydir`
 - `rclone check -v myremote:/remote-src-dir ./local-dest-dir`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass .`
+- `rclone --config= serve -v sftp --dir-cache-time=0 --addr=0.0.0.0:2022 --user=myuser --authorized-keys=<(echo 'ssh-ed25519 AAAAC3Nza...') .`
 - `rclone --config= serve -v webdav --dir-cache-time=0 --disable-dir-list --addr=unix:///tmp/my.sock .`
 - `curl -fsSL https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
 - `ssh -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
