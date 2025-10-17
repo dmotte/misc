@@ -42,6 +42,8 @@ dd if=/dev/zero of=myimage.img bs=1M count=1024 status=progress
 sudo cryptsetup luksFormat myimage.img
 ```
 
+> **Note**: you might want to try adding `oflag=direct` to the `dd` command; it could make it faster.
+
 ## Mounting an encrypted partition
 
 To **mount** an encrypted partition, you can use one of the **GUI tools** [mentioned above](#creating-an-encrypted-partition).

@@ -281,7 +281,7 @@ gpg --delete-secret-and-public-key mykey
 ```
 
 ```bash
-sudo dd if=/dev/zero of=/swapfile-additional bs=1M count=10240
+sudo dd if=/dev/zero of=/swapfile-additional bs=1M count=10240 status=progress
 sudo chmod 600 /swapfile-additional
 sudo mkswap /swapfile-additional
 
