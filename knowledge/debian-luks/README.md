@@ -39,7 +39,7 @@ You can also do the same using an **`.img` file** instead of a real partition:
 
 ```bash
 dd if=/dev/zero of=myimage.img bs=1M count=1024 status=progress
-sudo cryptsetup luksFormat myimage.img
+/usr/sbin/cryptsetup luksFormat myimage.img
 ```
 
 > **Note**: you might want to try adding `oflag=direct` to the `dd` command; it could make it faster.
