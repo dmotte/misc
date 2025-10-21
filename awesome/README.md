@@ -327,7 +327,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **VirtualBox** - cross-platform virtualization application: [choco](https://community.chocolatey.org/packages/virtualbox) [website](https://www.virtualbox.org/)
 - **Visual Studio Code** - free cross-platform IDE (Integrated Development Environment) code editor: [choco](https://community.chocolatey.org/packages/vscode) [github](https://github.com/microsoft/vscode) [website](https://code.visualstudio.com/)
 - **Wireshark** - network protocol analyzer packet sniffer: [choco](https://community.chocolatey.org/packages/wireshark) [gitlab](https://gitlab.com/wireshark/wireshark) [website](https://www.wireshark.org/)
-- **Xournal++** - open-source PDF editor and note-taking app: [choco](https://community.chocolatey.org/packages/xournalplusplus) [github](https://github.com/xournalpp/xournalpp) [website](https://xournalpp.github.io/)
+- **Xournal++** - open-source PDF editor and note-taking app: [apt](https://packages.debian.org/bookworm/xournalpp) [choco](https://community.chocolatey.org/packages/xournalplusplus) [github](https://github.com/xournalpp/xournalpp) [website](https://xournalpp.github.io/)
 - **qBittorrent** - free cross-platform BitTorrent client GUI: [apt](https://packages.debian.org/bookworm/qbittorrent) [choco](https://community.chocolatey.org/packages/qbittorrent) [github](https://github.com/qbittorrent/qBittorrent) [website](https://www.qbittorrent.org/)
 
 ## Technologies and standards
