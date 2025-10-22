@@ -125,8 +125,8 @@ Some pieces of code I find useful for some reason.
 - `mapfile -t arr < <(echo 'hey "hello world"' | xargs -n1)`
 - `printf '%s\n' "${arr[@]}"`
 - `vlc -vvv -Idummy --no-audio screen:// --screen-fps=10 --sout='#transcode{vcodec=MJPG,scale=0.5}:standard{access=http,mux=mpjpeg,dst=:8080/}' --sout-http-mime='multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a' --live-caching=100`
-- `modprobe -r mymod01 mymod02`, `echo -e 'blacklist mymod01\nblacklist mymod02' > /etc/modprobe.d/blacklist-mymod.conf`
-- `echo -e 'blacklist uas\nblacklist usb_storage' > /etc/modprobe.d/blacklist-usb-storage.conf`
+- `modprobe -r mymod01 mymod02`, `printf 'blacklist %s\n' mymod01 mymod02 > /etc/modprobe.d/blacklist-mymod.conf`
+- `printf 'blacklist %s\n' uas usb_storage > /etc/modprobe.d/blacklist-usb-storage.conf`
 - `bind -x '"\e": mycommand'`
 - `sudo iptables -nvL`
 - `sudo iptables -t nat -F OUTPUT`
