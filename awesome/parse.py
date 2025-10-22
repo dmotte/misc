@@ -37,7 +37,7 @@ LINK_VALIDATORS = {
     'sourceforge': lambda x: re.fullmatch(r'^https://sourceforge\.net/projects'
                                           r'/[0-9a-z-]+/$', x),
 
-    'apt': lambda x: re.fullmatch(r'^https://packages\.debian\.org/bookworm'
+    'apt': lambda x: re.fullmatch(r'^https://packages\.debian\.org/stable'
                                   r'/[0-9a-z-]+$', x),
     'choco': lambda x: re.fullmatch(r'^https://community\.chocolatey\.org'
                                     r'/packages/[0-9A-Za-z.-]+$', x),
