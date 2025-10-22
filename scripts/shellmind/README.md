@@ -11,7 +11,7 @@ install -DTv <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scr
 
 cat << 'EOF' >> ~/.shellmind/message.txt
 Kind reminder to keep your system up-to-date! Please do the following:
-- Run "sudo apt update && sudo apt upgrade"
+- Run "sudo apt update && sudo apt upgrade" (or do the equivalent via the system UI)
 - Run "touch ~/.shellmind/main.sh" (to reschedule this reminder)
 EOF
 
