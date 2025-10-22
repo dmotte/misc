@@ -14,6 +14,11 @@ set -e
 
 # Usage example: sudo ./apt-virtualbox.sh 7.0
 
+# Note: to upgrade the package you just need to run the script with a newer
+# version, and the old package will be removed automatically. This works
+# because each "virtualbox-*" APT package declares "Provides: virtualbox" and
+# "Conflicts: virtualbox", which basically make them mutually exclusive
+
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 fetch_and_check() { # Src: https://github.com/dmotte/misc
