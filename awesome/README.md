@@ -216,6 +216,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ### Multi-platform
 
+- **ADB** - Android Debug Bridge: [apt](https://packages.debian.org/stable/adb) [choco](https://community.chocolatey.org/packages/adb) [website](https://developer.android.com/tools/adb)
 - **Freqtrade** - free and open source crypto trading bot written in Python: [docker](https://hub.docker.com/r/freqtradeorg/freqtrade) [github](https://github.com/freqtrade/freqtrade) [website](https://www.freqtrade.io/en/stable/)
 - **Hugo** - static website generator written in Go: [choco](https://community.chocolatey.org/packages/hugo) [github](https://github.com/gohugoio/hugo) [website](https://gohugo.io/)
 - **ImageMagick** - software suite used for editing and manipulating digital images: [choco](https://community.chocolatey.org/packages/imagemagick) [github](https://github.com/ImageMagick/ImageMagick) [website](https://imagemagick.org/)
