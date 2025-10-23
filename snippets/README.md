@@ -72,6 +72,7 @@ Some pieces of code I find useful for some reason.
 - `ps -aux --sort -pcpu | head -n10`
 - `strings /proc/1234/environ | grep -i MY_ENV_VAR`
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
+- `SSH_AUTH_SOCK= ssh myuser@192.168.0.123`
 - `python3 -mhttp.server`
 - `php -S 127.0.0.1:8080 -t mydir`
 - `dig @ns1.example.com www.example.com`
