@@ -85,11 +85,10 @@ if [ -n "$launcher" ]; then
     echo "Creating launcher file $launcher"
     install -Tm644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
-Name=REAPER standalone
-Exec=$app_dir/REAPER/reaper %f
-Comment=REAPER standalone
-Terminal=false
-Icon=$app_dir/REAPER/Resources/main.png
 Type=Application
+Name=REAPER standalone
+Icon=$app_dir/REAPER/Resources/main.png
+Exec=$app_dir/REAPER/reaper %f
+Terminal=false
 EOF
 fi

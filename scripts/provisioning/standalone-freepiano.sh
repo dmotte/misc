@@ -81,12 +81,11 @@ if [ -n "$launcher" ]; then
     else
         install -Tm644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
-Name=FreePiano
-Exec=wine $app_dir/freepiano.exe %f
-Comment=FreePiano
-Terminal=false
-# Icon=$app_dir/freepiano.exe
 Type=Application
+Name=FreePiano
+# Icon=$app_dir/freepiano.exe
+Exec=wine $app_dir/freepiano.exe %f
+Terminal=false
 EOF
     fi
 fi

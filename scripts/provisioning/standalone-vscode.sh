@@ -128,12 +128,11 @@ if [ -n "$launcher" ]; then
     else
         install -Tm644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
-Name=Visual Studio Code
-Exec=$app_dir/code %f
-Comment=Visual Studio Code
-Terminal=false
-Icon=$app_dir/resources/app/resources/linux/code.png
 Type=Application
+Name=Visual Studio Code
+Icon=$app_dir/resources/app/resources/linux/code.png
+Exec=$app_dir/code %f
+Terminal=false
 EOF
     fi
 fi
