@@ -194,6 +194,7 @@ Some pieces of code I find useful for some reason.
 - `sed -Ei 's/^(\s+)#\s*(alias [ef]?grep='\''[ef]?grep --color=auto'\'')/\1\2/' ~/.bashrc`
 - `{ base64 -w256 myfile.txt; echo; echo 'Hello, World!'; } | { while read -r i; do [ -n "$i" ] || break; echo "$i"; done | base64 -d | cat -A; cat -A; }`
 - `bn=${path##*/}` (similar to `basename "$path"`), `dn=${path%/*}` (similar to `dirname "$path"`)
+- `gtk-launch myapp.desktop`
 - `gnome-session-inhibit --app-id org.gnome.Terminal.desktop --reason 'Unsaved work' --inhibit logout:suspend --inhibit-only`
 - `dconf watch /`, `dconf dump /`, `dconf write /org/gtk/gtk4/settings/file-chooser/show-hidden true`
 - `gsettings list-schemas --print-paths`, `gsettings set org.gtk.gtk4.Settings.FileChooser show-hidden true`
