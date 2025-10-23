@@ -10,4 +10,4 @@ v_ref=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/$img/tags/$t
 v_latest=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/$img/tags/latest" |
     jq -r .digest)
 
-[ "$v_ref" = "$v_latest" ] || { echo "Version mismatch" >&2; exit 1; }
+[ "$v_ref" = "$v_latest" ] || { echo 'Version mismatch' >&2; exit 1; }
