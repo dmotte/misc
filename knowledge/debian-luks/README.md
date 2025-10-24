@@ -58,6 +58,14 @@ sudo mount /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
 
 > **Note**: the `cryptsetup open` command will interactively ask you for the passphrase.
 
+To mount the partition in **read-only** mode, you can add the `-r` flag to the `cryptsetup open` and `mount` commands, like this:
+
+```bash
+sudo cryptsetup open -r /dev/sdb1 sdb1-crypt
+sudo mkdir -v /mnt/sdb1-crypt
+sudo mount -r /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
+```
+
 To **unmount** the partition:
 
 ```bash
