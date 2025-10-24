@@ -236,10 +236,10 @@ done
 dd if=/dev/zero of=myimage.img bs=1M count=1024 status=progress
 /usr/sbin/mkfs.ext4 myimage.img
 
-sudo mkdir /mnt/myimage
-sudo mount myimage.img /mnt/myimage
+sudo mkdir -v /mnt/myimage
+sudo mount -v myimage.img /mnt/myimage
 
-sudo umount /mnt/myimage
+sudo umount -v /mnt/myimage
 
 sudo apt update && sudo apt install -y fuse2fs
 

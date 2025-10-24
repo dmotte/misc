@@ -53,7 +53,7 @@ If you want to use the **command line** instead (e.g. for systems without a grap
 ```bash
 sudo cryptsetup open /dev/sdb1 sdb1-crypt
 sudo mkdir -v /mnt/sdb1-crypt
-sudo mount /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
+sudo mount -v /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
 ```
 
 > **Note**: the `cryptsetup open` command will interactively ask you for the passphrase.
@@ -63,13 +63,13 @@ To mount the partition in **read-only** mode, you can add the `-r` flag to the `
 ```bash
 sudo cryptsetup open -r /dev/sdb1 sdb1-crypt
 sudo mkdir -v /mnt/sdb1-crypt
-sudo mount -r /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
+sudo mount -rv /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
 ```
 
 To **unmount** the partition:
 
 ```bash
-sudo umount /mnt/sdb1-crypt
+sudo umount -v /mnt/sdb1-crypt
 sudo rm -rv /mnt/sdb1-crypt
 sudo cryptsetup close sdb1-crypt
 ```
