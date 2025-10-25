@@ -427,6 +427,7 @@ EOF
 - `'/c/Program Files/VeraCrypt/VeraCrypt.exe' //q //d X`
 - `create-shortcut ~/apps/myapp.exe ~/Desktop/myapp.lnk`
 - `create-shortcut ~/apps/myapp.exe "$APPDATA/Microsoft/Windows/Start Menu/Programs/Startup/myapp.lnk"`, `sudo create-shortcut ~/apps/myapp.exe '/c/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/myapp.lnk'`
+- `cp -vt "$APPDATA/Microsoft/Windows/Start Menu/Programs/Startup" '/c/ProgramData/Microsoft/Windows/Start Menu/Programs/My App.lnk'`
 - `cygpath -w /d/mymusic/*.mp3 | xargs -rd\\n vlc`
 - `msg \* MyMessage`, `date | msg \*`
 - `reg add 'HKCU\Software\MyApp' //v MyValue //t REG_SZ //d MyData //f`, `sudo -d reg add 'HKLM\SOFTWARE\MyApp' //v MyValue //t REG_SZ //d MyData //f`
