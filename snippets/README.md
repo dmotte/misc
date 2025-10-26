@@ -140,7 +140,7 @@ Some pieces of code I find useful for some reason.
 - `curl -fL https://github.com/derailed/k9s/releases/download/v0.40.10/k9s_Linux_amd64.tar.gz | tar -xvzC ~/.local/bin k9s`
 - `curl -fL https://downloads.rclone.org/rclone-current-linux-amd64.zip | bsdtar -xOf- 'rclone-*-linux-amd64/rclone' | install -Tv /dev/stdin ~/.local/bin/rclone`
 - `curl -fL https://github.com/restic/restic/releases/latest/download/restic_0.18.0_linux_amd64.bz2 | bunzip2 -c | install -Tv /dev/stdin ~/.local/bin/restic`
-- `curl -fLO https://github.com/rustdesk/rustdesk/releases/download/1.4.2/rustdesk-1.4.2-x86_64.deb && sudo apt-get update && sudo apt-get install -y libegl1 ./rustdesk-1.4.2-x86_64.deb`
+- `curl -fLo/tmp/rustdesk.deb https://github.com/rustdesk/rustdesk/releases/download/1.4.2/rustdesk-1.4.2-x86_64.deb && sudo apt-get update && sudo apt-get install -y libegl1 /tmp/rustdesk.deb`
 - `rustdesk --get-id`, `sudo rustdesk --password MyPassword1234` (while RustDesk is running)
 - `sudo dd if=/dev/mmcblk2 status=progress | gzip -c | split -b4GB - mmcblk2.img.gz.part`
   - `md5sum mmcblk2.img.gz.part* > MD5SUMS`
