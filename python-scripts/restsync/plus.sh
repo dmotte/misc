@@ -73,9 +73,12 @@ export RESTSYNC_PSW_CMD="gpg -dq --no-symkey-cache ${restic_psw_asc@Q}"
 [ -z "$sftp_cmd" ] || export RESTSYNC_SFTP_CMD=$sftp_cmd
 
 if command -v gnome-session-inhibit >/dev/null; then
-    exec gnome-session-inhibit --app-id org.gnome.Terminal.desktop \
+    gnome-session-inhibit --app-id org.gnome.Terminal.desktop \
         --reason 'Restsync is running' --inhibit logout:suspend \
-        "${py[@]}" "$restsync_main_py" "${restsync_args[@]}"
+        --inhibit-only >/dev/null &
+    trap 'jobs -p | xargs -rd\\n kill; wait' EXIT
+
+    "${py[@]}" "$restsync_main_py" "${restsync_args[@]}"
 else
     exec "${py[@]}" "$restsync_main_py" "${restsync_args[@]}"
 fi
