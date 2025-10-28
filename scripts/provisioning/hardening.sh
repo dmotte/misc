@@ -36,10 +36,12 @@ sed -Ei 's/^#?DIR_MODE=.*$/DIR_MODE=0700/' /etc/adduser.conf
 
 sed -Ei 's/^127\.0\.1\.1( |\t).*$/127.0.1.1\t'"$HOSTNAME/" /etc/hosts
 
-sed -Ei /etc/ssh/sshd_config \
-    -e 's/^#?PermitRootLogin[ \t].*$/PermitRootLogin no/' \
-    -e 's/^#?HostbasedAuthentication[ \t].*$/HostbasedAuthentication no/' \
-    -e 's/^#?PermitEmptyPasswords[ \t].*$/PermitEmptyPasswords no/'
+if [ -e /etc/ssh/sshd_config ]; then
+    sed -Ei /etc/ssh/sshd_config \
+        -e 's/^#?PermitRootLogin[ \t].*$/PermitRootLogin no/' \
+        -e 's/^#?HostbasedAuthentication[ \t].*$/HostbasedAuthentication no/' \
+        -e 's/^#?PermitEmptyPasswords[ \t].*$/PermitEmptyPasswords no/'
+fi
 
 if [ "$sshd_addressfamily_inet" = y ]; then
     sed -Ei 's/^#?AddressFamily[ \t].*$/AddressFamily inet/' \
