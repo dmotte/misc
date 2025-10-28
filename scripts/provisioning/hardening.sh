@@ -2,7 +2,7 @@
 
 set -e
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 # Warning: this is only a partial hardening and it should only serve as
 # inspiration to make your own real hardening based on your specific environment
@@ -33,6 +33,10 @@ done
 
 sed -Ei 's/^#?UMASK.*$/UMASK 077/' /etc/login.defs
 sed -Ei 's/^#?DIR_MODE=.*$/DIR_MODE=0700/' /etc/adduser.conf
+
+# Prevent setting the umask group bits to the same as owner bits
+sed -Ei 's/^(session\s+optional\s+pam_umask\.so)$/\1 nousergroups/' \
+    /etc/pam.d/common-session{,-noninteractive}
 
 sed -Ei 's/^127\.0\.1\.1( |\t).*$/127.0.1.1\t'"$HOSTNAME/" /etc/hosts
 
