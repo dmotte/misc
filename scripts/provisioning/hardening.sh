@@ -31,14 +31,14 @@ done
 
 [ -e /etc/sysctl.d/99-hardening-ipv4.conf ] || changing=y
 
-sed -Ei 's/^#?UMASK.*$/UMASK 077/' /etc/login.defs
-sed -Ei 's/^#?DIR_MODE=.*$/DIR_MODE=0700/' /etc/adduser.conf
-
 # Prevent setting the umask group bits to the same as owner bits
 sed -Ei 's/^(session\s+optional\s+pam_umask\.so)$/\1 nousergroups/' \
     /etc/pam.d/common-session{,-noninteractive}
 
-sed -Ei 's/^127\.0\.1\.1( |\t).*$/127.0.1.1\t'"$HOSTNAME/" /etc/hosts
+# The permissions mode for home directories of non-system users
+sed -Ei 's/^#?(DIR_MODE=).*$/\10700/' /etc/adduser.conf
+
+sed -Ei 's/^(127\.0\.1\.1\s+).*$/\1'"$HOSTNAME/" /etc/hosts
 
 if [ -e /etc/ssh/sshd_config ]; then
     sed -Ei /etc/ssh/sshd_config \
