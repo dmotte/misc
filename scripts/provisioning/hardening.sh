@@ -31,6 +31,8 @@ done
 
 [ -e /etc/sysctl.d/99-hardening-ipv4.conf ] || changing=y
 
+installed_sshd=$([ -e /etc/ssh/sshd_config ] && echo true || echo false)
+
 # Prevent setting the umask group bits to the same as owner bits
 sed -Ei 's/^(session\s+optional\s+pam_umask\.so)$/\1 nousergroups/' \
     /etc/pam.d/common-session{,-noninteractive}
@@ -40,7 +42,7 @@ sed -Ei 's/^#?(DIR_MODE=).*$/\10700/' /etc/adduser.conf
 
 sed -Ei 's/^(127\.0\.1\.1\s+).*$/\1'"$HOSTNAME/" /etc/hosts
 
-if [ -e /etc/ssh/sshd_config ]; then
+if [ "$installed_sshd" = true ]; then
     sed -Ei /etc/ssh/sshd_config \
         -e 's/^#?PermitRootLogin[ \t].*$/PermitRootLogin no/' \
         -e 's/^#?HostbasedAuthentication[ \t].*$/HostbasedAuthentication no/' \
@@ -95,6 +97,7 @@ fi
 if [ "$HARDENING_RELOAD" = always ] || {
     [ "$HARDENING_RELOAD" = when-changed ] && [ "$changing" = y ]
 }; then
-    systemctl restart ssh systemd-timesyncd
+    [ "$installed_sshd" = true ] && systemctl restart ssh
+    systemctl restart systemd-timesyncd
     sysctl --system
 fi
