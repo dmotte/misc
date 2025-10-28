@@ -67,8 +67,10 @@ fi
 
 ################################################################################
 
-export RESTSYNC_PSW_CMD="gpg -dq --no-symkey-cache ${restic_psw_asc@Q}" \
-    RESTSYNC_SSH_CMD=$ssh_cmd RESTSYNC_SFTP_CMD=$sftp_cmd
+export RESTSYNC_PSW_CMD="gpg -dq --no-symkey-cache ${restic_psw_asc@Q}"
+
+[ -z "$ssh_cmd" ] || export RESTSYNC_SSH_CMD=$ssh_cmd
+[ -z "$sftp_cmd" ] || export RESTSYNC_SFTP_CMD=$sftp_cmd
 
 if command -v gnome-session-inhibit >/dev/null; then
     exec gnome-session-inhibit --app-id org.gnome.Terminal.desktop \
