@@ -149,6 +149,8 @@ Some pieces of code I find useful for some reason.
   - `md5sum mmcblk2.img.gz.part* > MD5SUMS`
   - `cat mmcblk2.img.gz.part* | gunzip -c | sudo dd of=/dev/mmcblk2 status=progress`
 - `sudo parted /dev/sdb -s 'mklabel gpt mkpart "" 0% 100%'`, `sudo mkfs.ext4 /dev/sdb1 -L mylabel`
+- `fallocate -vl1G myimage.img`
+- `dd if=/dev/random of=myimage.img bs=1M count=1024 status=progress`
 - `gzip -tv myfile.txt.gz`
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
 - `comm <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright') --total`
@@ -236,7 +238,7 @@ done
 ```
 
 ```bash
-dd if=/dev/zero of=myimage.img bs=1M count=1024 status=progress
+fallocate -vl1G myimage.img
 /usr/sbin/mkfs.ext4 myimage.img
 
 sudo mkdir -v /mnt/myimage
@@ -287,6 +289,7 @@ gpg --delete-secret-and-public-key mykey
 ```
 
 ```bash
+# In case of swapfiles it's better to use "dd" to fill the file with actual zeros, rather than "fallocate", due to potential issues with older kernels
 sudo dd if=/dev/zero of=/swapfile-additional bs=1M count=10240 status=progress
 sudo chmod 600 /swapfile-additional
 sudo mkswap /swapfile-additional
