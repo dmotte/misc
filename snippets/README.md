@@ -67,7 +67,7 @@ Some pieces of code I find useful for some reason.
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
 - `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`, `set -o ignoreeof; exit() { echo 'Use "builtin exit" to exit'; }`
-- `read -rsp 'Press ENTER to continue...'`
+- `read -rsp 'Press ENTER to continue...'; echo`
 - `diff <(ls -l) <(ls -la)`
 - `ps -aux --sort -pcpu | head -n10`
 - `strings /proc/1234/environ | grep -i MY_ENV_VAR`
