@@ -38,8 +38,14 @@ sudo cryptsetup close sdb1-crypt
 You can also do the same using an **`.img` file** instead of a real partition:
 
 ```bash
-dd if=/dev/zero of=myimage.img bs=1M count=1024 status=progress
+fallocate -vl1G myimage.img
 /usr/sbin/cryptsetup luksFormat myimage.img
+```
+
+If you want to be extra cautious, you can use `dd` instead of `fallocate` to pre-fill the `.img` file with **random data** (but it's much slower and write-intensive):
+
+```bash
+dd if=/dev/random of=myimage.img bs=1M count=1024 status=progress
 ```
 
 > **Note**: you might want to try adding `oflag=direct` to the `dd` command; it could make it faster.
