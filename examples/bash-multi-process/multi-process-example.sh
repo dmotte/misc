@@ -5,7 +5,7 @@ set -e
 # Example of how to spawn multiple concurrent processes in Bash and display
 # both their stdout and stderr (with proper prefixes)
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 sample_service() {
     local name=${1:?}; shift
@@ -25,7 +25,7 @@ run_with_prefixes() {
 
 ################################################################################
 
-trap 'kill $(jobs -p)' EXIT
+trap 'jobs -p | xargs -rd\\n kill; wait' EXIT
 
 echo 'Starting service myfirstsvc'
 run_with_prefixes myfirstsvc sample_service myfirstsvc &
