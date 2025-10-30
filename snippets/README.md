@@ -51,7 +51,7 @@ Some pieces of code I find useful for some reason.
 - `find . -type f -exec sha256sum {} +`
 - `tree -paugh --inodes`
 - `find . | grep -i pattern`, `find . -iname '*pattern*'`
-- `find . \( \( -type d ! -perm 755 \) -o \( -type f ! -perm 644 \) \) -exec ls -la {} +`
+- `find . \( \( -type d ! -perm 755 \) -o \( -type f ! -perm 644 \) \) -exec ls -dl {} +`
 - `find . \( -type d -perm 775 -exec chmod 755 {} \; \) -o \( -type f -perm 664 -exec chmod 644 {} \; \)`
 - `git ls-files --full-name '*pattern*'`
 - `git ls-files | xargs -rd\\n sha256sum`
