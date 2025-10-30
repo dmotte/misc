@@ -202,7 +202,9 @@ Some pieces of code I find useful for some reason.
 - `gtk-launch myapp.desktop`
 - `gnome-session-inhibit --app-id org.gnome.Terminal.desktop --reason 'Unsaved work' --inhibit logout:suspend --inhibit-only`
 - `dconf watch /`, `dconf dump /`, `dconf write /org/gtk/gtk4/settings/file-chooser/show-hidden true`
-- `gsettings list-schemas --print-paths`, `gsettings set org.gtk.gtk4.Settings.FileChooser show-hidden true`
+- `gsettings list-recursively`, `gsettings list-schemas --print-paths`
+- `gsettings describe org.gtk.gtk4.Settings.FileChooser show-hidden`
+- `gsettings set org.gtk.gtk4.Settings.FileChooser show-hidden true`
 - `powerprofilesctl set power-saver`
 - `inotifywait -cmqr mydir`, `inotifywait -eMODIFY,ATTRIB,CLOSE_WRITE,MOVE,MOVE_SELF,CREATE,DELETE,DELETE_SELF,UNMOUNT -t10 myfile.log`
 - `[ -z "$(lsof +D mydir)" ]`
