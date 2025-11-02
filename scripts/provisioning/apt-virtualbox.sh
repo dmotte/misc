@@ -14,6 +14,10 @@ set -e
 
 # Usage example: sudo ./apt-virtualbox.sh 7.0
 
+# Note: if your host loads KVM kernel modules automatically at boot, you need
+# to disable them to make VirtualBox work. You can use a command like this:
+#   printf 'blacklist %s\n' kvm kvm_intel > /etc/modprobe.d/blacklist-kvm.conf
+
 # Note: to upgrade the package you just need to run the script with a newer
 # version, and the old package will be removed automatically. This works
 # because each "virtualbox-*" APT package declares "Provides: virtualbox" and
