@@ -97,6 +97,7 @@ Some pieces of code I find useful for some reason.
 - `systemctl -a | grep -Fi myunit` (`-a` = also dead ones), `systemctl list-unit-files | grep -Fi myunit` (also disabled ones)
 - `systemctl is-active -q myunit; echo $?`
 - `systemctl list-timers`
+- `systemd-analyze calendar '*-*-* 6,18:00' --iterations 10`
 - `: "${myvar:=myvalue}"`, `export MY_ENV_VAR="${MY_ENV_VAR:-myvalue}"`
 - `socat - TCP:example.com:80`
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=666,fork,unlink-early -`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
