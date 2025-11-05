@@ -63,8 +63,10 @@ Some pieces of code I find useful for some reason.
 - `file -b --mime-type myfile.txt`
 - `stat -c%Y myfile.txt`, `stat -c%s myfile.txt`
 - `zip -r myarchive.zip mydir`, `unzip -oq myarchive.zip -d mydir`
-- `7z a myarchive.7z mydir`, `7z a myarchive.zip mydir`, `7z l myarchive.7z`, `7z x -aoa myarchive.7z`, `7z x myarchive.7z -osomedir`, `7z x myarchive.7z -o\*`
-- `7z a dummy -tzip -so mydir > myarchive.zip`
+- `7z a myarchive.7z mydir`, `7z a myarchive.zip mydir`, `7z a dummy -tzip -so mydir > myarchive.zip`
+- `7z e myarchive.7z mydir/myfile.txt -so`
+- `7z l myarchive.7z`
+- `7z x -aoa myarchive.7z`, `7z x myarchive.7z -osomedir`, `7z x myarchive.7z -o\*`
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`, `date -Ins`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
