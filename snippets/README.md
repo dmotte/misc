@@ -60,7 +60,7 @@ Some pieces of code I find useful for some reason.
 - `df -h`
 - `free -htvw`
 - `du -sh`
-- `file -b --mime-type myfile.txt`
+- `file -b --mime-type myfile.txt`, `xdg-mime query filetype myfile.txt`
 - `stat -c%Y myfile.txt`, `stat -c%s myfile.txt`
 - `zip -r myarchive.zip mydir`, `unzip -oq myarchive.zip -d mydir`
 - `7z a myarchive.7z mydir`, `7z a myarchive.zip mydir`, `7z a dummy -tzip -so mydir > myarchive.zip`
