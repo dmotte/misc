@@ -21,6 +21,7 @@ set -e
 # TODO no more installed_xxx vars; be explicit about all the recipes in the args instead
 # TODO force the order of recipes appropriately (and final restarts accordingly)
 # TODO multiple changed_xxx vars, so you can simplify the checks in the final restarts
+# TODO add some helper recipes (at the beginning) that invoke other commonly used recipes
 
 ################################################################################
 
