@@ -27,13 +27,13 @@ set -e
 recipes_all=()
 
 recipes_all+=(kernel-ipv6-disable)
-kernel_ipv6_disable () {
+rcp_kernel_ipv6_disable () {
     echo 'Disabling IPv6 via kernel boot parameter'
     echo TODO
 }
 
 recipes_all+=(sysctl-ipv6-disable)
-sysctl_ipv6_disable () {
+rcp_sysctl_ipv6_disable () {
     echo 'Disabling IPv6 via sysctl'
     echo TODO
 }
@@ -43,11 +43,11 @@ sysctl_ipv6_disable () {
 recipes_run=()
 
 # Read the recipes passed by args and make sure they are in the correct order
-for recipe in "${recipes_all[@]}"; do
+for i in "${recipes_all[@]}"; do
     [ -n "$1" ] || break
-    [ "$1" = "$recipe" ] && { recipes_run+=("$1"); shift; }
+    [ "$1" = "$i" ] && { recipes_run+=("$i"); shift; }
 done
 
 [ -z "$1" ] || { echo "Unexpected recipe: $1" >&2; exit 1; }
 
-echo "TODO ${recipes_run[*]@Q}"
+for i in "${recipes_run[@]}"; do "rcp_${i//-/_}"; done
