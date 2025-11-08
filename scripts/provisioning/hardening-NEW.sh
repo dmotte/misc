@@ -27,15 +27,87 @@ set -e
 
 recipes_all=()
 
+recipes_all+=(pam-umask-nousergroups)
+rcp_pam_umask_nousergroups () {
+    echo 'TODO description'
+    echo TODO
+}
+
 recipes_all+=(kernel-ipv6-disable)
 rcp_kernel_ipv6_disable () {
     echo 'Disabling IPv6 via kernel boot parameter'
     echo TODO
 }
 
+recipes_all+=(sysctl-hardening-ipv4)
+rcp_sysctl_hardening_ipv4 () {
+    echo 'TODO description'
+    echo TODO
+}
+
+recipes_all+=(sysctl-hardening-ipv6)
+rcp_sysctl_hardening_ipv6 () {
+    echo 'TODO description'
+    echo TODO
+}
+
 recipes_all+=(sysctl-ipv6-disable)
 rcp_sysctl_ipv6_disable () {
     echo 'Disabling IPv6 via sysctl'
+    echo TODO
+}
+
+recipes_all+=(hosts-127011)
+rcp_hosts_127011 () {
+    echo 'TODO description'
+    echo TODO
+}
+
+recipes_all+=(nm-ipv6-disable)
+rcp_nm_ipv6_disable () {
+    echo 'Disabling IPv6 via NetworkManager dispatcher'
+    echo TODO
+}
+
+recipes_all+=(timesyncd-dhcp-ntp-disable)
+rcp_timesyncd_dhcp_ntp_disable () {
+    echo 'TODO description'
+    echo TODO
+}
+
+recipes_all+=(sshd-rootlogin-no)
+rcp_sshd_rootlogin_no () {
+    echo 'TODO description'
+    echo TODO
+}
+
+recipes_all+=(sshd-hostbasedauth-no)
+rcp_sshd_hostbasedauth_no () {
+    echo 'TODO description'
+    echo TODO
+}
+
+recipes_all+=(sshd-emptypsws-no)
+rcp_sshd_emptypsws_no () {
+    echo 'TODO description'
+    echo TODO
+}
+
+recipes_all+=(sshd-addressfamily-inet)
+rcp_sshd_addressfamily_inet () {
+    echo 'TODO description'
+    echo TODO
+}
+
+recipes_all+=(sshd-pswauth-no)
+rcp_sshd_pswauth_no () {
+    echo 'TODO description'
+    echo TODO
+}
+
+recipes_all+=(adduser-dirmode-700)
+rcp_adduser_dirmode_700 () {
+    echo 'TODO description'
     echo TODO
 }
 
