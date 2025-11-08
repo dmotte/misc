@@ -7,7 +7,7 @@ set -e
 # Tested on Debian 13 (trixie)
 
 # Usage example:
-#   sudo HARDENING_RELOAD=always bash hardening.sh TODOrecipes
+#   sudo HARDENING_RELOAD=true bash hardening.sh TODOrecipes
 
 # Warning: this is only a partial hardening and it should only serve as
 # inspiration to make your own real hardening based on your specific environment
@@ -20,8 +20,15 @@ set -e
 # TODO verbose recipes
 # TODO no more installed_xxx vars; be explicit about all the recipes in the args instead
 # TODO force the order of recipes appropriately (and final restarts accordingly)
-# TODO multiple changed_xxx vars, so you can simplify the checks in the final restarts
 # TODO add some helper recipes (at the beginning) that invoke other commonly used recipes
+
+################################################################################
+
+# TODO use the following vars
+changed_sysctl=n
+changed_nm=n
+changed_timesyncd=n
+changed_sshd=n
 
 ################################################################################
 
@@ -124,3 +131,12 @@ done
 [ -z "$1" ] || { echo "Unexpected recipe: $1" >&2; exit 1; }
 
 for i in "${recipes_run[@]}"; do "rcp_${i//-/_}"; done
+
+################################################################################
+
+if [ "$HARDENING_RELOAD" = true ]; then
+    [ "$changed_sysctl" = y ] && sysctl --system
+    [ "$changed_nm" = y ] && systemctl restart NetworkManager
+    [ "$changed_timesyncd" = y ] && systemctl restart systemd-timesyncd
+    [ "$changed_sshd" = y ] && systemctl restart ssh
+fi
