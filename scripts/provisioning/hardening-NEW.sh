@@ -21,6 +21,8 @@ set -e
 
 ################################################################################
 
+changed_grub=n
+
 changed_sysctl=n
 changed_nm=n
 changed_timesyncd=n
@@ -78,8 +80,11 @@ rcp_pam_umask_nousergroups () {
 
 recipes_all+=(kernel-ipv6-disable)
 rcp_kernel_ipv6_disable () {
-    echo 'Disabling IPv6 via kernel boot parameter'
-    echo TODO kernel-ipv6-disable
+    local varname=GRUB_CMDLINE_LINUX_DEFAULT
+    # Disable IPv6 via kernel boot parameter
+    echo "$varname=\"\$$varname ipv6.disable=1\"" |
+        install -Tvm644 /dev/stdin /etc/default/grub.d/disable-ipv6.cfg
+    changed_grub=y
 }
 
 recipes_all+=(sysctl-hardening-ipv4)
@@ -177,6 +182,13 @@ done
 [ -z "$1" ] || { echo "Unexpected recipe: $1" >&2; exit 1; }
 
 for i in "${recipes_run[@]}"; do "rcp_${i//-/_}"; done
+
+################################################################################
+
+if [ "$changed_grub" = y ]; then
+    # This is always required after changing GRUB config
+    update-grub
+fi
 
 ################################################################################
 
