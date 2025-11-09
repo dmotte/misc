@@ -87,15 +87,30 @@ rcp_kernel_ipv6_disable () {
 
 recipes_all+=(sysctl-hardening-ipv4)
 rcp_sysctl_hardening_ipv4 () {
-    echo 'TODO description'
-    echo TODO sysctl-hardening-ipv4
+    install -Tvm644 /dev/stdin /etc/sysctl.d/99-hardening-ipv4.conf << 'EOF'
+net.ipv4.conf.all.send_redirects=0
+net.ipv4.conf.default.send_redirects=0
+net.ipv4.conf.all.accept_source_route=0
+net.ipv4.conf.default.accept_source_route=0
+net.ipv4.conf.all.accept_redirects=0
+net.ipv4.conf.default.accept_redirects=0
+net.ipv4.conf.all.log_martians=1
+net.ipv4.conf.default.log_martians=1
+net.ipv4.icmp_echo_ignore_broadcasts=1
+net.ipv4.conf.all.rp_filter=1
+net.ipv4.conf.default.rp_filter=1
+EOF
     changed_sysctl=y
 }
 
 recipes_all+=(sysctl-hardening-ipv6)
 rcp_sysctl_hardening_ipv6 () {
-    echo 'TODO description'
-    echo TODO sysctl-hardening-ipv6
+    install -Tvm644 /dev/stdin /etc/sysctl.d/99-hardening-ipv6.conf << 'EOF'
+net.ipv6.conf.all.accept_ra=0
+net.ipv6.conf.default.accept_ra=0
+net.ipv6.conf.all.accept_redirects=0
+net.ipv6.conf.default.accept_redirects=0
+EOF
     changed_sysctl=y
 }
 
