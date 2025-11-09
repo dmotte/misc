@@ -70,8 +70,10 @@ rcp_bundle_desktop () {
 
 recipes_all+=(pam-umask-nousergroups)
 rcp_pam_umask_nousergroups () {
-    echo 'TODO description'
-    echo TODO pam-umask-nousergroups
+    echo 'Setting nousergroups for pam_umask.so'
+    # Prevent setting the umask group bits to the same as owner bits
+    sed -Ei 's/^(session\s+optional\s+pam_umask\.so)$/\1 nousergroups/' \
+        /etc/pam.d/common-session{,-noninteractive}
 }
 
 recipes_all+=(kernel-ipv6-disable)
