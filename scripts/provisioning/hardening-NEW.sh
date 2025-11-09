@@ -116,8 +116,11 @@ EOF
 
 recipes_all+=(sysctl-ipv6-disable)
 rcp_sysctl_ipv6_disable () {
-    echo 'Disabling IPv6 via sysctl'
-    echo TODO sysctl-ipv6-disable
+    install -Tvm644 /dev/stdin /etc/sysctl.d/99-disable-ipv6.conf << 'EOF'
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default.disable_ipv6=1
+net.ipv6.conf.lo.disable_ipv6=1
+EOF
     changed_sysctl=y
 }
 
