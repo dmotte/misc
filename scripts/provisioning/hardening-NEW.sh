@@ -126,8 +126,8 @@ EOF
 
 recipes_all+=(hosts-127011)
 rcp_hosts_127011 () {
-    echo 'TODO description'
-    echo TODO hosts-127011
+    echo "Setting 127.0.1.1 entry to $HOSTNAME in /etc/hosts"
+    sed -Ei 's/^(127\.0\.1\.1\s+).*$/\1'"$HOSTNAME/" /etc/hosts
 }
 
 recipes_all+=(nm-ipv6-disable)
