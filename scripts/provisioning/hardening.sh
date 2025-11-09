@@ -14,11 +14,6 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-# TODO in the end: test everything thoroughly
-# TODO in the end: make sure to put all the stuff from the old hardening.sh
-
-# TODO verbose recipes
-
 ################################################################################
 
 changed_sysctl=n
