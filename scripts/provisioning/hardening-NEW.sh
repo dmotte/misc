@@ -160,36 +160,41 @@ rcp_timesyncd_dhcp_ntp_disable () {
 
 recipes_all+=(sshd-rootlogin-no)
 rcp_sshd_rootlogin_no () {
-    echo 'TODO description'
-    echo TODO sshd-rootlogin-no
+    echo 'Setting PermitRootLogin to no in /etc/ssh/sshd_config'
+    sed -Ei 's/^#?(PermitRootLogin\s+).*$/\1no/' \
+        /etc/ssh/sshd_config
     changed_sshd=y
 }
 
 recipes_all+=(sshd-hostbasedauth-no)
 rcp_sshd_hostbasedauth_no () {
-    echo 'TODO description'
-    echo TODO sshd-hostbasedauth-no
+    echo 'Setting HostbasedAuthentication to no in /etc/ssh/sshd_config'
+    sed -Ei 's/^#?(HostbasedAuthentication\s+).*$/\1no/' \
+        /etc/ssh/sshd_config
     changed_sshd=y
 }
 
 recipes_all+=(sshd-emptypsws-no)
 rcp_sshd_emptypsws_no () {
-    echo 'TODO description'
-    echo TODO sshd-emptypsws-no
+    echo 'Setting PermitEmptyPasswords to no in /etc/ssh/sshd_config'
+    sed -Ei 's/^#?(PermitEmptyPasswords\s+).*$/\1no/' \
+        /etc/ssh/sshd_config
     changed_sshd=y
 }
 
 recipes_all+=(sshd-addressfamily-inet)
 rcp_sshd_addressfamily_inet () {
-    echo 'TODO description'
-    echo TODO sshd-addressfamily-inet
+    echo 'Setting AddressFamily to inet in /etc/ssh/sshd_config'
+    sed -Ei 's/^#?(AddressFamily\s+).*$/\1inet/' \
+        /etc/ssh/sshd_config
     changed_sshd=y
 }
 
 recipes_all+=(sshd-pswauth-no)
 rcp_sshd_pswauth_no () {
-    echo 'TODO description'
-    echo TODO sshd-pswauth-no
+    echo 'Setting PasswordAuthentication to no in /etc/ssh/sshd_config'
+    sed -Ei 's/^#?(PasswordAuthentication\s+).*$/\1no/' \
+        /etc/ssh/sshd_config
     changed_sshd=y
 }
 
