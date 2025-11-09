@@ -44,7 +44,7 @@ rcp_bundle_server_vm () {
     rcp_sshd_emptypsws_no
     rcp_sshd_pswauth_no
 
-    rcp_adduser_dirmode_700
+    rcp_adduser_dirmode_0700
 }
 
 recipes_all+=(bundle-server-physical)
@@ -65,7 +65,7 @@ rcp_bundle_desktop () {
 
     rcp_timesyncd_dhcp_ntp_disable
 
-    rcp_adduser_dirmode_700
+    rcp_adduser_dirmode_0700
 }
 
 recipes_all+=(pam-umask-nousergroups)
@@ -193,10 +193,11 @@ rcp_sshd_pswauth_no () {
     changed_sshd=y
 }
 
-recipes_all+=(adduser-dirmode-700)
-rcp_adduser_dirmode_700 () {
-    echo 'TODO description'
-    echo TODO adduser-dirmode-700
+recipes_all+=(adduser-dirmode-0700)
+rcp_adduser_dirmode_0700 () {
+    echo 'Setting DIR_MODE to 0700 in /etc/adduser.conf'
+    # The permissions mode for home directories of non-system users
+    sed -Ei 's/^#?(DIR_MODE=).*$/\10700/' /etc/adduser.conf
 }
 
 ################################################################################
