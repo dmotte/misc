@@ -132,8 +132,21 @@ rcp_hosts_127011 () {
 
 recipes_all+=(nm-ipv6-disable)
 rcp_nm_ipv6_disable () {
-    echo 'Disabling IPv6 via NetworkManager dispatcher'
-    echo TODO nm-ipv6-disable
+    install -Tv /dev/stdin \
+        /etc/NetworkManager/dispatcher.d/pre-up.d/10-disable-ipv6.sh << 'EOF'
+#!/bin/bash
+
+set -e
+
+readonly iface=${1:?}
+
+# Required to prevent "Operation not supported" log spam in
+# "journalctl -u NetworkManager". See
+# https://www.dedoimedo.com/computers/linux-nm-ipv6-disable.html for detail
+[ "$iface" = lo ] || nmcli device modify "$iface" ipv6.method disabled || :
+
+sysctl -w "net.ipv6.conf.$iface.disable_ipv6=1" || :
+EOF
     changed_nm=y
 }
 
