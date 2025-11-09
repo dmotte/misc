@@ -152,8 +152,9 @@ EOF
 
 recipes_all+=(timesyncd-dhcp-ntp-disable)
 rcp_timesyncd_dhcp_ntp_disable () {
-    echo 'TODO description'
-    echo TODO timesyncd-dhcp-ntp-disable
+    # Prevent setting NTP server from DHCP (by systemd-timesyncd)
+    rm -fv /etc/dhcp/dhclient-exit-hooks.d/timesyncd \
+        /run/systemd/timesyncd.conf.d/01-dhclient.conf
     changed_timesyncd=y
 }
 
