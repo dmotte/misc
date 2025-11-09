@@ -18,9 +18,6 @@ set -e
 # TODO in the end: make sure to put all the stuff from the old hardening.sh
 
 # TODO verbose recipes
-# TODO no more installed_xxx vars; be explicit about all the recipes in the args instead
-# TODO force the order of recipes appropriately (and final restarts accordingly)
-# TODO add some helper recipes (at the beginning) that invoke other commonly used recipes
 
 ################################################################################
 
@@ -33,98 +30,136 @@ changed_sshd=n
 
 recipes_all=()
 
+recipes_all+=(bundle-server-vm)
+rcp_bundle_server_vm () {
+    rcp_pam_umask_nousergroups
+
+    rcp_sysctl_hardening_ipv4
+    rcp_sysctl_hardening_ipv6
+
+    rcp_hosts_127011
+
+    rcp_sshd_rootlogin_no
+    rcp_sshd_hostbasedauth_no
+    rcp_sshd_emptypsws_no
+    rcp_sshd_pswauth_no
+
+    rcp_adduser_dirmode_700
+}
+
+recipes_all+=(bundle-server-physical)
+rcp_bundle_server_physical () {
+    rcp_bundle_server_vm
+
+    rcp_timesyncd_dhcp_ntp_disable
+}
+
+recipes_all+=(bundle-desktop)
+rcp_bundle_desktop () {
+    rcp_pam_umask_nousergroups
+
+    rcp_sysctl_hardening_ipv4
+    rcp_sysctl_hardening_ipv6
+
+    rcp_hosts_127011
+
+    rcp_timesyncd_dhcp_ntp_disable
+
+    rcp_adduser_dirmode_700
+}
+
 recipes_all+=(pam-umask-nousergroups)
 rcp_pam_umask_nousergroups () {
     echo 'TODO description'
-    echo TODO
+    echo TODO pam-umask-nousergroups
 }
 
 recipes_all+=(kernel-ipv6-disable)
 rcp_kernel_ipv6_disable () {
     echo 'Disabling IPv6 via kernel boot parameter'
-    echo TODO
+    echo TODO kernel-ipv6-disable
 }
 
 recipes_all+=(sysctl-hardening-ipv4)
 rcp_sysctl_hardening_ipv4 () {
     echo 'TODO description'
-    echo TODO
+    echo TODO sysctl-hardening-ipv4
     changed_sysctl=y
 }
 
 recipes_all+=(sysctl-hardening-ipv6)
 rcp_sysctl_hardening_ipv6 () {
     echo 'TODO description'
-    echo TODO
+    echo TODO sysctl-hardening-ipv6
     changed_sysctl=y
 }
 
 recipes_all+=(sysctl-ipv6-disable)
 rcp_sysctl_ipv6_disable () {
     echo 'Disabling IPv6 via sysctl'
-    echo TODO
+    echo TODO sysctl-ipv6-disable
     changed_sysctl=y
 }
 
 recipes_all+=(hosts-127011)
 rcp_hosts_127011 () {
     echo 'TODO description'
-    echo TODO
+    echo TODO hosts-127011
 }
 
 recipes_all+=(nm-ipv6-disable)
 rcp_nm_ipv6_disable () {
     echo 'Disabling IPv6 via NetworkManager dispatcher'
-    echo TODO
+    echo TODO nm-ipv6-disable
     changed_nm=y
 }
 
 recipes_all+=(timesyncd-dhcp-ntp-disable)
 rcp_timesyncd_dhcp_ntp_disable () {
     echo 'TODO description'
-    echo TODO
+    echo TODO timesyncd-dhcp-ntp-disable
     changed_timesyncd=y
 }
 
 recipes_all+=(sshd-rootlogin-no)
 rcp_sshd_rootlogin_no () {
     echo 'TODO description'
-    echo TODO
+    echo TODO sshd-rootlogin-no
     changed_sshd=y
 }
 
 recipes_all+=(sshd-hostbasedauth-no)
 rcp_sshd_hostbasedauth_no () {
     echo 'TODO description'
-    echo TODO
+    echo TODO sshd-hostbasedauth-no
     changed_sshd=y
 }
 
 recipes_all+=(sshd-emptypsws-no)
 rcp_sshd_emptypsws_no () {
     echo 'TODO description'
-    echo TODO
+    echo TODO sshd-emptypsws-no
     changed_sshd=y
 }
 
 recipes_all+=(sshd-addressfamily-inet)
 rcp_sshd_addressfamily_inet () {
     echo 'TODO description'
-    echo TODO
+    echo TODO sshd-addressfamily-inet
     changed_sshd=y
 }
 
 recipes_all+=(sshd-pswauth-no)
 rcp_sshd_pswauth_no () {
     echo 'TODO description'
-    echo TODO
+    echo TODO sshd-pswauth-no
     changed_sshd=y
 }
 
 recipes_all+=(adduser-dirmode-700)
 rcp_adduser_dirmode_700 () {
     echo 'TODO description'
-    echo TODO
+    echo TODO adduser-dirmode-700
 }
 
 ################################################################################
