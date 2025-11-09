@@ -7,7 +7,7 @@ set -e
 # Tested on Debian 13 (trixie)
 
 # Usage example:
-#   sudo HARDENING_RELOAD=true bash hardening.sh TODOrecipes
+#   sudo HARDENING_RELOAD=true bash hardening.sh bundle-desktop
 
 # Warning: this is only a partial hardening and it should only serve as
 # inspiration to make your own real hardening based on your specific environment
