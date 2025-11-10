@@ -320,6 +320,23 @@ EOF
 sudo apt update && sudo apt full-upgrade
 ```
 
+```bash
+# Warning: this is just an example. You should never write plain passwords in commands
+hash_pbkdf2=$({ echo mypassword; echo mypassword; } | grub-mkpasswd-pbkdf2)
+hash_pbkdf2=$(echo "$hash_pbkdf2" | grep -o 'grub\.pbkdf2\..*')
+
+sudo install -Tvm700 /dev/stdin /etc/grub.d/01_psw << EOF
+#!/bin/sh
+exec tail -n+3 "\$0"
+set superusers="root"
+password_pbkdf2 root $hash_pbkdf2
+EOF
+
+sudo sed -Ei 's/^(\s+echo "menuentry .+ \$\{CLASS\} )(\\\$menuentry_id_option '\''gnulinux-simple-.+)$/\1--unrestricted \2/' /etc/grub.d/10_linux
+
+sudo update-grub
+```
+
 ## Shell snippets for Docker
 
 - `docker run -it --rm --log-driver=none docker.io/library/debian:12`
