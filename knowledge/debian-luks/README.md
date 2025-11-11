@@ -64,6 +64,8 @@ sudo mount -v /dev/mapper/sdb1-crypt /mnt/sdb1-crypt
 
 > **Note**: the `cryptsetup open` command will interactively ask you for the passphrase.
 
+> **Note**: as an alternative to `cryptsetup` + `mount`, you could also use `udisksctl`, if [UDisks](https://storaged.org/doc/udisks2-api/latest/) is installed.
+
 To mount the partition in **read-only** mode, you can add the `-r` flag to the `cryptsetup open` and `mount` commands, like this:
 
 ```bash
