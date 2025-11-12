@@ -81,7 +81,7 @@ Some pieces of code I find useful for some reason.
 - `php -S 127.0.0.1:8080 -t mydir`
 - `dig @ns1.example.com www.example.com`
 - `git pull --no-edit && git add . && { git commit "-m$(date +%s)" || :; } && git push`
-- `find . -type d -name .git | while read -r i; do echo "${i:0:-5}"; done`
+- `find . -type d -name .git -prune -printf '%h\n'`
 - `git describe --tags --exact-match`, `git describe --tags --dirty`
 - `[ -z "$(git status -s)" ]`
 - `git reset --soft HEAD^ && git push --force`
