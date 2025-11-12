@@ -78,7 +78,7 @@ To **unmount** the partition:
 
 ```bash
 sudo umount -v /mnt/sdb1-crypt
-sudo rm -rv /mnt/sdb1-crypt
+sudo rm -dv /mnt/sdb1-crypt
 sudo cryptsetup close sdb1-crypt
 ```
 
