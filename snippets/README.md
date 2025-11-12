@@ -46,7 +46,7 @@ Some pieces of code I find useful for some reason.
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `nohup ping localhost > myoutput.txt & disown`, `pgrep -fx 'ping localhost'`, `pkill -fx 'ping localhost'`, `nohup sleep infinity >/dev/null 2>&1 & disown`
 - `pgrep -fxu"$EUID" '^python3 '"$HOME"'/myscript\.py$'`
-- `find mydir -mindepth 1 -printf '%y %T@ %s %P\n' | LC_ALL=C sort -k4`
+- `find mydir -mindepth 1 -printf '%y %T@ %#m %s %P\n' | LC_ALL=C sort -k5`
 - `find mydir -type d -printf 'DIR -1 %P/\n' -o -type f -printf '%T@ %s %P\n' | LC_ALL=C sort -k3`
 - `find . -type f -exec sha256sum {} +`
 - `tree -paugh --inodes`
