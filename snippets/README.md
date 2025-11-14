@@ -255,6 +255,7 @@ sudo mkdir -v /mnt/myimage
 sudo mount -v myimage.img /mnt/myimage
 
 sudo umount -v /mnt/myimage
+sudo rmdir -v /mnt/myimage
 
 sudo apt update && sudo apt install -y fuse2fs
 
