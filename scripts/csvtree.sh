@@ -9,6 +9,9 @@ set -e
 
 # Note: the output should be similar to "rclone lsf -R --format=pst"
 
+# Usage example:
+#   bash csvtree.sh mydir \! -name myexclude.txt > tree-mydir.csv
+
 readonly main_dir=${1:?}; shift
 readonly add_find_args=("$@")
 
