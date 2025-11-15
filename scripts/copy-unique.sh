@@ -5,7 +5,7 @@ set -e
 # This script copies a file, but only if the destination directory doesn't
 # contain a file with the same SHA-256 checksum
 
-# Usage example: ./copy-unique.sh myfile.txt "mydir/bak-myfile-$(date +%Y-%m-%d-%H%M%S).txt"
+# Usage example: bash copy-unique.sh myfile.txt "mydir/bak-myfile-$(date +%Y-%m-%d-%H%M%S).txt"
 
 readonly file_src=${1:?} file_dst=${2:?}
 

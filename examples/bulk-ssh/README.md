@@ -8,5 +8,5 @@ This is only an example. You should modify these scripts to suit your needs.
 
 ```bash
 read -rsp 'Password: ' SSHPASS && export SSHPASS
-./main.sh | tee output.txt
+bash main.sh | tee output.txt
 ```

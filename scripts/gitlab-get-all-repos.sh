@@ -3,8 +3,8 @@
 set -e
 
 # Usage examples:
-#   ./gitlab-get-all-repos.sh users/diaspora '(has("forked_from_project") | not) and .archived == false' .
-#   ./gitlab-get-all-repos.sh users/diaspora true '.path_with_namespace, .description'
+#   bash gitlab-get-all-repos.sh users/diaspora '(has("forked_from_project") | not) and .archived == false' .
+#   bash gitlab-get-all-repos.sh users/diaspora true '.path_with_namespace, .description'
 #   bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/gitlab-get-all-repos.sh) users/diaspora '(has("forked_from_project") | not) and .archived == false' | while read -r i; do git -C "$(basename "$i")" pull || git clone --depth=1 "git@gitlab.com:$i.git"; done
 
 readonly gitlab_url=${GITLAB_URL:-https://gitlab.com/}

@@ -9,7 +9,7 @@ set -e
 
 # Tested on Debian 12 (bookworm)
 
-# Usage example: ./winemono.sh && wineboot --init
+# Usage example: bash winemono.sh && wineboot --init
 
 readonly wine_cache=~/.cache/wine
 

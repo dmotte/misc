@@ -11,8 +11,8 @@ set -e
 # unprivileged Podman container (i.e. created by a regular user on the host)
 
 # Usage example:
-#   ./proot-env.sh --cwd=/root myproot --kernel-release=5.4.0-faked
-#   ./myproot/main.sh uname -a
+#   bash proot-env.sh --cwd=/root myproot --kernel-release=5.4.0-faked
+#   bash myproot/main.sh uname -a
 
 # Useful links:
 # - https://proot-me.github.io/

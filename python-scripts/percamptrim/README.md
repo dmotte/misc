@@ -19,5 +19,5 @@ venv/bin/python3 -mpip install -r requirements.txt
 Then you can **process an audio file** using the [`process.sh`](process.sh) Bash script:
 
 ```bash
-time ./process.sh -c {input,output}.mp3; echo $?
+time bash process.sh -c {input,output}.mp3; echo $?
 ```

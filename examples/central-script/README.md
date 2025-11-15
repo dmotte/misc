@@ -35,5 +35,5 @@ echo "$1" | tr , '\n' | while read -r i; do "target_$i" "${@:2}"; done
 Then we can save it in the root of our project and invoke it like this:
 
 ```bash
-./central.sh prepare,build-docker myimage
+bash central.sh prepare,build-docker myimage
 ```

@@ -12,7 +12,7 @@ set -e
 
 # Tested on Debian 12 (bookworm)
 
-# Usage example: sudo ./apt-virtualbox.sh 7.0
+# Usage example: sudo bash apt-virtualbox.sh 7.0
 
 # Note: if your host loads KVM kernel modules automatically at boot, you need
 # to disable them to make VirtualBox work. You can use a command like this:

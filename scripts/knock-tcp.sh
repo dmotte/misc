@@ -4,7 +4,7 @@ set -e
 
 # This script can be used to perform TCP port knocking
 
-# Usage example: ./knock-tcp.sh myserver.example.com 1111 2222 3333
+# Usage example: bash knock-tcp.sh myserver.example.com 1111 2222 3333
 
 readonly host=${1:?}; shift
 

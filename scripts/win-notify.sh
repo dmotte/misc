@@ -6,9 +6,9 @@ set -e
 # the Windows taskbar
 
 # Usage examples:
-#   ./win-notify.sh MyText MyTitle Warning Warning
-#   ./win-notify.sh MyText MyTitle Error Error
-#   ./win-notify.sh MyText
+#   bash win-notify.sh MyText MyTitle Warning Warning
+#   bash win-notify.sh MyText MyTitle Error Error
+#   bash win-notify.sh MyText
 
 export BALLOON_TIP_TEXT="${1:?}" BALLOON_TIP_TITLE="$2"
 readonly notify_icon="${3:-Information}"

@@ -8,7 +8,7 @@ set -e
 # Tested with VirtualBox v7.1.4
 
 # Usage example:
-#   ./create-vbox-vm-headless.sh -nMyVM -m2048 -d20480,102400 \
+#   bash create-vbox-vm-headless.sh -nMyVM -m2048 -d20480,102400 \
 #     -fSSH,tcp,127.0.0.1,2201,,22 -fHTTP,tcp,127.0.0.1,8001,,80 -sheadless
 
 options=$(getopt -o +n:o:D:c:m:d:i:f:s: -l name: -l os: -l desc: \

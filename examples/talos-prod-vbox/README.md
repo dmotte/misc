@@ -74,7 +74,7 @@ Then you can leverage the [`create-vbox-vm-headless.sh`](https://github.com/dmot
 
 ```bash
 while read -r name cpus mem; do
-    ./create-vbox-vm-headless.sh -n"$name" -oLinux_64 \
+    bash create-vbox-vm-headless.sh -n"$name" -oLinux_64 \
         -c"$cpus" -m"$mem" -d102400 -i metal-amd64.iso
 
     vboxmanage modifyvm "$name" --nic1 natnetwork --nat-network1 mynat01

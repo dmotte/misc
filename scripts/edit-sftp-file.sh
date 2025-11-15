@@ -5,7 +5,7 @@ set -e
 # This script can be used to quickly edit a remote text file on an SFTP server
 
 # Usage example:
-#   ./edit-sftp-file.sh user@127.0.0.1:myfile.txt scp -P2022
+#   bash edit-sftp-file.sh user@127.0.0.1:myfile.txt scp -P2022
 
 editor=${EDITOR:-}
 

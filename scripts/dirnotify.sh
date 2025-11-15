@@ -6,7 +6,7 @@ set -e
 # notifies the user (using org.freedesktop.Notifications.Notify) when any
 # change occurs in it
 
-# Usage example: ./dirnotify.sh ~/mydir
+# Usage example: bash dirnotify.sh ~/mydir
 
 readonly dir=${1:?}
 

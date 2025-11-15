@@ -22,5 +22,5 @@ venv/bin/python3 yahoo-finance.py --help
 You can also invoke them from any other directory on your system using the `invoke.sh` script:
 
 ```bash
-./invoke.sh yahoo-finance --help
+bash invoke.sh yahoo-finance --help
 ```

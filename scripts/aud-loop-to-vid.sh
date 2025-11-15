@@ -8,7 +8,7 @@ set -e
 # Inspired by some commands from
 # https://github.com/dmotte/misc/blob/main/snippets/README.md
 
-# Usage example: ./aud-loop-to-vid.sh myfile{-loop.mp4,.mp3,.mp4}
+# Usage example: bash aud-loop-to-vid.sh myfile{-loop.mp4,.mp3,.mp4}
 
 readonly in_loop=${1:?} in_aud=${2:?} out_vid=${3:?} \
     out_width=${4:-1920} out_height=${5:-1080}

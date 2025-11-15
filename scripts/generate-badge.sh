@@ -3,7 +3,7 @@
 set -e
 
 # Usage example:
-#   ./generate-badge.sh '&#x1F3E0;' 'Text here' fff 0008 > mybadge.svg
+#   bash generate-badge.sh '&#x1F3E0;' 'Text here' fff 0008 > mybadge.svg
 
 readonly emoji=${1:?} text=${2:?} color_fg=${3:-fff} color_bg=${4:-}
 

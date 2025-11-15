@@ -3,7 +3,7 @@
 set -e
 
 # Usage example:
-#   time ./git-status-all-branches.sh ~/git/myrepo01 ~/git/myrepo02; echo $?
+#   time bash git-status-all-branches.sh ~/git/myrepo01 ~/git/myrepo02; echo $?
 
 for arg; do
     echo "### $arg:"

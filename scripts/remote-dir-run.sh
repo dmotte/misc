@@ -6,7 +6,7 @@ set -e
 # script inside it
 
 # Usage example:
-#   RDR_REMOTE_TAR_OPTIONS=-v ./remote-dir-run.sh mydir \
+#   RDR_REMOTE_TAR_OPTIONS=-v bash remote-dir-run.sh mydir \
 #     ssh user@hostname -p2222
 
 # Note: if you're using Git Bash on Windows, you might want to replace "ssh"
@@ -18,7 +18,7 @@ set -e
 # password/passphrase twice
 
 # For debugging purposes:
-#   RDR_DEBUG=true RDR_EVAL=exit ./remote-dir-run.sh mydir foo ++ bar baz
+#   RDR_DEBUG=true RDR_EVAL=exit bash remote-dir-run.sh mydir foo ++ bar baz
 
 # Note: the RDR_ESCAPE_SCRIPTS feature is useful when using SSH with a command
 # that ends in "bash -c" or similar, because SSH joins all the command

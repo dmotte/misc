@@ -3,7 +3,7 @@
 set -e
 
 # Usage example:
-#   time ./git-check-branches.sh ~/git/myrepo01 ~/git/myrepo02; echo $?
+#   time bash git-check-branches.sh ~/git/myrepo01 ~/git/myrepo02; echo $?
 
 result=0
 

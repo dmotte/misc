@@ -3,7 +3,7 @@
 set -e
 
 # Usage example:
-#   ./fetch.sh ../ohlcv-fetchers/binance.py BTC/USDT 1d 2020
+#   bash fetch.sh ../ohlcv-fetchers/binance.py BTC/USDT 1d 2020
 
 readonly fetcher=${1:?} symbol=${2:?} interval=${3:?} year=${4:?}
 
