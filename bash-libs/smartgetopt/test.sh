@@ -3,7 +3,7 @@
 set -e
 
 # To run the tests:
-#   time test.sh; echo $?
+#   time bash test.sh; echo $?
 
 cd "$(dirname "$0")"
 

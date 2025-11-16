@@ -13,8 +13,8 @@ set -e
 # See https://www.freedesktop.org/software/systemd/man/systemd.time.html
 
 # Usage example:
-#   sudo UNATTENDED_UPGRADES_RELOAD=when-changed bash \
-#     unattended-upgrades.sh -rt'*-*-* 04:00' -T'*-*-* 05:00'
+#   sudo UNATTENDED_UPGRADES_RELOAD=when-changed \
+#     bash unattended-upgrades.sh -rt'*-*-* 04:00' -T'*-*-* 05:00'
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 

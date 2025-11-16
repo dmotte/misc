@@ -15,5 +15,5 @@ Kind reminder to keep your system up-to-date! Please do the following:
 - Run "touch ~/.shellmind/main.sh" (to reschedule this reminder)
 EOF
 
-echo "~/.shellmind/main.sh $((30*24*60*60))" >> ~/.bashrc
+echo "bash ~/.shellmind/main.sh $((30*24*60*60))" >> ~/.bashrc
 ```

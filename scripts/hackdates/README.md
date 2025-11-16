@@ -23,5 +23,5 @@ done
 You can leverage **[Shellmind](../shellmind)** to periodically ask the user to run this command:
 
 ```bash
-time ~/.hackdates/main.sh; echo $?
+time bash ~/.hackdates/main.sh; echo $?
 ```
