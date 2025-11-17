@@ -2,6 +2,10 @@
 
 set -e
 
+readonly repo_dir=${1:-.}
+
+cd "$repo_dir"
+
 git_ls_files=$(git ls-files -s)
 
 if echo "$git_ls_files" | grep -v '^100644 '; then
