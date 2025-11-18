@@ -117,7 +117,7 @@ Some pieces of code I find useful for some reason.
 - `export RUSTUP_HOME=~/my-portable-rust/rustup CARGO_HOME=~/my-portable-rust/cargo`, `bash <(curl -fsSL https://sh.rustup.rs/) -y --no-modify-path`, `~/my-portable-rust/cargo/bin/cargo run`
 - `mkfifo mypipe; while :; do date | tee mypipe; done`
 - `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" -dchat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
-- `for i in 192.168.1.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
+- `for i in 192.168.0.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
 - `find . -iname \*.mp3 -printf '%P\n' | ( echo '#EXTM3U'; while read -r i; do bn=${i##*/}; echo "#EXTINF:0,${bn%.*}"; echo "file://$HOME/Music/$i"; done )`
 - `for i in var_01 VAR_02; do read -rsp "$i: " "${i?}"; if [[ "$i" = [[:upper:]]* ]]; then export "${i?}"; fi; done`
 - `shuf -en1 Alice Bob Carl`, `shuf -i1-10 -n1`
@@ -222,6 +222,7 @@ Some pieces of code I find useful for some reason.
 - `printf '%s\n' GRUB_TIMEOUT_STYLE=countdown GRUB_TIMEOUT=3 | install -Tvm644 /dev/stdin /etc/default/grub.d/timeout.cfg && update-grub`
 - `fwupdmgr get-updates`
 - `udisksctl status`, `udisksctl loop-setup -rf myimage.img`, `udisksctl mount -b /dev/loop0 -o ro`, `udisksctl unmount -b /dev/loop0`, `udisksctl loop-delete -b /dev/loop0`
+- `sudo nmap -Pn -n -p- -A -T4 -vv 192.168.0.0/24` and then you can press `?` to print a runtime interaction help screen
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
