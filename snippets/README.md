@@ -92,7 +92,7 @@ Some pieces of code I find useful for some reason.
 - `ssh-keygen -R [myserver.example.com]:2222`
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`, `ssh-keygen -lF '[192.168.0.123]:2222'`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
-- `withprefix() { while read -r i; do echo "$1$i"; done }`
+- `withprefix() { while IFS= read -r i; do echo "$1$i"; done }`
 - `echo Message | mail -s Subject recipient@example.com`
 - `iostat -o JSON`
 - `S_COLORS=always watch -dpn.5 --color iostat`
