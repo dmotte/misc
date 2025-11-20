@@ -9,9 +9,12 @@ set -e
 
 [ -z "$1" ] || cd "$1"
 
-# Lists all non-empty regular (no symlinks) text files. See
+# All non-empty regular (no symlinks) text files. See
 # https://stackoverflow.com/a/24350112
-git grep -Il '' | while IFS= read -r file; do
-    git blame -t "$file" | sed -E \
+files=$(git grep -Il '')
+
+echo "$files" | while IFS= read -r file; do
+    blame=$(git blame -t "$file")
+    echo "$blame" | sed -E \
         's|^.+\(.+\s+([0-9]+)\s+[+0-9]+\s+([0-9]+)\) (.*)$|\1,'"$file"',\2,\3|'
 done
