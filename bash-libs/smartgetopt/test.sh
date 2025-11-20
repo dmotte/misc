@@ -38,7 +38,7 @@ echo "Test case $((++case_id))"
 # shellcheck disable=SC2034
 declare -A opts=([create]=n [refresh]=n [name]='' [path]=/) \
     shortopts=([r]=refresh [n]=name)
-{ read -rd '' expected || [ -n "$expected" ]; } << 'EOF'
+{ IFS= read -rd '' expected || [ -n "$expected" ]; } << 'EOF'
 opt: create: 'n'
 opt: name: ''
 opt: path: '/'
@@ -52,7 +52,7 @@ echo "Test case $((++case_id))"
 # shellcheck disable=SC2034
 declare -A opts=([create]=n [refresh]=n [name]='' [path]=/) \
     shortopts=([r]=refresh [n]=name)
-{ read -rd '' expected || [ -n "$expected" ]; } << 'EOF'
+{ IFS= read -rd '' expected || [ -n "$expected" ]; } << 'EOF'
 opt: create: 'n'
 opt: name: ''
 opt: path: 'mydir'
@@ -68,7 +68,7 @@ echo "Test case $((++case_id))"
 # shellcheck disable=SC2034
 declare -A opts=([create]=n [refresh]=n [name]='' [path]=/) \
     shortopts=([r]=refresh [n]=name)
-{ read -rd '' expected || [ -n "$expected" ]; } << 'EOF'
+{ IFS= read -rd '' expected || [ -n "$expected" ]; } << 'EOF'
 opt: create: 'n'
 opt: name: ''
 opt: path: '/'

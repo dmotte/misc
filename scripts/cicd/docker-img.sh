@@ -78,7 +78,7 @@ echo "::group::$0: Docker tags"
     if [ -n "$proj_ver" ]; then
         docker_tags=$(echo latest; echo "$proj_ver" | tr . '\n' | {
             concat=''
-            while read -r i; do
+            while IFS= read -r i; do
                 concat=$concat$i.
                 echo "${concat%?}"
             done
@@ -102,7 +102,7 @@ echo "::group::$0: Build (Docker Buildx) + Release (Docker Hub)"
         # https://github.com/docker/build-push-action/blob/master/src/main.ts
         # This builds the images for different platforms in parallel
         docker buildx create --use
-        echo "$docker_tags" | while read -r i; do
+        echo "$docker_tags" | while IFS= read -r i; do
             echo "--tag=docker.io/$IMG_AUTHOR/$IMG_NAME:$i"
         done | xargs -rd\\n docker buildx build --platform="$IMG_PLATFORMS" \
             --iidfile=buildx-image-id.txt --metadata-file=buildx-metadata.txt \

@@ -100,7 +100,7 @@ for i in "${fwds[@]}"; do vboxmanage modifyvm "$name" --natpf1 "$i"; done
 ################################################################################
 
 i=0
-while read -r size; do
+while IFS= read -r size; do
     str_i=$(printf "%02d" "$i")
     virtdisk=$vbox_machinefolder/$name/disk$str_i.vdi
 

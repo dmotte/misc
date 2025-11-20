@@ -6,7 +6,7 @@ set -e
 
 # Usage example:
 #   export KP_FILENAME=/path/to/my/keepass/database.kdbx
-#   read -rsp 'Password: ' KP_PASSWORD && export KP_PASSWORD
+#   IFS= read -rsp 'Password: ' KP_PASSWORD && export KP_PASSWORD
 #   bash sshkp.sh user@hostname cat /etc/os-release
 
 # If running on Debian 12, you need to have these APT packages installed:

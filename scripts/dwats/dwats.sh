@@ -26,7 +26,7 @@ if [ "$DWATS_STARTUP_REPORT" = true ]; then
     "$py" -mwatson "${cmd_startup_report[@]}" || :
 fi
 
-while read -rep 'dwats> ' i; do
+while IFS= read -rep 'dwats> ' i; do
     tput cuu1; tput el; echo "$(date +%H:%M:%S)> $i"
 
     if [ -z "$i" ]; then continue; fi

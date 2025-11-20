@@ -16,6 +16,6 @@ jobs:
       script: |
         export MISC_SCRIPTS_DIR="$GITHUB_ACTION_PATH/../../scripts"
         find . -type f \( -name 'cicd.sh' -o -name 'cicd-*.sh' \) |
-          while read -r i; do
+          while IFS= read -r i; do
             echo "########## RUNNING $i"; bash "$i"; echo
           done

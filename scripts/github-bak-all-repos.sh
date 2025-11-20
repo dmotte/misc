@@ -31,8 +31,8 @@ repo_url_fmt="https://github.com/\$i.git"
 # because this script could be changed by a "git pull" in case it's part
 # of one of the repos
 
-{ read -rd '' script || [ -n "$script" ]; } << EOF
-echo ${repos@Q} | while read -r i; do
+{ IFS= read -rd '' script || [ -n "$script" ]; } << EOF
+echo ${repos@Q} | while IFS= read -r i; do
     repo_name=\${i#$owner_name/}
     echo "Processing repo \$repo_name"
     git -C "\$repo_name" ${GHBAK_PULL_ARGS:-} pull || {

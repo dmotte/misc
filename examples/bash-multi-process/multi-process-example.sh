@@ -18,8 +18,8 @@ sample_service() {
 run_with_prefixes() {
     local name=${1:?}; shift
     { "$@" \
-        > >(while read -r i; do echo "[$name:out] $i"; done) \
-        2> >(while read -r i; do echo "[$name:err] $i"; done >&2)
+        > >(while IFS= read -r i; do echo "[$name:out] $i"; done) \
+        2> >(while IFS= read -r i; do echo "[$name:err] $i"; done >&2)
     } 2>&1
 }
 

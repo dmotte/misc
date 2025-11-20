@@ -70,7 +70,7 @@ Some pieces of code I find useful for some reason.
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`, `date -Ins`
 - `less myfile.txt`
 - `last`, `lastb`, `lastlog`
-- `read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`, `set -o ignoreeof; exit() { echo 'Use "builtin exit" to exit'; }`
+- `IFS= read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`, `set -o ignoreeof; exit() { echo 'Use "builtin exit" to exit'; }`
 - `read -rsp 'Press ENTER to continue...'; echo`
 - `diff <(ls -l) <(ls -la)`
 - `ps -aux --sort -pcpu | head -n10`
@@ -85,7 +85,7 @@ Some pieces of code I find useful for some reason.
 - `git describe --tags --exact-match`, `git describe --tags --dirty`
 - `[ -z "$(git status -s)" ]`
 - `git reset --soft HEAD^ && git push --force`
-- `git log --follow --format=%H myfile.txt | while read -r i; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git show "$i:./myfile.txt"); done`
+- `git log --follow --format=%H myfile.txt | while IFS= read -r i; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git show "$i:./myfile.txt"); done`
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
 - `ssh-keygen -yf ~/.ssh/id_ed25519`
 - `ssh-copy-id myuser@192.168.0.123`
@@ -108,7 +108,7 @@ Some pieces of code I find useful for some reason.
 - `nano -AEJ80 -ST4 -ailmq filename`
 - `vboxmanage startvm myvm --type=headless`
 - `vboxmanage controlvm myvm acpipowerbutton`
-- `while read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
+- `while IFS= read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
 - `vboxmanage getextradata global GUI/SuppressMessages`, `vboxmanage setextradata global GUI/SuppressMessages all`
 - `echo 'Hello $USER!' | envsubst`
 - `sudo tcpdump -wfile.pcap`, `termshark -rfile.pcap`
@@ -118,8 +118,8 @@ Some pieces of code I find useful for some reason.
 - `mkfifo mypipe; while :; do date | tee mypipe; done`
 - `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" -dchat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
 - `for i in 192.168.0.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
-- `find . -iname \*.mp3 -printf '%P\n' | ( echo '#EXTM3U'; while read -r i; do bn=${i##*/}; echo "#EXTINF:0,${bn%.*}"; echo "file://$HOME/Music/$i"; done )`
-- `for i in var_01 VAR_02; do read -rsp "$i: " "${i?}"; if [[ "$i" = [[:upper:]]* ]]; then export "${i?}"; fi; done`
+- `find . -iname \*.mp3 -printf '%P\n' | ( echo '#EXTM3U'; while IFS= read -r i; do bn=${i##*/}; echo "#EXTINF:0,${bn%.*}"; echo "file://$HOME/Music/$i"; done )`
+- `for i in var_01 VAR_02; do IFS= read -rsp "$i: " "${i?}"; if [[ "$i" = [[:upper:]]* ]]; then export "${i?}"; fi; done`
 - `shuf -en1 Alice Bob Carl`, `shuf -i1-10 -n1`
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`, `tr -cd ' -~' < /dev/random | head -c64; echo`, `tr -cd '0-9a-f' < /dev/random | for i in {1..10}; do head -c8; echo; done | LC_ALL=C sort -u | shuf`
 - `myvar=$'string \\ with\nsome\nspecial \'chars\' to "escape"'; echo "${myvar@Q}"`
@@ -184,7 +184,7 @@ Some pieces of code I find useful for some reason.
 - `rclone lsf myremote:`
 - `rclone --config= lsf -R --format=pst --time-format=RFC3339 . | sed -E 's/\/;-1;[^;]+$/\/;-1;DIR/' | LC_ALL=C sort -t\; -k1,1`
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dest-dir`
-- `export RCLONE_FTP_PASS=$(read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
+- `export RCLONE_FTP_PASS=$(IFS= read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `rclone --config= sync -vn --create-empty-src-dirs . :sftp,host=192.168.0.123,port=2222,user=myuser:mydir`
 - `rclone check -v --size-only myremote:/remote-src-dir ./local-dest-dir`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass --read-only .`
@@ -200,7 +200,7 @@ Some pieces of code I find useful for some reason.
 - `LC_ALL=C grep --color '[^ -~]' myfile.txt`, `LC_ALL=C sed -i 's/[^ -~]/?/g' myfile.txt`
 - `sed -Ei 's/^#?force_color_prompt=.*$/force_color_prompt=yes/' ~/.bashrc`
 - `sed -Ei 's/^(\s+)#\s*(alias [ef]?grep='\''[ef]?grep --color=auto'\'')/\1\2/' ~/.bashrc`
-- `{ base64 -w256 myfile.txt; echo; echo 'Hello, World!'; } | { while read -r i; do [ -n "$i" ] || break; echo "$i"; done | base64 -d | cat -A; cat -A; }`
+- `{ base64 -w256 myfile.txt; echo; echo 'Hello, World!'; } | { while IFS= read -r i; do [ -n "$i" ] || break; echo "$i"; done | base64 -d | cat -A; cat -A; }`
 - `bn=${path##*/}` (similar to `basename "$path"`), `dn=${path%/*}` (similar to `dirname "$path"`)
 - `gtk-launch myapp.desktop`
 - `update-desktop-database -v ~/.local/share/applications`, `xdg-desktop-menu forceupdate`
@@ -408,7 +408,7 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 - `systemctl --user status podman-kube@$(systemd-escape ~/kube.yaml)`
 - `journalctl --user -u podman-kube@$(systemd-escape ~/kube.yaml)`
 - `ls -la ~/.local/share/containers/storage/volumes`
-- `(read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
+- `(IFS= read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
 - `echo -e "{\"main\":\"$(base64 -w0 mykey.pem)\"}" | podman secret create mykey -`
 - `podman image ls -a`, `podman image prune -af`
 

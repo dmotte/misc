@@ -93,17 +93,17 @@ echo "::group::$0: Build"
                 "\`${MKDOCS_DOCS_EXCLUDES//,/'`, `'}\`" | tee -a "$CICD_SUMMARY"
 
             real_excludes=$(echo "$MKDOCS_DOCS_EXCLUDES" | tr , '\n' |
-                while read -r i; do realpath "$real_src/$i"; done)
+                while IFS= read -r i; do realpath "$real_src/$i"; done)
             echo 'Excluded paths:'; echo "$real_excludes"
             mapfile -t args_excludes < <(echo "$real_excludes" |
-                while read -r i; do echo \!; echo '-path'; echo "$i"; done)
+                while IFS= read -r i; do echo \!; echo '-path'; echo "$i"; done)
         else
             echo 'Excluded paths: (none)'
             args_excludes=()
         fi
 
         find "$real_src" -mindepth 1 -maxdepth 1 "${args_excludes[@]}" |
-            while read -r i; do
+            while IFS= read -r i; do
                 echo "Copying $i into $real_dst"
                 cp -Rt"$real_dst" "$i"
             done

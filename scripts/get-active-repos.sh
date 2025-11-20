@@ -2,7 +2,7 @@
 
 set -e
 
-# Usage example: bash get-active-repos.sh ~/git/* | while read -r i; do [ -e "$i/README.md" ] || echo "$i"; done
+# Usage example: bash get-active-repos.sh ~/git/* | while IFS= read -r i; do [ -e "$i/README.md" ] || echo "$i"; done
 
 readonly ignore_invalid=${IGNORE_INVALID:-false}
 readonly min_datetime=${MIN_DATETIME:-1 year ago}

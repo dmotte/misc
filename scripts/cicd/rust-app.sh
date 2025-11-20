@@ -87,7 +87,7 @@ echo "::group::$0: Set the right version"
 echo '::endgroup::'
 
 echo "::group::$0: Build (cargo build)"
-    echo "$build_targets" | while read -r i; do
+    echo "$build_targets" | while IFS= read -r i; do
         case $i in
         aarch64-unknown-linux-gnu)
             apt_update_if_old
@@ -123,7 +123,7 @@ echo '::endgroup::'
 echo "::group::$0: Artifact"
     mkdir -pv cicd-artifact
 
-    echo "$build_targets" | while read -r i; do
+    echo "$build_targets" | while IFS= read -r i; do
         src=target/$i/release/$proj_name
         [[ "$i" = *-pc-windows-* ]] && src+=.exe
         file_basename=$proj_name-$i

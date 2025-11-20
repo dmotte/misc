@@ -9,7 +9,7 @@ readonly main_dir=${1:?}; shift
 realpath_main_dir=$(realpath "$main_dir")
 readmes=$(find "$realpath_main_dir" -type f -iname README.md)
 
-echo "$readmes" | while read -r i; do
+echo "$readmes" | while IFS= read -r i; do
     echo "Checking $i"
 
     parent_dir=${i%/*}
