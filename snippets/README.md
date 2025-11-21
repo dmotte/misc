@@ -85,7 +85,7 @@ Some pieces of code I find useful for some reason.
 - `git describe --tags --exact-match`, `git describe --tags --dirty`
 - `[ -z "$(git status -s)" ]`
 - `git reset --soft HEAD^ && git push --force`
-- `git log --follow --format=%H myfile.txt | while IFS= read -r i; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git show "$i:./myfile.txt"); done`
+- `git log --follow --format=%H myfile.txt | while IFS= read -r i; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git cat-file -p "$i:./myfile.txt"); done`
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
 - `ssh-keygen -yf ~/.ssh/id_ed25519`
 - `ssh-copy-id myuser@192.168.0.123`
