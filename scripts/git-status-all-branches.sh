@@ -15,9 +15,8 @@ for arg; do
 
         git fetch --all # Fetch all branches from all the remotes
 
-        git for-each-ref --format='%(refname)' refs/remotes |
-            while IFS= read -r i; do
-
+        refs_remotes=$(git for-each-ref --format='%(refname)' refs/remotes)
+        echo "$refs_remotes" | while IFS= read -r i; do
             j=${i#refs/remotes/origin/}
             if [ "$j" = HEAD ] || [ "$j" = "$i" ] || [ -z "$j" ]
                 then continue; fi
