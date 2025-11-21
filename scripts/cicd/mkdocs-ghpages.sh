@@ -102,11 +102,11 @@ echo "::group::$0: Build"
             args_excludes=()
         fi
 
-        find "$real_src" -mindepth 1 -maxdepth 1 "${args_excludes[@]}" |
-            while IFS= read -r i; do
-                echo "Copying $i into $real_dst"
-                cp -Rt"$real_dst" "$i"
-            done
+        items=$(find "$real_src" -mindepth 1 -maxdepth 1 "${args_excludes[@]}")
+        echo "$items" | while IFS= read -r i; do
+            echo "Copying $i into $real_dst"
+            cp -Rt"$real_dst" "$i"
+        done
     fi
 
     venv/bin/python3 -mmkdocs build -s \
