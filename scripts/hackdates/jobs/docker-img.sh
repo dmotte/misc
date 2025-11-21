@@ -2,7 +2,7 @@
 
 set -ex
 
-readonly img=library/debian tag_ref=12
+readonly img=library/debian tag_ref=13
 
 v_ref=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/$img/tags/$tag_ref" |
     jq -r .digest)
