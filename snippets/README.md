@@ -450,7 +450,7 @@ EOF
 ## Git Bash (Windows)
 
 - `export MSYS_NO_PATHCONV=1`, `python -c'import sys;print(sys.argv)' foo bar`
-- `winpty rclone ncdu .`
+- `winpty rclone --config= ncdu .`
 - `choco list`
 - `choco install -y gsudo`
 - `sudo choco upgrade -y all`
