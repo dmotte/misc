@@ -15,6 +15,11 @@ dir_src=${dir_src%/}; dir_dst=${dir_dst%/}
 ################################################################################
 
 while IFS= read -r i; do
+    if [ "$LISTCOPY_AUTOMKDIR" = true ]; then
+        parent_dir=$(dirname "$dir_dst/$i")
+        mkdir -pv "$parent_dir"
+    fi
+
     if [[ "$i" = */ ]]; then
         i=${i%/}
         mode=$(stat -c%a "$dir_src/$i")
