@@ -156,7 +156,7 @@ Some pieces of code I find useful for some reason.
 - `dd if=/dev/random of=myimage.img bs=1M count=1024 status=progress`
 - `gzip -tv myfile.txt.gz`
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
-- `comm <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright') --total`
+- `comm --nocheck-order --total <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright')`
 - `sunodl() { curl -fLO https://cdn1.suno.ai/$1.mp3; }`
 - `install -DTv <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
 - `shred -u myfile.txt`
