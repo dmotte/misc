@@ -154,6 +154,7 @@ Some pieces of code I find useful for some reason.
 - `sudo parted /dev/sdb -s 'mklabel gpt mkpart "" 0% 100%'`, `sudo mkfs.ext4 /dev/sdb1 -L mylabel`
 - `fallocate -vl1G myimage.img`
 - `dd if=/dev/random of=myimage.img bs=1M count=1024 status=progress`
+- `losetup -LPfr --show myimage.img`, `losetup -L --show loop0 myimage.img`, `losetup -a`, `losetup`, `losetup -J --output-all`, `losetup -d loop0`
 - `gzip -tv myfile.txt.gz`
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
 - `comm --nocheck-order --total <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright')`
