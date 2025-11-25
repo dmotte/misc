@@ -49,7 +49,7 @@ Some pieces of code I find useful for some reason.
 - `find mydir -mindepth 1 -printf '%y %T@ %#m %s %P\n' | LC_ALL=C sort -k5`
 - `find mydir -type d -printf 'DIR -1 %P/\n' -o -type f -printf '%T@ %s %P\n' | LC_ALL=C sort -k3`
 - `find . -type f -exec sha256sum {} +`
-- `tree -paugh --inodes`
+- `tree -apughD --inodes`
 - `find . | grep -i pattern`, `find . -iname '*pattern*'`
 - `find . \( \( -type d \! -perm 755 \) -o \( -type f \! -perm 644 \) \) -exec ls -dl {} +`
 - `find . \( -type d -perm 775 -exec chmod 755 {} \; \) -o \( -type f -perm 664 -exec chmod 644 {} \; \)`
