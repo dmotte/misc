@@ -95,7 +95,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Keybase** - online cloud free 250 GB end-to-end encrypted storage, Git repos, secure messaging, and more: [choco](https://community.chocolatey.org/packages/keybase) [docker](https://hub.docker.com/r/keybaseio/client) [github](https://github.com/keybase/client) [website](https://keybase.io/)
 - **Kubespec** - Kubernetes Spec Explorer: [website](https://kubespec.dev/)
 - **Mega** - end-to-end encrypted cloud file storage service: [github](https://github.com/meganz) [website](https://mega.io/)
-- **Mermaid Live Editor** - online Mermaid flowchart and diagrams editor: [website](https://mermaid.live/)
+- **Mermaid Live Editor** - online Mermaid flowchart and diagrams editor: [github](https://github.com/mermaid-js/mermaid-live-editor) [website](https://mermaid.live/)
 - **Notepad.JS.org** - offline-capable Notepad PWA that saves the notes in the browser localStorage: [github](https://github.com/amitmerchant1990/notepad) [website](https://notepad.js.org/)
 - **OnWorks** - online OS in browser web-based remote desktop VM sandbox: [website](https://www.onworks.net/os-distributions/ubuntu-based/free-ubuntu-online-version-20)
 - **PairDrop** - web app to transfer files across devices: [github](https://github.com/schlagmichdoch/PairDrop) [website](https://pairdrop.net/)
