@@ -132,7 +132,7 @@ def parse_header(s: str) -> tuple[int, str]:
     return level, name
 
 
-def ensure_items_sorted(data: dict) -> None:
+def ensure_items_sorted(data: list[dict]) -> None:
     prev_name = ''
 
     for child in data:
