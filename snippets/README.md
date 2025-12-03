@@ -222,6 +222,7 @@ Some pieces of code I find useful for some reason.
 - `fdo_notify() { gdbus call --session --dest=org.freedesktop.Notifications --object-path=/org/freedesktop/Notifications --method=org.freedesktop.Notifications.Notify -- "$1" 0 "$2" "$3" "$4" '[]' '{}' -1; }` (see https://specifications.freedesktop.org/notification-spec/1.3/protocol.html#command-notify), `fdo_notify MyApp folder-open MyTitle MyText`, `fdo_notify MyApp ~/myicon.png MyTitle MyText`
 - `wine reg add 'HKLM\SOFTWARE\MyApp' /v MyValue /t REG_SZ /d MyData /f /reg:64` (the `/reg:64` part is required for Wine, otherwise the value would be created under `HKLM\SOFTWARE\Wow6432Node\...`)
 - `inkscape --export-filename=myimage.png --export-type=png myimage.svg`
+- `convert -verbose scan-page{01,02,03}.jpg output.pdf`
 - `printf '%s\n' GRUB_TIMEOUT_STYLE=countdown GRUB_TIMEOUT=3 | install -Tvm644 /dev/stdin /etc/default/grub.d/timeout.cfg && update-grub`
 - `fwupdmgr get-updates`
 - `udisksctl status`, `udisksctl loop-setup -rf myimage.img`, `udisksctl mount -b /dev/loop0 -o ro`, `udisksctl unmount -b /dev/loop0`, `udisksctl loop-delete -b /dev/loop0`
