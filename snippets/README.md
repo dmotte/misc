@@ -57,6 +57,7 @@ Some pieces of code I find useful for some reason.
 - `git ls-files | xargs -rd\\n sha256sum`
 - `cp -Rvt/media/destdisk /media/sourcedisk/mydir`
 - `ss -tulpn`
+- `ip neigh`, `cat /proc/net/arp`
 - `df -h`
 - `free -htvw`
 - `du -sh`
