@@ -301,6 +301,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **DB Browser for SQLite** - visual open source tool to create, design, and edit SQLite database files: [apt](https://packages.debian.org/stable/sqlitebrowser) [choco](https://community.chocolatey.org/packages/sqlitebrowser) [github](https://github.com/sqlitebrowser/sqlitebrowser) [website](https://sqlitebrowser.org/)
 - **EncryptPad** - view and edit symmetrically encrypted text files: [github](https://github.com/evpo/EncryptPad) [website](https://evpo.net/encryptpad/)
 - **Excalidraw** - virtual whiteboard for sketching hand-drawn like diagrams: [github](https://github.com/excalidraw/excalidraw) [website](https://excalidraw.com/)
+- **FileZilla** - free and open source FTP/FTPS/SFTP client: [apt](https://packages.debian.org/stable/filezilla) [choco](https://community.chocolatey.org/packages/filezilla) [website](https://filezilla-project.org/)
 - **Flameshot** - powerful cross-platform open-source screenshot software: [apt](https://packages.debian.org/stable/flameshot) [choco](https://community.chocolatey.org/packages/flameshot) [github](https://github.com/flameshot-org/flameshot) [website](https://flameshot.org/)
 - **Foxit PDF Reader** - freeware PDF reader and editor: [choco](https://community.chocolatey.org/packages/FoxitReader) [website](https://www.foxitsoftware.com/)
 - **FreeFileSync** - folder comparison and synchronization software: [choco](https://community.chocolatey.org/packages/freefilesync) [website](https://freefilesync.org/)
