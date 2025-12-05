@@ -290,7 +290,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **VcXsrv** - X-server for Windows: [choco](https://community.chocolatey.org/packages/vcxsrv) [github](https://github.com/marchaesen/vcxsrv)
 - **WifiInfoView** - wireless network scanner: [choco](https://community.chocolatey.org/packages/wifiinfoview) [website](https://www.nirsoft.net/utils/wifi_information_view.html)
 - **Win32DiskImager** - write a raw disk image to removable SD or USB flash devices or backup these devices to a raw image file: [choco](https://community.chocolatey.org/packages/win32diskimager) [sourceforge](https://sourceforge.net/projects/win32diskimager/)
-- **WinSCP** - open source SFTP, SCP, FTPS and FTP client: [choco](https://community.chocolatey.org/packages/winscp) [github](https://github.com/winscp/winscp) [website](https://winscp.net/eng/index.php)
+- **WinSCP** - free and open source client / file manager supporting SFTP, FTP, FTPS, FTPES, SCP, S3, WebDAV and local-to-local file transfers: [choco](https://community.chocolatey.org/packages/winscp) [github](https://github.com/winscp/winscp) [website](https://winscp.net/eng/index.php)
 - **cdrtfe** - CD/DVD/BD burning application: [choco](https://community.chocolatey.org/packages/cdrtfe) [website](https://cdrtfe.sourceforge.io/)
 
 ### Multi-platform
