@@ -49,6 +49,6 @@ bin_url=https://github.com/$username/$name/releases/latest/download/$name-$targe
 
 echo "Downloading $bin_url to $bin_path" >&2
 curl -fLo "$bin_path" "$bin_url"
-chmod +x "$bin_path"
+chmod -v +x "$bin_path"
 
 [ "$BIN_NORUN" = true ] || exec "$name" "$@"

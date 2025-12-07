@@ -52,7 +52,7 @@ Some pieces of code I find useful for some reason.
 - `tree -apughD --inodes`
 - `find . | grep -i pattern`, `find . -iname '*pattern*'`
 - `find . \( \( -type d \! -perm 755 \) -o \( -type f \! -perm 644 \) \) -exec ls -dl {} +`
-- `find . \( -type d -perm 775 -exec chmod 755 {} \; \) -o \( -type f -perm 664 -exec chmod 644 {} \; \)`
+- `find . \( -type d -perm 775 -exec chmod -v 755 {} \; \) -o \( -type f -perm 664 -exec chmod -v 644 {} \; \)`
 - `git ls-files --full-name '*pattern*'`
 - `git ls-files | xargs -rd\\n sha256sum`
 - `cp -Rvt/media/destdisk /media/sourcedisk/mydir`
@@ -140,8 +140,8 @@ Some pieces of code I find useful for some reason.
 - `curl https://api.ipify.org/`
 - `ping my.dns.domain.10-0-0-1.nip.io`, `ping my.dns.domain.lvh.me`
 - `socat TCP4-LISTEN:9000,fork,reuseaddr /dev/null`, `dd if=/dev/zero bs=1M count=1024 status=progress | socat - TCP:192.168.0.2:9000`
-- `curl -fLo ~/.local/bin/proot https://proot.gitlab.io/proot/bin/proot && chmod +x ~/.local/bin/proot`
-- `curl -fLo ~/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x ~/.local/bin/kubectl`
+- `curl -fLo ~/.local/bin/proot https://proot.gitlab.io/proot/bin/proot && chmod -v +x ~/.local/bin/proot`
+- `curl -fLo ~/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod -v +x ~/.local/bin/kubectl`
 - `curl -fL https://get.helm.sh/helm-v3.17.2-linux-amd64.tar.gz | tar -xvz --strip-components=1 -C ~/.local/bin linux-amd64/helm`
 - `curl -fL https://github.com/derailed/k9s/releases/download/v0.40.10/k9s_Linux_amd64.tar.gz | tar -xvzC ~/.local/bin k9s`
 - `curl -fL https://downloads.rclone.org/rclone-current-linux-amd64.zip | bsdtar -xOf- 'rclone-*-linux-amd64/rclone' | install -Tv /dev/stdin ~/.local/bin/rclone`
@@ -308,7 +308,7 @@ gpg --delete-secret-and-public-key mykey
 ```bash
 # In case of swapfiles it's better to use "dd" to fill the file with actual zeros, rather than "fallocate", due to potential issues with older kernels
 sudo dd if=/dev/zero of=/swapfile-additional bs=1M count=10240 status=progress
-sudo chmod 600 /swapfile-additional
+sudo chmod -v 600 /swapfile-additional
 sudo mkswap /swapfile-additional
 
 sudo swapon /swapfile-additional; sudo swapoff /swapfile-additional

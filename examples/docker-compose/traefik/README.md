@@ -54,7 +54,7 @@ Before starting this stack, you have to create an **empty file named `acme.json`
 
 ```bash
 touch acme.json
-chmod 600 acme.json
+chmod -v 600 acme.json
 ```
 
 It will be used to store the keys and certificates issued by _Let's Encrypt_.

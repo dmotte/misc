@@ -51,7 +51,7 @@ done | debconf-set-selections -v
 dpkg -s iptables-persistent >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y iptables-persistent; }
 
-chmod 700 /etc/iptables
+chmod -v 700 /etc/iptables
 
 [ -z "$rules_v4" ] || tr -d '\r' <"$rules_v4" |
     install -Tm600 /dev/stdin /etc/iptables/rules.v4

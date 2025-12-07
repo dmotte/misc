@@ -86,7 +86,7 @@ if [ ! -e /opt/lognot/msgbuf ]; then
     echo "Downloading msgbuf binary from $msgbuf_url"
     curl -fLo /opt/lognot/msgbuf "$msgbuf_url"
     echo "$msgbuf_checksum /opt/lognot/msgbuf" | sha256sum -c
-    chmod 700 /opt/lognot/msgbuf
+    chmod -v 700 /opt/lognot/msgbuf
 fi
 
 echo 'Creating lognot service files'
