@@ -3,7 +3,7 @@ services:
   sftpgo:
     # We use the "-alpine" image variant because the standard one is based on
     # Debian and is much bigger
-    image: docker.io/drakkan/sftpgo:v2.6-alpine
+    image: docker.io/drakkan/sftpgo:v2.7-alpine
     restart: always
     ports: ["8080:8080", "2022:2022"]
     volumes:

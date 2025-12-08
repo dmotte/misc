@@ -47,4 +47,4 @@ You can find the complete list of all the _SFTPGo_ **ACL permissions** (with des
 
 ## Links
 
-- [Docker - SFTPGo documentation](https://sftpgo.github.io/2.6/docker/)
+- [Docker - SFTPGo documentation](https://sftpgo.github.io/2.7/docker/)
