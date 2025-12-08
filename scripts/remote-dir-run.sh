@@ -75,8 +75,8 @@ rm -rf $remote_dir
 exit \${result:-0}
 EOF
 
-script1=$(echo "$script1" | tr \\n \;)
-script2=$(echo "$script2" | tr \\n \;)
+script1=${script1//$'\n'/ ; }
+script2=${script2//$'\n'/ ; }
 
 if [ "$RDR_ESCAPE_SCRIPTS" = true ]; then
     script1=${script1@Q}
