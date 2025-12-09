@@ -94,6 +94,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **IPFS** - InterPlanetary File System, an open system to manage data without a central server: [choco](https://community.chocolatey.org/packages/ipfs-desktop) [github](https://github.com/ipfs) [website](https://ipfs.tech/)
 - **Keybase** - online cloud free 250 GB end-to-end encrypted storage, Git repos, secure messaging, and more: [choco](https://community.chocolatey.org/packages/keybase) [docker](https://hub.docker.com/r/keybaseio/client) [github](https://github.com/keybase/client) [website](https://keybase.io/)
 - **Kubespec** - Kubernetes Spec Explorer: [website](https://kubespec.dev/)
+- **MACLookup** - easy way to search for MAC address prefixes (OUI, i.e. Organizationally Unique Identifier) and matches them to the chipset's manufacturer. It uses the IEEE database: [website](https://maclookup.app/)
 - **Mega** - end-to-end encrypted cloud file storage service: [github](https://github.com/meganz) [website](https://mega.io/)
 - **Mermaid Live Editor** - online Mermaid flowchart and diagrams editor: [github](https://github.com/mermaid-js/mermaid-live-editor) [website](https://mermaid.live/)
 - **Notepad.JS.org** - offline-capable Notepad PWA that saves the notes in the browser localStorage: [github](https://github.com/amitmerchant1990/notepad) [website](https://notepad.js.org/)
