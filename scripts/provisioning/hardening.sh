@@ -46,6 +46,8 @@ recipes_all+=(bundle-server-physical)
 rcp_bundle_server_physical () {
     rcp_bundle_server_vm
 
+    rcp_sysdnet_mac_rand
+
     rcp_timesyncd_dhcp_ntp_disable
 }
 
@@ -57,6 +59,10 @@ rcp_bundle_desktop () {
     rcp_sysctl_hardening_ipv6
 
     rcp_hosts_127011
+
+    rcp_nm_mac_rand
+    rcp_nm_hostname_mode_none
+    rcp_nm_dhcp_send_hostname_false
 
     rcp_timesyncd_dhcp_ntp_disable
 
