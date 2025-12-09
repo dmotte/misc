@@ -61,7 +61,7 @@ Some pieces of code I find useful for some reason.
 - `df -h`
 - `free -htvw`
 - `du -sh`
-- `cat /etc/os-release | od -vtx1z`
+- `cat /etc/os-release | od -An -vtx1z`
 - `file -b --mime-type myfile.txt`, `xdg-mime query filetype myfile.txt`
 - `stat -c%Y myfile.txt`, `stat -c%s myfile.txt`
 - `zip -r myarchive.zip mydir`, `unzip -oq myarchive.zip -d mydir`
