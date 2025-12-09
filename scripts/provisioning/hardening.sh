@@ -119,10 +119,30 @@ EOF
     changed_sysctl=y
 }
 
+recipes_all+=(sysdnet-mac-rand)
+rcp_sysdnet_mac_rand () {
+    echo -e '[Match]\nDriver=*\n[Link]\nMACAddressPolicy=random' |
+        install -Tvm644 /dev/stdin /etc/systemd/network/30-mac-rand.link
+}
+
 recipes_all+=(hosts-127011)
 rcp_hosts_127011 () {
     echo "Setting 127.0.1.1 entry to $HOSTNAME in /etc/hosts"
     sed -Ei 's/^(127\.0\.1\.1\s+).*$/\1'"$HOSTNAME/" /etc/hosts
+}
+
+recipes_all+=(nm-mac-rand)
+rcp_nm_mac_rand () {
+    install -Tvm644 /dev/stdin \
+        /etc/NetworkManager/conf.d/50-mac-rand.conf << 'EOF'
+[device]
+wifi.scan-rand-mac-address=true
+
+[connection]
+ethernet.cloned-mac-address=stable
+wifi.cloned-mac-address=stable
+EOF
+    changed_nm=y
 }
 
 recipes_all+=(nm-ipv6-disable)
@@ -141,6 +161,33 @@ readonly iface=${1:?}
 [ "$iface" = lo ] || nmcli device modify "$iface" ipv6.method disabled || :
 
 sysctl -w "net.ipv6.conf.$iface.disable_ipv6=1" || :
+EOF
+    changed_nm=y
+}
+
+recipes_all+=(nm-hostname-mode-none)
+rcp_nm_hostname_mode_none () {
+    install -Tvm644 /dev/stdin \
+        /etc/NetworkManager/conf.d/50-hostname-mode-none.conf << 'EOF'
+[main]
+hostname-mode=none
+EOF
+    changed_nm=y
+}
+
+recipes_all+=(nm-dhcp-send-hostname-false)
+rcp_nm_dhcp_send_hostname_false () {
+    install -Tv /dev/stdin \
+        /etc/NetworkManager/dispatcher.d/pre-up.d/50-dhcp-send-hostname-false.sh << 'EOF'
+#!/bin/bash
+
+set -e
+
+readonly iface=${1:?}
+
+[ "$iface" = lo ] || nmcli device modify "$iface" \
+    ipv4.dhcp-send-hostname false \
+    ipv6.dhcp-send-hostname false
 EOF
     changed_nm=y
 }
