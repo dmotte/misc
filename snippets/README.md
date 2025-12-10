@@ -165,6 +165,7 @@ Some pieces of code I find useful for some reason.
 - `install -DTv <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
 - `shred -u myfile.txt`
 - `gpg -ac --cipher-algo=AES256 --no-symkey-cache -o encrypted.asc <(date)`, `gpg -d --no-symkey-cache encrypted.asc`
+- `gpg -c --cipher-algo=AES256 --no-compress --no-symkey-cache -o encrypted.gpg myarchive.zip`, `gpg -d --no-symkey-cache encrypted.gpg | sha256sum`
 - `date | gpg -ac --batch --cipher-algo=AES256 --no-symkey-cache --passphrase-file=<(echo MyPassphrase) -o encrypted.asc`, `gpg -d --batch --no-symkey-cache --passphrase=MyPassphrase encrypted.asc | sha256sum`
 - `gpg --list-packets encrypted.asc`, `gpg -q --list-packets encrypted.asc >/dev/null`
 - `gpgconf -v --list-options gpg-agent`
