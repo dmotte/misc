@@ -231,6 +231,7 @@ Some pieces of code I find useful for some reason.
 - `udisksctl status`, `udisksctl loop-setup -rf myimage.img`, `udisksctl mount -b /dev/loop0 -o ro`, `udisksctl unmount -b /dev/loop0`, `udisksctl loop-delete -b /dev/loop0`
 - `sudo nmap -Pn -n -p- -A -T4 -vv 192.168.0.0/24` and then you can press `?` to print a runtime interaction help screen
 - `echo 100/3 | bc -l`
+- `echo integrity=\"sha384-"$(openssl dgst -sha384 -binary myfile.js | base64 -w0)"\"`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
