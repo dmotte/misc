@@ -241,6 +241,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Visidata** - CLI CSV viewer and editor: [apt](https://packages.debian.org/stable/visidata) [github](https://github.com/saulpw/visidata) [website](https://www.visidata.org/)
 - **Volta** - JavaScript tool manager node multiple versions npm: [github](https://github.com/volta-cli/volta) [website](https://volta.sh/)
 - **Watson** - a wonderful CLI to track your time: [github](https://github.com/TailorDev/Watson) [pypi](https://pypi.org/project/td-watson/) [website](https://tailordev.github.io/Watson/)
+- **YT-DLP** - feature-rich command-line audio/video downloader with support for thousands of sites, fork of youtube-dl based on the now inactive youtube-dlc: [apt](https://packages.debian.org/stable/yt-dlp) [choco](https://community.chocolatey.org/packages/yt-dlp) [github](https://github.com/yt-dlp/yt-dlp)
 - **Zola** - static website generator written in Rust: [choco](https://community.chocolatey.org/packages/zola) [github](https://github.com/getzola/zola) [website](https://www.getzola.org/)
 - **bc** - arbitrary precision numeric processing language: [website](https://www.gnu.org/software/bc/)
 - **ffmpeg** - record, convert and stream audio and video: [apt](https://packages.debian.org/stable/ffmpeg) [choco](https://community.chocolatey.org/packages/ffmpeg) [website](https://www.ffmpeg.org/)
