@@ -16,6 +16,12 @@ openssl req -x509 -newkey rsa:4096 -keyout server.key -nodes -out server.crt -da
 
 > **Note**: see the [Caveats](#caveats) section for more details about the **certificate generation** command.
 
+Alternatively, if you don't want to include `CN` (_Common Name_) and `subjectAltName`, the command becomes even simpler:
+
+```bash
+openssl req -x509 -newkey rsa:4096 -keyout server.key -nodes -out server.crt -days 365 -subj / -addext 'basicConstraints=critical,CA:FALSE'
+```
+
 Note that browsers always show a **warning** message like this one for self-signed certificates (e.g. _Firefox_):
 
 ![](img/screen01-warning-self-signed.png)
