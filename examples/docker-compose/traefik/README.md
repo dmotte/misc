@@ -32,8 +32,7 @@ Features:
 Before starting this stack, you have to generate a **custom certificate** (`server.crt` and `server.key` files). To do so, you can use the _OpenSSL_ utility:
 
 ```bash
-openssl req -newkey rsa:2048 -nodes -keyout server.key \
-    -x509 -days 365 -subj "/C=IT/ST=Italy/L=/O=MyOrganization/OU=/CN=*.example.com" -out server.crt
+openssl req -x509 -newkey rsa:4096 -keyout server.key -nodes -out server.crt -days 365 -subj / -addext 'basicConstraints=critical,CA:FALSE'
 ```
 
 Features:
