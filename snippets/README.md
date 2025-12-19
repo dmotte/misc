@@ -35,7 +35,7 @@ Some pieces of code I find useful for some reason.
 - `top` and then press `xcV`. Then `W` to save the config
 - `cd "$(dirname "$0")"` or `basedir=$(dirname "$0")`, useful in a _Bash_ script
 - `sudo blkid -sUUID -ovalue /dev/sdb1`
-- `ffmpeg -i input.mp4 -ss 97 -t 10 output.mp4`
+- `ffmpeg -i input.mp4 -c copy -ss 01:37 -t 10 output.mp4`
 - `ffmpeg -i input.jpg -vf 'scale=iw*1/2:ih*1/2' output.jpg`
 - `( ow=640; oh=360; ffmpeg -i input.mp4 -vf "scale=$ow:$oh:force_original_aspect_ratio=decrease,pad=$ow:$oh:(ow-iw)/2:(oh-ih)/2" output.mp4 )`
 - `for i in *.mp3; do echo "$i"; ffmpeg -i "$i" -af volumedetect -vn -sn -dn -f null /dev/null 2>&1 | grep -E '^\[Parsed_volumedetect.+_volume: .+$'; done`
