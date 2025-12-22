@@ -208,7 +208,7 @@ Some pieces of code I find useful for some reason.
 - `sed -Ei 's/^#?force_color_prompt=.*$/force_color_prompt=yes/' ~/.bashrc`
 - `sed -Ei 's/^(\s+)#\s*(alias [ef]?grep='\''[ef]?grep --color=auto'\'')/\1\2/' ~/.bashrc`
 - `{ base64 -w256 myfile.txt; echo; echo 'Hello, World!'; } | { while IFS= read -r i; do [ -n "$i" ] || break; echo "$i"; done | base64 -d | cat -A; cat -A; }`
-- `bn=${path##*/}` (similar to `basename "$path"`), `dn=${path%/*}` (similar to `dirname "$path"`)
+- `bn=${path##*/}` (similar to `basename "$path"`), `stem=${bn%.*}` (filename stripped of its extension), `dn=${path%/*}` (similar to `dirname "$path"`)
 - `gtk-launch myapp.desktop`
 - `update-desktop-database -v ~/.local/share/applications`, `xdg-desktop-menu forceupdate`
 - `gnome-session-inhibit --app-id org.gnome.Terminal.desktop --reason 'Unsaved work' --inhibit logout:suspend --inhibit-only`
