@@ -6,7 +6,7 @@ set -e
 # in a specific directory
 
 # Tested on:
-#   - Debian 12 (bookworm) + Wine 10.0 + "winetricks fonts allfonts"
+#   - Debian 13 (trixie) + Wine 10.0 + "winetricks fonts allfonts"
 #   - Git Bash on Windows 10
 
 # To run this script without downloading it:
