@@ -153,7 +153,7 @@ Some pieces of code I find useful for some reason.
 - `sudo dd if=/dev/mmcblk2 status=progress | gzip -c | split -b4GB - mmcblk2.img.gz.part`
   - `md5sum mmcblk2.img.gz.part* > MD5SUMS`
   - `cat mmcblk2.img.gz.part* | gunzip -c | sudo dd of=/dev/mmcblk2 status=progress`
-- `hdparm -I /dev/sdb`, `hdparm --user-master u --security-set-pass p /dev/sdb`, `hdparm --user-master u --security-erase p /dev/sdb`, `hdparm --user-master u --security-erase-enhanced p /dev/sdb`, `blkdiscard /dev/sdb`, `hdparm -I /dev/sdb | grep -A5 Security` (check that it says `not enabled`, otherwise you still have user/pass set)
+- `hdparm -I /dev/sdb`, `hdparm --user-master u --security-set-pass p /dev/sdb`, `hdparm --user-master u --security-erase p /dev/sdb`, `hdparm --user-master u --security-erase-enhanced p /dev/sdb`, `blkdiscard /dev/sdb`, `hdparm -I /dev/sdb | grep -A10 Security:` (check that it says `not enabled`, otherwise you still have user/pass set)
 - `sudo parted /dev/sdb -s 'mklabel gpt mkpart "" 0% 100%'`, `sudo mkfs.ext4 /dev/sdb1 -L mylabel`
 - `fallocate -vl1G myimage.img`
 - `dd if=/dev/random of=myimage.img bs=1M count=1024 status=progress`
