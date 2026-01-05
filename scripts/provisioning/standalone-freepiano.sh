@@ -15,11 +15,6 @@ set -e
 # You can also add a custom keymap with a command like the following one:
 # curl -fLo ~/apps/freepiano/freepiano/keymap/dmotte-intuitive.map https://raw.githubusercontent.com/dmotte/misc/main/configs/freepiano-keymaps/dmotte-intuitive.map
 
-# Example commands to extract and set the icon on Linux:
-#   7z e ~/apps/freepiano/freepiano/freepiano.exe .rsrc/1024/ICON/4 -so > ~/apps/freepiano/freepiano/icon.png
-#   echo 863ade08a081f847764b155c0f77c4be6f74f34cea5c4161c83e55344eca5b65 ~/apps/freepiano/freepiano/icon.png | sha256sum -c
-#   sed -Ei 's|^# (Icon=.+/)freepiano.exe$|\1icon.png|' ~/.local/share/applications/freepiano.desktop
-
 options=$(getopt -o +o:c:d:l: -l os: -l checksum: -l install-dir: \
     -l launcher: -- "$@")
 eval "set -- $options"
@@ -84,11 +79,16 @@ if [ -n "$launcher" ]; then
     if [ "$os" = windows ]; then
         create-shortcut "$app_dir/freepiano.exe" "$launcher"
     else
+        7z e "$app_dir/freepiano.exe" .rsrc/1024/ICON/4 -so \
+            > "$app_dir/icon.png"
+        echo 863ade08a081f847764b155c0f77c4be6f74f34cea5c4161c83e55344eca5b65 \
+            "$app_dir/icon.png" | sha256sum -c
+
         install -Tm644 /dev/stdin "$launcher" << EOF
 [Desktop Entry]
 Type=Application
 Name=FreePiano
-# Icon=$app_dir/freepiano.exe
+Icon=$app_dir/icon.png
 Exec=wine $app_dir/freepiano.exe %f
 Terminal=false
 EOF
