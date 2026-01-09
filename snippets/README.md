@@ -498,6 +498,7 @@ EOF
 
 ```python
 from datetime import datetime as dt
+from datetime import timezone as tz
 
 def is_aware(d: dt) -> bool:
     '''
@@ -505,6 +506,9 @@ def is_aware(d: dt) -> bool:
     See https://docs.python.org/3/library/datetime.html#determining-if-an-object-is-aware-or-naive
     '''
     return d.tzinfo is not None and d.tzinfo.utcoffset(d) is not None
+
+print(is_aware(dt(2000, 1, 1)),
+      is_aware(dt(2000, 1, 1, tzinfo=tz.utc)))
 ```
 
 ```python
@@ -512,4 +516,9 @@ from collections import defaultdict
 
 def nest() -> defaultdict:
     return defaultdict(nest)
+
+data = nest()
+data['Foo']['ID'] = 123
+data['Foo']['Name'] = 'Foo'
+data['Bar']['ID'] = 456
 ```
