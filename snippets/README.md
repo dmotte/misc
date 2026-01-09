@@ -522,3 +522,14 @@ data['Foo']['ID'] = 123
 data['Foo']['Name'] = 'Foo'
 data['Bar']['ID'] = 456
 ```
+
+```python
+from pprint import pformat
+
+def pfmt(x: object) -> str:
+    '''
+    Like pprint.pformat but preserves the order of dict keys.
+    Useful for strict deep comparison of objects
+    '''
+    return pformat(x, sort_dicts=False)
+```
