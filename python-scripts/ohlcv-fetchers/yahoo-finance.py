@@ -11,6 +11,7 @@ import yfinance as yf
 import pandas as pd
 
 
+# Src: https://github.com/dmotte/misc/tree/main/snippets
 def is_aware(d: dt) -> bool:
     '''
     Returns true if the datetime object `d` is timezone-aware, false otherwise.
