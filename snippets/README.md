@@ -495,3 +495,21 @@ EOF
 ## Python
 
 - `os.chdir(os.path.dirname(os.path.realpath(__file__)))`
+
+```python
+from datetime import datetime as dt
+
+def is_aware(d: dt) -> bool:
+    '''
+    Returns true if the datetime object `d` is timezone-aware, false otherwise.
+    See https://docs.python.org/3/library/datetime.html#determining-if-an-object-is-aware-or-naive
+    '''
+    return d.tzinfo is not None and d.tzinfo.utcoffset(d) is not None
+```
+
+```python
+from collections import defaultdict
+
+def nest() -> defaultdict:
+    return defaultdict(nest)
+```
