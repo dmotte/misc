@@ -13,6 +13,7 @@ from enum import StrEnum
 from typing import TextIO
 
 
+# Src: https://github.com/dmotte/misc/tree/main/snippets
 def nest() -> defaultdict:
     return defaultdict(nest)
 
