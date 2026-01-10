@@ -533,3 +533,11 @@ def pfmt(x: object) -> str:
     '''
     return pformat(x, sort_dicts=False)
 ```
+
+```python
+def normlz_num(x: int | float) -> int | float:
+    '''
+    Normalize number type by converting whole-number floats to int
+    '''
+    return int(x) if isinstance(x, float) and x.is_integer() else x
+```
