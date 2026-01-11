@@ -9,6 +9,14 @@ from typing import TextIO
 from pydub import AudioSegment
 
 
+# Src: https://github.com/dmotte/misc/tree/main/snippets
+def normlz_num(x: int | float) -> int | float:
+    '''
+    Normalize number type by converting whole-number floats to int
+    '''
+    return int(x) if isinstance(x, float) and x.is_integer() else x
+
+
 def compute_values(audio: AudioSegment,
                    level_start: float = 0, level_end: float = 0) -> dict:
     if level_start < 0 or level_start > 1:
@@ -70,7 +78,8 @@ def print_values(values: dict, file: TextIO, fmt_float: str = '') -> None:
     func_float = str if fmt_float == '' else lambda x: fmt_float.format(x)
 
     for k, v in values.items():
-        print(f'{k}={func_float(v) if isinstance(v, float) else v}', file=file)
+        print(f'{k}={func_float(normlz_num(v)) if isinstance(v, float)
+                     else v}', file=file)
 
 
 def main(argv: list[str] | None = None) -> int:
