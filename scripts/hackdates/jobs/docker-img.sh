@@ -1,13 +1,18 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 readonly img=library/debian tag_ref=13
 
-v_ref=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/$img/tags/$tag_ref" |
-    jq -r .digest)
+echo "Checking digest of Docker Hub image $img:latest"
 
-v_latest=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/$img/tags/latest" |
-    jq -r .digest)
+text=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/$img/tags/$tag_ref")
+v_ref=$(echo "$text" | jq -r .digest)
 
-[ "$v_ref" = "$v_latest" ] || { echo 'Version mismatch' >&2; exit 1; }
+text=$(curl -fsSL "https://registry.hub.docker.com/v2/repositories/$img/tags/latest")
+v_latest=$(echo "$text" | jq -r .digest)
+
+if [ "$v_ref" = "$v_latest" ]
+    then echo "OK ($v_ref)"
+    else echo "ERROR: reference is $v_ref but latest is $v_latest" >&2; exit 1
+fi
