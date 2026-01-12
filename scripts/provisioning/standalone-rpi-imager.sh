@@ -50,6 +50,8 @@ if [ -n "$checksum" ]; then
     echo "$checksum $imager_path" | sha256sum -c
 fi
 
+chmod -v +x "$imager_path"
+
 if [ -n "$launcher" ]; then
     echo "Creating launcher file $launcher"
     7z e "$imager_path" usr/share/icons/hicolor/scalable/apps/rpi-imager.svg -so \
