@@ -11,7 +11,9 @@ set -e
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-rpi-imager.sh) -lauto
 
 # Note: on first launch, the application will require you to set up automatic
-# privilege escalation in order to be able to write to storage devices
+# privilege escalation in order to be able to write to storage devices. See
+# https://github.com/raspberrypi/rpi-imager/blob/e44ba7007432086b456e8759a7d3dee757f90ec6/debian/com.raspberrypi.rpi-imager.policy
+# for more information on how this works
 
 options=$(getopt -o +c:d:l: -l checksum: -l install-dir: -l launcher: -- "$@")
 eval "set -- $options"
