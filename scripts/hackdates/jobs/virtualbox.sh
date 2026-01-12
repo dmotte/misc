@@ -1,9 +1,15 @@
 #!/bin/bash
 
-set -ex
+set -e
 
-v_local=$(vboxmanage --version | cut -dr -f1)
+echo 'Checking VirtualBox version'
+
+text=$(vboxmanage --version)
+v_local=$(echo "$text" | cut -dr -f1)
 
 v_latest=$(curl -fsSL https://download.virtualbox.org/virtualbox/LATEST-STABLE.TXT)
 
-[ "$v_local" = "$v_latest" ] || { echo 'Version mismatch' >&2; exit 1; }
+if [ "$v_local" = "$v_latest" ]
+    then echo "OK ($v_local)"
+    else echo "ERROR: local is $v_local but latest is $v_latest" >&2; exit 1
+fi
