@@ -1,10 +1,16 @@
 #!/bin/bash
 
-set -ex
+set -e
 
-v_local=$(rclone version | head -n1)
+echo 'Checking Rclone version'
 
-v_latest=$(curl -fsSL https://api.github.com/repos/rclone/rclone/releases/latest |
-    sed -En 's/^  "name": "([^"]+)",$/\1/p')
+text=$(rclone version)
+v_local=$(echo "$text" | head -n1)
 
-[ "$v_local" = "$v_latest" ] || { echo 'Version mismatch' >&2; exit 1; }
+text=$(curl -fsSL https://api.github.com/repos/rclone/rclone/releases/latest)
+v_latest=$(echo "$text" | sed -En 's/^  "name": "([^"]+)",$/\1/p')
+
+if [ "$v_local" = "$v_latest" ]
+    then echo "OK ($v_local)"
+    else echo "ERROR: local is $v_local but latest is $v_latest" >&2; exit 1
+fi
