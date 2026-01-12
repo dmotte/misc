@@ -2,7 +2,7 @@
 
 set -e
 
-echo 'Checking rpi-imager version'
+echo 'Checking Raspberry Pi Imager (rpi-imager) version'
 
 text=$(rpi-imager --version 2>&1)
 v_local=$(echo "$text" | sed -En 's/^rpi-imager version (.+)$/v\1/p')
