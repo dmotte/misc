@@ -1,10 +1,16 @@
 #!/bin/bash
 
-set -ex
+set -e
 
-v_local=$(echo -n v; rpi-imager --version 2>&1 | sed -En 's/^rpi-imager version (.+)$/\1/p')
+echo 'Checking rpi-imager version'
 
-v_latest=$(curl -fsSL https://api.github.com/repos/raspberrypi/rpi-imager/releases/latest |
-    sed -En 's/^  "name": "([^"]+)",$/\1/p')
+text=$(rpi-imager --version 2>&1)
+v_local=$(echo "$text" | sed -En 's/^rpi-imager version (.+)$/v\1/p')
 
-[ "$v_local" = "$v_latest" ] || { echo 'Version mismatch' >&2; exit 1; }
+text=$(curl -fsSL https://api.github.com/repos/raspberrypi/rpi-imager/releases/latest)
+v_latest=$(echo "$text" | sed -En 's/^  "tag_name": "([^"]+)",$/\1/p')
+
+if [ "$v_local" = "$v_latest" ]
+    then echo "OK ($v_local)"
+    else echo "ERROR: local is $v_local but latest is $v_latest" >&2; exit 1
+fi
