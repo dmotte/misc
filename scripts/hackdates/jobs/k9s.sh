@@ -1,10 +1,16 @@
 #!/bin/bash
 
-set -ex
+set -e
 
-v_local=$(k9s version -s | sed -En 's/^Version\s+(.+)$/\1/p')
+echo 'Checking K9s version'
 
-v_latest=$(curl -fsSL https://api.github.com/repos/derailed/k9s/releases/latest |
-    sed -En 's/^  "name": "([^"]+)",$/\1/p')
+text=$(k9s version -s)
+v_local=$(echo "$text" | sed -En 's/^Version\s+(.+)$/\1/p')
 
-[ "$v_local" = "$v_latest" ] || { echo 'Version mismatch' >&2; exit 1; }
+text=$(curl -fsSL https://api.github.com/repos/derailed/k9s/releases/latest)
+v_latest=$(echo "$text" | sed -En 's/^  "name": "([^"]+)",$/\1/p')
+
+if [ "$v_local" = "$v_latest" ]
+    then echo "OK ($v_local)"
+    else echo "ERROR: local is $v_local but latest is $v_latest" >&2; exit 1
+fi
