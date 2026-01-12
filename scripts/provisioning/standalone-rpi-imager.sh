@@ -10,6 +10,9 @@ set -e
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-rpi-imager.sh) -lauto
 
+# Note: on first launch, the application will require you to set up automatic
+# privilege escalation in order to be able to write to storage devices
+
 options=$(getopt -o +c:d:l: -l checksum: -l install-dir: -l launcher: -- "$@")
 eval "set -- $options"
 
