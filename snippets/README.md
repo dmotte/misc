@@ -462,7 +462,7 @@ EOF
 - `export MSYS_NO_PATHCONV=1`, `python -c'import sys;print(sys.argv)' foo bar`
 - `winpty rclone --config= ncdu .`
 - `choco list`
-- `choco install -y gsudo`
+- `choco install -y gsudo`, `echo -e '#!/bin/bash\nexec gsudo "$@"' > ~/bin/sudo` (to override native sudo in Windows 11)
 - `sudo choco upgrade -y all`
 - `sudo choco install -y winfsp rclone`, `rclone mount myremote: X: --volname='Volume label' --vfs-disk-space-total-size=2T`
 - `MSYS=winsymlinks:nativestrict sudo ln -Tsv original.txt link.txt`
