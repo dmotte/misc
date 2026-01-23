@@ -234,6 +234,7 @@ Some pieces of code I find useful for some reason.
 - `sudo nmap -Pn -n -p- -A -T4 -vv 192.168.0.0/24` and then you can press `?` to print a runtime interaction help screen
 - `echo 100/3 | bc -l`
 - `echo integrity=\"sha384-"$(openssl dgst -sha384 -binary myfile.js | base64 -w0)"\"`
+- `echo -e '\\n \\4 \\l\n' | tee /etc/issue`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
