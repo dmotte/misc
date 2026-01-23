@@ -127,8 +127,8 @@ EOF
 
 recipes_all+=(sysdnet-mac-rand)
 rcp_sysdnet_mac_rand () {
-    echo -e '[Match]\nDriver=*\n[Link]\nMACAddressPolicy=random' |
-        install -Tvm644 /dev/stdin /etc/systemd/network/30-mac-rand.link
+    echo -e '[Link]\nMACAddressPolicy=random' | install -DTvm644 /dev/stdin \
+        /etc/systemd/network/99-default.link.d/50-mac-rand.conf
 }
 
 recipes_all+=(hosts-127011)
