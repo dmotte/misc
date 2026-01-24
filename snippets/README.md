@@ -422,7 +422,7 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 - `(IFS= read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
 - `echo -e "{\"main\":\"$(base64 -w0 mykey.pem)\"}" | podman secret create mykey -`
 - `podman image ls -a`, `podman image prune -af`
-- `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always -p8080:80 docker.io/library/nginx:latest`
+- `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always --net=pasta:--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 -p8080:80 docker.io/library/nginx:latest`
 
 ## Shell snippets for Kubernetes
 
