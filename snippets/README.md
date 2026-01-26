@@ -58,6 +58,7 @@ Some pieces of code I find useful for some reason.
 - `cp -Rvt/media/destdisk /media/sourcedisk/mydir`
 - `ss -tulpn`
 - `ip neigh`, `cat /proc/net/arp`
+- `ip route get 1.1.1.1 | sed -En 's/^.+ dev ([^ ]+) .+$/\1/p'`
 - `df -h`
 - `free -htvw`
 - `du -sh`
