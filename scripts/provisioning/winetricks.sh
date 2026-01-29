@@ -8,9 +8,9 @@ set -e
 # Inspired by the official guide:
 # https://github.com/Winetricks/winetricks?tab=readme-ov-file#scripted-install
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
-# Usage example: bash winetricks.sh 20250102
+# Usage example: bash winetricks.sh 20260125
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
