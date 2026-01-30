@@ -1,6 +1,6 @@
 # mdwiki
 
-MDwiki is a static, **single-file** Markdown-based CMS/Wiki made with only **client-side** Javascript and HTML5.
+MDwiki is a static, **single-file** Markdown-based CMS/Wiki made with only **client-side** JavaScript and HTML5.
 
 These are the commands I use to set it up in a local folder:
 
