@@ -30,6 +30,7 @@ Some pieces of code I find useful for some reason.
 - `unset HISTFILE`
 - `tar -cvzf myarchive.tar.gz mydir`, `tar -xvzf myarchive.tar.gz`
 - `tar -cvzf myarchive.tar.gz -g snapshot.snar -C mydir .`, `tar -xvzf myarchive.tar.gz -g snapshot.snar -C mydir`
+- `curl -fsSL https://httpbin.org/base64/Zm9vYmFy`, `wget -qO- https://httpbin.org/base64/Zm9vYmFy`
 - `curl --skip-existing -fLO https://...`, `curl -fLo target.zip https://...`
 - `curl -I https://example.com/`, `curl -i https://example.com/`
 - `top` and then press `xcV`. Then `W` to save the config
