@@ -93,6 +93,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **GitHub Codespaces** - fully configured, secure cloud development environments native to GitHub: [website](https://github.com/codespaces)
 - **GitHub Container Registry** - stores container images within your GitHub organization or personal account: [website](https://ghcr.io/) [youtube](https://www.youtube.com/watch?v=WjzA9dfk5w4)
 - **IPFS** - InterPlanetary File System, an open system to manage data without a central server: [choco](https://community.chocolatey.org/packages/ipfs-desktop) [github](https://github.com/ipfs) [website](https://ipfs.tech/)
+- **JSLinux** - run Linux or other Operating Systems in your browser: [website](https://bellard.org/jslinux/)
 - **Keybase** - online cloud free 250 GB end-to-end encrypted storage, Git repos, secure messaging, and more: [choco](https://community.chocolatey.org/packages/keybase) [docker](https://hub.docker.com/r/keybaseio/client) [github](https://github.com/keybase/client) [website](https://keybase.io/)
 - **Kubespec** - Kubernetes Spec Explorer: [website](https://kubespec.dev/)
 - **MACLookup** - easy way to search for MAC address prefixes (OUI, i.e. Organizationally Unique Identifier) and matches them to the chipset's manufacturer. It uses the IEEE database: [website](https://maclookup.app/)
