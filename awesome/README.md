@@ -257,6 +257,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **python3-markdown** - Markdown to HTML compiler/converter: [apt](https://packages.debian.org/stable/python3-markdown) [github](https://github.com/Python-Markdown/markdown) [pypi](https://pypi.org/project/Markdown/) [website](https://python-markdown.github.io/)
 - **rust-script** - run Rust files and expressions as scripts: [github](https://github.com/fornwall/rust-script) [website](https://rust-script.org/)
 - **spotDL** - download songs from Spotify: [github](https://github.com/spotDL/spotify-downloader) [website](https://spotdl.readthedocs.io/en/latest/)
+- **tftp-now** - single-binary TFTP server and client: [github](https://github.com/puhitaku/tftp-now)
 - **vimdiff** - Vim on multiple files with differences highlighted: [docs](https://linux.die.net/man/1/vimdiff)
 
 ## GUI apps
