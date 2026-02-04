@@ -65,3 +65,4 @@ reboot
 ## Links
 
 - [kexec(8) - kexec-tools - Debian trixie - Debian Manpages](https://manpages.debian.org/trixie/kexec-tools/kexec.8.en.html)
+- [Installing Debian via the Internet](https://www.debian.org/distrib/netinst)
