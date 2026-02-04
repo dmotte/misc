@@ -47,13 +47,20 @@ To check that no disk is used anymore, you can use the `mount` and `df -h` comma
 
 At this point you can do whatever you want with the disks, such as installing another OS:
 
-> :warning: **Warning**: the following command overwrites EVERYTHING on `/dev/sda`! Unrecoverable **data loss** will occur.
+> :warning: **Warning**: the following example `dd` commands overwrite EVERYTHING on `/dev/sda`! Unrecoverable **data loss** will occur.
 
 ```bash
 curl -fsSL https://cloud.debian.org/images/cloud/trixie/latest/debian-13-nocloud-amd64.raw | dd of=/dev/sda bs=1M status=progress oflag=direct
 ```
 
 > **Note**: the `curl` command and\or `dd`'s `status=progress` option might be unavailable by default on _Alpine Linux_.
+
+Or even writing a **netboot installer ISO** to the main disk, so that you can perform a regular guided installation at reboot:
+
+```bash
+curl -fsSL https://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/mini.iso | dd of=/dev/sda bs=1M status=progress oflag=direct
+reboot
+```
 
 ## Links
 
