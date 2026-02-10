@@ -35,6 +35,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **NewPipe** - lightweight YouTube frontend: [fdroid](https://f-droid.org/packages/org.schabi.newpipe/) [github](https://github.com/TeamNewPipe/NewPipe) [website](https://newpipe.net/)
 - **Ning** - simple and fast local network scanner: [fdroid](https://f-droid.org/packages/de.csicar.ning/) [github](https://github.com/csicar/Ning)
 - **Noice** - focus, meditate and relax with natural calming noise: [fdroid](https://f-droid.org/packages/com.github.ashutoshgngwr.noice/) [github](https://github.com/trynoice/android-app) [playstore](https://play.google.com/store/apps/details?id=com.github.ashutoshgngwr.noice) [website](https://trynoice.com/)
+- **Nope Remote** - universal IR infrared remote app: [fdroid](https://f-droid.org/packages/com.monuk7735.nope.remote/) [github](https://github.com/monuk7735/nope-remote)
 - **Noteless** - markdown note-taking app for mobile devices: [fdroid](https://f-droid.org/packages/net.redsolver.noteless/) [github](https://github.com/redsolver/noteless)
 - **OCR** - OCR (Optical Character Recognition) app based on Tesseract 5: [fdroid](https://f-droid.org/packages/io.github.subhamtyagi.ocr/) [github](https://github.com/SubhamTyagi/android-ocr)
 - **Organic Maps** - offline Hike, Bike, Trails and Navigation: [fdroid](https://f-droid.org/packages/app.organicmaps/) [github](https://github.com/organicmaps/organicmaps) [playstore](https://play.google.com/store/apps/details?id=app.organicmaps) [website](https://organicmaps.app/)
