@@ -26,6 +26,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Guitar Tuna** - guitar tuner for Android: [playstore](https://play.google.com/store/apps/details?id=com.ovelin.guitartuna) [website](https://yousician.com/guitar-tuner)
 - **Heart Rate Monitor** - measure your heart rate using the phone flashlight: [playstore](https://play.google.com/store/apps/details?id=com.bluefish.heartrate)
 - **IP Webcam** - turns your phone into a network camera with multiple viewing options: [playstore](https://play.google.com/store/apps/details?id=com.pas.webcam)
+- **IR Blaster Remote** - universal infrared remote app: [fdroid](https://f-droid.org/packages/org.nslabs.ir_blaster/) [github](https://github.com/iodn/android-ir-blaster) [playstore](https://play.google.com/store/apps/details?id=org.nslabs.ir_blaster)
 - **Joplin** - open source note-taking app: [github](https://github.com/laurent22/joplin) [playstore](https://play.google.com/store/apps/details?id=net.cozic.joplin) [website](https://joplinapp.org/)
 - **KeePass DX** - lightweight KeePass-compatible password manager for Android: [github](https://github.com/Kunzisoft/KeePassDX) [playstore](https://play.google.com/store/apps/details?id=com.kunzisoft.keepass.free) [website](https://www.keepassdx.com/)
 - **LabCoat** - GitLab client for Android: [fdroid](https://f-droid.org/packages/com.commit451.gitlab/) [gitlab](https://gitlab.com/Commit451/LabCoat) [playstore](https://play.google.com/store/apps/details?id=com.commit451.gitlab)
