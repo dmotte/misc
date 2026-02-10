@@ -249,6 +249,13 @@ install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="usb",' \
     'ATTR{idVendor}=="1a2b", ATTR{idProduct}=="3c4d", ATTR{remove}="1"') \
     /etc/udev/rules.d/99-disable-usb-example.rules
 udevadm trigger -vcadd -susb -aidVendor=1a2b -aidProduct=3c4d
+
+install -Tvm600 /dev/stdin /etc/udev/rules.d/10-eth-altnames.rules << EOF
+ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="aa:bb:cc:00:00:00", \
+    RUN+="/usr/bin/ip link property add dev \$name altname eth0"
+ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="aa:bb:cc:00:00:01", \
+    RUN+="/usr/bin/ip link property add dev \$name altname eth1"
+EOF
 ```
 
 ```bash
