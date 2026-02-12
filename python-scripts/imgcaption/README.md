@@ -10,7 +10,7 @@ Inspired by:
 
 ## Usage
 
-> **Important**: this has been tested with **Python 3.12.4** on **Windows 10**.
+> **Important**: this has been tested with **Python 3.13.5** on **Debian 13** (_trixie_).
 
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 
@@ -22,5 +22,5 @@ venv/bin/python3 -mpip install -r requirements.txt
 Then you can use the script like this:
 
 ```bash
-time printf '%s\n' *.jpg | venv/bin/python3 main.py
+time printf '%s\n' img/*.jpg | venv/bin/python3 main.py
 ```
