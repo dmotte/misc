@@ -1,0 +1,8 @@
+---
+services:
+  ustreamer:
+    image: docker.io/pikvm/ustreamer:v6.44
+    restart: always
+    ports: ["8080:8080"]
+    devices: [/dev/video0]
+    command: -d/dev/video0 -r640x480 -f10 --user=user --passwd=changeme
