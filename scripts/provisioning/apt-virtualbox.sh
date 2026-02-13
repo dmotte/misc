@@ -10,15 +10,15 @@ set -e
 # See also the official Debian instructions to connect to a third-party
 # repository: https://wiki.debian.org/DebianRepository/UseThirdParty
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
-# Usage example: sudo bash apt-virtualbox.sh 7.0
+# Usage example: sudo bash apt-virtualbox.sh 7.2
 
 # Note: if your host loads KVM kernel modules automatically at boot, you need
 # to disable them to make VirtualBox work. You can use a command like this:
 #   printf 'blacklist %s\n' kvm kvm_intel > /etc/modprobe.d/blacklist-kvm.conf
 
-# Note: to upgrade the package you just need to run the script with a newer
+# Note: to upgrade the package you just need to re-run the script with a newer
 # version, and the old package will be removed automatically. This works
 # because each "virtualbox-*" APT package declares "Provides: virtualbox" and
 # "Conflicts: virtualbox", which basically make them mutually exclusive
