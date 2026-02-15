@@ -75,7 +75,7 @@ Some pieces of code I find useful for some reason.
 - `7z x -aoa myarchive.7z`, `7z x myarchive.7z -osomedir`, `7z x myarchive.7z -o\*`
 - `date -ur myfile.txt +%Y-%m-%d-%H%M%S`, `date +%s`, `date +%s.%N`, `date -Ins`
 - `less myfile.txt`
-- `last`, `lastb`, `lastlog`
+- `last`, `lastb`, `lastlog`, `who -Ha /var/log/wtmp`
 - `IFS= read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`, `set -o ignoreeof; exit() { echo 'Use "builtin exit" to exit'; }`
 - `read -rsp 'Press ENTER to continue...'; echo`
 - `diff <(ls -l) <(ls -la)`
