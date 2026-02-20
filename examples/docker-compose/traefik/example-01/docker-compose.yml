@@ -6,8 +6,6 @@ services:
     depends_on: [foo, bar]
     ports: ["80:80"]
     volumes:
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
       - ./dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
 
