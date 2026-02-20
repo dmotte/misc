@@ -366,8 +366,8 @@ sudo update-grub
 
 ## Shell snippets for Docker
 
-- `docker run -it --rm --log-driver=none docker.io/library/debian:12`
-- `docker run -d --name=mydeb01 docker.io/library/debian:12 sleep infinity`, `docker exec -it mydeb01 bash`, `docker rm -f mydeb01`
+- `docker run -it --rm --log-driver=none docker.io/library/debian:13`
+- `docker run -d --name=mydeb01 docker.io/library/debian:13 sleep infinity`, `docker exec -it mydeb01 bash`, `docker rm -f mydeb01`
 - `docker ps -a --format {{.Names}}`
 - `docker rm -fv mycontainer`
 - `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox tar -cvzC/v . > mybackup.tar.gz`
@@ -385,7 +385,7 @@ sudo update-grub
 
 ```bash
 docker build -t img-sshsrv01:latest - << 'EOF'
-FROM docker.io/library/debian:12
+FROM docker.io/library/debian:13
 RUN apt-get update && \
     apt-get install -y sudo openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
@@ -404,7 +404,7 @@ docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
 
 ```bash
 docker build -t img-unpriv01:latest - << 'EOF'
-FROM docker.io/library/debian:12
+FROM docker.io/library/debian:13
 RUN apt-get update && \
     apt-get install -y sudo \
         git nano tmux tree wget zip curl socat procps jq \
@@ -438,7 +438,7 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 ## Shell snippets for Kubernetes
 
 - `kubectl get all -A`, `kubectl get pod -owide`, `kubectl get pod -w`
-- `kubectl run mypod --image=docker.io/library/debian:12 sleep infinity`
+- `kubectl run mypod --image=docker.io/library/debian:13 sleep infinity`
 - `kubectl exec -it mypod -- bash`
 - `kubectl delete pod/mypod`
 - `kubectl config current-context`, `kubectl config use-context mycontext`
@@ -461,7 +461,7 @@ metadata:
 spec:
   containers:
     - name: main
-      image: docker.io/library/debian:12
+      image: docker.io/library/debian:13
       args: [sleep, infinity]
       volumeMounts: [{ mountPath: /v, name: v, readOnly: true }]
   volumes:
