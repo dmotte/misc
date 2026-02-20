@@ -2,20 +2,19 @@
 
 Simple example of how to use the **croniter** Python library.
 
+- GitHub: https://github.com/pallets-eco/croniter
 - PyPI: https://pypi.org/project/croniter/
-- GitHub: https://github.com/kiorky/croniter
-- Debian package: https://packages.debian.org/bookworm/python3-croniter
 
-> **Important**: this has been tested on **Debian 12** (_bookworm_) and depends only on **system packages** (from APT). If you want to double-check the versions of the Python libraries used, see [`requirements.txt`](requirements.txt).
-
-To run the example:
+> **Important**: this has been tested with **Python 3.13.5** on **Debian 13** (_trixie_).
 
 ```bash
-sudo apt-get update && sudo apt-get install -y python3-croniter
-python3 main.py
+python3 -mvenv venv
+venv/bin/python3 -mpip install -r requirements.txt
+
+venv/bin/python3 main.py
 ```
 
-Output example:
+Example output:
 
 ```
 Now: 2022-04-20 18:37:21.154167+02:00

@@ -2,13 +2,14 @@
 
 import sys
 import time
+
 from datetime import datetime as dt
 
 from croniter import croniter
 
 
 def main() -> int:
-    iter = croniter('*/2 * * * *', ret_type=dt)  # every 2 minutes
+    iter = croniter('*/2 * * * *', ret_type=dt)  # Every 2 minutes
 
     while True:
         dt_now = dt.now().astimezone()
