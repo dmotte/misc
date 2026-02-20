@@ -8,7 +8,7 @@ set -e
 # Note: by default the configuration is stored in ~/.config/REAPER. See the
 # readme-linux.txt file in the downloaded tarball for more details
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-reaper.sh) -ulauto 7.34

@@ -5,7 +5,7 @@ set -e
 # This script can be used to set up a systemd-based "cron job" consisting of a
 # timer and a oneshot service
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 options=$(getopt -o +un:e:w: -l user,name:,event-expr:,workdir: -- "$@")
 eval "set -- $options"

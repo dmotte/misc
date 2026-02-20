@@ -8,7 +8,7 @@ set -e
 # Inspired by the official guide:
 # https://github.com/robbert-vdh/yabridge?tab=readme-ov-file#usage
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 # Usage example:
 #   bash yabridge.sh -p 5.1.1

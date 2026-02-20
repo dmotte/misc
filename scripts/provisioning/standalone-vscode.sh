@@ -5,7 +5,7 @@ set -e
 # This script can be used to set up a standalone installation of Visual Studio
 # Code in a specific directory
 
-# Tested on Debian 12 (bookworm) and Windows 10 with Git Bash
+# Tested on Debian 13 (trixie) and Windows 10 with Git Bash
 
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-vscode.sh) -ulauto

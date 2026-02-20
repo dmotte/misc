@@ -4,7 +4,7 @@ set -e
 
 # This script can be used to define persistent iptables rules
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 # Usage example:
 #   sed '/^\s*$/d;/^#/d' rules.v4 |

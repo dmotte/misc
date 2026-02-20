@@ -7,7 +7,7 @@ set -e
 # cache when a wineprefix is created, Wine will skip the download prompt and
 # silently install Wine Mono automatically.
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 # Usage example: bash winemono.sh && wineboot --init
 

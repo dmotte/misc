@@ -6,7 +6,7 @@ set -e
 # notifications (Telegram messages) about your server logs. This script helps
 # you set it up
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 

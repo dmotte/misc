@@ -6,7 +6,7 @@ set -e
 # basically the equivalent of https://github.com/dmotte/docker-portmap-client
 # but as a system service
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 

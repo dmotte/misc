@@ -5,7 +5,7 @@ set -e
 # This script can be used to configure unattended upgrades on Debian. See
 # https://wiki.debian.org/UnattendedUpgrades for more information
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 # Tip: if you want to check in advance how a systemd calendar event expression
 # will behave, you can use the systemd-analyze command:

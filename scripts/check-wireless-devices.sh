@@ -5,7 +5,7 @@ set -e
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/check-wireless-devices.sh); echo $?
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 echo 'Checking that no wireless devices are present'
 

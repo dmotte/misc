@@ -10,7 +10,7 @@ set -e
 # See also the official Debian instructions to connect to a third-party
 # repository: https://wiki.debian.org/DebianRepository/UseThirdParty
 
-# Tested on Debian 12 (bookworm)
+# Tested on Debian 13 (trixie)
 
 # Note: if you encounter "unmet dependencies" issues with APT, you can try to
 # run "rm -rf /var/lib/apt/lists/*" and then retry
