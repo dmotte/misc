@@ -9,7 +9,7 @@ echo "::group::$0: Preparation"
     shellcheck --version
 echo '::endgroup::'
 
-if [ "$SHELLCHECK_USE_GIT_LS_FILES" = true ]
+if [ "$USE_GIT_LS_FILES" = true ]
     then files=$(git ls-files \*.sh)
     else files=$(find . -name \*.sh)
 fi
