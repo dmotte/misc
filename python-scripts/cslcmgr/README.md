@@ -6,7 +6,7 @@ This is meant to be run locally on your PC, or behind a reverse proxy with **aut
 
 ## Usage
 
-> **Important**: this has been tested with **Python 3.11.2** on **Debian 12** (_bookworm_).
+> **Important**: this has been tested with **Python 3.13.5** on **Debian 13** (_trixie_).
 
 First of all you need to generate one or more **GitHub PATs** (_Personal Access Tokens_) to be able to control your Codespaces using the GitHub API. The tokens must have the following **permissions**:
 
