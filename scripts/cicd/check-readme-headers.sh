@@ -2,7 +2,7 @@
 
 set -e
 
-readonly main_dir=${1:?}; shift
+readonly main_dir=${1:-.}
 
 # We need to work with absolute paths, otherwise this script would fail in
 # case a "./README.md" file exists
