@@ -74,7 +74,7 @@ LINK_VALIDATORS = {
     'huggingface': lambda x: re.fullmatch(
         r'^https://huggingface\.co/[0-9A-Za-z-]+(/[0-9A-Za-z.-]+)?$', x),
     'spaces': lambda x: re.fullmatch(r'^https://huggingface\.co/spaces'
-                                     r'/[0-9A-Za-z-]+(/[0-9A-Za-z.-]+)?$', x),
+                                     r'/[0-9A-Za-z-]+(/[0-9A-Za-z._-]+)?$', x),
 }
 
 

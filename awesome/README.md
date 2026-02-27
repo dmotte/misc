@@ -384,6 +384,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **ACE-Step** - open-source foundation model for music generation: [github](https://github.com/ace-step/ACE-Step) [huggingface](https://huggingface.co/ACE-Step/ACE-Step-v1-3.5B) [spaces](https://huggingface.co/spaces/ACE-Step/ACE-Step) [website](https://ace-step.com/) [website](https://ace-step.github.io/) [youtube](https://www.youtube.com/watch?v=PO_u7xEaL5I)
 - **Dia 1.6B** - open weights text to dialogue (Text-to-Speech) model: [spaces](https://huggingface.co/spaces/nari-labs/Dia-1.6B)
 - **OpenDalle V1.1** - image generation AI: [huggingface](https://huggingface.co/dataautogpt3/OpenDalleV1.1) [spaces](https://huggingface.co/spaces/mrfakename/OpenDalleV1.1-GPU-Demo)
+- **R3gm Audio Separator** - split an audio file into vocals and background music: [github](https://github.com/R3gm/Audio_separator_ui) [spaces](https://huggingface.co/spaces/r3gm/Audio_separator)
 - **SmallThinker-3B Chat** - text-based chat AI: [spaces](https://huggingface.co/spaces/PowerInfer/SmallThinker-Demo)
 
 ## Visual Studio Code Extensions
