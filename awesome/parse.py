@@ -21,12 +21,12 @@ LINK_VALIDATORS = {
 
     'youtube': lambda x: any((
         re.fullmatch(r'^https://www\.youtube\.com/watch'
-                     r'\?v=[0-9A-Za-z-_]{11}$', x),
+                     r'\?v=[0-9A-Za-z_-]{11}$', x),
         re.fullmatch(r'^https://www\.youtube\.com/playlist'
-                     r'\?list=[0-9A-Za-z-_]{34}$', x),
+                     r'\?list=[0-9A-Za-z_-]{34}$', x),
         re.fullmatch(r'^https://www\.youtube\.com/watch'
-                     r'\?v=[0-9A-Za-z-_]{11}'
-                     r'&list=[0-9A-Za-z-_]{34}'
+                     r'\?v=[0-9A-Za-z_-]{11}'
+                     r'&list=[0-9A-Za-z_-]{34}'
                      r'&index=[0-9]+$', x),
     )),
 
