@@ -47,7 +47,7 @@ echo "$ignfiles" | while IFS= read -r ignfile; do
     dn=${ignfile%/*}; [ "$dn" != "$ignfile" ] || dn=''
 
     # We use "echo $(<...)" here to remove all trailing newlines
-    [ -n "$dn" ] || { echo "$(<"$ignfile")" >> "$combfile"; continue; }
+    [ -n "$dn" ] || { echo "$(<"$ignfile")"; continue; }
 
     while IFS= read -r line || [ -n "$line" ]; do
         if [ -z "$line" ] || [[ "$line" = \#* ]]; then continue; fi
@@ -60,14 +60,14 @@ echo "$ignfiles" | while IFS= read -r ignfile; do
         [[ "$pattern" != \!* ]] || { prefix=\!; pattern=${pattern:1}; }
 
         if [[ "$pattern" = /* ]]; then
-            echo "$prefix$dn$pattern" >> "$combfile"
+            echo "$prefix$dn$pattern"
         elif [[ "$pattern" =~ /[^/] ]]; then
-            echo "$prefix$dn/$pattern" >> "$combfile"
+            echo "$prefix$dn/$pattern"
         else
-            echo "$prefix$dn/**/$pattern" >> "$combfile"
+            echo "$prefix$dn/**/$pattern"
         fi
     done < "$ignfile"
-done
+done > "$combfile"
 
 # We cannot use "exec" here because we want to run the EXIT trap before
 # exiting.
