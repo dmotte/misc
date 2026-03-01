@@ -21,7 +21,7 @@ scp_args=("$@")
 ################################################################################
 
 tmpdir=$(mktemp -d --tmpdir edit-sftp-file-XXXXXXXXXX)
-trap 'rm -rf $tmpdir' EXIT
+trap 'rm -rf "$tmpdir"' EXIT
 
 readonly scp_local_file=$tmpdir/tmp-file
 

@@ -25,7 +25,7 @@ if [ -e "$script_path" ]; then
 fi
 
 tmpdir=$(mktemp -d --tmpdir winetricks-XXXXXXXXXX)
-trap 'rm -rf $tmpdir' EXIT
+trap 'rm -rf "$tmpdir"' EXIT
 
 readonly tmp_script=$tmpdir/tmp-script
 

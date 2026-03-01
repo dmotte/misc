@@ -41,7 +41,7 @@ fi
 readonly combfile=.combined.prettierignore
 [ ! -e "$combfile" ] || { echo "File $combfile already exists" >&2; exit 1; }
 :> "$combfile" # Empty file
-trap 'rm -v $combfile' EXIT
+trap 'rm -v "$combfile"' EXIT
 
 while IFS= read -r ignfile; do
     dn=${ignfile%/*}; [ "$dn" != "$ignfile" ] || dn=''

@@ -34,7 +34,7 @@ if [ -e "$installer_path" ]; then
 fi
 
 tmpdir=$(mktemp -d --tmpdir winemono-XXXXXXXXXX)
-trap 'rm -rf $tmpdir' EXIT
+trap 'rm -rf "$tmpdir"' EXIT
 
 readonly tmp_installer=$tmpdir/tmp-installer
 
