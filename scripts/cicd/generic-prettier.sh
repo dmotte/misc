@@ -24,7 +24,8 @@ echo '::endgroup::'
 
 # We needed to implement this custom logic because Prettier doesn't consider
 # ignore files in subdirectories. See
-# https://github.com/prettier/prettier/issues/4081 for more info.
+# https://github.com/prettier/prettier/issues/4081#issuecomment-3980455396
+# for more info.
 # We have to actually rewrite all the patterns and we cannot simply rely on
 # passing multiple "--ignore-path" options to Prettier because, in such case,
 # if a pattern like "*.json" is present in ANY of the ignore files at any
