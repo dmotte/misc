@@ -44,10 +44,9 @@ readonly combfile=.combined.prettierignore
 trap 'rm -v "$combfile"' EXIT
 
 echo "$ignfiles" | while IFS= read -r ignfile; do
-    dn=${ignfile%/*}; [ "$dn" != "$ignfile" ] || dn=''
-
-    # We use "echo $(<...)" here to remove all trailing newlines
-    [ -n "$dn" ] || { echo "$(<"$ignfile")"; continue; }
+    dn=${ignfile%/*}
+    # We use "$(<...)" here to remove all trailing newlines
+    [ "$dn" != "$ignfile" ] || { echo "$(<"$ignfile")"; continue; }
 
     while IFS= read -r line || [ -n "$line" ]; do
         if [ -z "$line" ] || [[ "$line" = \#* ]]; then continue; fi
