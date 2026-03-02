@@ -17,7 +17,7 @@ fi
 # unreliable
 files_bad=$(echo -n "$files" | xargs -rd\\n grep -LPz '\n\z' || :)
 
-# Quit early if files_bad is already empty, to avoid running "grep -I" with an
+# Quit early if no items, to avoid running an iteration of the loop with an
 # empty string. Note that we need to specify the "0" exit code explicitly here
 [ -n "$files_bad" ] || exit 0
 # Filter out binary files
