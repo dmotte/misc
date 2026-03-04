@@ -11,7 +11,12 @@ readonly owner=${1:?} dest=${2:?}
 readonly filter=${GHBAK_FILTER:-.archived == false and .fork == false}
 
 repos=$(bash "$(dirname "$0")/github-get-all-repos.sh" "$owner" "$filter")
-repos=$(echo "$repos" | tr -d '\r')
+
+# Quit early if no items. Note that we need to specify the
+# "0" exit code explicitly here
+[ -n "$repos" ] || exit 0
+
+repos=$(printf '%s' "$repos" | tr -d '\r')
 
 for i in "${owner#users/}" "${owner#orgs/}"; do
     [ "$i" = "$owner" ] || { readonly owner_name=$i; break; }
@@ -32,7 +37,7 @@ repo_url_fmt="https://github.com/\$i.git"
 # of one of the repos
 
 { IFS= read -rd '' script || [ -n "$script" ]; } << EOF
-echo ${repos@Q} | while IFS= read -r i; do
+printf '%s' ${repos@Q} | while IFS= read -r i || [ -n "\$i" ]; do
     repo_name=\${i#$owner_name/}
     echo "Processing repo \$repo_name"
     git -C "\$repo_name" ${GHBAK_PULL_ARGS:-} pull || {

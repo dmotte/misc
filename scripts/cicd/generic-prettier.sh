@@ -44,7 +44,7 @@ readonly combfile=.combined.prettierignore
 :> "$combfile" # Empty file
 trap 'rm -v "$combfile"' EXIT
 
-echo "$ignfiles" | while IFS= read -r ignfile; do
+while IFS= read -r ignfile || [ -n "$ignfile" ]; do
     dn=${ignfile%/*}
     # We use "$(<...)" here to remove all trailing newlines
     [ "$dn" != "$ignfile" ] || { echo "$(<"$ignfile")"; continue; }
@@ -67,7 +67,7 @@ echo "$ignfiles" | while IFS= read -r ignfile; do
             echo "$prefix$dn/**/$pattern"
         fi
     done < "$ignfile"
-done > "$combfile"
+done < <(printf '%s' "$ignfiles") > "$combfile"
 
 # We cannot use "exec" here because we want to run the EXIT trap before
 # exiting.

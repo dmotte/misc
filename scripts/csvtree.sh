@@ -53,18 +53,18 @@ if [ -n "$tree_knowns" ]; then
     echo "$tree_knowns" | awk -F\; 'NF!=5 { print $0; exit 1 }' >&2 ||
         { echo 'Invalid line found in tree_knowns' >&2; exit 1; }
 
-    while IFS= read -r line; do
+    while IFS= read -r line || [ -n "$line" ]; do
         hash=${line##*;}
         [ -n "$hash" ] || continue
         map_knowns["${line%;*}"]=$hash
-    done < <(echo "$tree_knowns")
+    done < <(printf '%s' "$tree_knowns")
 fi
 
-echo "$tree" | while IFS= read -r line; do
+while IFS= read -r line || [ -n "$line" ]; do
     [[ "$line" != *\;DIR ]] || { echo "$line;"; continue; }
 
     hash=${map_knowns[$line]}
     [ -n "$hash" ] || hash=$(compute_hash "$main_dir/${line%%;*}")
 
     echo "$line;$hash"
-done
+done < <(printf '%s' "$tree")

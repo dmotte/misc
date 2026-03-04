@@ -32,3 +32,4 @@ while IFS= read -r i; do
         cp -Tv "${add_cp_args[@]}" "$dir_src/$i" "$dir_dst/$i"
     fi
 done
+[ -z "$i" ] || { echo 'Unexpected EOF: missing newline' >&2; exit 1; }

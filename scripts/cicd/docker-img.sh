@@ -76,16 +76,16 @@ echo '::endgroup::'
 
 echo "::group::$0: Docker tags"
     if [ -n "$proj_ver" ]; then
-        docker_tags=$(echo latest; echo "$proj_ver" | tr . '\n' | {
+        docker_tags=$(echo latest; printf '%s\n' "$proj_ver" | tr . '\n' | {
             concat=''
-            while IFS= read -r i; do
+            while IFS= read -r i || [ -n "$i" ]; do
                 concat=$concat$i.
                 echo "${concat%?}"
             done
         })
 
         # shellcheck disable=SC2016
-        echo "- &#x1F3F7; Docker tags: \`$(echo -n "$docker_tags" |
+        echo "- &#x1F3F7; Docker tags: \`$(printf '%s' "$docker_tags" |
             xargs | sed 's/ /`, `/g')\`" | tee -a "$CICD_SUMMARY"
     else
         echo 'Not generating the Docker tags because the version variable is' \
@@ -102,9 +102,10 @@ echo "::group::$0: Build (Docker Buildx) + Release (Docker Hub)"
         # https://github.com/docker/build-push-action/blob/master/src/main.ts
         # This builds the images for different platforms in parallel
         docker buildx create --use
-        echo "$docker_tags" | while IFS= read -r i; do
+        while IFS= read -r i || [ -n "$i" ]; do
             echo "--tag=docker.io/$IMG_AUTHOR/$IMG_NAME:$i"
-        done | xargs -rd\\n docker buildx build --platform="$IMG_PLATFORMS" \
+        done < <(printf '%s' "$docker_tags") |
+            xargs -rd\\n docker buildx build --platform="$IMG_PLATFORMS" \
             --iidfile=buildx-image-id.txt --metadata-file=buildx-metadata.txt \
             --push build/
         docker buildx rm

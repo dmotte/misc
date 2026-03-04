@@ -7,7 +7,8 @@ readonly add_ls_args=("$@")
 
 if [ "$USE_GIT_LS_FILES" = true ]; then
     files=$(git -C "$main_dir" ls-files "${add_ls_args[@]}")
-    files=$(echo "$files" | while IFS= read -r i; do echo "$main_dir/$i"; done)
+    files=$(printf '%s' "$files" |
+        while IFS= read -r i || [ -n "$i" ]; do echo "$main_dir/$i"; done)
 else
     files=$(find "$main_dir" -type f \! -path '*/.git/*' "${add_ls_args[@]}")
 fi
@@ -15,13 +16,10 @@ fi
 # We don't use grep's "-I" option here because, since we also use "-z",
 # grep is expecting NUL bytes, so its binary detection becomes
 # unreliable
-files_bad=$(echo -n "$files" | xargs -rd\\n grep -LPz '\n\z' || :)
+files_bad=$(printf '%s' "$files" | xargs -rd\\n grep -LPz '\n\z' || :)
 
-# Quit early if no items, to avoid running an iteration of the loop with an
-# empty string. Note that we need to specify the "0" exit code explicitly here
-[ -n "$files_bad" ] || exit 0
 # Filter out binary files
-files_bad=$(echo "$files_bad" | while IFS= read -r i; do
+files_bad=$(printf '%s' "$files_bad" | while IFS= read -r i || [ -n "$i" ]; do
     grep -I . "$i" >/dev/null || continue; echo "$i"; done)
 
 [ -z "$files_bad" ] || {

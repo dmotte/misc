@@ -11,13 +11,13 @@ realpath_main_dir=$(realpath "$main_dir")
 if [ "$USE_GIT_LS_FILES" = true ]; then
     files=$(git -C "$main_dir" ls-files \
         ':(icase)README.md' ':(icase)*/README.md')
-    files=$(echo "$files" | while IFS= read -r i; do
+    files=$(printf '%s' "$files" | while IFS= read -r i || [ -n "$i" ]; do
         echo "$realpath_main_dir/$i"; done)
 else
     files=$(find "$realpath_main_dir" -type f -iname README.md)
 fi
 
-echo "$files" | while IFS= read -r i; do
+while IFS= read -r i || [ -n "$i" ]; do
     echo "Checking $i"
 
     parent_dir=${i%/*}
@@ -26,4 +26,4 @@ echo "$files" | while IFS= read -r i; do
 
     [ "$expected" = "$actual" ] ||
         { echo "README header mismatch in $i: $actual" >&2; exit 1; }
-done
+done < <(printf '%s' "$files")

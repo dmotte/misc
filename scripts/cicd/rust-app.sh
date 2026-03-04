@@ -87,7 +87,7 @@ echo "::group::$0: Set the right version"
 echo '::endgroup::'
 
 echo "::group::$0: Build (cargo build)"
-    echo "$build_targets" | while IFS= read -r i; do
+    while IFS= read -r i || [ -n "$i" ]; do
         case $i in
         aarch64-unknown-linux-gnu)
             apt_update_if_old
@@ -117,13 +117,13 @@ echo "::group::$0: Build (cargo build)"
 
         rustup target add "$i"
         cargo build -r --target "$i"
-    done
+    done < <(printf '%s' "$build_targets")
 echo '::endgroup::'
 
 echo "::group::$0: Artifact"
     mkdir -pv cicd-artifact
 
-    echo "$build_targets" | while IFS= read -r i; do
+    while IFS= read -r i || [ -n "$i" ]; do
         src=target/$i/release/$proj_name
         [[ "$i" = *-pc-windows-* ]] && src+=.exe
         file_basename=$proj_name-$i
@@ -133,7 +133,7 @@ echo "::group::$0: Artifact"
         cp -Tv "$src" "$dst"
         echo "- &#x1F4E6; Artifact file: \`$file_basename\`" |
             tee -a "$CICD_SUMMARY"
-    done
+    done < <(printf '%s' "$build_targets")
 
     {
         echo 'artifact-name=artifact'

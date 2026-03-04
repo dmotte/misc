@@ -100,7 +100,7 @@ for i in "${fwds[@]}"; do vboxmanage modifyvm "$name" --natpf1 "$i"; done
 ################################################################################
 
 i=0
-while IFS= read -r size; do
+[ -z "$disks" ] || while IFS= read -r size || [ -n "$size" ]; do
     str_i=$(printf "%02d" "$i")
     virtdisk=$vbox_machinefolder/$name/disk$str_i.vdi
 
@@ -114,7 +114,7 @@ while IFS= read -r size; do
         --port "$i" --device 0 --type hdd --medium "$virtdisk"
 
     ((i+=1))
-done < <(echo "$disks" | tr , '\n')
+done < <(printf '%s\n' "$disks" | tr , '\n')
 
 if [ -n "$iso" ]; then
     echo "Mounting ISO file $iso into VM $name"

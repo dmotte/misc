@@ -27,3 +27,4 @@ while IFS= read -r line; do
     [ "$bn" = "$hash" ] ||
         { echo "File basename and hash differ: $line" >&2; exit 1; }
 done
+[ -z "$line" ] || { echo 'Unexpected EOF: missing newline' >&2; exit 1; }

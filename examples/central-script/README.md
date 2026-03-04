@@ -29,7 +29,8 @@ target_prepare() { sudo apt-get update; sudo apt-get install -y docker.io; }
 target_lint() { npx prettier -c .; }
 target_build_docker() { target_lint; docker build -t "$1" .; }
 
-echo "$1" | tr , '\n' | while IFS= read -r i; do "target_$i" "${@:2}"; done
+while IFS= read -r i || [ -n "$i" ]; do "target_$i" "${@:2}"
+    done < <(printf '%s\n' "$1" | tr , '\n')
 ```
 
 Then we can save it in the root of our project and invoke it like this:

@@ -73,7 +73,7 @@ Download the `metal-amd64.iso` **ISO file** from https://github.com/siderolabs/t
 Then you can leverage the [`create-vbox-vm-headless.sh`](https://github.com/dmotte/misc/blob/main/scripts/create-vbox-vm-headless.sh) script to **create the virtual machines** (replace `metal-amd64.iso` with the correct path of the ISO file):
 
 ```bash
-while read -r name cpus mem; do
+while read -r name cpus mem || [ -n "$name" ]; do
     bash create-vbox-vm-headless.sh -n"$name" -oLinux_64 \
         -c"$cpus" -m"$mem" -d102400 -i metal-amd64.iso
 

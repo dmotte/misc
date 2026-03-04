@@ -13,8 +13,8 @@ set -e
 # https://stackoverflow.com/a/24350112
 files=$(git grep -Il '')
 
-echo "$files" | while IFS= read -r file; do
+while IFS= read -r file || [ -n "$file" ]; do
     blame=$(git blame -t "$file")
     echo "$blame" | sed -E \
         's|^.+\(.+\s+([0-9]+)\s+[+0-9]+\s+([0-9]+)\) (.*)$|\1,'"$file"',\2,\3|'
-done
+done < <(printf '%s' "$files")

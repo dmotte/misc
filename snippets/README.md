@@ -91,7 +91,7 @@ Some pieces of code I find useful for some reason.
 - `git describe --tags --exact-match`, `git describe --tags --dirty`
 - `[ -z "$(git status -s)" ]`
 - `git reset --soft HEAD^ && git push --force`
-- `git log --follow --format=%H myfile.txt | while IFS= read -r i; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git cat-file -p "$i:./myfile.txt"); done`
+- `git log --follow --format=%H myfile.txt | while IFS= read -r i || [ -n "$i" ]; do echo -n "$i,$(git show -s --format=%aI "$i"),"; grep -ci 'mypattern' <(git cat-file -p "$i:./myfile.txt"); done`
 - `ssh-keygen -t ed25519 -C mydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -t rsa -b 4096 -C mydevice -f ~/.ssh/id_rsa`
 - `ssh-keygen -yf ~/.ssh/id_ed25519`
 - `ssh-copy-id myuser@192.168.0.123`
@@ -125,7 +125,7 @@ Some pieces of code I find useful for some reason.
 - `mkfifo mypipe; while :; do date | tee mypipe; done`
 - `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" -dchat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
 - `for i in 192.168.0.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
-- `find . -iname \*.mp3 -printf '%P\n' | ( echo '#EXTM3U'; while IFS= read -r i; do bn=${i##*/}; echo "#EXTINF:0,${bn%.*}"; echo "file://$HOME/Music/$i"; done )`
+- `find . -iname \*.mp3 -printf '%P\n' | ( echo '#EXTM3U'; while IFS= read -r i || [ -n "$i" ]; do bn=${i##*/}; echo "#EXTINF:0,${bn%.*}"; echo "file://$HOME/Music/$i"; done )`
 - `for i in var_01 VAR_02; do IFS= read -rsp "$i: " "${i?}"; if [[ "$i" = [[:upper:]]* ]]; then export "${i?}"; fi; done`
 - `shuf -en1 Alice Bob Carl`, `shuf -i1-10 -n1`
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`, `tr -cd ' -~' < /dev/random | head -c64; echo`, `tr -cd '0-9a-f' < /dev/random | for i in {1..10}; do head -c8; echo; done | LC_ALL=C sort -u | shuf`
@@ -212,7 +212,7 @@ Some pieces of code I find useful for some reason.
 - `LC_ALL=C grep --color '[^ -~]' myfile.txt`, `LC_ALL=C sed -i 's/[^ -~]/?/g' myfile.txt`
 - `sed -Ei 's/^#?force_color_prompt=.*$/force_color_prompt=yes/' ~/.bashrc`
 - `sed -Ei 's/^(\s+)#\s*(alias [ef]?grep='\''[ef]?grep --color=auto'\'')/\1\2/' ~/.bashrc`
-- `{ base64 -w256 myfile.txt; echo; echo 'Hello, World!'; } | { while IFS= read -r i; do [ -n "$i" ] || break; echo "$i"; done | base64 -d | cat -A; cat -A; }`
+- `{ base64 -w256 myfile.txt; echo; echo 'Hello, World!'; } | { while IFS= read -r i || [ -n "$i" ]; do [ -n "$i" ] || break; echo "$i"; done | base64 -d | cat -A; cat -A; }`
 - `bn=${path##*/}` (similar to `basename "$path"`), `stem=${bn%.*}` (filename stripped of its extension), `dn=${path%/*}` (similar to `dirname "$path"`)
 - `gtk-launch myapp.desktop`
 - `update-desktop-database -v ~/.local/share/applications`, `xdg-desktop-menu forceupdate`

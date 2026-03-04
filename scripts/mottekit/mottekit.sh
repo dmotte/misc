@@ -24,7 +24,7 @@ print_subcmds() {
 
         find "$basedir/../../python-scripts" -mindepth 2 -maxdepth 2 \
             -type f -name '*.py' -printf "pyscr %P\n"
-    } | while read -r category name; do
+    } | while read -r category name || [ -n "$category" ]; do
         case $name in
             */main.sh) name="${name%/main.sh}";;
             */main.py) name="${name%/main.py}";;
@@ -40,7 +40,7 @@ print_subcmds() {
 
     find "$basedir/../../.." -mindepth 3 -maxdepth 3 \
         -type f -name 'cli.py' -printf "pypkg %P\n" |
-    while read -r category name; do
+    while read -r category name || [ -n "$category" ]; do
         name="${name%/cli.py}"
 
         local bn; bn=${name##*/}
@@ -51,7 +51,7 @@ print_subcmds() {
 
     find "$basedir/../../.." -mindepth 3 -maxdepth 3 \
         -type f -path '*/example/*.py' -printf "pyscr %P\n" |
-    while read -r category name; do
+    while read -r category name || [ -n "$category" ]; do
         name="${name%.py}"
 
         echo "$category $name"

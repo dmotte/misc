@@ -92,21 +92,23 @@ echo "::group::$0: Build"
             echo '- &#x1F4C1; Excluded items:' \
                 "\`${MKDOCS_DOCS_EXCLUDES//,/'`, `'}\`" | tee -a "$CICD_SUMMARY"
 
-            real_excludes=$(echo "$MKDOCS_DOCS_EXCLUDES" | tr , '\n' |
-                while IFS= read -r i; do realpath "$real_src/$i"; done)
+            real_excludes=$(printf '%s\n' "$MKDOCS_DOCS_EXCLUDES" | tr , '\n' |
+                while IFS= read -r i || [ -n "$i" ]; do
+                    realpath "$real_src/$i"; done)
             echo 'Excluded paths:'; echo "$real_excludes"
-            mapfile -t args_excludes < <(echo "$real_excludes" |
-                while IFS= read -r i; do echo \!; echo '-path'; echo "$i"; done)
+            mapfile -t args_excludes < <(printf '%s' "$real_excludes" |
+                while IFS= read -r i || [ -n "$i" ]; do
+                    echo \!; echo '-path'; echo "$i"; done)
         else
             echo 'Excluded paths: (none)'
             args_excludes=()
         fi
 
         items=$(find "$real_src" -mindepth 1 -maxdepth 1 "${args_excludes[@]}")
-        echo "$items" | while IFS= read -r i; do
+        while IFS= read -r i || [ -n "$i" ]; do
             echo "Copying $i into $real_dst"
             cp -Rt"$real_dst" "$i"
-        done
+        done < <(printf '%s' "$items")
     fi
 
     venv/bin/python3 -mmkdocs build -s \

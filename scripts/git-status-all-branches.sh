@@ -16,14 +16,14 @@ for arg; do
         git fetch --all # Fetch all branches from all the remotes
 
         refs_remotes=$(git for-each-ref --format='%(refname)' refs/remotes)
-        echo "$refs_remotes" | while IFS= read -r i; do
+        while IFS= read -r i || [ -n "$i" ]; do
             j=${i#refs/remotes/origin/}
             if [ "$j" = HEAD ] || [ "$j" = "$i" ] || [ -z "$j" ]
                 then continue; fi
 
             git switch -q "$j"
             git status -bs
-        done
+        done < <(printf '%s' "$refs_remotes")
 
         git switch -q "$branch_final"
     )
