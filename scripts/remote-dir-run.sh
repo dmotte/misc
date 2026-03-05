@@ -48,7 +48,8 @@ cmd2=("${cmd1[@]}")
 
 if [ -n "$RDR_ADD_CMD2_ARGS" ]; then
     while IFS= read -r i || [ -n "$i" ]; do
-        IFS= read -r str; cmd2=("${cmd2[@]:0:i}" "$str" "${cmd2[@]:i}")
+        IFS= read -r str || [ -n "$str" ]
+        cmd2=("${cmd2[@]:0:i}" "$str" "${cmd2[@]:i}")
     done < <(printf '%s\n' "$RDR_ADD_CMD2_ARGS" | tr , '\n')
 fi
 
