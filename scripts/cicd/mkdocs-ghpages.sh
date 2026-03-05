@@ -61,7 +61,7 @@ echo "::group::$0: Dependencies"
         deps_commas=$(echo "$deps_lines" | paste -sd,)
     elif [ -n "$MKDOCS_DEPS" ]; then
         deps_mode=manual
-        deps_lines=$(echo "$MKDOCS_DEPS" | tr , '\n')
+        deps_lines=$(printf '%s\n' "$MKDOCS_DEPS" | tr , '\n')
         deps_commas=$MKDOCS_DEPS
     fi
 
