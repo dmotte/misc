@@ -89,6 +89,15 @@
         }
       }
 
+      function xmlescape(x) {
+        return x
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&apos;");
+      }
+
       class UI {
         // List of all the possible states:
         // https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2022-11-28#get-a-codespace-for-the-authenticated-user
@@ -119,22 +128,43 @@
             if (!Object.hasOwn(data, csID)) continue;
 
             const csState = data[csID].state;
-            const csStateIcon = this.codespaceStates[csState].icon;
-            const csStateColor = this.codespaceStates[csState].color;
+            const csStateIcon = this.codespaceStates[csState].icon,
+              csStateColor = this.codespaceStates[csState].color;
+
+            const escID = xmlescape(csID),
+              escState = xmlescape(csState),
+              escStateIcon = xmlescape(csStateIcon),
+              escStateColor = xmlescape(csStateColor);
 
             result += `
               <tr>
                 <td>
-                  <span class="cursor-pointer material-symbols-outlined" title="Fetch state" onclick="UI.btnFetchState_onclick('${csID}')">autorenew</span>
+                  <span class="cursor-pointer material-symbols-outlined"
+                    title="Fetch state"
+                    onclick="UI.btnFetchState_onclick('${escID}')">
+                    autorenew
+                  </span>
                 </td>
                 <td>
-                  <span class="cursor-default material-symbols-outlined color-${csStateColor}" title="${csState}">${csStateIcon}</span>
+                  <span class="cursor-default material-symbols-outlined
+                      color-${escStateColor}"
+                    title="${escState}">
+                    ${escStateIcon}
+                  </span>
                 </td>
-                <td>${csID}</td>
+                <td>${escID}</td>
                 <td>
                   &nbsp;
-                  <span class="cursor-pointer material-symbols-outlined" title="Stop" onclick="UI.btnStop_onclick('${csID}')">stop</span>
-                  <span class="cursor-pointer material-symbols-outlined" title="Start" onclick="UI.btnStart_onclick('${csID}')">play_arrow</span>
+                  <span class="cursor-pointer material-symbols-outlined"
+                    title="Stop"
+                    onclick="UI.btnStop_onclick('${escID}')">
+                    stop
+                  </span>
+                  <span class="cursor-pointer material-symbols-outlined"
+                    title="Start"
+                    onclick="UI.btnStart_onclick('${escID}')">
+                    play_arrow
+                  </span>
                 </td>
               </tr>
             `;
