@@ -99,7 +99,7 @@
           .replaceAll("'", "&apos;");
       }
 
-      class UI {
+      class App {
         // List of all the possible states:
         // https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2022-11-28#get-a-codespace-for-the-authenticated-user
         static codespaceStates = {
@@ -142,7 +142,7 @@
                 <td>
                   <span class="cursor-pointer material-symbols-outlined"
                     title="Fetch state"
-                    onclick="UI.btnFetchState_onclick('${escID}')">
+                    onclick="App.btnFetchState_onclick('${escID}')">
                     autorenew
                   </span>
                 </td>
@@ -158,12 +158,12 @@
                   &nbsp;
                   <span class="cursor-pointer material-symbols-outlined"
                     title="Stop"
-                    onclick="UI.btnStop_onclick('${escID}')">
+                    onclick="App.btnStop_onclick('${escID}')">
                     stop
                   </span>
                   <span class="cursor-pointer material-symbols-outlined"
                     title="Start"
-                    onclick="UI.btnStart_onclick('${escID}')">
+                    onclick="App.btnStart_onclick('${escID}')">
                     play_arrow
                   </span>
                 </td>
@@ -240,7 +240,7 @@
     </script>
   </head>
 
-  <body onload="UI.load()">
+  <body onload="App.load()">
     <h1>cslcmgr</h1>
 
     <div class="view" id="viewMain" hidden>

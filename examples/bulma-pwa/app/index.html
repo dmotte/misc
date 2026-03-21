@@ -60,7 +60,7 @@
         }
       }
 
-      class UI {
+      class App {
         static load() {
           const notifPWA = document.getElementById("notifPWA");
 
@@ -95,7 +95,7 @@
     </script>
   </head>
 
-  <body onload="UI.load()">
+  <body onload="App.load()">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="#"><b>PWA</b></a>
@@ -157,7 +157,7 @@
             <strong>PWA</strong>
           </div>
           <div class="block">
-            <button class="button is-light" onclick="UI.btnInstall_onclick()">
+            <button class="button is-light" onclick="App.btnInstall_onclick()">
               <span class="icon">
                 <span class="material-symbols-outlined">install_desktop</span>
               </span>
