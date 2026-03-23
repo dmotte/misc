@@ -4,8 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
 
   <title>reCAPTCHA v2 PHP Demo</title>
+
+  <style type="text/css">
+    :root {
+      color-scheme: light dark;
+    }
+  </style>
 
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>

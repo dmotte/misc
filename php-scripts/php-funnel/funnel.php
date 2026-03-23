@@ -113,19 +113,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
 
     <title>Funnel</title>
 
     <style type="text/css">
+        :root {
+            color-scheme: light dark;
+        }
+
         body,
         td,
         th {
             font-family: sans-serif;
-        }
-
-        body {
-            background-color: #222;
-            color: #ccc;
         }
     </style>
 
