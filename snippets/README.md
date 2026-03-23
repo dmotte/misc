@@ -600,7 +600,7 @@ function formatSize(bytes, useBinary = true, decimals = 1) {
   let i = Math.floor(Math.log(absBytes) / Math.log(k));
   if (i >= units.length) i = units.length - 1;
 
-  const val = parseFloat((absBytes / Math.pow(k, i)).toFixed(decimals));
+  const val = parseFloat((absBytes / k ** i).toFixed(decimals));
 
   return `${sign}${val} ${units[i]}`;
 }
