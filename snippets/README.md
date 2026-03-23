@@ -561,6 +561,19 @@ def xmlescape(x: str) -> str:
     return x
 ```
 
+## JavaScript
+
+```javascript
+function xmlescape(x) {
+  return x
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+```
+
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
