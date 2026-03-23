@@ -627,6 +627,11 @@ function formatDuration(sec) {
 }
 ```
 
+```javascript
+// We use Swedish locale to get a local ISO-style "YYYY-mm-dd HH:MM:SS"
+console.log(new Date().toLocaleString("sv-SE"));
+```
+
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
