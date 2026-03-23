@@ -24,22 +24,17 @@
         font-family: sans-serif;
       }
 
-      body {
-        background-color: #222;
-        color: #ccc;
-      }
-
       .color-green {
         color: #0c0;
       }
       .color-yellow {
-        color: #ca0;
+        color: #fc0;
       }
       .color-red {
         color: #d00;
       }
-      .color-grey {
-        color: #aaa;
+      .color-default {
+        color: revert;
       }
 
       .cursor-default {
@@ -108,10 +103,10 @@
         // List of all the possible states:
         // https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2022-11-28#get-a-codespace-for-the-authenticated-user
         static codespaceStates = {
-          Archived: { icon: "offline_pin", color: "grey" },
+          Archived: { icon: "offline_pin", color: "default" },
           Available: { icon: "circle", color: "green" },
           Awaiting: { icon: "pending", color: "yellow" },
-          Created: { icon: "stars", color: "grey" },
+          Created: { icon: "stars", color: "default" },
           Deleted: { icon: "cancel", color: "red" },
           Exporting: { icon: "outbound", color: "yellow" },
           Failed: { icon: "error", color: "red" },
@@ -119,11 +114,11 @@
           Provisioning: { icon: "pending", color: "yellow" },
           Queued: { icon: "pending", color: "yellow" },
           Rebuilding: { icon: "build_circle", color: "yellow" },
-          Shutdown: { icon: "cancel", color: "grey" },
+          Shutdown: { icon: "cancel", color: "default" },
           ShuttingDown: { icon: "pending", color: "yellow" },
           Starting: { icon: "pending", color: "yellow" },
           Unavailable: { icon: "cancel", color: "red" },
-          Unknown: { icon: "help", color: "grey" },
+          Unknown: { icon: "help", color: "default" },
           Updating: { icon: "pending", color: "yellow" },
         };
 
