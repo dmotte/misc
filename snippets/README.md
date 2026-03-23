@@ -574,6 +574,27 @@ function xmlescape(x) {
 }
 ```
 
+```javascript
+function formatDuration(sec) {
+  if (!isFinite(sec)) return "";
+
+  const sign = sec < 0 ? "-" : "",
+    absSec = Math.abs(sec);
+
+  const h = Math.floor(absSec / 3600),
+    m = Math.floor((absSec / 60) % 60),
+    s = Math.floor(absSec % 60);
+
+  return (
+    sign +
+    (h > 0 ? `${h}:` : "") +
+    String(m).padStart(2, "0") +
+    ":" +
+    String(s).padStart(2, "0")
+  );
+}
+```
+
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
