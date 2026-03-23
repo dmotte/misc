@@ -64,13 +64,13 @@
 
         if (bytes === 0) return "0 B";
 
-        const sign = bytes < 0 ? "-" : "";
-        const absBytes = Math.abs(bytes);
+        const sign = bytes < 0 ? "-" : "",
+          absBytes = Math.abs(bytes);
 
-        const k = useBinary ? 1024 : 1000;
-        const units = useBinary
-          ? ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
-          : ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+        const k = useBinary ? 1024 : 1000,
+          units = useBinary
+            ? ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
+            : ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
         let i = Math.floor(Math.log(absBytes) / Math.log(k));
         if (i >= units.length) i = units.length - 1;
