@@ -575,6 +575,29 @@ function xmlescape(x) {
 ```
 
 ```javascript
+function formatSize(bytes, useBinary = true, decimals = 1) {
+  if (!isFinite(bytes)) return "";
+
+  if (bytes === 0) return "0 B";
+
+  const sign = bytes < 0 ? "-" : "",
+    absBytes = Math.abs(bytes);
+
+  const k = useBinary ? 1024 : 1000,
+    units = useBinary
+      ? ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
+      : ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+
+  let i = Math.floor(Math.log(absBytes) / Math.log(k));
+  if (i >= units.length) i = units.length - 1;
+
+  const val = parseFloat((absBytes / Math.pow(k, i)).toFixed(decimals));
+
+  return `${sign}${val} ${units[i]}`;
+}
+```
+
+```javascript
 function formatDuration(sec) {
   if (!isFinite(sec)) return "";
 
