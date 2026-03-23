@@ -501,11 +501,6 @@ EOF
 - `termux-open-url https://example.com/`
 - `termux-setup-storage`
 
-## Prometheus queries
-
-- `abs(mymetric - mymetric offset 1m)`
-- `(mymetric > 0.50) and on() (4*60+20 <= hour()*60+minute() <= 4*60+40)`
-
 ## Python
 
 - `os.chdir(os.path.dirname(os.path.realpath(__file__)))`
@@ -555,3 +550,8 @@ def normlz_num(x: int | float) -> int | float:
     '''
     return int(x) if isinstance(x, float) and x.is_integer() else x
 ```
+
+## Prometheus queries
+
+- `abs(mymetric - mymetric offset 1m)`
+- `(mymetric > 0.50) and on() (4*60+20 <= hour()*60+minute() <= 4*60+40)`
