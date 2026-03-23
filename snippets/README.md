@@ -551,6 +551,16 @@ def normlz_num(x: int | float) -> int | float:
     return int(x) if isinstance(x, float) and x.is_integer() else x
 ```
 
+```python
+def xmlescape(x: str) -> str:
+    x = x.replace('&', '&amp;')
+    x = x.replace('<', '&lt;')
+    x = x.replace('>', '&gt;')
+    x = x.replace('"', '&quot;')
+    x = x.replace("'", '&apos;')
+    return x
+```
+
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
