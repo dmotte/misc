@@ -575,6 +575,15 @@ function xmlescape(x) {
 ```
 
 ```javascript
+function getCookie(name) {
+  const value = document.cookie
+    .split("; ")
+    .find((c) => c.startsWith(name + "="));
+  return value ? value.split("=")[1] : null;
+}
+```
+
+```javascript
 function formatSize(bytes, useBinary = true, decimals = 1) {
   if (!isFinite(bytes)) return "";
 
