@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+
+    <title>Directory index</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+    />
+
+    <style type="text/css">
+      :root {
+        color-scheme: light dark;
+      }
+
+      body,
+      td,
+      th {
+        font-family: sans-serif;
+      }
+
+      .icon-sort {
+        vertical-align: middle;
+        font-size: 16px;
+        color: #888;
+      }
+
+      .color-green {
+        color: #0c0;
+      }
+      .color-yellow {
+        color: #fc0;
+      }
+      .color-grey {
+        color: #888;
+      }
+
+      .cursor-pointer {
+        cursor: pointer;
+      }
+
+      .cell-pad-left {
+        padding-left: 10px;
+      }
+    </style>
+
+    <script type="text/javascript">
+      function xmlescape(x) {
+        return x
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&apos;");
+      }
+
+      function formatSize(bytes, useBinary = true, decimals = 1) {
+        if (!isFinite(bytes)) return "";
+
+        if (bytes === 0) return "0 B";
+
+        const sign = bytes < 0 ? "-" : "";
+        const absBytes = Math.abs(bytes);
+
+        const k = useBinary ? 1024 : 1000;
+        const units = useBinary
+          ? ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
+          : ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+
+        let i = Math.floor(Math.log(absBytes) / Math.log(k));
+        if (i >= units.length) i = units.length - 1;
+
+        const val = parseFloat((absBytes / Math.pow(k, i)).toFixed(decimals));
+
+        return `${sign}${val} ${units[i]}`;
+      }
+
+      class App {
+        // -----BEGIN DIRECTORY DATA-----
+        static dirPath = "/home/myuser/mydir";
+        static dirContent = [
+          ["mysubdir01", -1, 1577836800_000],
+          ["mysubdir02", -1, 1612325106_000],
+          ["myfile01.txt", 123, 1234567890_000],
+          ["myfile02.png", 123456, 1234567890_000],
+          ["File with a long name and spaces.txt", 1024, 1234567890_000],
+        ];
+        // -----END DIRECTORY DATA-----
+
+        // Sort column. Possible values: "name", "size", "lastmod"
+        static sortCol = "name";
+        // Sort direction. Possible values: "asc", "desc"
+        static sortDir = "asc";
+
+        static buildTable() {
+          const iconsSort = {
+            name: document.getElementById("icoSortName"),
+            size: document.getElementById("icoSortSize"),
+            lastmod: document.getElementById("icoSortLastmod"),
+          };
+
+          for (const [col, icon] of Object.entries(iconsSort)) {
+            if (col === this.sortCol)
+              icon.textContent =
+                this.sortDir === "asc"
+                  ? "keyboard_arrow_up"
+                  : "keyboard_arrow_down";
+            else icon.textContent = "";
+          }
+
+          //////////////////////////////////////////////////////////////////////
+
+          const sortIndex = ["name", "size", "lastmod"].indexOf(this.sortCol);
+          const sortDesc = this.sortDir === "desc";
+
+          const sortDirsFirst = document.getElementById("chkDirsFirst").checked;
+
+          const sortedContent = this.dirContent.toSorted((a, b) => {
+            if (sortDirsFirst)
+              if (a[1] < 0 && b[1] >= 0) return -1;
+              else if (b[1] < 0 && a[1] >= 0) return 1;
+
+            if (a[sortIndex] === b[sortIndex]) return 0;
+
+            if (sortDesc) return a[sortIndex] > b[sortIndex] ? -1 : 1;
+            else return a[sortIndex] > b[sortIndex] ? 1 : -1;
+          });
+
+          //////////////////////////////////////////////////////////////////////
+
+          const tbody = document.getElementById("tblItems").tBodies[0];
+
+          let tbodyHTML = "";
+
+          for (const item of sortedContent) {
+            const [name, size, lastmod] = item;
+            const isDir = size < 0;
+
+            const icon = isDir ? "folder" : "draft",
+              color = isDir ? "yellow" : "grey";
+
+            const escName = xmlescape(name),
+              escSize = xmlescape(String(size)),
+              escLastmod = xmlescape(String(lastmod)),
+              fmtSize = isDir ? "" : formatSize(size),
+              // We use Swedish locale to get a local ISO-style "YYYY-mm-dd HH:MM:SS"
+              fmtLastmod = new Date(lastmod).toLocaleString("sv-SE");
+
+            tbodyHTML += `
+              <tr>
+                <td>
+                  <span class="material-symbols-outlined color-${color}">
+                    ${icon}
+                  </span>
+                </td>
+                <td><a href="${escName}">${escName}</a></td>
+                <td class="cell-pad-left"
+                  title="${isDir ? "" : escSize + " bytes"}">
+                  ${fmtSize}
+                </td>
+                <td class="cell-pad-left" title="${escLastmod}">
+                  ${fmtLastmod}
+                </td>
+              </tr>
+            `;
+          }
+
+          tbody.innerHTML = tbodyHTML;
+        }
+
+        static load() {
+          const title = "Index of " + this.dirPath;
+          document.title = title;
+          document.getElementById("titleMain").textContent = title;
+
+          this.buildTable();
+        }
+
+        static thSort_onclick(col) {
+          if (col === this.sortCol)
+            this.sortDir = this.sortDir === "asc" ? "desc" : "asc";
+          else [this.sortCol, this.sortDir] = [col, "asc"];
+
+          this.buildTable();
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <h1 id="titleMain">Directory index</h1>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <span class="material-symbols-outlined color-green">
+              arrow_upward
+            </span>
+          </td>
+          <td><a href="..">Parent directory</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p></p>
+
+    <table id="tblItems">
+      <thead>
+        <tr>
+          <th>
+            <label title="Dirs before files">
+              <input
+                type="checkbox"
+                id="chkDirsFirst"
+                checked
+                onchange="App.buildTable()"
+              />
+            </label>
+          </th>
+          <th class="cursor-pointer" onclick="App.thSort_onclick('name')">
+            Name
+            <span
+              id="icoSortName"
+              class="material-symbols-outlined icon-sort"
+            ></span>
+          </th>
+          <th
+            class="cell-pad-left cursor-pointer"
+            onclick="App.thSort_onclick('size')"
+          >
+            Size
+            <span
+              id="icoSortSize"
+              class="material-symbols-outlined icon-sort"
+            ></span>
+          </th>
+          <th
+            class="cell-pad-left cursor-pointer"
+            onclick="App.thSort_onclick('lastmod')"
+          >
+            Modified
+            <span
+              id="icoSortLastmod"
+              class="material-symbols-outlined icon-sort"
+            ></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="text/javascript">
+      // Run immediately after HTML parses to prevent flickering on load
+      App.load();
+    </script>
+  </body>
+</html>
