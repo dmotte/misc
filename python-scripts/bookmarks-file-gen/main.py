@@ -5,6 +5,7 @@ import sys
 from typing import TextIO
 
 
+# Src: https://github.com/dmotte/misc/tree/main/snippets
 def xmlescape(x: str) -> str:
     x = x.replace('&', '&amp;')
     x = x.replace('<', '&lt;')

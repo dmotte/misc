@@ -5,6 +5,7 @@
 
 // javascript:(function(){
 
+// Src: https://github.com/dmotte/misc/tree/main/snippets
 function xmlescape(x) {
   return x
     .replaceAll("&", "&amp;")
