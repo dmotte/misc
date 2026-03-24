@@ -182,7 +182,7 @@
         }
 
         static showViewMain(data) {
-          document.getElementById("tblMain").innerHTML =
+          document.getElementById("tblMain").tBodies[0].innerHTML =
             this.buildCodespacesTable(data);
           this.showView("viewMain");
         }
@@ -245,16 +245,20 @@
     <h1>cslcmgr</h1>
 
     <div class="view" id="viewMain" hidden>
-      <table id="tblMain"></table>
+      <table id="tblMain">
+        <tbody></tbody>
+      </table>
     </div>
 
     <div class="view" id="viewWaiting">
       <div class="color-yellow">
         <table>
-          <tr>
-            <td><span class="material-symbols-outlined">pending</span></td>
-            <td><b>Operation in progress</b></td>
-          </tr>
+          <tbody>
+            <tr>
+              <td><span class="material-symbols-outlined">pending</span></td>
+              <td><b>Operation in progress</b></td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <p style="margin: 10px 5px">
@@ -265,10 +269,12 @@
     <div class="view" id="viewError" hidden>
       <div class="color-red">
         <table>
-          <tr>
-            <td><span class="material-symbols-outlined">error</span></td>
-            <td><b>Error</b></td>
-          </tr>
+          <tbody>
+            <tr>
+              <td><span class="material-symbols-outlined">error</span></td>
+              <td><b>Error</b></td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <pre style="margin: 10px 5px" id="txtError">An error occurred</pre>
