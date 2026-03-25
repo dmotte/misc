@@ -66,12 +66,8 @@
           const notifPWA = document.getElementById("notifPWA");
 
           return PWAInstallPrompt.initialize(
-            () => {
-              notifPWA.hidden = false;
-            },
-            () => {
-              notifPWA.hidden = true;
-            },
+            () => (notifPWA.hidden = false),
+            () => (notifPWA.hidden = true),
           );
         }
 
