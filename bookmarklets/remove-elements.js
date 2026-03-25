@@ -15,10 +15,9 @@ const rules = {
 
 const hostname = window.location.hostname;
 
-for (const [hn, selectors] of Object.entries(rules)) {
+for (const [hn, selectors] of Object.entries(rules))
   if (hostname.endsWith(hn))
     for (const s of selectors)
-      document.querySelectorAll(s).forEach((elem) => elem.remove());
-}
+      for (const elem of document.querySelectorAll(s)) elem.remove();
 
 // })();
