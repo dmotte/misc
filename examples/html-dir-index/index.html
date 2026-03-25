@@ -24,6 +24,10 @@
         font-family: sans-serif;
       }
 
+      .select-none {
+        user-select: none;
+      }
+
       .icon-sort {
         vertical-align: middle;
         font-size: 16px;
@@ -225,7 +229,10 @@
               />
             </label>
           </th>
-          <th class="cursor-pointer" onclick="App.thSort_onclick('name')">
+          <th
+            class="cursor-pointer select-none"
+            onclick="App.thSort_onclick('name')"
+          >
             Name
             <span
               id="icoSortName"
@@ -233,7 +240,7 @@
             ></span>
           </th>
           <th
-            class="cell-pad-left cursor-pointer"
+            class="cell-pad-left cursor-pointer select-none"
             onclick="App.thSort_onclick('size')"
           >
             Size
@@ -243,7 +250,7 @@
             ></span>
           </th>
           <th
-            class="cell-pad-left cursor-pointer"
+            class="cell-pad-left cursor-pointer select-none"
             onclick="App.thSort_onclick('lastmod')"
           >
             Modified
