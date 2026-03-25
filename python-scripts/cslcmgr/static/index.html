@@ -74,11 +74,11 @@
 
         static initialize(list) {
           this.data = {};
-          list.forEach((id) => {
+          for (const id of list) {
             if (!/^[0-9A-Za-z-]+$/u.test(id))
               throw new Error("Invalid codespace ID: " + id);
             this.data[id] = { state: "Unknown" };
-          });
+          }
         }
 
         static setState(id, state) {
@@ -176,9 +176,8 @@
         }
 
         static showView(id) {
-          document
-            .querySelectorAll(".view")
-            .forEach((view) => (view.hidden = view.id !== id));
+          for (const view of document.querySelectorAll(".view"))
+            view.hidden = view.id !== id;
         }
 
         static showViewMain(data) {
