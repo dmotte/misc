@@ -632,6 +632,17 @@ function formatDuration(sec) {
 console.log(new Date().toLocaleString("sv-SE"));
 ```
 
+```javascript
+/** Fisher-Yates (Knuth) shuffle algorithm */
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+```
+
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
