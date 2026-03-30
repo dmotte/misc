@@ -100,7 +100,7 @@
           this.showModalMsg("Installing...");
 
           (async () => {
-            const result = PWAInstallPrompt.install();
+            const result = await PWAInstallPrompt.install();
 
             notifPWA.hidden = true;
             // The result.outcome can be "accepted" or "dismissed". See
