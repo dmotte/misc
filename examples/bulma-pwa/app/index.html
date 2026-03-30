@@ -62,10 +62,33 @@
       }
 
       class App {
-        static load() {
+        static showModalMsg(msg = "") {
+          const modalMsg = document.getElementById("modalMsg"),
+            pMsg = document.getElementById("pMsg");
+
+          if (msg === "") {
+            modalMsg.classList.remove("is-active");
+            return;
+          }
+
+          pMsg.textContent = msg;
+          modalMsg.classList.add("is-active");
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+
+        static body_onload() {
+          window.addEventListener("error", (event) => {
+            this.showModalMsg(`ERROR: ${event.error}`);
+          });
+
+          window.addEventListener("unhandledrejection", (event) => {
+            this.showModalMsg(`ERROR: ${event.reason}`);
+          });
+
           const notifPWA = document.getElementById("notifPWA");
 
-          return PWAInstallPrompt.initialize(
+          PWAInstallPrompt.initialize(
             () => (notifPWA.hidden = false),
             () => (notifPWA.hidden = true),
           );
@@ -74,25 +97,26 @@
         static btnInstall_onclick() {
           const notifPWA = document.getElementById("notifPWA");
 
-          return PWAInstallPrompt.install()
-            .then((result) => {
-              notifPWA.hidden = true;
-              // The result.outcome can be "accepted" or "dismissed". See
-              // https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent/prompt#outcome
-              alert(
-                `The installation prompt has been ${result.outcome} by the user`,
-              );
-            })
-            .catch((error) => {
-              console.error(error);
-              document.body.textContent = "ERROR: " + error;
-            });
+          this.showModalMsg("Installing...");
+
+          (async () => {
+            const result = PWAInstallPrompt.install();
+
+            notifPWA.hidden = true;
+            // The result.outcome can be "accepted" or "dismissed". See
+            // https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent/prompt#outcome
+            alert(
+              `The installation prompt has been ${result.outcome} by the user`,
+            );
+
+            this.showModalMsg();
+          })();
         }
       }
     </script>
   </head>
 
-  <body onload="App.load()">
+  <body onload="App.body_onload()">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="#"><b>PWA</b></a>
@@ -199,5 +223,14 @@
         </div>
       </div>
     </section>
+
+    <div id="modalMsg" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <p id="pMsg"></p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
