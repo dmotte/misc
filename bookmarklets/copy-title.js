@@ -4,15 +4,24 @@
 
 // javascript:(function(){
 
-const content = document.title;
+function handleBookmarkletError(error) {
+  console.error(error);
+  alert(`ERROR: ${error}`);
+}
 
-navigator.clipboard
-  .writeText(content)
-  .then(() => {
-    alert(`Copied to clipboard:\n\n${content}`);
-  })
-  .catch((error) => {
-    alert("Error copying to clipboard: " + error);
-  });
+try {
+  const content = document.title;
+
+  navigator.clipboard
+    .writeText(content)
+    .then(() => {
+      alert(`Copied to clipboard:\n\n${content}`);
+    })
+    .catch((error) => {
+      handleBookmarkletError(error);
+    });
+} catch (error) {
+  handleBookmarkletError(error);
+}
 
 // })();

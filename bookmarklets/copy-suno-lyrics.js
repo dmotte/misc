@@ -5,21 +5,30 @@
 
 // javascript:(function(){
 
-const content = document
-  .getElementsByTagName("textarea")[0]
-  .value.trim()
-  .replaceAll("\r", "")
-  .split("\n")
-  .map((line) => line.trim())
-  .join("\n");
+function handleBookmarkletError(error) {
+  console.error(error);
+  alert(`ERROR: ${error}`);
+}
 
-navigator.clipboard
-  .writeText(content)
-  .then(() => {
-    alert(`Copied to clipboard:\n\n${content}`);
-  })
-  .catch((error) => {
-    alert("Error copying to clipboard: " + error);
-  });
+try {
+  const content = document
+    .getElementsByTagName("textarea")[0]
+    .value.trim()
+    .replaceAll("\r", "")
+    .split("\n")
+    .map((line) => line.trim())
+    .join("\n");
+
+  navigator.clipboard
+    .writeText(content)
+    .then(() => {
+      alert(`Copied to clipboard:\n\n${content}`);
+    })
+    .catch((error) => {
+      handleBookmarkletError(error);
+    });
+} catch (error) {
+  handleBookmarkletError(error);
+}
 
 // })();

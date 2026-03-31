@@ -4,35 +4,48 @@
 
 // javascript:(function(){
 
-const btnFullscreen = document.createElement("button");
+function handleBookmarkletError(error) {
+  console.error(error);
+  alert(`ERROR: ${error}`);
+}
 
-btnFullscreen.textContent = "GO FULLSCREEN";
+try {
+  const btnFullscreen = document.createElement("button");
 
-btnFullscreen.style.position = "fixed";
-btnFullscreen.style.top = "50%";
-btnFullscreen.style.left = "50%";
-btnFullscreen.style.transform = "translate(-50%, -50%)";
+  btnFullscreen.textContent = "GO FULLSCREEN";
 
-btnFullscreen.style.zIndex = "9999";
+  btnFullscreen.style.position = "fixed";
+  btnFullscreen.style.top = "50%";
+  btnFullscreen.style.left = "50%";
+  btnFullscreen.style.transform = "translate(-50%, -50%)";
 
-btnFullscreen.style.cursor = "pointer";
+  btnFullscreen.style.zIndex = "9999";
 
-btnFullscreen.style.backgroundColor = "#000";
-btnFullscreen.style.color = "#fff";
+  btnFullscreen.style.cursor = "pointer";
 
-btnFullscreen.style.fontSize = "20px";
-btnFullscreen.style.fontWeight = "bold";
+  btnFullscreen.style.backgroundColor = "#000";
+  btnFullscreen.style.color = "#fff";
 
-btnFullscreen.style.border = "1px solid #fff";
-btnFullscreen.style.padding = "20px 30px";
+  btnFullscreen.style.fontSize = "20px";
+  btnFullscreen.style.fontWeight = "bold";
 
-btnFullscreen.addEventListener("click", () => {
-  document.documentElement.requestFullscreen().catch((error) => {
-    alert("Error: " + error);
+  btnFullscreen.style.border = "1px solid #fff";
+  btnFullscreen.style.padding = "20px 30px";
+
+  btnFullscreen.addEventListener("click", () => {
+    try {
+      document.documentElement.requestFullscreen().catch((error) => {
+        handleBookmarkletError(error);
+      });
+      btnFullscreen.remove();
+    } catch (error) {
+      handleBookmarkletError(error);
+    }
   });
-  btnFullscreen.remove();
-});
 
-document.body.appendChild(btnFullscreen);
+  document.body.appendChild(btnFullscreen);
+} catch (error) {
+  handleBookmarkletError(error);
+}
 
 // })();

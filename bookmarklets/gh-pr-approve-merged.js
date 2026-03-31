@@ -5,6 +5,11 @@
 
 // javascript:(function(){
 
+function handleBookmarkletError(error) {
+  console.error(error);
+  alert(`ERROR: ${error}`);
+}
+
 function querySelectorOrErr(selectors) {
   const result = document.querySelector(selectors);
   if (result === null) throw new Error(`Element ${selectors} not found`);
@@ -23,7 +28,7 @@ try {
 
   formSubmitReview.submit();
 } catch (error) {
-  alert("Error: " + error);
+  handleBookmarkletError(error);
 }
 
 // })();

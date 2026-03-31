@@ -15,23 +15,32 @@ function xmlescape(x) {
     .replaceAll("'", "&apos;");
 }
 
-const contentHTML = `<a href="${xmlescape(window.location.href)}">${xmlescape(
-  document.title,
-)}</a>`;
-const contentPlain = document.title;
+function handleBookmarkletError(error) {
+  console.error(error);
+  alert(`ERROR: ${error}`);
+}
 
-navigator.clipboard
-  .write([
-    new ClipboardItem({
-      "text/html": new Blob([contentHTML], { type: "text/html" }),
-      "text/plain": new Blob([contentPlain], { type: "text/plain" }),
-    }),
-  ])
-  .then(() => {
-    alert(`Copied to clipboard:\n\n${contentHTML}\n\n${contentPlain}`);
-  })
-  .catch((error) => {
-    alert("Error copying to clipboard: " + error);
-  });
+try {
+  const contentHTML = `<a href="${xmlescape(window.location.href)}">${xmlescape(
+    document.title,
+  )}</a>`;
+  const contentPlain = document.title;
+
+  navigator.clipboard
+    .write([
+      new ClipboardItem({
+        "text/html": new Blob([contentHTML], { type: "text/html" }),
+        "text/plain": new Blob([contentPlain], { type: "text/plain" }),
+      }),
+    ])
+    .then(() => {
+      alert(`Copied to clipboard:\n\n${contentHTML}\n\n${contentPlain}`);
+    })
+    .catch((error) => {
+      handleBookmarkletError(error);
+    });
+} catch (error) {
+  handleBookmarkletError(error);
+}
 
 // })();

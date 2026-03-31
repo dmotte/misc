@@ -5,19 +5,28 @@
 
 // javascript:(function(){
 
-const rules = {
-  "stackoverflow.com": ["div#hot-network-questions"],
-  "youtube.com": [
-    "div.style-scope.ytd-watch-next-secondary-results-renderer",
-    "div.html5-endscreen.ytp-player-content.videowall-endscreen",
-  ],
-};
+function handleBookmarkletError(error) {
+  console.error(error);
+  alert(`ERROR: ${error}`);
+}
 
-const hostname = window.location.hostname;
+try {
+  const rules = {
+    "stackoverflow.com": ["div#hot-network-questions"],
+    "youtube.com": [
+      "div.style-scope.ytd-watch-next-secondary-results-renderer",
+      "div.html5-endscreen.ytp-player-content.videowall-endscreen",
+    ],
+  };
 
-for (const [hn, selectors] of Object.entries(rules))
-  if (hostname.endsWith(hn))
-    for (const s of selectors)
-      for (const elem of document.querySelectorAll(s)) elem.remove();
+  const hostname = window.location.hostname;
+
+  for (const [hn, selectors] of Object.entries(rules))
+    if (hostname.endsWith(hn))
+      for (const s of selectors)
+        for (const elem of document.querySelectorAll(s)) elem.remove();
+} catch (error) {
+  handleBookmarkletError(error);
+}
 
 // })();
