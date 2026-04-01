@@ -99,6 +99,10 @@
       }
 
       class App {
+        static csdata = null;
+
+        ////////////////////////////////////////////////////////////////////////
+
         // List of all the possible states:
         // https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2022-11-28#get-a-codespace-for-the-authenticated-user
         static codespaceStates = {
@@ -120,8 +124,6 @@
           Unknown: { icon: "help", color: "default" },
           Updating: { icon: "pending", color: "yellow" },
         };
-
-        static csdata = null;
 
         static buildCodespacesTable(data) {
           let result = "";
@@ -174,6 +176,8 @@
 
           return result;
         }
+
+        ////////////////////////////////////////////////////////////////////////
 
         static showView(id) {
           for (const view of document.querySelectorAll(".view"))
