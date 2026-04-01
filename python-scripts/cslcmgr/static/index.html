@@ -70,23 +70,21 @@
       }
 
       class CodespacesData {
-        static data = {};
-
-        static initialize(list) {
+        constructor(ids) {
           this.data = {};
-          for (const id of list) {
+          for (const id of ids) {
             if (!/^[0-9A-Za-z-]+$/u.test(id))
               throw new Error("Invalid codespace ID: " + id);
             this.data[id] = { state: "Unknown" };
           }
         }
 
-        static setState(id, state) {
+        setState(id, state) {
           this.data[id].state = state;
         }
 
-        static getData() {
-          return this.data;
+        getData() {
+          return structuredClone(this.data);
         }
       }
 
@@ -122,6 +120,8 @@
           Unknown: { icon: "help", color: "default" },
           Updating: { icon: "pending", color: "yellow" },
         };
+
+        static csdata = null;
 
         static buildCodespacesTable(data) {
           let result = "";
@@ -203,8 +203,8 @@
           this.showViewWaiting("Fetching the list of codespaces");
           return API.list()
             .then((data) => {
-              CodespacesData.initialize(data.codespaces);
-              this.showViewMain(CodespacesData.getData());
+              this.csdata = new CodespacesData(data.codespaces);
+              this.showViewMain(this.csdata.getData());
             })
             .catch((error) => this.error(error));
         }
@@ -213,8 +213,8 @@
           this.showViewWaiting("Fetching state of codespace " + id);
           return API.state(id)
             .then((data) => {
-              CodespacesData.setState(id, data.state);
-              this.showViewMain(CodespacesData.getData());
+              this.csdata.setState(id, data.state);
+              this.showViewMain(this.csdata.getData());
             })
             .catch((error) => this.error(error));
         }
@@ -222,8 +222,8 @@
           this.showViewWaiting("Stopping codespace " + id);
           return API.stop(id)
             .then(() => {
-              CodespacesData.setState(id, "Unknown");
-              this.showViewMain(CodespacesData.getData());
+              this.csdata.setState(id, "Unknown");
+              this.showViewMain(this.csdata.getData());
             })
             .catch((error) => this.error(error));
         }
@@ -231,8 +231,8 @@
           this.showViewWaiting("Starting codespace " + id);
           return API.start(id)
             .then(() => {
-              CodespacesData.setState(id, "Unknown");
-              this.showViewMain(CodespacesData.getData());
+              this.csdata.setState(id, "Unknown");
+              this.showViewMain(this.csdata.getData());
             })
             .catch((error) => this.error(error));
         }
