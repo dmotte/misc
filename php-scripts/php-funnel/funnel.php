@@ -125,37 +125,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <script type="text/javascript">
         function submitData() {
-            const formMain = document.getElementById('formMain');
-            const preStatus = document.getElementById('preStatus');
+            const formMain = document.getElementById("formMain");
+            const preStatus = document.getElementById("preStatus");
 
             const xhr = new XMLHttpRequest();
 
-            xhr.addEventListener('loadstart', () => {
-                preStatus.textContent = 'Request started';
+            xhr.addEventListener("loadstart", () => {
+                preStatus.textContent = "Request started";
             });
 
-            xhr.upload.addEventListener('progress', (event) => {
-                preStatus.textContent = 'Uploading: ' + (
+            xhr.upload.addEventListener("progress", (event) => {
+                preStatus.textContent = "Uploading: " + (
                     (event.loaded / event.total) * 100
-                ).toFixed(2) + '%';
+                ).toFixed(2) + "%";
             });
 
-            xhr.addEventListener('load', () => {
-                preStatus.textContent = 'Response: ' + xhr.status + ' ' +
-                    xhr.statusText + '\n\n' + xhr.responseText;
+            xhr.addEventListener("load", () => {
+                preStatus.textContent = "Response: " + xhr.status + " " +
+                    xhr.statusText + "\n\n" + xhr.responseText;
             });
 
-            xhr.addEventListener('abort', () => {
-                preStatus.textContent = 'Request aborted';
+            xhr.addEventListener("abort", () => {
+                preStatus.textContent = "Request aborted";
             });
-            xhr.addEventListener('error', () => {
-                preStatus.textContent = 'Request error';
+            xhr.addEventListener("error", () => {
+                preStatus.textContent = "Request error";
             });
-            xhr.addEventListener('timeout', () => {
-                preStatus.textContent = 'Request timeout';
+            xhr.addEventListener("timeout", () => {
+                preStatus.textContent = "Request timeout";
             });
 
-            xhr.open('POST', '', true);
+            xhr.open("POST", "", true);
             xhr.send(new FormData(formMain));
         }
     </script>
