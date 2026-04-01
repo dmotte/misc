@@ -132,14 +132,10 @@
         static update() {
           const tbody = document.getElementById("tblMain").tBodies[0];
 
-          const data = this.csdata.getData();
-
           let tbodyHTML = "";
 
-          for (const csID in data) {
-            if (!Object.hasOwn(data, csID)) continue;
-
-            const csState = data[csID].state;
+          for (const [csID, cs] of Object.entries(this.csdata.getData())) {
+            const csState = cs.state;
             const csStateIcon = this.codespaceStates[csState].icon,
               csStateColor = this.codespaceStates[csState].color;
 
