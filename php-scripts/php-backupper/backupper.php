@@ -1,11 +1,5 @@
 <?php
 
-/**
- * php-backupper v1.1.2
- * by dmotte
- * https://github.com/dmotte/misc/tree/main/php-scripts/php-backupper
- */
-
 //////////////////// BEGIN CONFIGURATION ////////////////////
 
 $cfg = [];

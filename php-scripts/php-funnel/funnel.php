@@ -1,11 +1,5 @@
 <?php
 
-/**
- * php-funnel v1.0.1
- * by dmotte
- * https://github.com/dmotte/misc/tree/main/php-scripts/php-funnel
- */
-
 //////////////////// BEGIN CONFIGURATION ////////////////////
 
 $cfg = [];
