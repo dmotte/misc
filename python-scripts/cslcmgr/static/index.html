@@ -125,8 +125,12 @@
           Updating: { icon: "pending", color: "yellow" },
         };
 
-        static buildCodespacesTable(data) {
-          let result = "";
+        static update() {
+          const tbody = document.getElementById("tblMain").tBodies[0];
+
+          const data = this.csdata.getData();
+
+          let tbodyHTML = "";
 
           for (const csID in data) {
             if (!Object.hasOwn(data, csID)) continue;
@@ -140,7 +144,7 @@
               escStateIcon = xmlescape(csStateIcon),
               escStateColor = xmlescape(csStateColor);
 
-            result += `
+            tbodyHTML += `
               <tr>
                 <td>
                   <span class="cursor-pointer material-symbols-outlined"
@@ -174,7 +178,7 @@
             `;
           }
 
-          return result;
+          tbody.innerHTML = tbodyHTML;
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -184,9 +188,8 @@
             view.hidden = view.id !== id;
         }
 
-        static showViewMain(data) {
-          document.getElementById("tblMain").tBodies[0].innerHTML =
-            this.buildCodespacesTable(data);
+        static showViewMain() {
+          this.update();
           this.showView("viewMain");
         }
         static showViewWaiting(text) {
@@ -208,7 +211,7 @@
           return API.list()
             .then((data) => {
               this.csdata = new CodespacesData(data.codespaces);
-              this.showViewMain(this.csdata.getData());
+              this.showViewMain();
             })
             .catch((error) => this.error(error));
         }
@@ -218,7 +221,7 @@
           return API.state(id)
             .then((data) => {
               this.csdata.setState(id, data.state);
-              this.showViewMain(this.csdata.getData());
+              this.showViewMain();
             })
             .catch((error) => this.error(error));
         }
@@ -227,7 +230,7 @@
           return API.stop(id)
             .then(() => {
               this.csdata.setState(id, "Unknown");
-              this.showViewMain(this.csdata.getData());
+              this.showViewMain();
             })
             .catch((error) => this.error(error));
         }
@@ -236,7 +239,7 @@
           return API.start(id)
             .then(() => {
               this.csdata.setState(id, "Unknown");
-              this.showViewMain(this.csdata.getData());
+              this.showViewMain();
             })
             .catch((error) => this.error(error));
         }
