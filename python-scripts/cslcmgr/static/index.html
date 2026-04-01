@@ -24,6 +24,10 @@
         font-family: sans-serif;
       }
 
+      .select-none {
+        user-select: none;
+      }
+
       .color-green {
         color: #0c0;
       }
@@ -146,31 +150,28 @@
 
             tbodyHTML += `
               <tr>
-                <td>
+                <td class="select-none">
                   <span class="cursor-pointer material-symbols-outlined"
                     title="Fetch state"
                     onclick="App.btnFetchState_onclick('${escID}')">
                     autorenew
                   </span>
                 </td>
-                <td>
+                <td class="select-none">
                   <span class="cursor-default material-symbols-outlined
-                      color-${escStateColor}"
-                    title="${escState}">
+                      color-${escStateColor}" title="${escState}">
                     ${escStateIcon}
                   </span>
                 </td>
                 <td>${escID}</td>
-                <td>
+                <td class="select-none">
                   &nbsp;
                   <span class="cursor-pointer material-symbols-outlined"
-                    title="Stop"
-                    onclick="App.btnStop_onclick('${escID}')">
+                    title="Stop" onclick="App.btnStop_onclick('${escID}')">
                     stop
                   </span>
                   <span class="cursor-pointer material-symbols-outlined"
-                    title="Start"
-                    onclick="App.btnStart_onclick('${escID}')">
+                    title="Start" onclick="App.btnStart_onclick('${escID}')">
                     play_arrow
                   </span>
                 </td>
