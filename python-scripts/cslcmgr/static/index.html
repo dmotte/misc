@@ -24,6 +24,11 @@
         font-family: sans-serif;
       }
 
+      #dialogMsg::backdrop {
+        background-color: #1118;
+        backdrop-filter: blur(3px);
+      }
+
       .select-none {
         user-select: none;
       }
@@ -103,6 +108,20 @@
       }
 
       class App {
+        static showModalMsg(msg = "") {
+          const dialogMsg = document.getElementById("dialogMsg");
+
+          if (msg === "") {
+            dialogMsg.close();
+            return;
+          }
+
+          dialogMsg.textContent = msg;
+          dialogMsg.showModal();
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+
         static csdata = null;
 
         ////////////////////////////////////////////////////////////////////////
@@ -180,107 +199,76 @@
 
         ////////////////////////////////////////////////////////////////////////
 
-        static showView(id) {
-          for (const view of document.querySelectorAll(".view"))
-            view.hidden = view.id !== id;
-        }
+        static body_onload() {
+          window.addEventListener("error", (event) => {
+            this.showModalMsg(`ERROR: ${event.error}`);
+          });
 
-        static showViewMain() {
-          this.update();
-          this.showView("viewMain");
-        }
-        static showViewWaiting(text) {
-          document.getElementById("txtWaiting").textContent = text;
-          this.showView("viewWaiting");
-        }
-        static showViewError(text) {
-          document.getElementById("txtError").textContent = text;
-          this.showView("viewError");
-        }
+          window.addEventListener("unhandledrejection", (event) => {
+            this.showModalMsg(`ERROR: ${event.reason}`);
+          });
 
-        static error(error) {
-          console.error(error);
-          this.showViewError(error);
-        }
+          this.showModalMsg("Fetching codespaces list...");
 
-        static load() {
-          this.showViewWaiting("Fetching the list of codespaces");
-          return API.list()
-            .then((data) => {
-              this.csdata = new CodespacesData(data.codespaces);
-              this.showViewMain();
-            })
-            .catch((error) => this.error(error));
+          (async () => {
+            const data = await API.list();
+
+            this.csdata = new CodespacesData(data.codespaces);
+            this.update();
+
+            this.showModalMsg();
+          })();
         }
 
         static btnFetchState_onclick(id) {
-          this.showViewWaiting("Fetching state of codespace " + id);
-          return API.state(id)
-            .then((data) => {
-              this.csdata.setState(id, data.state);
-              this.showViewMain();
-            })
-            .catch((error) => this.error(error));
+          this.showModalMsg(`Fetching state of codespace ${id}...`);
+
+          (async () => {
+            const data = await API.state(id);
+
+            this.csdata.setState(id, data.state);
+            this.update();
+
+            this.showModalMsg();
+          })();
         }
+
         static btnStop_onclick(id) {
-          this.showViewWaiting("Stopping codespace " + id);
-          return API.stop(id)
-            .then(() => {
-              this.csdata.setState(id, "Unknown");
-              this.showViewMain();
-            })
-            .catch((error) => this.error(error));
+          this.showModalMsg(`Stopping codespace ${id}...`);
+
+          (async () => {
+            await API.stop(id);
+
+            this.csdata.setState(id, "Unknown");
+            this.update();
+
+            this.showModalMsg();
+          })();
         }
+
         static btnStart_onclick(id) {
-          this.showViewWaiting("Starting codespace " + id);
-          return API.start(id)
-            .then(() => {
-              this.csdata.setState(id, "Unknown");
-              this.showViewMain();
-            })
-            .catch((error) => this.error(error));
+          this.showModalMsg(`Starting codespace ${id}...`);
+
+          (async () => {
+            await API.start(id);
+
+            this.csdata.setState(id, "Unknown");
+            this.update();
+
+            this.showModalMsg();
+          })();
         }
       }
     </script>
   </head>
 
-  <body onload="App.load()">
+  <body onload="App.body_onload()">
     <h1>cslcmgr</h1>
 
-    <div class="view" id="viewMain" hidden>
-      <table id="tblMain">
-        <tbody></tbody>
-      </table>
-    </div>
+    <table id="tblMain">
+      <tbody></tbody>
+    </table>
 
-    <div class="view" id="viewWaiting">
-      <div class="color-yellow">
-        <table>
-          <tbody>
-            <tr>
-              <td><span class="material-symbols-outlined">pending</span></td>
-              <td><b>Operation in progress</b></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="margin: 10px 5px">
-        <i id="txtWaiting">Loading</i>
-      </p>
-    </div>
-
-    <div class="view" id="viewError" hidden>
-      <div class="color-red">
-        <table>
-          <tbody>
-            <tr>
-              <td><span class="material-symbols-outlined">error</span></td>
-              <td><b>Error</b></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <pre style="margin: 10px 5px" id="txtError">An error occurred</pre>
-    </div>
+    <dialog id="dialogMsg" closedby="none"></dialog>
   </body>
 </html>
