@@ -121,59 +121,92 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         th {
             font-family: sans-serif;
         }
+
+        #dialogMsg::backdrop {
+            background-color: #1118;
+            backdrop-filter: blur(3px);
+        }
     </style>
 
     <script type="text/javascript">
-        function submitData() {
-            const formMain = document.getElementById("formMain");
-            const preStatus = document.getElementById("preStatus");
+        class App {
+            static showModalMsg(msg = "") {
+                const dialogMsg = document.getElementById("dialogMsg");
 
-            const xhr = new XMLHttpRequest();
+                if (msg === "") {
+                    dialogMsg.close();
+                    return;
+                }
 
-            xhr.addEventListener("loadstart", () => {
-                preStatus.textContent = "Request started";
-            });
+                dialogMsg.textContent = msg;
+                dialogMsg.showModal();
+            }
 
-            xhr.upload.addEventListener("progress", (event) => {
-                preStatus.textContent = "Uploading: " + (
-                    (event.loaded / event.total) * 100
-                ).toFixed(2) + "%";
-            });
+            ////////////////////////////////////////////////////////////////////
 
-            xhr.addEventListener("load", () => {
-                preStatus.textContent = "Response: " + xhr.status + " " +
-                    xhr.statusText + "\n\n" + xhr.responseText;
-            });
+            static body_onload() {
+                window.addEventListener("error", (event) => {
+                    this.showModalMsg(`ERROR: ${event.error}`);
+                });
 
-            xhr.addEventListener("abort", () => {
-                preStatus.textContent = "Request aborted";
-            });
-            xhr.addEventListener("error", () => {
-                preStatus.textContent = "Request error";
-            });
-            xhr.addEventListener("timeout", () => {
-                preStatus.textContent = "Request timeout";
-            });
+                window.addEventListener("unhandledrejection", (event) => {
+                    this.showModalMsg(`ERROR: ${event.reason}`);
+                });
+            }
 
-            xhr.open("POST", "", true);
-            xhr.send(new FormData(formMain));
+            static btnSubmit_onclick() {
+                const formMain = document.getElementById("formMain"),
+                    preStatus = document.getElementById("preStatus");
+
+                const xhr = new XMLHttpRequest();
+
+                xhr.addEventListener("loadstart", () => {
+                    preStatus.textContent = "Request started";
+                });
+
+                xhr.upload.addEventListener("progress", (event) => {
+                    preStatus.textContent = "Uploading: " + (
+                        (event.loaded / event.total) * 100
+                    ).toFixed(2) + "%";
+                });
+
+                xhr.addEventListener("load", () => {
+                    preStatus.textContent = "Response: " + xhr.status + " " +
+                        xhr.statusText + "\n\n" + xhr.responseText;
+                });
+
+                xhr.addEventListener("abort", () => {
+                    preStatus.textContent = "Request aborted";
+                });
+                xhr.addEventListener("error", () => {
+                    preStatus.textContent = "Request error";
+                });
+                xhr.addEventListener("timeout", () => {
+                    preStatus.textContent = "Request timeout";
+                });
+
+                xhr.open("POST", "", true);
+                xhr.send(new FormData(formMain));
+            }
         }
     </script>
 </head>
 
-<body>
+<body onload="App.body_onload()">
     <h1>Funnel</h1>
 
     <p>
     <form id="formMain" method="POST" enctype="multipart/form-data">
         <input type="file" name="files[]" multiple />
-        <input type="button" value="Submit" onclick="submitData()" />
+        <input type="button" value="Submit" onclick="App.btnSubmit_onclick()" />
     </form>
     </p>
 
     <p>
     <pre id="preStatus">Ready</pre>
     </p>
+
+    <dialog id="dialogMsg" closedby="none"></dialog>
 </body>
 
 </html>
