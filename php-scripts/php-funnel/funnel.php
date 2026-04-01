@@ -156,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             static btnSubmit_onclick() {
                 const formMain = document.getElementById("formMain"),
+                    btnSubmit = document.getElementById("btnSubmit"),
                     preStatus = document.getElementById("preStatus");
 
                 const xhr = new XMLHttpRequest();
@@ -173,17 +174,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 xhr.addEventListener("load", () => {
                     preStatus.textContent = "Response: " + xhr.status + " " +
                         xhr.statusText + "\n\n" + xhr.responseText;
+                    btnSubmit.disabled = false;
                 });
 
                 xhr.addEventListener("abort", () => {
                     preStatus.textContent = "Request aborted";
+                    btnSubmit.disabled = false;
                 });
                 xhr.addEventListener("error", () => {
                     preStatus.textContent = "Request error";
+                    btnSubmit.disabled = false;
                 });
                 xhr.addEventListener("timeout", () => {
                     preStatus.textContent = "Request timeout";
+                    btnSubmit.disabled = false;
                 });
+
+                btnSubmit.disabled = true;
 
                 xhr.open("POST", "", true);
                 xhr.send(new FormData(formMain));
@@ -198,7 +205,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <p>
     <form id="formMain" method="POST" enctype="multipart/form-data">
         <input type="file" name="files[]" multiple />
-        <input type="button" value="Submit" onclick="App.btnSubmit_onclick()" />
+        <input type="button" id="btnSubmit" value="Submit"
+            onclick="App.btnSubmit_onclick()" />
     </form>
     </p>
 
