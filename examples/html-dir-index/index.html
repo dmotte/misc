@@ -24,6 +24,11 @@
         font-family: sans-serif;
       }
 
+      #dialogMsg::backdrop {
+        background-color: #1118;
+        backdrop-filter: blur(3px);
+      }
+
       .select-none {
         user-select: none;
       }
@@ -87,6 +92,20 @@
       }
 
       class App {
+        static showModalMsg(msg = "") {
+          const dialogMsg = document.getElementById("dialogMsg");
+
+          if (msg === "") {
+            dialogMsg.close();
+            return;
+          }
+
+          dialogMsg.textContent = msg;
+          dialogMsg.showModal();
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+
         // -----BEGIN DIRECTORY DATA-----
         static dirPath = "/home/myuser/mydir";
         static dirContent = [
@@ -102,6 +121,8 @@
         static sortCol = "name";
         // Sort direction. Possible values: "asc", "desc"
         static sortDir = "asc";
+
+        ////////////////////////////////////////////////////////////////////////
 
         static buildTable() {
           const iconsSort = {
@@ -180,6 +201,14 @@
         }
 
         static load() {
+          window.addEventListener("error", (event) => {
+            this.showModalMsg(`ERROR: ${event.error}`);
+          });
+
+          window.addEventListener("unhandledrejection", (event) => {
+            this.showModalMsg(`ERROR: ${event.reason}`);
+          });
+
           const title = "Index of " + this.dirPath;
           document.title = title;
           document.getElementById("titleMain").textContent = title;
@@ -263,6 +292,8 @@
       </thead>
       <tbody></tbody>
     </table>
+
+    <dialog id="dialogMsg" closedby="none"></dialog>
 
     <script type="text/javascript">
       // Run immediately after HTML parses to prevent flickering on load
