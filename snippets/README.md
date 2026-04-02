@@ -232,6 +232,7 @@ Some pieces of code I find useful for some reason.
 - `wine reg add 'HKLM\SOFTWARE\MyApp' /v MyValue /t REG_SZ /d MyData /f /reg:64` (the `/reg:64` part is required for Wine, otherwise the value would be created under `HKLM\SOFTWARE\Wow6432Node\...`)
 - `inkscape --export-filename=myimage.png --export-type=png myimage.svg`
 - `convert -verbose scan-page{01,02,03}.jpg output.pdf`
+- `qpdf --empty --pages file01.pdf file02.pdf 1-3 -- output.pdf`, `qpdf file01.pdf output.pdf --rotate=+90`
 - `printf '%s\n' GRUB_TIMEOUT_STYLE=countdown GRUB_TIMEOUT=3 | install -Tvm644 /dev/stdin /etc/default/grub.d/timeout.cfg && update-grub`
 - `fwupdmgr get-updates`
 - `udisksctl status`, `udisksctl loop-setup -rf myimage.img`, `udisksctl mount -b /dev/loop0 -o ro`, `udisksctl unmount -b /dev/loop0`, `udisksctl loop-delete -b /dev/loop0`
