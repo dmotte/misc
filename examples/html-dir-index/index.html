@@ -90,6 +90,19 @@
         return `${sign}${val} ${units[i]}`;
       }
 
+      // Sort column
+      const SortCol = Object.freeze({
+        NAME: Symbol("name"),
+        SIZE: Symbol("size"),
+        LASTMOD: Symbol("lastmod"),
+      });
+
+      // Sort direction
+      const SortDir = Object.freeze({
+        ASC: Symbol("asc"),
+        DESC: Symbol("desc"),
+      });
+
       class App {
         static showModalMsg(msg = "") {
           const dialogMsg = document.getElementById("dialogMsg");
@@ -116,10 +129,8 @@
         ];
         // -----END DIRECTORY DATA-----
 
-        // Sort column. Possible values: "name", "size", "lastmod"
-        static sortCol = "name";
-        // Sort direction. Possible values: "asc", "desc"
-        static sortDir = "asc";
+        static sortCol = SortCol.NAME;
+        static sortDir = SortDir.ASC;
 
         ////////////////////////////////////////////////////////////////////////
 
@@ -131,9 +142,9 @@
           };
 
           for (const [col, icon] of Object.entries(iconsSort)) {
-            if (col === this.sortCol)
+            if (col === this.sortCol.description)
               icon.textContent =
-                this.sortDir === "asc"
+                this.sortDir === SortDir.ASC
                   ? "keyboard_arrow_up"
                   : "keyboard_arrow_down";
             else icon.textContent = "";
@@ -141,8 +152,8 @@
 
           //////////////////////////////////////////////////////////////////////
 
-          const sortIndex = ["name", "size", "lastmod"].indexOf(this.sortCol),
-            sortDesc = this.sortDir === "desc";
+          const sortIndex = Object.values(SortCol).indexOf(this.sortCol),
+            sortDesc = this.sortDir === SortDir.DESC;
 
           const sortDirsFirst = document.getElementById("chkDirsFirst").checked;
 
@@ -217,8 +228,9 @@
 
         static thSort_onclick(col) {
           if (col === this.sortCol)
-            this.sortDir = this.sortDir === "asc" ? "desc" : "asc";
-          else [this.sortCol, this.sortDir] = [col, "asc"];
+            this.sortDir =
+              this.sortDir === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+          else [this.sortCol, this.sortDir] = [col, SortDir.ASC];
 
           this.buildTable();
         }
@@ -259,7 +271,7 @@
           </th>
           <th
             class="cursor-pointer select-none"
-            onclick="App.thSort_onclick('name')"
+            onclick="App.thSort_onclick(SortCol.NAME)"
           >
             Name
             <span
@@ -269,7 +281,7 @@
           </th>
           <th
             class="cell-pad-left cursor-pointer select-none"
-            onclick="App.thSort_onclick('size')"
+            onclick="App.thSort_onclick(SortCol.SIZE)"
           >
             Size
             <span
@@ -279,7 +291,7 @@
           </th>
           <th
             class="cell-pad-left cursor-pointer select-none"
-            onclick="App.thSort_onclick('lastmod')"
+            onclick="App.thSort_onclick(SortCol.LASTMOD)"
           >
             Modified
             <span
