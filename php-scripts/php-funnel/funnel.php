@@ -156,41 +156,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             static btnSubmit_onclick() {
                 const formMain = document.getElementById("formMain"),
-                    btnSubmit = document.getElementById("btnSubmit"),
                     preStatus = document.getElementById("preStatus");
 
                 const xhr = new XMLHttpRequest();
 
-                xhr.addEventListener("loadstart", () => {
-                    preStatus.textContent = "Request started";
-                });
-
                 xhr.upload.addEventListener("progress", (event) => {
-                    preStatus.textContent = "Uploading: " + (
+                    this.showModalMsg("Uploading (" + (
                         (event.loaded / event.total) * 100
-                    ).toFixed(2) + "%";
+                    ).toFixed(2) + "%)...");
                 });
 
                 xhr.addEventListener("load", () => {
                     preStatus.textContent = "Response: " + xhr.status + " " +
                         xhr.statusText + "\n\n" + xhr.responseText;
-                    btnSubmit.disabled = false;
+                    this.showModalMsg();
                 });
 
                 xhr.addEventListener("abort", () => {
                     preStatus.textContent = "Request aborted";
-                    btnSubmit.disabled = false;
+                    this.showModalMsg();
                 });
                 xhr.addEventListener("error", () => {
                     preStatus.textContent = "Request error";
-                    btnSubmit.disabled = false;
+                    this.showModalMsg();
                 });
                 xhr.addEventListener("timeout", () => {
                     preStatus.textContent = "Request timeout";
-                    btnSubmit.disabled = false;
+                    this.showModalMsg();
                 });
 
-                btnSubmit.disabled = true;
+                this.showModalMsg("Sending request...");
 
                 xhr.open("POST", "", true);
                 xhr.send(new FormData(formMain));
