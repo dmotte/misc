@@ -210,7 +210,9 @@
           tbody.innerHTML = tbodyHTML;
         }
 
-        static load() {
+        ////////////////////////////////////////////////////////////////////////
+
+        static body_onload() {
           window.addEventListener("error", (event) => {
             this.showModalMsg(`ERROR: ${event.error}`);
           });
@@ -224,6 +226,10 @@
           document.getElementById("titleMain").textContent = title;
 
           this.buildTable();
+
+          // Display content only after building everything properly, to
+          // prevent flickering on load
+          document.body.hidden = false;
         }
 
         static thSort_onclick(col) {
@@ -238,7 +244,7 @@
     </script>
   </head>
 
-  <body>
+  <body hidden onload="App.body_onload()">
     <h1 id="titleMain">Directory index</h1>
 
     <table>
@@ -305,10 +311,5 @@
     </table>
 
     <dialog id="dialogMsg" closedby="none"></dialog>
-
-    <script type="text/javascript">
-      // Run immediately after HTML parses to prevent flickering on load
-      App.load();
-    </script>
   </body>
 </html>
