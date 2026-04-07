@@ -221,15 +221,15 @@
             this.showModalMsg(`ERROR: ${event.reason}`);
           });
 
+          // Show the page body only when loaded, to prevent
+          // the user from interacting early
+          document.body.hidden = false;
+
           const title = "Index of " + this.dirPath;
           document.title = title;
           document.getElementById("titleMain").textContent = title;
 
           this.buildTable();
-
-          // Show the page body only when loaded, to prevent
-          // the user from interacting early
-          document.body.hidden = false;
         }
 
         static thSort_onclick(col) {
