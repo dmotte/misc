@@ -13,7 +13,7 @@ First of all you need to generate one or more **GitHub PATs** (_Personal Access 
 - "**Codespaces**" repository permissions (**read**)
 - "**Codespaces lifecycle admin**" repository permissions (**write**)
 
-> **Note**: for more information on why these permissions are needed, see https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2022-11-28
+> **Note**: for more information on why these permissions are needed, see https://docs.github.com/en/rest/codespaces/codespaces?apiVersion=2026-03-10
 
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 

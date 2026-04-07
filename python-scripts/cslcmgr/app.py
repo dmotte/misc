@@ -11,7 +11,7 @@ from flask.typing import ResponseReturnValue
 from requests import Response
 from types import SimpleNamespace
 
-GITHUB_API_VERSION = '2022-11-28'
+GITHUB_API_VERSION = '2026-03-10'
 
 CODESPACE_ID_REGEX = re.compile(r'^[0-9A-Za-z-]+$')
 

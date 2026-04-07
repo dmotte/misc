@@ -22,7 +22,7 @@ while :; do
     response=$(curl -fsSL \
         -H 'Accept: application/vnd.github+json' \
         -H "Authorization: $header_auth" \
-        -H 'X-GitHub-Api-Version: 2022-11-28' \
+        -H 'X-GitHub-Api-Version: 2026-03-10' \
         "https://api.github.com/$owner/repos?per_page=100&page=$page")
 
     count=$(echo "$response" | jq length)

@@ -7,7 +7,8 @@ echo 'Checking Raspberry Pi Imager (rpi-imager) version'
 text=$(rpi-imager --version 2>&1)
 v_local=$(echo "$text" | sed -En 's/^Raspberry Pi Imager (v.+)$/\1/p')
 
-text=$(curl -fsSL https://api.github.com/repos/raspberrypi/rpi-imager/releases/latest)
+text=$(curl -fsSL -H'X-GitHub-Api-Version: 2026-03-10' \
+    https://api.github.com/repos/raspberrypi/rpi-imager/releases/latest)
 v_latest=$(echo "$text" | sed -En 's/^  "tag_name": "([^"]+)",$/\1/p')
 
 if [ "$v_local" = "$v_latest" ]

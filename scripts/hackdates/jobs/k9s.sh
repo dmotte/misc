@@ -7,7 +7,8 @@ echo 'Checking K9s version'
 text=$(k9s version -s)
 v_local=$(echo "$text" | sed -En 's/^Version\s+(.+)$/\1/p')
 
-text=$(curl -fsSL https://api.github.com/repos/derailed/k9s/releases/latest)
+text=$(curl -fsSL -H'X-GitHub-Api-Version: 2026-03-10' \
+    https://api.github.com/repos/derailed/k9s/releases/latest)
 v_latest=$(echo "$text" | sed -En 's/^  "name": "([^"]+)",$/\1/p')
 
 if [ "$v_local" = "$v_latest" ]

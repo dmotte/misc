@@ -7,7 +7,8 @@ echo 'Checking talosctl version'
 text=$(talosctl version --client --short)
 v_local=$(echo "$text" | sed -En 's/^Client (.+)$/\1/p')
 
-text=$(curl -fsSL https://api.github.com/repos/siderolabs/talos/releases/latest)
+text=$(curl -fsSL -H'X-GitHub-Api-Version: 2026-03-10' \
+    https://api.github.com/repos/siderolabs/talos/releases/latest)
 v_latest=$(echo "$text" | sed -En 's/^  "name": "([^"]+)",$/\1/p')
 
 if [ "$v_local" = "$v_latest" ]

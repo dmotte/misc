@@ -7,7 +7,8 @@ echo 'Checking winetricks version'
 text=$(winetricks --version)
 v_local=$(echo "$text" | cut -d' ' -f1)
 
-text=$(curl -fsSL https://api.github.com/repos/Winetricks/winetricks/releases/latest)
+text=$(curl -fsSL -H'X-GitHub-Api-Version: 2026-03-10' \
+    https://api.github.com/repos/Winetricks/winetricks/releases/latest)
 v_latest=$(echo "$text" | sed -En 's/^  "name": "([^"]+)",$/\1/p')
 
 if [ "$v_local" = "$v_latest" ]
