@@ -152,6 +152,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 window.addEventListener("unhandledrejection", (event) => {
                     this.showModalMsg(`ERROR: ${event.reason}`);
                 });
+
+                // Show the page body only when loaded, to prevent
+                // the user from interacting early
+                document.body.hidden = false;
             }
 
             static btnSubmit_onclick() {
@@ -196,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </script>
 </head>
 
-<body onload="App.body_onload()">
+<body hidden onload="App.body_onload()">
     <h1>Funnel</h1>
 
     <p>
