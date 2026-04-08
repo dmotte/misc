@@ -34,7 +34,7 @@
       }
     </style>
 
-    <script type="text/javascript">
+    <script type="module">
       class PWAInstallPrompt {
         static installPrompt = null;
 
@@ -113,6 +113,8 @@
           })();
         }
       }
+
+      window.App = App;
     </script>
   </head>
 
