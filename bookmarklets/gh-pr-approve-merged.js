@@ -5,6 +5,8 @@
 
 // javascript:(function(){
 
+"use strict";
+
 function handleBookmarkletError(error) {
   console.error(error);
   alert(`ERROR: ${error}`);

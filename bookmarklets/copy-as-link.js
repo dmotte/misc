@@ -5,6 +5,8 @@
 
 // javascript:(function(){
 
+"use strict";
+
 // Src: https://github.com/dmotte/misc/tree/main/snippets
 function xmlescape(x) {
   return x
