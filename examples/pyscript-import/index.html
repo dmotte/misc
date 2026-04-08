@@ -33,12 +33,14 @@
       window.sumPlusThree = sum_plus_three
     </script>
 
-    <script type="text/javascript">
+    <script type="module">
       function btnMain_onclick() {
         if (typeof sumPlusThree === "undefined")
           alert("Function not loaded yet");
         else alert("1 + 2 + 3 = " + sumPlusThree(1, 2));
       }
+
+      window.btnMain_onclick = btnMain_onclick;
     </script>
   </head>
 
