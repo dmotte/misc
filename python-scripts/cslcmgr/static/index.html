@@ -207,6 +207,10 @@
             this.showModalMsg(`ERROR: ${event.reason}`);
           });
 
+          // Show the page body only when loaded, to prevent
+          // the user from interacting early
+          document.body.hidden = false;
+
           this.showModalMsg("Fetching codespaces list...");
 
           (async () => {
@@ -263,7 +267,7 @@
     </script>
   </head>
 
-  <body onload="App.body_onload()">
+  <body hidden onload="App.body_onload()">
     <h1>cslcmgr</h1>
 
     <table id="tblMain">
