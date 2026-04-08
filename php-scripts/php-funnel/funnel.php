@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
 
-    <script type="text/javascript">
+    <script type="module">
         class App {
             static showModalMsg(msg = "") {
                 const dialogMsg = document.getElementById("dialogMsg");
@@ -191,6 +191,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 xhr.send(new FormData(formMain));
             }
         }
+
+        window.App = App;
     </script>
 </head>
 
