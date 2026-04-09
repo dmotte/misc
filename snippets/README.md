@@ -644,6 +644,23 @@ function shuffle(arr) {
 }
 ```
 
+## PHP
+
+```php
+function diemsg(string $msg, int $response_code = 500)
+{
+    http_response_code($response_code);
+    die($msg . PHP_EOL);
+}
+```
+
+```php
+function mkdir_ine(string $path)
+{
+    return is_dir($path) || mkdir($path);
+}
+```
+
 ## Prometheus queries
 
 - `abs(mymetric - mymetric offset 1m)`
