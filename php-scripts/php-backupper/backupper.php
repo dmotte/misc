@@ -34,7 +34,7 @@ $hta_file_path = $cfg['src_dir'] . '/' . '.htaccess';
 $hta_file_content = <<<HEREDOC
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !/$script_basename$
-RewriteRule .* {$cfg['maint_file_name']} [L]
+RewriteRule ^ {$cfg['maint_file_name']} [L]
 HEREDOC;
 
 if (str_contains(PHP_SAPI, 'cgi')) // If PHP is running under CGI/FastCGI
