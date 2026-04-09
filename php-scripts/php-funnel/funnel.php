@@ -16,12 +16,14 @@ $cfg['mail_msg_suffix'] = '';
 
 //////////////////// END CONFIGURATION ////////////////////
 
+// Src: https://github.com/dmotte/misc/tree/main/snippets
 function diemsg(string $msg, int $response_code = 500)
 {
     http_response_code($response_code);
     die($msg . PHP_EOL);
 }
 
+// Src: https://github.com/dmotte/misc/tree/main/snippets
 function mkdir_ine(string $path)
 {
     return is_dir($path) || mkdir($path);

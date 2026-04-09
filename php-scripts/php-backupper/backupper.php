@@ -15,6 +15,7 @@ $cfg['htaorig_file_name'] = '.htaccess.original';
 
 //////////////////// END CONFIGURATION ////////////////////
 
+// Src: https://github.com/dmotte/misc/tree/main/snippets
 function diemsg(string $msg, int $response_code = 500)
 {
     http_response_code($response_code);
