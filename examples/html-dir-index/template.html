@@ -195,7 +195,7 @@
                     ${icon}
                   </span>
                 </td>
-                <td><a href="${escName}">${escName}</a></td>
+                <td><a href="${escName}${isDir ? "/" : ""}">${escName}</a></td>
                 <td class="cell-pad-left"
                   title="${isDir ? "" : escSize + " bytes"}">
                   ${fmtSize}
