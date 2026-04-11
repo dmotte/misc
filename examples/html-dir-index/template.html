@@ -242,8 +242,7 @@
         }
       }
 
-      window.App = App;
-      window.SortCol = SortCol;
+      Object.assign(window, { App, SortCol });
     </script>
   </head>
 
