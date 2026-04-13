@@ -41,7 +41,7 @@ if (
     diemsg('Please fill in the correct login details', 401);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: text/plain');
 
     if (
