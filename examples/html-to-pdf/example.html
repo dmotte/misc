@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>My Document Title</title>
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+    />
+
+    <style type="text/css">
+      body,
+      td,
+      th {
+        font-family: sans-serif;
+      }
+
+      @page {
+        margin: 20mm 20mm 30mm 20mm;
+
+        border: 1px solid #00f;
+
+        @bottom-right {
+          vertical-align: bottom;
+          padding-bottom: 20mm;
+
+          font-family: sans-serif;
+          content: "Page " counter(page) " / " counter(pages);
+
+          border: 1px solid #f00;
+        }
+      }
+
+      .page-break {
+        display: block;
+        break-before: page;
+      }
+
+      .valign-icon {
+        vertical-align: -0.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Title</h1>
+
+    <p>This is some text.</p>
+
+    <p>
+      <span class="material-symbols-outlined valign-icon">star</span>
+      This is an icon with some text.
+    </p>
+
+    <div class="page-break"></div>
+
+    <p>This is some other text.</p>
+  </body>
+</html>
