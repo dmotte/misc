@@ -84,7 +84,7 @@ Some pieces of code I find useful for some reason.
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
 - `SSH_AUTH_SOCK= ssh myuser@192.168.0.123`
 - `python3 -mhttp.server`
-- `php -S 127.0.0.1:8080 -t mydir`
+- `php -S127.0.0.1:8080`, `php -S127.0.0.1:8080 -tmydir`
 - `dig @ns1.example.com www.example.com`
 - `git pull --no-edit && git add . && { git commit "-m$(date +%s)" || :; } && git push`
 - `find . -type d -name .git -prune -printf '%h\n'`, `find . -type d -exec test -d '{}/.git' \; -prune -print`
@@ -383,7 +383,7 @@ sudo update-grub
 - `docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock --log-driver=none docker.io/wagoodman/dive docker.io/library/python:3`
 - `docker-compose down -v && docker-compose up -d --build && docker-compose logs -ft`
 - `docker-compose exec mycontainer bash`
-- `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S '0.0.0.0:8080' -t /v`
+- `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S0.0.0.0:8080 -t/v`
 - `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
 ```bash
