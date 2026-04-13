@@ -85,6 +85,7 @@ Some pieces of code I find useful for some reason.
 - `SSH_AUTH_SOCK= ssh myuser@192.168.0.123`
 - `python3 -mhttp.server`
 - `php -S127.0.0.1:8080`, `php -S127.0.0.1:8080 -tmydir`
+- `php -a`
 - `dig @ns1.example.com www.example.com`
 - `git pull --no-edit && git add . && { git commit "-m$(date +%s)" || :; } && git push`
 - `find . -type d -name .git -prune -printf '%h\n'`, `find . -type d -exec test -d '{}/.git' \; -prune -print`
