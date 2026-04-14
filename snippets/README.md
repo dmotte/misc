@@ -649,7 +649,7 @@ function shuffle(arr) {
 ## PHP
 
 ```php
-function diemsg(string $msg, int $response_code = 500)
+function diemsg(string $msg, int $response_code = 500): never
 {
     http_response_code($response_code);
     die($msg . PHP_EOL);
@@ -657,7 +657,7 @@ function diemsg(string $msg, int $response_code = 500)
 ```
 
 ```php
-function mkdir_ine(string $path)
+function mkdir_ine(string $path): bool
 {
     return is_dir($path) || mkdir($path);
 }

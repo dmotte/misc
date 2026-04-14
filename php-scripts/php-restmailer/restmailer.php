@@ -10,7 +10,7 @@ $cfg['auth_password'] = 'changeme';
 //////////////////// END CONFIGURATION ////////////////////
 
 // Src: https://github.com/dmotte/misc/tree/main/snippets
-function diemsg(string $msg, int $response_code = 500)
+function diemsg(string $msg, int $response_code = 500): never
 {
     http_response_code($response_code);
     die($msg . PHP_EOL);
