@@ -221,7 +221,7 @@ class OHLCVDir:
 
         for file in pathlib.Path(dir).glob('*.csv'):
             match = re.fullmatch(
-                r'^([0-9]+)-([0-9A-Z]+)-([0-9A-Z]+)-([0-9A-Za-z]+)\.csv$',
+                r'\A([0-9]+)-([0-9A-Z]+)-([0-9A-Z]+)-([0-9A-Za-z]+)\.csv\Z',
                 file.name)
 
             year = int(match.group(1))

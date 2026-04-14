@@ -28,7 +28,8 @@ class SSHMux:
             self.ssh_args + [f'-GS{self.ctl_path}'], text=True)
 
         for line in ssh_gen_cfg.splitlines():
-            match1 = re.fullmatch(r'^ControlPath\s+(.+)$', line, re.IGNORECASE)
+            match1 = re.fullmatch(r'\AControlPath\s+(.+)\Z',
+                                  line, re.IGNORECASE)
             if match1 is not None:
                 return match1.group(1)
 

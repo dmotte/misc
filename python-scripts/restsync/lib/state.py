@@ -15,7 +15,7 @@ def state_read(state_file: str, empty_if_file_not_found: bool = False) -> dict:
 
     with open(state_file, 'r') as f:
         for line in f:
-            match1 = re.fullmatch(r'^latest-snapshot-id:\s+(.+)\n$', line)
+            match1 = re.fullmatch(r'\Alatest-snapshot-id:\s+(.+)\n\Z', line)
             if match1 is not None:
                 data['latest-snapshot-id'] = match1.group(1)
 
