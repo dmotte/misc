@@ -21,7 +21,25 @@ function ensure_value_ok(string $name, string $value, callable $callback): void
 
 header('Content-Type: text/plain');
 
-$data = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
+if (PHP_SAPI === 'cli')
+    $data = getopt('', [
+        'language:',
+        'country:',
+        'locale:',
+        'keymap:',
+        'hostname:',
+        'username:',
+        'password:',
+        'timezone:',
+        'disk:',
+        'tasksel:',
+        'pkgs:',
+        'popcon:',
+        'sshd-port:',
+        'sudo-nopasswd:',
+        'ssh-authkeys:',
+    ]);
+else $data = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
 
 $data['language'] ??= 'en';
 ensure_value_ok('language', $data['language'], 'is_alnum_3');

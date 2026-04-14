@@ -9,6 +9,8 @@
 > **Important**: this has been tested with **PHP 8.4.16** on **Debian 13** (_trixie_).
 
 ```bash
+php preseed-gen.php --country=IT --hostname=myhostname --disk=/dev/sda
+
 curl -fsSL 'http://localhost:8080/preseed-gen.php?country=IT&hostname=myhostname&disk=/dev/sda'
 
 curl -fsSL 'http://localhost:8080/preseed-gen.php' \
