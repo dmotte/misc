@@ -657,7 +657,7 @@ function diemsg(string $msg, int $response_code = 500): never
 ```
 
 ```php
-function mkdir_ine(string $path): bool
+function ensure_dir(string $path): bool
 {
     return is_dir($path) || mkdir($path);
 }

@@ -24,7 +24,7 @@ function diemsg(string $msg, int $response_code = 500): never
 }
 
 // Src: https://github.com/dmotte/misc/tree/main/snippets
-function mkdir_ine(string $path): bool
+function ensure_dir(string $path): bool
 {
     return is_dir($path) || mkdir($path);
 }
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ' has error code ' . $f['error']);
     }
 
-    mkdir_ine($cfg['uploads_dir']);
+    ensure_dir($cfg['uploads_dir']);
     if ($cfg['hta_protection']) {
         $hta_file_path = $cfg['uploads_dir'] . '/' . '.htaccess';
         if (!file_exists($hta_file_path))
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $str_datetime = date('Y-m-d-His');
 
     $dir = $cfg['uploads_dir'] . '/' . $str_datetime;
-    mkdir_ine($dir);
+    ensure_dir($dir);
 
     $summary = '';
 
