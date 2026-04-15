@@ -7,6 +7,9 @@ set -e
 #   bash gitlab-get-all-repos.sh users/diaspora true '.path_with_namespace, .description'
 #   bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/gitlab-get-all-repos.sh) users/diaspora '(has("forked_from_project") | not) and .archived == false' | while IFS= read -r i || [ -n "$i" ]; do git -C "$(basename "$i")" pull || git clone --depth=1 "git@gitlab.com:$i.git"; done
 
+# Note: in order to list private projects, you need a GitLab Personal Access
+# Token with the following scopes: read_api, read_repository.
+
 readonly gitlab_url=${GITLAB_URL:-https://gitlab.com/}
 readonly owner=${1:?} filter=${2:-true} fields=${3:-.path_with_namespace}
 
