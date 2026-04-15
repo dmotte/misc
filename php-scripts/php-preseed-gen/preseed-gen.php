@@ -125,6 +125,9 @@ echo 'd-i debian-installer/locale string ', $data['locale'], PHP_EOL;
 echo 'd-i keyboard-configuration/xkb-keymap select ', $data['keymap'], PHP_EOL;
 echo PHP_EOL;
 
+// This is needed to restart netcfg, otherwise the "netcfg/*" values are
+// all ignored when preseeding via network. See
+// https://unix.stackexchange.com/questions/106614/preseed-cfg-ignoring-hostname-setting/342179#comment737438_342179
 echo 'd-i preseed/early_command string kill-all-dhcp; netcfg', PHP_EOL;
 echo 'd-i netcfg/choose_interface select auto', PHP_EOL;
 echo PHP_EOL;
@@ -175,6 +178,7 @@ echo 'd-i grub-installer/bootdev string default', PHP_EOL;
 echo PHP_EOL;
 
 echo 'd-i finish-install/reboot_in_progress note', PHP_EOL;
+// Once the installation is finished, shut down the machine (don't restart)
 echo 'd-i debian-installer/exit/poweroff boolean true', PHP_EOL;
 
 if (
