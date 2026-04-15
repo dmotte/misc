@@ -85,7 +85,6 @@ ensure_value_ok(
     $data['disk'],
     fn($x) => preg_match('/\A[0-9A-Za-z\/_-]+\z/', $x) === 1,
 );
-
 $data['luks'] = isset($data['luks']) && $data['luks'] === 'true';
 
 $data['tasksel'] ??= '';
@@ -97,7 +96,6 @@ ensure_value_ok(
 $data['tasksel'] = $data['tasksel'] === ''
     ? []
     : explode(',', $data['tasksel']);
-
 $data['pkgs'] ??= '';
 ensure_value_ok(
     'pkgs',
@@ -105,7 +103,6 @@ ensure_value_ok(
     fn($x) => preg_match('/\A[0-9A-Za-z,-]*\z/', $x) === 1,
 );
 $data['pkgs'] = $data['pkgs'] === '' ? [] : explode(',', $data['pkgs']);
-
 $data['popcon'] = isset($data['popcon']) && $data['popcon'] === 'true';
 
 $data['sshd-port'] ??= '';
@@ -115,10 +112,8 @@ ensure_value_ok(
     fn($x) => preg_match('/\A[0-9]*\z/', $x) === 1,
 );
 $data['sshd-port'] = $data['sshd-port'] === '' ? -1 : (int)$data['sshd-port'];
-
 $data['sudo-nopasswd'] = isset($data['sudo-nopasswd'])
     && $data['sudo-nopasswd'] === 'true';
-
 $data['ssh-authkeys'] ??= '';
 ensure_value_ok(
     'ssh-authkeys',
