@@ -168,9 +168,13 @@ if ($data['ip'] !== '') {
     echo 'd-i netcfg/disable_autoconfig boolean true', PHP_EOL;
     echo 'd-i netcfg/get_ipaddress string ', $data['ip'], PHP_EOL;
     echo 'd-i netcfg/get_netmask string ', $data['netmask'], PHP_EOL;
-    if ($data['gateway'] !== '')
+    if ($data['gateway'] === '')
+        echo 'd-i netcfg/get_gateway string', PHP_EOL;
+    else
         echo 'd-i netcfg/get_gateway string ', $data['gateway'], PHP_EOL;
-    if (count($data['nameservers']) !== 0)
+    if (count($data['nameservers']) === 0)
+        echo 'd-i netcfg/get_nameservers string', PHP_EOL;
+    else
         echo 'd-i netcfg/get_nameservers string ',
         implode(' ', $data['nameservers']), PHP_EOL;
     echo 'd-i netcfg/confirm_static boolean true', PHP_EOL;
