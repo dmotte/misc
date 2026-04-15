@@ -29,6 +29,7 @@ if (PHP_SAPI === 'cli')
         'keymap:',
         'hostname:',
         'username:',
+        'userfullname:',
         'password:',
         'timezone:',
         'disk:',
@@ -55,6 +56,8 @@ ensure_value_ok('hostname', $data['hostname'], 'is_alnum_3');
 
 $data['username'] ??= 'mainuser';
 ensure_value_ok('username', $data['username'], 'is_alnum_3');
+$data['userfullname'] ??= $data['username'];
+ensure_value_ok('userfullname', $data['userfullname'], 'is_alnum_3');
 $data['password'] ??= '';
 ensure_value_ok(
     'password',
@@ -138,7 +141,7 @@ echo 'd-i netcfg/hostname string ', $data['hostname'], PHP_EOL;
 echo PHP_EOL;
 
 echo 'd-i passwd/root-login boolean false', PHP_EOL;
-echo 'd-i passwd/user-fullname string ', $data['username'], PHP_EOL;
+echo 'd-i passwd/user-fullname string ', $data['userfullname'], PHP_EOL;
 echo 'd-i passwd/username string ', $data['username'], PHP_EOL;
 // If not specified, the password is asked interactively during the installation
 if ($data['password'] !== '') {
