@@ -11,6 +11,10 @@ function is_alnum_3(string $x): bool
 {
     return preg_match('/\A[0-9A-Za-z\._-]+\z/', $x) === 1;
 }
+function is_ip_or_empty(string $x): bool
+{
+    return preg_match('/\A[0-9A-Fa-f%\.\/:-]*\z/', $x) === 1;
+}
 
 function ensure_value_ok(string $name, string $value, callable $callback): void
 {
@@ -27,6 +31,11 @@ if (PHP_SAPI === 'cli')
         'country:',
         'locale:',
         'keymap:',
+
+        'ip:',
+        'netmask:',
+        'gateway:',
+        'nameservers:',
 
         'hostname:',
 
@@ -57,6 +66,22 @@ $data['locale'] ??= 'C';
 ensure_value_ok('locale', $data['locale'], 'is_alnum_3');
 $data['keymap'] ??= 'us';
 ensure_value_ok('keymap', $data['keymap'], 'is_alnum_3');
+
+$data['ip'] ??= '';
+ensure_value_ok('ip', $data['ip'], 'is_ip_or_empty');
+$data['netmask'] ??= '';
+ensure_value_ok('netmask', $data['netmask'], 'is_ip_or_empty');
+$data['gateway'] ??= '';
+ensure_value_ok('gateway', $data['gateway'], 'is_ip_or_empty');
+$data['nameservers'] ??= '';
+ensure_value_ok(
+    'nameservers',
+    $data['nameservers'],
+    fn($x) => preg_match('/\A[0-9A-Fa-f%,\.\/:-]*\z/', $x) === 1,
+);
+$data['nameservers'] = $data['nameservers'] === ''
+    ? []
+    : explode(',', $data['nameservers']);
 
 if (!isset($data['hostname'])) diemsg('Missing hostname');
 ensure_value_ok('hostname', $data['hostname'], 'is_alnum_3');
@@ -138,6 +163,19 @@ echo PHP_EOL;
 echo 'd-i preseed/early_command string kill-all-dhcp; netcfg', PHP_EOL;
 echo 'd-i netcfg/choose_interface select auto', PHP_EOL;
 echo PHP_EOL;
+
+if ($data['ip'] !== '') {
+    echo 'd-i netcfg/disable_autoconfig boolean true', PHP_EOL;
+    echo 'd-i netcfg/get_ipaddress string ', $data['ip'], PHP_EOL;
+    echo 'd-i netcfg/get_netmask string ', $data['netmask'], PHP_EOL;
+    if ($data['gateway'] !== '')
+        echo 'd-i netcfg/get_gateway string ', $data['gateway'], PHP_EOL;
+    if (count($data['nameservers']) !== 0)
+        echo 'd-i netcfg/get_nameservers string ',
+        implode(' ', $data['nameservers']), PHP_EOL;
+    echo 'd-i netcfg/confirm_static boolean true', PHP_EOL;
+    echo PHP_EOL;
+}
 
 echo 'd-i netcfg/get_hostname string ', $data['hostname'], PHP_EOL;
 echo 'd-i netcfg/get_domain string unassigned-domain', PHP_EOL;
