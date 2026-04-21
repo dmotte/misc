@@ -243,6 +243,7 @@ Some pieces of code I find useful for some reason.
 - `echo integrity=\"sha384-"$(openssl dgst -sha384 -binary myfile.js | base64 -w0)"\"`
 - `echo -e '\\n \\4 \\l\n' | tee /etc/issue`
 - `minify -o index.min.html index.html`, `minify --type=html < index.html > index.min.html`
+- `fluidsynth -in mysoundfont.sf2 mysong.mid`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
