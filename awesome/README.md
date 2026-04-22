@@ -89,6 +89,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **DuckDNS** - free public DDNS (Dynamic DNS) service with wildcard subdomains: [docker](https://hub.docker.com/r/linuxserver/duckdns) [website](https://www.duckdns.org/)
 - **Formspree** - form for APIs for sending mails from static web pages: [website](https://formspree.io/)
 - **Free To Use** - free music for video creators, safe background music with no copyright claims: [website](https://freetouse.com/music)
+- **FreeMidi.org** - free high quality MIDI website: [website](https://freemidi.org/)
 - **GeoGebra online** - online apps bundle from GeoGebra: [webapp](https://www.geogebra.org/classic) [webapp](https://www.geogebra.org/graphing)
 - **GeoJSON.io** - quick, simple tool for creating, viewing, and sharing spatial data: [website](https://geojson.io/)
 - **Git ingest** - get prompt-friendly codebases to paste into any LLM: [github](https://github.com/cyclotruc/gitingest) [website](https://gitingest.com/)
