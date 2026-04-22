@@ -110,6 +110,8 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Quizizz** - create and share online quizzes easily: [website](https://quizizz.com/)
 - **SQLite Viewer Web App** - inspect SQLite databases from your browser: [website](https://sqliteviewer.app/)
 - **Schneegans Windows Unattend Generator** - XML answer files generator for Windows 10/11 unattended installation: [github](https://github.com/cschneegans/unattend-generator) [website](https://schneegans.de/windows/unattend-generator/) [youtube](https://www.youtube.com/watch?v=h9SpKVEc_Yo)
+- **SpessaFont** - online SoundFont/DLS editor, written in TypeScript and React: [github](https://github.com/spessasus/SpessaFont) [webapp](https://spessasus.github.io/SpessaFont/)
+- **SpessaSynth** - online SoundFont2-based real-time MIDI player synthesizer, written in TypeScript: [github](https://github.com/spessasus/SpessaSynth) [webapp](https://spessasus.github.io/SpessaSynth/)
 - **Suno** - AI music generator with vocals and lyrics, generates whole complete songs: [website](https://suno.com/) [website](https://suno.com/explore)
 - **Swagger** - API documentation for everyone: [website](https://swagger.io/)
 - **TOTP Token Generator by Dan Hersam** - generate TOTP tokens in the browser: [github](https://github.com/jaden/totp-generator) [website](https://totp.danhersam.com/)
