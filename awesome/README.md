@@ -310,7 +310,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Audacity** - cross-platform software for recording and editing sounds: [apt](https://packages.debian.org/stable/audacity) [choco](https://community.chocolatey.org/packages/audacity) [website](https://www.audacityteam.org/)
 - **Chromium** - open-source web browser: [apt](https://packages.debian.org/stable/chromium) [choco](https://community.chocolatey.org/packages/chromium) [website](https://www.chromium.org/Home/)
 - **DB Browser for SQLite** - visual open source tool to create, design, and edit SQLite database files: [apt](https://packages.debian.org/stable/sqlitebrowser) [choco](https://community.chocolatey.org/packages/sqlitebrowser) [github](https://github.com/sqlitebrowser/sqlitebrowser) [website](https://sqlitebrowser.org/)
-- **DeSmuME** - Nintendo DS emulator: [github](https://github.com/TASEmulators/desmume) [website](http://desmume.org/)
+- **DeSmuME** - Nintendo DS emulator: [github](https://github.com/TASEmulators/desmume) [website](https://desmume.org/)
 - **EncryptPad** - view and edit symmetrically encrypted text files: [github](https://github.com/evpo/EncryptPad) [website](https://evpo.net/encryptpad/)
 - **Excalidraw** - virtual whiteboard for sketching hand-drawn like diagrams: [github](https://github.com/excalidraw/excalidraw) [website](https://excalidraw.com/)
 - **FileZilla** - free and open source FTP/FTPS/FTPES/SFTP client: [apt](https://packages.debian.org/stable/filezilla) [choco](https://community.chocolatey.org/packages/filezilla) [website](https://filezilla-project.org/)
