@@ -125,6 +125,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **localhost.run** - SSH tunneling port forwarding service to expose server applications on HTTPS, similar to portmap.io but it exposes on HTTPS and works also without creating an account: [website](https://localhost.run/)
 - **ngrok** - globally distributed reverse proxy, similar to portmap.io: [choco](https://community.chocolatey.org/packages/ngrok) [docker](https://hub.docker.com/r/ngrok/ngrok) [website](https://ngrok.com/)
 - **nip.io** - public wildcard DNS domains for any IP address: [website](https://nip.io/)
+- **signal** - online MIDI editor, a user-friendly music sequencer application developed using web technologies, designed for seamless, cross-platform use: [github](https://github.com/ryohey/signal) [webapp](https://signalmidi.app/edit) [website](https://signalmidi.app/)
 - **v86** - x86 PC emulator and x86-to-wasm JIT, basically 32-bit virtual machines running in the browser: [github](https://github.com/copy/v86) [website](https://copy.sh/v86/)
 
 ## Linux server software
