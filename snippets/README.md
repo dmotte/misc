@@ -226,6 +226,7 @@ Some pieces of code I find useful for some reason.
 - `xdg-mime query default audio/mpeg`, `xdg-mime default vlc.desktop audio/mpeg video/mp4`, `cat ~/.config/mimeapps.list`, `grep '^MimeType=' /usr/share/applications/vlc.desktop`
 - `inotifywait -cmqr mydir`, `inotifywait -eMODIFY,ATTRIB,CLOSE_WRITE,MOVE,MOVE_SELF,CREATE,DELETE,DELETE_SELF,UNMOUNT -t10 myfile.log`
 - `[ -z "$(lsof +D mydir)" ]`
+- `lsof -i`
 - `echo 'rename oldname newname' | sftp -b- -oControlPath=~/.ssh/cm-%C -P2222 myuser@192.168.0.123`
 - `coproc MYPROC { pinentry-gnome3; }; echo -e 'SETPROMPT My prompt\nGETPIN\nBYE' >&"${MYPROC[1]}"; sed -En 's/^D (.+)$/\1/p' <&"${MYPROC[0]}"`
 - `upower -e`, `upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E '^\s+energy-full\S*:'`, `upower -d`, `echo "$(</sys/class/power_supply/BAT0/capacity)%"`
