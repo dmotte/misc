@@ -2,7 +2,7 @@
 
 set -e
 
-# This scripts installs Wine (Wine Is Not an Emulator) via the official WineHQ
+# This script installs Wine (Wine Is Not an Emulator) via the official WineHQ
 # APT repository
 
 # Inspired by the official guide:

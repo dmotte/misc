@@ -2,7 +2,7 @@
 
 set -e
 
-# This scripts installs Aqua Trivy via the official APT repository
+# This script installs Aqua Trivy via the official APT repository
 
 # Inspired by the official guide:
 # https://trivy.dev/v0.59/getting-started/installation/#debianubuntu-official

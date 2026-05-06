@@ -2,7 +2,7 @@
 
 set -e
 
-# This scripts installs HashiCorp Vagrant via the official APT repository
+# This script installs HashiCorp Vagrant via the official APT repository
 
 # Inspired by the official guide:
 # https://developer.hashicorp.com/vagrant/install#linux

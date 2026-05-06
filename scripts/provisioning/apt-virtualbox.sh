@@ -2,7 +2,7 @@
 
 set -e
 
-# This scripts installs Oracle VirtualBox via the official APT repository.
+# This script installs Oracle VirtualBox via the official APT repository.
 # Note that a reboot is required before being able to use VirtualBox
 
 # Inspired by the official guide:
