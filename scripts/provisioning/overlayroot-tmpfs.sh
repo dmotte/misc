@@ -15,6 +15,10 @@ set -e
 # as unprivileged user) or booting the system with the
 # "overlayroot=disabled" (or simply "overlayroot=") boot parameter
 
+# Note: when overlayroot is active, since the real root partition is mounted in
+# read-only mode, you can theoretically use "poweroff -f" and
+# "reboot -f" without corrupting the filesystem (but do it at your own risk!)
+
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
 apt_update_if_old() {
