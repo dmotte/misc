@@ -11,7 +11,8 @@ set -e
 
 # Note: once overlayroot is configured on your system, you can temporarily
 # access the underlying root filesystem in write mode by either running
-# "sudo overlayroot-chroot" or booting the system with the
+# "sudo overlayroot-chroot" (or "sudo overlayroot-chroot su -l myuser" to run
+# as unprivileged user) or booting the system with the
 # "overlayroot=disabled" (or simply "overlayroot=") boot parameter
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
