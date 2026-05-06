@@ -30,7 +30,7 @@ dpkg -s overlayroot >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y overlayroot; }
 
 echo 'overlayroot="tmpfs:recurse=0"' |
-    install -DTm600 /dev/stdin /etc/overlayroot.local.conf
+    install -DTvm600 /dev/stdin /etc/overlayroot.local.conf
 
 # Fix for the "mount: /: fsconfig() failed: overlay: No changes allowed in
 # reconfigure" issue, otherwise the overlay root is mounted in read-only mode
