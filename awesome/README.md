@@ -254,6 +254,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **YT-DLP** - feature-rich command-line audio/video downloader with support for thousands of sites, fork of youtube-dl based on the now inactive youtube-dlc: [apt](https://packages.debian.org/stable/yt-dlp) [choco](https://community.chocolatey.org/packages/yt-dlp) [github](https://github.com/yt-dlp/yt-dlp)
 - **Zola** - static website generator written in Rust: [choco](https://community.chocolatey.org/packages/zola) [github](https://github.com/getzola/zola) [website](https://www.getzola.org/)
 - **bc** - arbitrary precision numeric processing language: [website](https://www.gnu.org/software/bc/)
+- **esptool** - Python-based, open-source, platform-independent serial utility for flashing, provisioning, and interacting with Espressif SoCs: [apt](https://packages.debian.org/stable/esptool) [docs](https://docs.espressif.com/projects/esptool/en/latest/esp32/) [github](https://github.com/espressif/esptool) [pypi](https://pypi.org/project/esptool/)
 - **ffmpeg** - record, convert and stream audio and video: [apt](https://packages.debian.org/stable/ffmpeg) [choco](https://community.chocolatey.org/packages/ffmpeg) [website](https://www.ffmpeg.org/)
 - **flog** - fake log generator: [docker](https://hub.docker.com/r/mingrammer/flog) [github](https://github.com/mingrammer/flog)
 - **jq** - command-line JSON processor: [apt](https://packages.debian.org/stable/jq) [choco](https://community.chocolatey.org/packages/jq) [github](https://github.com/jqlang/jq) [website](https://jqlang.org/)
