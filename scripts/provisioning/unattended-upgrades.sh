@@ -85,7 +85,7 @@ EOF
 if [ -n "$timer_update" ]; then
     echo 'Setting event expression for the apt-daily.timer unit'
     install -DTm644 /dev/stdin \
-        /etc/systemd/system/apt-daily.timer.d/override.conf << EOF
+        /etc/systemd/system/apt-daily.timer.d/50-schedule.conf << EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
 OnCalendar=
@@ -97,7 +97,7 @@ fi
 if [ -n "$timer_upgrade" ]; then
     echo 'Setting event expression for the apt-daily-upgrade.timer unit'
     install -DTm644 /dev/stdin \
-        /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf << EOF
+        /etc/systemd/system/apt-daily-upgrade.timer.d/50-schedule.conf << EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
 OnCalendar=
