@@ -131,7 +131,7 @@ Some pieces of code I find useful for some reason.
 - `shuf -en1 Alice Bob Carl`, `shuf -i1-10 -n1`
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`, `tr -cd ' -~' < /dev/random | head -c64; echo`, `tr -cd '0-9a-f' < /dev/random | for i in {1..10}; do head -c8; echo; done | LC_ALL=C sort -u | shuf`
 - `myvar=$'string \\ with\nsome\nspecial \'chars\' to "escape"'; echo "${myvar@Q}"`
-- `venv/bin/python3 -mpip install -U --progress-bar=off -r requirements.txt`
+- `.venv/bin/python3 -mpip install -U --progress-bar=off -r requirements.txt`
 - `escape_if_any() { echo "${1:+${1@Q}}"; }`
 - `json_min_escape() { jq -c . | jq -Rrs 'rtrimstr("\n") | @json'; }`
 - `arr=(one two 'three four'); escaped_items=("${arr[@]@Q}"); echo "${escaped_items[0]}"; escaped_str="${arr[*]@Q}"; echo "$escaped_str"`
@@ -168,7 +168,7 @@ Some pieces of code I find useful for some reason.
 - `comm --nocheck-order --total <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright')`
 - `sunodl() { curl -fLO https://cdn1.suno.ai/$1.mp3; }`
 - `yt-dlp -Sres:720 --embed-metadata -o'myvid.%(ext)s' "$myurl"`
-- `install -DTv <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') venv/bin/python3`
+- `install -DTv <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') .venv/bin/python3`
 - `shred -u myfile.txt`
 - `gpg -ac --cipher-algo=AES256 --no-symkey-cache -o encrypted.asc <(date)`, `gpg -d --no-symkey-cache encrypted.asc`
 - `gpg -c --cipher-algo=AES256 --no-compress --no-symkey-cache -o encrypted.gpg myarchive.zip`, `gpg -d --no-symkey-cache encrypted.gpg | sha256sum`

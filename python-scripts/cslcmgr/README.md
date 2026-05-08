@@ -18,8 +18,8 @@ First of all you need to generate one or more **GitHub PATs** (_Personal Access 
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 ```
 
 Then set the necessary configuration **environment variables**. Example:
@@ -38,13 +38,13 @@ Then you can run the app either in a **development** or **production** configura
 **Development**:
 
 ```bash
-CSLCMGR_LOG_LEVEL=DEBUG venv/bin/python3 app.py
+CSLCMGR_LOG_LEVEL=DEBUG .venv/bin/python3 app.py
 ```
 
 **Production**:
 
 ```bash
-venv/bin/python3 -mgunicorn --access-logfile=- -w4 -b127.0.0.1:8000 'app:create_app()'
+.venv/bin/python3 -mgunicorn --access-logfile=- -w4 -b127.0.0.1:8000 'app:create_app()'
 ```
 
 > **Note**: for more information about running a _Flask_ application with _Gunicorn_, see https://flask.palletsprojects.com/en/3.0.x/deploying/gunicorn/

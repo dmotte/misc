@@ -8,10 +8,10 @@ Simple example of how to use the **croniter** Python library.
 > **Important**: this has been tested with **Python 3.13.5** on **Debian 13** (_trixie_).
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 
-venv/bin/python3 main.py
+.venv/bin/python3 main.py
 ```
 
 Example output:

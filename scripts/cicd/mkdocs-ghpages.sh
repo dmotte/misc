@@ -18,11 +18,11 @@ fi
 
 echo "::group::$0: Preparation"
     sudo apt-get update; sudo apt-get install -y python3-pip python3-venv
-    python3 -mvenv venv
-    venv/bin/python3 -mpip install mkdocs
+    python3 -mvenv .venv
+    .venv/bin/python3 -mpip install mkdocs
 
     python3 --version
-    venv/bin/python3 -mpip show pip mkdocs
+    .venv/bin/python3 -mpip show pip mkdocs
 
     echo "$CICD_SUMMARY_TITLE" | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
@@ -57,7 +57,7 @@ echo '::endgroup::'
 echo "::group::$0: Dependencies"
     if [ "$MKDOCS_DEPS" = auto ]; then
         deps_mode=auto
-        deps_lines=$(venv/bin/python3 -mmkdocs get-deps "${add_opts_all[@]}")
+        deps_lines=$(.venv/bin/python3 -mmkdocs get-deps "${add_opts_all[@]}")
         deps_commas=$(echo "$deps_lines" | paste -sd,)
     elif [ -n "$MKDOCS_DEPS" ]; then
         deps_mode=manual
@@ -70,7 +70,7 @@ echo "::group::$0: Dependencies"
         echo "- &#x1F9EC; Dependencies (**$deps_mode**):" \
             "\`${deps_commas//,/'`, `'}\`" | tee -a "$CICD_SUMMARY"
 
-        echo "$deps_lines" | xargs -rd\\n venv/bin/python3 -mpip install
+        echo "$deps_lines" | xargs -rd\\n .venv/bin/python3 -mpip install
     fi
 echo '::endgroup::'
 
@@ -111,7 +111,7 @@ echo "::group::$0: Build"
         done < <(printf '%s' "$items")
     fi
 
-    venv/bin/python3 -mmkdocs build -s \
+    .venv/bin/python3 -mmkdocs build -s \
         "${add_opts_all[@]}" "${add_opts_build[@]}"
 echo '::endgroup::'
 

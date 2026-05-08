@@ -12,8 +12,8 @@
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 ```
 
 Then you can **process an audio file** using the [`process.sh`](process.sh) Bash script:

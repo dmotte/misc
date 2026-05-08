@@ -10,8 +10,8 @@ readonly fetcher=${1:?} symbol=${2:?} interval=${3:?} year=${4:?}
 readonly nextyear=$((year + 1))
 
 if [[ "$(uname)" = MINGW* ]]
-    then py=$(dirname "$fetcher")/venv/Scripts/python
-    else py=$(dirname "$fetcher")/venv/bin/python3
+    then py=$(dirname "$fetcher")/.venv/Scripts/python
+    else py=$(dirname "$fetcher")/.venv/bin/python3
 fi
 
 # We separately invoke the fetcher script in advance, to avoid masking its

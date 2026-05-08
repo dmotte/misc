@@ -9,14 +9,14 @@ Set of scripts that can be used to **download [OHLCV data](https://en.wikipedia.
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 ```
 
 Then you can use the scripts:
 
 ```bash
-venv/bin/python3 yahoo-finance.py --help
+.venv/bin/python3 yahoo-finance.py --help
 ```
 
 You can also invoke them from any other directory on your system using the `invoke.sh` script:

@@ -13,8 +13,8 @@ You can use this script to interact with the [Watson](https://github.com/TailorD
 > **Important**: this has been tested with **Python 3.12.8** in **Termux** on **Android**.
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 ```
 
 Then you can **move to your custom data directory** and invoke the `dwats.sh` script from there, like this:

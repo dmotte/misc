@@ -13,8 +13,8 @@ Scripts to compute some **statistics** starting from **Binance transaction recor
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 ```
 
 Then download the necessary **OHLCV data**:
@@ -23,7 +23,7 @@ Then download the necessary **OHLCV data**:
 mkdir -v ohlcv
 
 mapfile -t coins < <(cat transactions/records-*.csv |
-    venv/bin/python3 coins.py | tr -d '\r')
+    .venv/bin/python3 coins.py | tr -d '\r')
 echo "${coins[*]@Q}"
 
 mapfile -t years < <(find transactions -name 'records-*.csv' \
@@ -49,7 +49,7 @@ Finally, you can **compute the statistics**:
 
 ```bash
 cat transactions/records-*.csv |
-    venv/bin/python3 stats.py -d2021-01-01T00Z -D2021-12-31T23:59Z \
+    .venv/bin/python3 stats.py -d2021-01-01T00Z -D2021-12-31T23:59Z \
         --real-spot=statements/spot-2021.csv,Coin,Total \
         --real-earn=statements/earn-2021.csv,Token,Amount \
         --ohlcv-dir=ohlcv --fiat=EUR
@@ -60,6 +60,6 @@ cat transactions/records-*.csv |
 If you want to run the unit tests:
 
 ```bash
-venv/bin/python3 -mpip install pytest
-venv/bin/python3 -mpytest test
+.venv/bin/python3 -mpip install pytest
+.venv/bin/python3 -mpytest test
 ```

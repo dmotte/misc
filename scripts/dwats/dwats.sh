@@ -5,8 +5,8 @@ set -e
 basedir=$(dirname "$0")
 
 if [[ "$(uname)" = MINGW* ]]
-    then py=$basedir/venv/Scripts/python
-    else py=$basedir/venv/bin/python3
+    then py=$basedir/.venv/Scripts/python
+    else py=$basedir/.venv/bin/python3
 fi
 [ -e "$py" ] || { echo "Python binary $py not found" >&2; exit 1; }
 

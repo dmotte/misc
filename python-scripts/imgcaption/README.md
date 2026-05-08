@@ -15,12 +15,12 @@ Inspired by:
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 ```
 
 Then you can use the script like this:
 
 ```bash
-time printf '%s\n' img/*.jpg | venv/bin/python3 main.py
+time printf '%s\n' img/*.jpg | .venv/bin/python3 main.py
 ```

@@ -35,8 +35,8 @@ args_trim=()
 basedir=$(dirname "$0")
 
 if [[ "$(uname)" = MINGW* ]]
-    then py=$basedir/venv/Scripts/python
-    else py=$basedir/venv/bin/python3
+    then py=$basedir/.venv/Scripts/python
+    else py=$basedir/.venv/bin/python3
 fi
 
 echo 'Computing amplification values'

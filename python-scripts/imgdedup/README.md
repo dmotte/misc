@@ -11,16 +11,16 @@ Inspired by PR [idealo/imagededup#47](https://github.com/idealo/imagededup/pull/
 Set up a **Python venv** (virtual environment) and install some packages inside it:
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 ```
 
 Then you can use the script like this:
 
 ```bash
-time venv/bin/python3 main.py -mPHash images/
-time venv/bin/python3 main.py -mCNN -Ss.8 images/
+time .venv/bin/python3 main.py -mPHash images/
+time .venv/bin/python3 main.py -mCNN -Ss.8 images/
 
-time venv/bin/python3 main.py -mCNN -Ss-1 images/ output-01.json
+time .venv/bin/python3 main.py -mCNN -Ss-1 images/ output-01.json
 jq 'map_values(map(select(.[1] | tonumber > 0.9))) | with_entries(select(.value | length > 0))' output-01.json > output-02.json
 ```

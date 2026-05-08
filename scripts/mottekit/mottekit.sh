@@ -166,14 +166,14 @@ path=$(realpath "$path")
 [[ "$path" = *.sh ]] && exec bash "$path" "$@"
 
 if [[ "$(uname)" = MINGW* ]]
-    then readonly py=python venvpy=venv/Scripts/python
-    else readonly py=python3 venvpy=venv/bin/python3
+    then readonly py=python venvpy=.venv/Scripts/python
+    else readonly py=python3 venvpy=.venv/bin/python3
 fi
 
 [[ "$path" = */cli.py ]] && {
-    [ -d "$basedir/venv" ] || {
-        echo "Creating venv $basedir/venv" >&2
-        "$py" -mvenv "$basedir/venv"
+    [ -d "$basedir/.venv" ] || {
+        echo "Creating venv $basedir/.venv" >&2
+        "$py" -mvenv "$basedir/.venv"
     }
 
     pkgpath=$(realpath "$(dirname "$path")/..")
@@ -189,10 +189,10 @@ fi
     dirpath=$(realpath "$(dirname "$path")")
 
     if [ -e "$dirpath/requirements.txt" ] &&
-        grep -Fx '/venv/' "$dirpath/.gitignore" >/dev/null 2>&1; then
-        [ -d "$dirpath/venv" ] || {
-            echo "Creating venv $dirpath/venv" >&2
-            "$py" -mvenv "$dirpath/venv"
+        grep -Fx '/.venv/' "$dirpath/.gitignore" >/dev/null 2>&1; then
+        [ -d "$dirpath/.venv" ] || {
+            echo "Creating venv $dirpath/.venv" >&2
+            "$py" -mvenv "$dirpath/.venv"
 
             "$dirpath/$venvpy" -mpip install -r "$dirpath/requirements.txt"
         }
