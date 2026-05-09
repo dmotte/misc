@@ -245,6 +245,7 @@ Some pieces of code I find useful for some reason.
 - `echo -e '\\n \\4 \\l\n' | tee /etc/issue`
 - `minify -o index.min.html index.html`, `minify --type=html < index.html > index.min.html`
 - `fluidsynth -in mysoundfont.sf2 mysong.mid`
+- `ls -la /dev/ttyACM* /dev/ttyUSB*`, `sudo usermod -aG dialout "$USER"`, `stty -F /dev/ttyUSB0 speed`, `stty -F /dev/ttyUSB0 115200 && socat - /dev/ttyUSB0,rawer`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
