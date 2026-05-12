@@ -14,6 +14,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 ## Android apps
 
 - **APK Explorer and Editor** - open-source APK explorer and editor, split APK, app bundle: [fdroid](https://f-droid.org/packages/com.apk.editor/) [github](https://github.com/apk-editor/APK-Explorer-Editor) [playstore](https://play.google.com/store/apps/details?id=com.apk.explorer) [website](https://apk-editor.github.io/)
+- **Audile** - open-source Android app for music recognition that integrates AudD, ACRCloud, and Shazam to perform song identification: [fdroid](https://f-droid.org/packages/com.mrsep.musicrecognizer/) [github](https://github.com/aleksey-saenko/MusicRecognizer)
 - **Audio Recorder** - open-source audio recorder for Android: [fdroid](https://f-droid.org/packages/com.github.axet.audiorecorder/) [gitlab](https://gitlab.com/axet/android-audio-recorder)
 - **Aurora Store** - unofficial FOSS client to Google Play with an elegant design and privacy: [fdroid](https://f-droid.org/packages/com.aurora.store/) [gitlab](https://gitlab.com/AuroraOSS/AuroraStore) [website](https://auroraoss.com/)
 - **Chubby Click** - FOSS metronome with the gigging musician in mind: [fdroid](https://f-droid.org/packages/agrigolo.chubbyclick/) [website](https://codeberg.org/agrigolo/chubby-click)
