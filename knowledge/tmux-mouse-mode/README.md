@@ -2,7 +2,7 @@
 
 [**tmux**](https://github.com/tmux/tmux) has a **mouse mode**. Its main advantage is that it enables **mouse wheel scrolling**.
 
-To activate it, press `CTRL+B` and then `:`, then type the following:
+To activate it, press `Ctrl+B` and then `:`, then type the following:
 
 ```
 setw -g mouse on

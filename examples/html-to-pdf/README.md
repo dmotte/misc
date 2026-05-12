@@ -11,4 +11,4 @@ chromium --headless --no-sandbox --disable-gpu \
     --no-pdf-header-footer --print-to-pdf=example.pdf example.html
 ```
 
-That's basically equivalent to opening the HTML file with the _Chromium_ browser, pressing `CTRL+P` and selecting **Save as PDF**.
+That's basically equivalent to opening the HTML file with the _Chromium_ browser, pressing `Ctrl+P` and selecting **Save as PDF**.
