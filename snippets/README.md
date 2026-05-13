@@ -116,6 +116,7 @@ Some pieces of code I find useful for some reason.
 - `nano -AEJ80 -ST4 -ailmq filename`
 - `vboxmanage startvm myvm --type=headless`
 - `vboxmanage controlvm myvm acpipowerbutton`
+- `vboxmanage modifyvm myvm --natpf1 HTTP,tcp,127.0.0.1,8080,,80` (if VM is powered off), `vboxmanage controlvm myvm natpf1 HTTP,tcp,127.0.0.1,8080,,80` (if VM is running)
 - `while IFS= read -r i; do vboxmanage controlvm myvm keyboardputstring "$i"; vboxmanage controlvm myvm keyboardputscancode 1C 9C; done`
 - `vboxmanage getextradata global GUI/SuppressMessages`, `vboxmanage setextradata global GUI/SuppressMessages all`
 - `echo 'Hello $USER!' | envsubst`
