@@ -276,6 +276,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 ### For Linux
 
 - **AutoKey** - desktop automation utility like AutoHotKey but for Linux and uses Python 3 as scripting language: [github](https://github.com/autokey/autokey) [website](https://autokey.github.io/)
+- **Cage** - free and open-source Wayland kiosk, that runs a single, maximized application: [apt](https://packages.debian.org/stable/cage) [docs](https://manpages.debian.org/trixie/cage/cage.1.en.html) [github](https://github.com/cage-kiosk/cage) [website](https://www.hjdskes.nl/projects/cage/) [youtube](https://www.youtube.com/watch?v=b-ejwXQB5Xk)
 - **PCManFM** - fast and lightweight file manager: [apt](https://packages.debian.org/stable/pcmanfm) [website](https://blog.lxde.org/category/pcmanfm/)
 
 ### For Windows
