@@ -39,7 +39,10 @@ fi
 
 echo 'Creating kiosk service files'
 
-install -okioskuser -gkioskuser -DTvm644 /dev/stdin \
+install -okioskuser -gkioskuser -dvm700 \
+    ~kioskuser/.config{,/xkb{,/symbols,/rules}}
+
+install -okioskuser -gkioskuser -Tvm644 /dev/stdin \
     ~kioskuser/.config/xkb/symbols/kiosk << EOF
 default partial alphanumeric_keys
 xkb_symbols "basic" {
@@ -83,7 +86,7 @@ xkb_symbols "basic" {
 };
 EOF
 
-install -okioskuser -gkioskuser -DTvm644 /dev/stdin \
+install -okioskuser -gkioskuser -Tvm644 /dev/stdin \
     ~kioskuser/.config/xkb/rules/evdev << EOF
 ! option = symbols
   kiosk = +kiosk
