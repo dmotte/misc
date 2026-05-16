@@ -7,6 +7,7 @@ Some pieces of code I find useful for some reason.
 - `install -DTvm600 src.txt dst.txt`, `install -Tvm700 src.sh dst.sh`
 - `install -vm600 -t ~/.ssh mykey_ed25519`
 - `install -omyuser -gmygroup -dvm700 mydir`, `install -dv -omyuser -gmygroup mydir`
+- `sudo apt-get update && sudo apt-get dist-upgrade -y`, `sudo apt update && sudo apt full-upgrade`
 - `tmux new-session -As0`
 - `tmux setw -g mouse on`
 - `eval "$(ssh-agent)"`, `ssh-add -t1800` (30 minutes), `ssh-add -l`, `eval "$(ssh-agent -k)"`
