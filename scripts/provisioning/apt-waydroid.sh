@@ -12,12 +12,13 @@ set -e
 # Tested on Debian 13 (trixie)
 
 # Note: if you want to use Waydroid with a non-supported GPU, or inside a VM,
-# you can enable software-rendering by running the following command:
+# you can enable software-rendering by running the following command (after
+# performing the Waydroid initial procedure, e.g. downloading the OTA images):
 #     printf '%s\n' ro.hardware.gralloc=default ro.hardware.egl=swiftshader |
 #         sudo tee -a /var/lib/waydroid/waydroid.cfg
 # Make sure the lines were added to the "[properties]" section of the
 # configuration file.
-# Then restart Waydroid to make the changes effective.
+# Then apply the changes with "sudo waydroid upgrade -o" to make them effective.
 # Source: https://docs.waydro.id/faq/get-waydroid-to-work-through-a-vm
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
