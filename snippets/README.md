@@ -252,6 +252,10 @@ Some pieces of code I find useful for some reason.
 - `esptool image-info firmware.bin`
 - `esptool -p/dev/ttyUSB0 flash-id`
 - `esptool -p/dev/ttyUSB0 erase-flash`, `esptool -p/dev/ttyUSB0 write-flash 0x1000 bootloader_dio_40m.bin 0x8000 partitions.bin 0xe000 boot_app0.bin 0x10000 firmware.bin`, `esptool -p/dev/ttyUSB0 read-flash 0 ALL dump.bin`
+- `weston -i0 --xwayland` (then see https://manpages.debian.org/stable/weston/weston-bindings.7.en.html)
+- `weston -i0 --xwayland -- weston-terminal`
+- `GTK_THEME=Adwaita:dark weston -i0 --xwayland --shell=kiosk -- firefox https://example.com/`
+- `weston -i0 --xwayland -Bvnc --disable-transport-layer-security`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
