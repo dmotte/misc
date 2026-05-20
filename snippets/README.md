@@ -381,6 +381,20 @@ sudo sed -Ei 's/^(\s+echo "menuentry .+ \$\{CLASS\} )(\\\$menuentry_id_option '\
 sudo update-grub
 ```
 
+```bash
+while :; do # For X11
+    ffmpeg -framerate 3 -f x11grab -i :0.0 \
+        -c:v libx265 -crf 40 -preset slow -pix_fmt yuv420p \
+        -vf 'scale=iw*2/3:ih*2/3' -t 60 \
+        "screen-$(date -u +%Y-%m-%d-%H%M%S).mkv"
+done
+
+while :; do # For wlroots-based Wayland compositors
+    timeout -p 60s wf-recorder -clibx265 -r3 -xyuv420p -pcrf=40 -ppreset=slow \
+        -F'scale=trunc(iw*2/6)*2:trunc(ih*2/6)*2' -f"screen-$(date -u +%Y-%m-%d-%H%M%S).mkv"
+done
+```
+
 ## Shell snippets for Docker
 
 - `docker run -it --rm --log-driver=none docker.io/library/debian:13`
