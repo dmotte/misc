@@ -234,6 +234,7 @@ Some pieces of code I find useful for some reason.
 - `coproc MYPROC { pinentry-gnome3; }; echo -e 'SETPROMPT My prompt\nGETPIN\nBYE' >&"${MYPROC[1]}"; sed -En 's/^D (.+)$/\1/p' <&"${MYPROC[0]}"`
 - `upower -e`, `upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E '^\s+energy-full\S*:'`, `upower -d`, `echo "$(</sys/class/power_supply/BAT0/capacity)%"`
 - `fdo_notify() { gdbus call --session --dest=org.freedesktop.Notifications --object-path=/org/freedesktop/Notifications --method=org.freedesktop.Notifications.Notify -- "$1" 0 "$2" "$3" "$4" '[]' '{}' -1; }` (see https://specifications.freedesktop.org/notification-spec/1.3/protocol.html#command-notify), `fdo_notify MyApp folder-open MyTitle MyText`, `fdo_notify MyApp ~/myicon.png MyTitle MyText`
+- `zenity --title='Open file' --file-selection`, `zenity --title='Select color' --color-selection`
 - `wine reg add 'HKLM\SOFTWARE\MyApp' /v MyValue /t REG_SZ /d MyData /f /reg:64` (the `/reg:64` part is required for Wine, otherwise the value would be created under `HKLM\SOFTWARE\Wow6432Node\...`)
 - `inkscape --export-filename=myimage.png --export-type=png myimage.svg`
 - `convert -verbose scan-page{01,02,03}.jpg output.pdf`
