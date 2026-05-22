@@ -1,5 +1,7 @@
 # win-ssh-x11-fwd
 
+:warning: **Warning**: this guide uses `ssh -Y` (trusted X11 forwarding over SSH), which grants remote applications broad access to your local X session, may be slow on high-latency connections, has known security limitations, and relies on legacy X11 technology. For remote desktop usage, please consider alternatives such as VNC or RDP.
+
 This guide explains how to do **X11 Forwarding** with **OpenSSH** on **Windows 10** using [**VcXsrv**](https://github.com/marchaesen/vcxsrv).
 
 > **Note**: before starting, make sure that [`X11Forwarding`](https://man.openbsd.org/sshd_config#X11Forwarding) is enabled and `xauth` is installed on the SSH server you want to connect to.
