@@ -20,6 +20,8 @@ Now you can connect to an SSH server with X11 Forwarding. Open a _Git Bash_ wind
 DISPLAY=127.0.0.1:0 ssh -Y myuser@192.168.0.123
 ```
 
+> **Note**: by specifying `DISPLAY=127.0.0.1:0` the X client will connect to **TCP port 6000**, where the _VcXsrv_ X server is listening.
+
 Then, in the remote shell:
 
 ```bash
