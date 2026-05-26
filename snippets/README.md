@@ -396,6 +396,22 @@ while :; do # For wlroots-based Wayland compositors
 done
 ```
 
+```bash
+waypipe -s/tmp/waypipe-client.sock client
+
+ssh -R/tmp/waypipe-server.sock:/tmp/waypipe-client.sock myuser@192.168.0.123 '
+    export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
+    install -dvm700 "$XDG_RUNTIME_DIR"
+    export LC_ALL=C.UTF-8 # To avoid warnings about non-UTF-8 locale
+    waypipe -ns/tmp/waypipe-server.sock --unlink-socket server -- foot'
+
+# If you need to run an X11 app:
+coproc XWL01 { Xwayland -decorate -noreset -displayfd 1; }
+read -ru"${XWL01[0]}" display
+export DISPLAY=":$display"
+xterm
+```
+
 ## Shell snippets for Docker
 
 - `docker run -it --rm --log-driver=none docker.io/library/debian:13`
