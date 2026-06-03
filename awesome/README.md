@@ -365,7 +365,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## Firmwares
 
-- **MicroPython** - Python for microcontrollers: [docs](https://docs.micropython.org/en/latest/esp32/quickref.html#pins-and-gpio) [docs](https://micropython.org/download/ESP32_GENERIC/) [example](https://micropython.org/unicorn/) [website](https://micropython.org/)
+- **MicroPython** - Python for microcontrollers: [docs](https://docs.micropython.org/en/latest/esp32/quickref.html#pins-and-gpio) [docs](https://micropython.org/download/ESP32_GENERIC/) [example](https://micropython.org/unicorn/) [github](https://github.com/micropython/micropython) [website](https://micropython.org/)
 
 ## Technologies and standards
 
