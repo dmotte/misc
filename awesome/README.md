@@ -363,6 +363,10 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **netboot.xyz** - network-based bootable operating system installer based on iPXE: [github](https://github.com/netbootxyz/netboot.xyz) [guide](https://netboot.xyz/docs/booting/iso) [guide](https://netboot.xyz/docs/quick-start) [website](https://netboot.xyz/) [youtube](https://www.youtube.com/watch?v=RmnHcamgLNw)
 - **qBittorrent** - free cross-platform BitTorrent client GUI: [apt](https://packages.debian.org/stable/qbittorrent) [choco](https://community.chocolatey.org/packages/qbittorrent) [github](https://github.com/qbittorrent/qBittorrent) [website](https://www.qbittorrent.org/)
 
+## Firmwares
+
+- **MicroPython** - Python for microcontrollers: [docs](https://docs.micropython.org/en/latest/esp32/quickref.html#pins-and-gpio) [docs](https://micropython.org/download/ESP32_GENERIC/) [example](https://micropython.org/unicorn/) [website](https://micropython.org/)
+
 ## Technologies and standards
 
 - **CLAP** - CLever Audio Plugin, an interface that provides a stable ABI to define a standard for DAWs (Digital Audio Workstations) and audio plugins (synthesizers, audio effects, etc.) to work together: [github](https://github.com/free-audio/clap) [website](https://cleveraudio.org/)
