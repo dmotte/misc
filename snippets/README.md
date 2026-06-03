@@ -250,7 +250,7 @@ Some pieces of code I find useful for some reason.
 - `echo -e '\\n \\4 \\l\n' | tee /etc/issue`
 - `minify -o index.min.html index.html`, `minify --type=html < index.html > index.min.html`
 - `fluidsynth -in mysoundfont.sf2 mysong.mid`
-- `ls -la /dev/ttyACM* /dev/ttyUSB*`, `sudo usermod -aG dialout "$USER"`, `stty -F /dev/ttyUSB0 speed`, `stty -F /dev/ttyUSB0 115200 && socat - /dev/ttyUSB0,rawer`
+- `ls -la /dev/ttyACM* /dev/ttyUSB*`, `sudo usermod -aG dialout "$USER"`, `stty -F /dev/ttyUSB0 speed`, `stty -F /dev/ttyUSB0 115200 && socat - /dev/ttyUSB0,rawer`, `echo 'Hello, World!' > /dev/ttyUSB0`
 - `esptool image-info firmware.bin`
 - `esptool -p/dev/ttyUSB0 flash-id`
 - `esptool -p/dev/ttyUSB0 erase-flash`, `esptool -p/dev/ttyUSB0 write-flash 0x1000 bootloader_dio_40m.bin 0x8000 partitions.bin 0xe000 boot_app0.bin 0x10000 firmware.bin`, `esptool -p/dev/ttyUSB0 read-flash 0 ALL dump.bin`
