@@ -135,7 +135,7 @@ Some pieces of code I find useful for some reason.
 - `shuf -en1 Alice Bob Carl`, `shuf -i1-10 -n1`
 - `tr -cd '0-9A-Za-z' < /dev/random | head -c64; echo`, `tr -cd ' -~' < /dev/random | head -c64; echo`, `tr -cd '0-9a-f' < /dev/random | for i in {1..10}; do head -c8; echo; done | LC_ALL=C sort -u | shuf`
 - `myvar=$'string \\ with\nsome\nspecial \'chars\' to "escape"'; echo "${myvar@Q}"`
-- `.venv/bin/python3 -mpip install -Ur requirements.txt --progress-bar=off`
+- `.venv/bin/python3 -mpip install -Ur requirements.txt --progress-bar=off`, `.venv/bin/python3 -mpip list -o`
 - `escape_if_any() { echo "${1:+${1@Q}}"; }`
 - `json_min_escape() { jq -c . | jq -Rrs 'rtrimstr("\n") | @json'; }`
 - `arr=(one two 'three four'); escaped_items=("${arr[@]@Q}"); echo "${escaped_items[0]}"; escaped_str="${arr[*]@Q}"; echo "$escaped_str"`
