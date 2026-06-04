@@ -366,6 +366,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 ## Firmwares
 
+- **ESP-AT** - AT application for ESP32 chips: [docs](https://docs.espressif.com/projects/esp-at/en/latest/esp32/Compile_and_Develop/How_to_set_AT_port_pin.html) [docs](https://docs.espressif.com/projects/esp-at/en/latest/esp32/Compile_and_Develop/tools_at_py.html#modify-uart-configuration) [docs](https://docs.espressif.com/projects/esp-at/en/latest/esp32/Get_Started/Downloading_guide.html) [github](https://github.com/espressif/esp-at) [link](https://docs.espressif.com/projects/esp-at/en/latest/esp32/AT_Binary_Lists/esp_at_binaries.html) [website](https://docs.espressif.com/projects/esp-at/en/latest/esp32/)
 - **MicroPython** - Python for microcontrollers: [docs](https://docs.micropython.org/en/latest/esp32/quickref.html#pins-and-gpio) [docs](https://micropython.org/download/ESP32_GENERIC/) [example](https://micropython.org/unicorn/) [github](https://github.com/micropython/micropython) [website](https://micropython.org/)
 
 ## Technologies and standards
