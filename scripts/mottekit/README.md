@@ -42,7 +42,8 @@ Example of how to create a **wrapper** for a Python-based CLI tool (e.g. `yq` in
 mkdir -v ~/apps
 
 python3 -mvenv ~/apps/venv-yq
-~/apps/venv-yq/bin/python3 -mpip install yq
+echo yq > ~/apps/venv-yq/requirements.txt
+~/apps/venv-yq/bin/python3 -mpip install -r ~/apps/venv-yq/requirements.txt
 
 mkdir -v ~/.ghdmotte/misc/scripts/mottekit/overrides
 echo -e '#!/bin/bash\nexec ~/apps/venv-yq/bin/python3 -myq "$@"' > ~/.ghdmotte/misc/scripts/mottekit/overrides/yq.sh
