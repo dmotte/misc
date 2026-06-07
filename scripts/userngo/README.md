@@ -4,8 +4,6 @@ This is a simple Bash script [`userngo.sh`](userngo.sh) that can be used to **cr
 
 TODO this is still work in progress!
 
-TODO add commented `ADD` directives to Dockerfiles
-
 ## Usage
 
 This is meant to be used in a `Dockerfile`. See [`alpine.Dockerfile`](alpine.Dockerfile) and [`debian.Dockerfile`](debian.Dockerfile) for usage examples.
