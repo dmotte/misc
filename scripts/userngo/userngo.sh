@@ -11,13 +11,14 @@ unset USERNGO_PSW
     { echo "Setting the root user's password"; echo "root:$psw" | chpasswd; }
 
 { [ "$EUID" = 0 ] && [ -n "$USERNGO_USER" ]; } ||
-    { echo 'Running TODOapp'; exec "$@"; }
+    { echo 'Running main app'; exec "$@"; }
 
-IFS=: read -ar parts <<< "$USERNGO_USER"
-readonly new_uid=${parts[0]:-1000}
-readonly new_user=${parts[1]:-user}
-readonly new_gid=${parts[2]:-$new_uid}
-readonly new_group=${parts[3]:-$new_user}
+IFS=: read -ar parts <<< "$USERNGO_ID"
+readonly id_user=${parts[0]:-1000}
+readonly id_group=${parts[1]:-$id_user}
+IFS=: read -ar parts <<< "$USERNGO_NAME"
+readonly name_user=${parts[0]:-user}
+readonly name_group=${parts[1]:-$name_user}
 
 # TODO env var USERNGO_SUDOER
 # TODO env var USERNGO_NOPASSWD
@@ -46,5 +47,5 @@ if [ "$USERNGO_NOPASSWD" = true ]; then
         "/etc/sudoers.d/$new_user-nopassword"
 fi
 
-echo "Running TODOapp as $new_uid:$new_gid"
+echo "Running main app as $new_uid:$new_gid"
 exec gosu "$new_uid:$new_gid" "$@"
