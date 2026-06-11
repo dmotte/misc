@@ -6,7 +6,21 @@ In **Windows**, drivers are usually stored in the following directories:
 - `C:\Windows\System32\DriverStore`
 - `C:\Windows\System32\DRVSTORE` (not always present)
 
-You can copy them on a USB stick pendrive, then insert it into another PC and install the drivers there, by selecting the pendrive location when Windows asks for a directory to "find the drivers automatically".
+In particular, on Windows 10 / 11, in `C:\Windows\System32\DriverStore\FileRepository` you should see a subdirectory for each installed driver. Each subdir should contain an `.inf` file that describes the driver and the device(s) it's designed for.
+
+If you have _Git Bash_ installed and you want to find the driver(s) for a specific device by its **hardware ID**, you can use a command like this:
+
+```bash
+grep -IRi --include='*.inf' --color DEV_1C03 /c/Windows/System32/DriverStore
+```
+
+However, that might not find anything, because the `.inf` files often use **UTF-16 encoding**, which might be unsupported by `grep`. To overcome this limitation, you can change your command like this:
+
+```bash
+grep -IRai --include='*.inf' --color D.E.V._.1.C.0.3 /c/Windows/System32/DriverStore
+```
+
+Once you find the drivers you're looking for, you can copy them to a USB stick pendrive, insert it into another PC and install the driver(s) there, by selecting the pendrive location when Windows asks for a directory to "find the drivers automatically".
 
 ## Links
 
