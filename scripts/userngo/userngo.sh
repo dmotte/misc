@@ -13,10 +13,10 @@ unset USERNGO_PSW
 { [ "$EUID" = 0 ] && [ -n "$USERNGO_USER" ]; } ||
     { echo 'Running main app'; exec "$@"; }
 
-IFS=: read -ar parts <<< "$USERNGO_ID"
+IFS=: read -ra parts <<< "$USERNGO_ID"
 readonly id_user=${parts[0]:-1000}
 readonly id_group=${parts[1]:-$id_user}
-IFS=: read -ar parts <<< "$USERNGO_NAME"
+IFS=: read -ra parts <<< "$USERNGO_NAME"
 readonly name_user=${parts[0]:-user}
 readonly name_group=${parts[1]:-$name_user}
 
