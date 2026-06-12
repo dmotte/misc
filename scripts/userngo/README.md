@@ -6,7 +6,7 @@ TODO this is still work in progress!
 
 ## Usage
 
-This is meant to be used in a `Dockerfile`. See [`alpine.Dockerfile`](alpine.Dockerfile) and [`debian.Dockerfile`](debian.Dockerfile) for usage examples.
+These scripts are meant to be used in a `Dockerfile`. See [`alpine.Dockerfile`](alpine.Dockerfile) and [`debian.Dockerfile`](debian.Dockerfile) for usage examples.
 
 ## Development
 
