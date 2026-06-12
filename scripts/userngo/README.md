@@ -6,17 +6,17 @@ TODO this is still work in progress!
 
 ## Usage
 
-These scripts are meant to be used in a `Dockerfile`. See [`alpine.Dockerfile`](alpine.Dockerfile) and [`debian.Dockerfile`](debian.Dockerfile) for usage examples.
+These scripts are meant to be used in a `Dockerfile`. See [`test-alpine.Dockerfile`](test-alpine.Dockerfile) and [`test-debian.Dockerfile`](test-debian.Dockerfile) for usage examples.
 
 ## Development
 
 You can use the following commands to build and run the examples:
 
 ```bash
-docker build -t img-userngo-alpine -f alpine.Dockerfile .
+docker build -t img-userngo-alpine -f test-alpine.Dockerfile .
 docker run -it --rm img-userngo-alpine
 
-docker build -t img-userngo-debian -f debian.Dockerfile .
+docker build -t img-userngo-debian -f test-debian.Dockerfile .
 docker run -it --rm img-userngo-debian
 ```
 
