@@ -2,4 +2,6 @@
 
 set -e
 
+# TODO test thoroughly
+
 # TODO
