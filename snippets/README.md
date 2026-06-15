@@ -259,6 +259,7 @@ Some pieces of code I find useful for some reason.
 - `weston -i0 --xwayland -- weston-terminal`
 - `GTK_THEME=Adwaita:dark weston -i0 --xwayland --shell=kiosk -- firefox https://example.com/`
 - `weston -i0 --xwayland -Bvnc --disable-transport-layer-security`
+- `getent passwd myuser`, `getent group mygroup`, `getent passwd root | cut -d: -f7`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
