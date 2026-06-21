@@ -27,6 +27,7 @@ IFS=: read -ra parts <<< "$USERNGO_SYS"
 readonly sys_user=${parts[0]:-false}
 readonly sys_group=${parts[1]:-$sys_user}
 
+readonly shell=${USERNGO_SHELL:-/bin/bash}
 readonly sudoer=$USERNGO_SUDOER
 readonly nopasswd=$USERNGO_NOPASSWD
 
@@ -51,8 +52,6 @@ if ! { getent passwd "$id_user" ||
     [ "$id_user" = auto ] || add_args_user+=(-u"$id_user")
     [ "$sys_user" != true ] || add_args_user+=(-r)
     [ "$sudoer" != true ] || add_args_user+=(-Gsudo)
-
-    shell=$(getent passwd root | cut -d: -f7)
 
     echo "Creating user $name_user (ID $id_user)"
     useradd "${add_args_user[@]}" -ms"$shell" "$name_user"
