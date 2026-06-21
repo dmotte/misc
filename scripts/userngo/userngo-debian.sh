@@ -45,7 +45,7 @@ if ! { getent passwd "$id_user" ||
         echo "Creating group $name_group (ID $id_group)"
         groupadd "${add_args_group[@]}" "$name_group"
 
-        add_args_user+=(-g"$id_group")
+        add_args_user+=(-g"$name_group")
     fi
 
     [ "$id_user" = auto ] || add_args_user+=(-u"$id_user")
