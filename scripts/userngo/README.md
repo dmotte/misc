@@ -14,10 +14,11 @@ You can use the following commands to build and run the examples:
 
 ```bash
 docker build -t img-userngo-alpine -f test-alpine.Dockerfile .
-docker run -it --rm img-userngo-alpine
-
 docker build -t img-userngo-debian -f test-debian.Dockerfile .
-docker run -it --rm img-userngo-debian
-```
 
-TODO add some env vars to the examples here
+docker run -it --rm img-userngo-alpine
+docker run -it --rm img-userngo-debian
+
+docker run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,WHEEL=true} img-userngo-alpine
+docker run -it --rm -v"$PWD/app.sh:/opt/app.sh:ro" img-userngo-alpine
+```
