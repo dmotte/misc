@@ -3,7 +3,10 @@
 # Tested with docker.io/library/alpine:3.23.4
 FROM docker.io/library/alpine:latest
 
-RUN apk add --no-cache tini bash su-exec sudo
+RUN apk add --no-cache tini bash su-exec doas
+
+# Src: https://wiki.alpinelinux.org/wiki/Setting_up_a_new_user#doas
+RUN echo 'permit persist :wheel' > /etc/doas.d/20-wheel.conf
 
 # ADD --chown=root:root --chmod=755 \
 #     --checksum=sha256:7ad246472844df9a5c1a2d203555db210b113b531f8e1621680274f499f566c1 \
