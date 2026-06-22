@@ -2,14 +2,14 @@
 
 set -e
 
-cat /etc/os-release
-echo
+# cat /etc/os-release
+# echo
 id
 echo
 env
 echo
-pwd
-echo
-ls -la
-echo
+# pwd
+# echo
+# ls -la
+# echo
 exec bash
