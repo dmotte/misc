@@ -31,8 +31,7 @@ readonly shell=${USERNGO_SHELL:-/bin/bash}
 readonly sudoer=$USERNGO_SUDOER
 readonly nopasswd=$USERNGO_NOPASSWD
 
-if ! { getent passwd "$id_user" ||
-        getent passwd "$name_user"; } >/dev/null; then
+if ! getent passwd "$name_user" >/dev/null; then
     add_args_user=()
 
     if [ "$id_user:$name_user" = "$id_group:$name_group" ]; then
@@ -68,5 +67,5 @@ if ! { getent passwd "$id_user" ||
     fi
 fi
 
-echo "Running main app as $id_user:$id_group"
-exec gosu "$id_user:$id_group" "$@"
+echo "Running main app as $name_user:$name_group"
+exec gosu "$name_user:$name_group" "$@"

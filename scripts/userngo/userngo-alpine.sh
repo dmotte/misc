@@ -31,8 +31,7 @@ readonly shell=${USERNGO_SHELL:-/bin/sh}
 readonly wheel=$USERNGO_WHEEL
 readonly nopass=$USERNGO_NOPASS
 
-if ! { getent passwd "$id_user" ||
-        getent passwd "$name_user"; } >/dev/null; then
+if ! getent passwd "$name_user" >/dev/null; then
     add_args_user=()
 
     if [ "$id_user:$name_user" != "$id_group:$name_group" ] ||
@@ -71,5 +70,5 @@ if ! { getent passwd "$id_user" ||
     fi
 fi
 
-echo "Running main app as $id_user:$id_group"
-exec su-exec "$id_user:$id_group" "$@"
+echo "Running main app as $name_user:$name_group"
+exec su-exec "$name_user:$name_group" "$@"
