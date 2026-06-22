@@ -99,6 +99,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Git ingest** - get prompt-friendly codebases to paste into any LLM: [github](https://github.com/cyclotruc/gitingest) [website](https://gitingest.com/)
 - **GitHub Codespaces** - fully configured, secure cloud development environments native to GitHub: [website](https://github.com/codespaces)
 - **GitHub Container Registry** - stores container images within your GitHub organization or personal account: [website](https://ghcr.io/) [youtube](https://www.youtube.com/watch?v=WjzA9dfk5w4)
+- **GoogleChromeLabs Serial Terminal** - demo PWA (Progressive Web Application) that allows the user to communicate with a locally connected serial device through an interactive terminal, using the Web Serial API: [github](https://github.com/GoogleChromeLabs/serial-terminal) [website](https://googlechromelabs.github.io/serial-terminal/)
 - **IPFS** - InterPlanetary File System, an open system to manage data without a central server: [choco](https://community.chocolatey.org/packages/ipfs-desktop) [github](https://github.com/ipfs) [website](https://ipfs.tech/)
 - **JSLinux** - run Linux or other Operating Systems in your browser: [website](https://bellard.org/jslinux/)
 - **JavaScript XM Player** - FastTracker 2 XM module player written in Javascript: [github](https://github.com/a1k0n/jsxm) [website](https://www.a1k0n.net/code/jsxm/)
