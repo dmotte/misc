@@ -383,6 +383,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 - **Ansible Molecule** - testing framework for Ansible playbooks: [github](https://github.com/ansible-community/molecule) [website](https://ansible.readthedocs.io/projects/molecule/) [youtube](https://www.youtube.com/watch?v=DAnMyBZ8-Qs)
 - **Docusaurus** - open-source static documentation website generator: [github](https://github.com/facebook/docusaurus) [website](https://docusaurus.io/)
+- **ESP-IDF** - Espressif IoT Development Framework, official for the ESP32, ESP32-S, ESP32-C, ESP32-H and ESP32-P Series SoCs: [docs](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/)
 - **ESP32 VGA library** - video library for VGA output for ESP32: [docs](https://bitluni.net/esp32-vga) [github](https://github.com/bitluni/ESP32Lib) [youtube](https://www.youtube.com/watch?v=qJ68fRff5_k)
 - **Flutter** - Google's UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop: [github](https://github.com/flutter/flutter) [website](https://flutter.dev/)
 - **GORM** - fantastic ORM library for Golang: [docs](https://gorm.io/docs/#Quick-Start) [github](https://github.com/go-gorm/gorm) [website](https://gorm.io/)
