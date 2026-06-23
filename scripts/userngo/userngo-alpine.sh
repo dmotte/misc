@@ -2,8 +2,6 @@
 
 set -e
 
-# TODO test thoroughly
-
 if [ "$EUID" != 0 ]; then readonly scenario=unpriv
 elif [ -n "$USERNGO_ID$USERNGO_NAME" ]; then readonly scenario=managed
 else readonly scenario=root
