@@ -33,26 +33,26 @@ readonly wheel=$USERNGO_WHEEL
 readonly nopass=$USERNGO_NOPASS
 
 if ! getent passwd "$name_user" >/dev/null; then
-    add_args_user=()
+    args_pre_user=()
 
     if [ "$id_user:$name_user" != "$id_group:$name_group" ] ||
             [ "$sys_user" = true ]; then
-        add_args_group=()
+        args_pre_group=()
 
-        [ "$id_group" = auto ] || add_args_group+=(-g"$id_group")
-        [ "$sys_group" != true ] || add_args_group+=(-S)
+        [ "$id_group" = auto ] || args_pre_group+=(-g"$id_group")
+        [ "$sys_group" != true ] || args_pre_group+=(-S)
 
         echo "userngo: creating group $name_group (ID $id_group)"
-        addgroup "${add_args_group[@]}" "$name_group"
+        addgroup "${args_pre_group[@]}" "$name_group"
 
-        add_args_user+=(-G"$name_group")
+        args_pre_user+=(-G"$name_group")
     fi
 
-    [ "$id_user" = auto ] || add_args_user+=(-u"$id_user")
-    [ "$sys_user" != true ] || add_args_user+=(-S)
+    [ "$id_user" = auto ] || args_pre_user+=(-u"$id_user")
+    [ "$sys_user" != true ] || args_pre_user+=(-S)
 
     echo "userngo: creating user $name_user (ID $id_user)"
-    adduser "${add_args_user[@]}" -Ds"$shell" "$name_user"
+    adduser "${args_pre_user[@]}" -Ds"$shell" "$name_user"
 
     if [ -n "$psw" ]; then
         echo "userngo: setting password for user $name_user"
