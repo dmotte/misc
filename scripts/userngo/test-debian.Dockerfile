@@ -8,7 +8,7 @@ RUN <<'EOF' /bin/bash -e
 EOF
 
 # ADD --chown=root:root --chmod=755 \
-#     --checksum=sha256:7ad246472844df9a5c1a2d203555db210b113b531f8e1621680274f499f566c1 \
+#     --checksum=sha256:b350a393494f8de7d51b3309d8f7f40274392826938ef73a5da9cd9631541b62 \
 #     https://raw.githubusercontent.com/dmotte/misc/refs/heads/main/scripts/userngo/userngo-debian.sh \
 #     /opt/userngo/main.sh
 COPY --chown=root:root --chmod=755 userngo-debian.sh /opt/userngo/main.sh

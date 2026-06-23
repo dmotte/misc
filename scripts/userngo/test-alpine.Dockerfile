@@ -9,7 +9,7 @@ RUN apk add --no-cache tini bash su-exec doas
 RUN echo 'permit persist :wheel' > /etc/doas.d/20-wheel.conf
 
 # ADD --chown=root:root --chmod=755 \
-#     --checksum=sha256:7ad246472844df9a5c1a2d203555db210b113b531f8e1621680274f499f566c1 \
+#     --checksum=sha256:ac8a2f8871dcca6e356f20507ab54ca62acf2d1163684aa824dec755c156bc1a \
 #     https://raw.githubusercontent.com/dmotte/misc/refs/heads/main/scripts/userngo/userngo-alpine.sh \
 #     /opt/userngo/main.sh
 COPY --chown=root:root --chmod=755 userngo-alpine.sh /opt/userngo/main.sh
