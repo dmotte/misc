@@ -71,5 +71,7 @@ if ! getent passwd "$name_user" >/dev/null; then
     fi
 fi
 
-echo "userngo: running main app as $name_user:$name_group"
-exec su-exec "$name_user:$name_group" "$@"
+echo "userngo: running main app as $name_user"
+# We don't use the "UID:GID" syntax because we want it to run with
+# all the supplementary (secondary) groups
+exec su-exec "$name_user" "$@"
