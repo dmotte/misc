@@ -23,7 +23,7 @@ msgbuf_interval=10 # seconds
 msgbuf_max_msg_len=2048 # bytes
 bot_token='' # Telegram bot token
 chat_id='' # Telegram chat ID of the recipient
-supervisor_priority=50
+supervisor_priority=''
 systemd_restartsec=30
 systemd_wantedby=multi-user.target
 
@@ -73,6 +73,9 @@ fi
 
 bot_token=${bot_token#bot}
 
+if [ -n "$supervisor_priority" ]
+    then line_priority=priority=$supervisor_priority; fi
+
 ################################################################################
 
 [ -e /opt/lognot ] || changing=y
@@ -109,7 +112,7 @@ if [ "$service_manager" = supervisor ]; then
 command=/bin/bash -ec '$source_cmd |
     /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -- \\
         /bin/bash /opt/lognot/tg.sh'
-priority=$supervisor_priority
+$line_priority
 directory=/opt/lognot
 EOF
 elif [ "$service_manager" = systemd ]; then

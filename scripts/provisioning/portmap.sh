@@ -20,7 +20,7 @@ name_suffix='' # Warning: some characters are forbidden. See the code below
 running_user=''
 keepalive_interval=30
 restart_interval=30
-supervisor_priority=50
+supervisor_priority=''
 systemd_wantedby=multi-user.target
 
 while :; do
@@ -64,6 +64,9 @@ readonly service_name=portmap-$name_suffix
 running_user_home=$(eval "echo ~$running_user")
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
+if [ -n "$supervisor_priority" ]
+    then line_priority=priority=$supervisor_priority; fi
+
 ################################################################################
 
 echo "Creating $service_name service files"
@@ -76,7 +79,7 @@ if [ "$service_manager" = supervisor ]; then
 command=/bin/bash -ec '$ssh_command \\
     || result=\$?; sleep $restart_interval; exit "\${result:-0}"'
 startsecs=0
-priority=$supervisor_priority
+$line_priority
 user=$running_user
 directory=$running_user_home
 EOF
