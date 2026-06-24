@@ -30,6 +30,8 @@ LINK_VALIDATORS = {
                      r'&index=[0-9]+\Z', x),
     )),
 
+    'codeberg': lambda x: re.fullmatch(r'\Ahttps://codeberg\.org/[0-9A-Za-z-]+'
+                                       r'(/[0-9A-Za-z-]+)?\Z', x),
     'github': lambda x: re.fullmatch(r'\Ahttps://github\.com/[0-9A-Za-z-]+'
                                      r'(/[0-9A-Za-z._-]+)?\Z', x),
     'gitlab': lambda x: re.fullmatch(r'\Ahttps://gitlab\.com/[0-9A-Za-z-]+'
