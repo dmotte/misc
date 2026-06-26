@@ -70,7 +70,7 @@ Some pieces of code I find useful for some reason.
 - `od -An -vtx1 /etc/os-release`, `od -Ax -tx1z /etc/os-release`
 - `file -b --mime-type myfile.txt`, `xdg-mime query filetype myfile.txt`
 - `stat -c%Y myfile.txt`, `stat -c%s myfile.txt`
-- `zip -r myarchive.zip mydir`, `unzip -oq myarchive.zip -d mydir`
+- `(cd mydir && zip -r myarchive.zip mysubdir)`, `(cd mydir && zip -r myarchive.zip .)`, `unzip -oq myarchive.zip -d mydir`
 - `7z a myarchive.7z mydir`, `7z a myarchive.zip mydir`, `7z a dummy -tzip -so mydir > myarchive.zip`
 - `7z e myarchive.7z mydir/myfile.txt -so`, `7z e myarchive.7z -aoa -osomedir 'mydir/*.txt'`
 - `7z l myarchive.7z`
