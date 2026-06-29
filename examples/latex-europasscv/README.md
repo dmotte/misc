@@ -25,8 +25,9 @@ docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" img-texlive pdflatex main.te
 
 ## Tips
 
-- :bulb: If you get an error like `LaTeX Warning: Reference 'LastPage' on page 1 undefined on input line 123` just try to **run the command twice**. This is because _LaTeX_ can't know yet how many pages there will be on the first run
-- :bulb: If you need some cool **icons** in your document, check out `\usepackage{fontawesome5}`
+:bulb: If you get an error like `LaTeX Warning: Reference 'LastPage' on page 1 undefined on input line 123` just try to **run the command twice**. This is because _LaTeX_ can't know yet how many pages there will be on the first run.
+
+:bulb: If you need some cool **icons** in your document, check out `\usepackage{fontawesome5}`.
 
 ## Links
 
