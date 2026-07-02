@@ -26,9 +26,18 @@ run_with_prefixes() {
 trap 'jobs -p | xargs -rd\\n kill; wait' EXIT
 
 echo 'Starting service foo'
-run_with_prefixes foo bash sample-process.sh foo 3 0-3 0 &
+{
+    result=0
+    run_with_prefixes foo bash sample-process.sh foo 3 0-3 0 || result=$?
+    echo "Service foo exited with code $result"
+} &
+
 echo 'Starting service bar'
-run_with_prefixes bar bash sample-process.sh bar 5 0-3 1 &
+{
+    result=0
+    run_with_prefixes bar bash sample-process.sh bar 5 0-3 1 || result=$?
+    echo "Service bar exited with code $result"
+} &
 
 wait # until all jobs finish
 trap - EXIT
