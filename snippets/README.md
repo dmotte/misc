@@ -260,6 +260,7 @@ Some pieces of code I find useful for some reason.
 - `GTK_THEME=Adwaita:dark weston -i0 --xwayland --shell=kiosk -- firefox https://example.com/`
 - `weston -i0 --xwayland -Bvnc --disable-transport-layer-security`
 - `getent passwd myuser`, `getent group mygroup`, `getent passwd root | cut -d: -f7`
+- `home_myuser=$(eval "echo ~myuser")`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
