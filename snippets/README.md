@@ -48,7 +48,7 @@ Some pieces of code I find useful for some reason.
 - `watch -n.2 date`, `watch -pn3 'date && sleep 2'`
 - `scp myfile.txt user@hostname:/home/user/myfile.txt`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
-- `nohup ping localhost > myoutput.txt & disown`, `pgrep -fx 'ping localhost'`, `pkill -fx 'ping localhost'`, `nohup sleep infinity >/dev/null 2>&1 & disown`
+- `setsid ping localhost > myoutput.txt`, `pgrep -fx 'ping localhost'`, `pkill -fx 'ping localhost'`, `setsid sleep infinity >/dev/null 2>&1`
 - `pgrep -fxu"$EUID" '^python3 '"$HOME"'/myscript\.py$'`
 - `find mydir -mindepth 1 -printf '%y %T@ %#m %s %P\n' | LC_ALL=C sort -k5`
 - `find mydir -type d -printf 'DIR -1 %P/\n' -o -type f -printf '%T@ %s %P\n' | LC_ALL=C sort -k3`
@@ -545,6 +545,7 @@ EOF
 - `reg add 'HKCU\Software\MyApp' //v MyValue //t REG_SZ //d MyData //f`, `sudo -d reg add 'HKLM\SOFTWARE\MyApp' //v MyValue //t REG_SZ //d MyData //f`
 - `reg delete 'HKCU\Software\Microsoft\Windows\CurrentVersion\Run' //v MyApp //f`, `sudo -d reg delete 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' //v MyApp //f`
 - `sudo wsl --install --enable-wsl1 --no-distribution`, `sudo wsl --set-default-version 1`, `sudo wsl --install Debian`
+- `nohup ping localhost > myoutput.txt & disown` (because there is no `setsid` in Git Bash)
 
 ## Termux
 
