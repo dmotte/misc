@@ -261,6 +261,7 @@ Some pieces of code I find useful for some reason.
 - `weston -i0 --xwayland -Bvnc --disable-transport-layer-security`
 - `getent passwd myuser`, `getent group mygroup`, `getent passwd root | cut -d: -f7`
 - `home_myuser=$(eval "echo ~myuser")`
+- `shellinaboxd --localhost-only -tp4200 -ushellinabox -gshellinabox --user-css='White on Black:+/etc/shellinabox/options-enabled/00_White On Black.css;Color Terminal:+/etc/shellinabox/options-enabled/01+Color Terminal.css' -s'/:AUTH:HOME:tmux new-session -As0'`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
