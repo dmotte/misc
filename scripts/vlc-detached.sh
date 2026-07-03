@@ -20,4 +20,7 @@ else
     echo 'VLC not found' >&2; exit 1
 fi
 
-nohup "$vlc" "$@" >/dev/null 2>&1 & disown
+if [[ "$(uname)" = MINGW* ]]
+    then nohup "$vlc" "$@" >/dev/null 2>&1 & disown
+    else exec setsid "$vlc" "$@" >/dev/null 2>&1
+fi
