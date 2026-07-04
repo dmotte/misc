@@ -6,8 +6,9 @@ set -e
 
 cd "$(dirname "$0")"
 
-git diff --quiet HEAD^ HEAD -- . && {
-    echo "Skipping $0 as there are no changes in $PWD in the latest commit"
+[ "$GITHUB_EVENT_NAME" != schedule ] && git diff --quiet HEAD^ HEAD -- . && {
+    echo "Skipping $0 as there are no changes in $PWD in the latest commit" \
+        'and this is not a scheduled run'
     exit
 }
 
