@@ -155,6 +155,7 @@ echo "::group::$0: Description (Docker Hub)"
                 "https://hub.docker.com/v2/repositories/$IMG_AUTHOR/$IMG_NAME" \
                 -H 'Content-Type: application/json' \
                 -H "Authorization: JWT $token" --fail-with-body -d "$payload"
+            echo # Because the curl output may not end with a newline
         else
             echo 'Not setting the description on Docker Hub because both the' \
             'description variables are empty or not defined'
