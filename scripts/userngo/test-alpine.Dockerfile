@@ -3,10 +3,14 @@
 # Tested with docker.io/library/alpine:3.24.1
 FROM docker.io/library/alpine:latest
 
-RUN apk add --no-cache tini bash su-exec doas
+RUN <<'EOF' /bin/sh -e
+    apk add --no-cache tini bash su-exec doas
 
-# Src: https://wiki.alpinelinux.org/wiki/Setting_up_a_new_user#doas
-RUN echo 'permit persist :wheel' > /etc/doas.d/20-wheel.conf
+    install -dvm755 /opt/userngo
+
+    # Src: https://wiki.alpinelinux.org/wiki/Setting_up_a_new_user#doas
+    echo 'permit persist :wheel' > /etc/doas.d/20-wheel.conf
+EOF
 
 # ADD --chown=root:root --chmod=755 \
 #     --checksum=sha256:ac8a2f8871dcca6e356f20507ab54ca62acf2d1163684aa824dec755c156bc1a \

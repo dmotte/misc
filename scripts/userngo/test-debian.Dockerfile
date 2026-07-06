@@ -5,6 +5,8 @@ FROM docker.io/library/debian:13
 RUN <<'EOF' /bin/bash -e
     apt-get update; apt-get install -y tini gosu sudo
     rm -rf /var/lib/apt/lists/*
+
+    install -dvm755 /opt/userngo
 EOF
 
 # ADD --chown=root:root --chmod=755 \
