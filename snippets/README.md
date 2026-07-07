@@ -411,7 +411,7 @@ ssh -R/tmp/waypipe-server.sock:/tmp/waypipe-client.sock myuser@192.168.0.123 '
     waypipe -ns/tmp/waypipe-server.sock --unlink-socket server -- foot'
 
 # If you need to run an X11 app:
-coproc XWL01 { Xwayland -decorate -noreset -displayfd 1; }
+coproc XWL01 { Xwayland -decorate -noreset -displayfd 1 -byteswappedclients; }
 read -ru"${XWL01[0]}" display
 export DISPLAY=":$display"
 xterm
