@@ -23,7 +23,8 @@ run_with_prefixes() {
 
 ################################################################################
 
-trap 'jobs -p | xargs -rd\\n kill 2>/dev/null || :; wait' EXIT
+# We don't use "xargs" here because we want to use Bash's builtin "kill"
+trap 'builtin kill $(jobs -p) 2>/dev/null || :; wait' EXIT
 
 echo 'Starting service foo'
 {
