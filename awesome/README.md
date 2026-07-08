@@ -319,6 +319,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 
 - **7-Zip** - open source file archiver application with a high compression ratio: [apt](https://packages.debian.org/stable/7zip) [choco](https://community.chocolatey.org/packages/7zip) [docs](https://documentation.help/7-Zip/) [website](https://www.7-zip.org/)
 - **Audacity** - cross-platform software for recording and editing sounds: [apt](https://packages.debian.org/stable/audacity) [choco](https://community.chocolatey.org/packages/audacity) [website](https://www.audacityteam.org/)
+- **ChordSketch** - Rust implementation of the ChordPro music notation format: [choco](https://community.chocolatey.org/packages/chordsketch) [github](https://github.com/koedame/chordsketch) [webapp](https://koedame.github.io/chordsketch/chordpro/)
 - **Chromium** - open-source web browser: [apt](https://packages.debian.org/stable/chromium) [choco](https://community.chocolatey.org/packages/chromium) [website](https://www.chromium.org/Home/)
 - **DB Browser for SQLite** - visual open source tool to create, design, and edit SQLite database files: [apt](https://packages.debian.org/stable/sqlitebrowser) [choco](https://community.chocolatey.org/packages/sqlitebrowser) [github](https://github.com/sqlitebrowser/sqlitebrowser) [website](https://sqlitebrowser.org/)
 - **DeSmuME** - Nintendo DS emulator: [github](https://github.com/TASEmulators/desmume) [website](https://desmume.org/)
