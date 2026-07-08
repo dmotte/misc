@@ -19,6 +19,9 @@ LINK_VALIDATORS = {
     'webapp': validate_https,
     'link': validate_https,
 
+    'wikipedia': lambda x: re.fullmatch(r'\Ahttps://en\.wikipedia\.org/wiki'
+                                        r'/[0-9A-Za-z_]+\Z', x),
+
     'youtube': lambda x: any((
         re.fullmatch(r'\Ahttps://www\.youtube\.com/watch'
                      r'\?v=[0-9A-Za-z_-]{11}\Z', x),
