@@ -262,6 +262,7 @@ Some pieces of code I find useful for some reason.
 - `getent passwd myuser`, `getent group mygroup`, `getent passwd root | cut -d: -f7`
 - `home_myuser=$(eval "echo ~myuser")`
 - `shellinaboxd --localhost-only -tp4200 -ushellinabox -gshellinabox --user-css='White on Black:+/etc/shellinabox/options-enabled/00_White On Black.css;Color Terminal:+/etc/shellinabox/options-enabled/01+Color Terminal.css' -s'/:AUTH:HOME:tmux new-session -As0'`
+- `chordsketch myfile.cho`, `chordsketch fmt myfile.cho`, `chordsketch -fhtml myfile.cho -o myfile.html`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
@@ -488,6 +489,7 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 - `podman image ls -a`, `podman image prune -af`
 - `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always --net=pasta:--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 -p8080:80 docker.io/library/nginx:latest`
 - `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/alpine:latest sh -ec 'date > /dev/ttyUSB0'`
+- `podman run --rm -uroot -v "$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
 
 ## Shell snippets for Kubernetes
 
