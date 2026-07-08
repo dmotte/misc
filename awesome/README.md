@@ -374,6 +374,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 ## Technologies and standards
 
 - **CLAP** - CLever Audio Plugin, an interface that provides a stable ABI to define a standard for DAWs (Digital Audio Workstations) and audio plugins (synthesizers, audio effects, etc.) to work together: [github](https://github.com/free-audio/clap) [website](https://cleveraudio.org/)
+- **ChordPro** - simple text format for the notation of lyrics with chords: [docs](https://www.chordpro.org/chordpro/chordpro-cheat_sheet/) [github](https://github.com/ChordPro/chordpro) [link](https://en.wikipedia.org/wiki/ChordPro) [website](https://www.chordpro.org/)
 - **OpenAPI** - specification language for HTTP APIs that provides a standardized means to define your API to others: [website](https://www.openapis.org/)
 - **PWA** - Progressive Web Application: [guide](https://web.dev/progressive-web-apps/)
 - **Plus Codes / OLC (Open Location Code)** - geocode based on a system of regular grids for identifying an area anywhere on the Earth, developed by Google: [link](https://en.wikipedia.org/wiki/Open_Location_Code) [website](https://maps.google.com/pluscodes/) [website](https://plus.codes/map)
