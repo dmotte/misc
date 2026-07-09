@@ -18,6 +18,7 @@ try {
     "youtube.com": [
       "div.style-scope.ytd-watch-next-secondary-results-renderer",
       "div.html5-endscreen.ytp-player-content.videowall-endscreen",
+      "a.ytp-suggestion-set",
     ],
   };
 
