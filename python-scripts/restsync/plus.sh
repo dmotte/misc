@@ -79,7 +79,7 @@ if command -v gnome-session-inhibit >/dev/null; then
     trap 'jobs -p | xargs -rd\\n kill; wait' EXIT
 
     # We don't use "exec" here because we may have jobs running in the
-    # background and we want to run the EXIT trap before exiting
+    # background and we want the EXIT trap to run before exiting
     "${py[@]}" "$restsync_main_py" "${restsync_args[@]}"
 else
     exec "${py[@]}" "$restsync_main_py" "${restsync_args[@]}"
