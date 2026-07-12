@@ -12,6 +12,12 @@ set -e
 # Then, on the remote server:
 #   socat - UNIX-CONNECT:"$HOME/myshell.sock"
 
+# Warning: some commands (e.g. even a simple "cat") can make your reverse
+# shell unusable, as there's no way to send CTRL+C or anything like that. As a
+# workaround, you can use a reverse shell to spawn another reverse shell as
+# a Bash job (using the "... &" syntax) so, if anything ever happens to
+# it, you have a way to terminate and restart it
+
 # Tested in Git Bash on Windows 11
 
 readonly remote_socket_path=${1:?}; shift
