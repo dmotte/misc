@@ -46,7 +46,7 @@ Some pieces of code I find useful for some reason.
 - `ffmpeg -i input.mp3 -filter:a 'dynaudnorm=p=0.9:s=5' output.mp3`
 - `ffmpeg -i input.mp3 -map 0:a -c:a copy -map_metadata -1 output.mp3`
 - `watch -n.2 date`, `watch -pn3 'date && sleep 2'`, `watch ip -c a`
-- `scp myfile.txt user@hostname:/home/user/myfile.txt`
+- `scp myfile.txt myuser@192.168.0.123:~/myfile.txt`, `scp -r mydir myuser@192.168.0.123:`
 - `ipfs daemon &`, `jobs`, `fg 1`, `kill %1`
 - `setsid ping localhost > myoutput.txt`, `pgrep -fx 'ping localhost'`, `pkill -fx 'ping localhost'`, `setsid sleep infinity >/dev/null 2>&1`
 - `pgrep -fxu"$EUID" '^python3 '"$HOME"'/myscript\.py$'`
