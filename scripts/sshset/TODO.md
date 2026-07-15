@@ -24,6 +24,7 @@ Draft content of `~/.ssh` (for each user) for unprivileged `sshd`:
 
 Draft content of `/opt/sshset`:
 
+- `main.sh`
 - `sshd-config/*.conf`
 - `host-keys/`
 - `rc/`
@@ -54,6 +55,8 @@ Always overwrite destination files (e.g. `/opt/sshset/rc/` &rarr; `/etc/ssh/sshr
 
 Configurable source dir (default `/opt/sshset`).
 
-In the Debian script, also create `/run/sshd` if it doesn't exist.
+In the Debian script, if running as `root`, as part of the SSH server setup, also create `/run/sshd` if it doesn't exist.
 
 No need to use `userngo` in this project, I guess.
+
+Use `volumes` dir for volumes.
