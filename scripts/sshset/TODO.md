@@ -16,7 +16,7 @@ Draft content of `/etc/ssh`:
 - `ssh_config` + `.d/*.conf`
 - `ssh_known_hosts`
 
-Draft content of `~/.ssh` (for each user) for unprivileged `sshd`:
+Draft content of `~/.ssh` for unprivileged `sshd`:
 
 - `sshd_config` + `.d/*.conf`
   - For the `sshd_config` file: you can copy from `/etc/ssh/sshd_config` (checking SHA-256 checksum first, which BTW will be different between Alpine and Debian) and make the required changes to make it work in unprivileged mode
