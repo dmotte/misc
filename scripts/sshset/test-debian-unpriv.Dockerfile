@@ -6,6 +6,8 @@ RUN <<'EOF' /bin/bash -e
     apt-get update; apt-get install -y tini openssh-server
     rm -rf /var/lib/apt/lists/*
 
+    rm -fv /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub
+
     install -dvm755 /opt/sshset
 
     useradd -Ums/bin/bash user
