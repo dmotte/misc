@@ -15,3 +15,9 @@ docker run -it --rm img-sshset-alpine-unpriv
 docker run -it --rm img-sshset-debian-root
 docker run -it --rm img-sshset-debian-unpriv
 ```
+
+```bash
+mkdir -pv volumes/host-keys
+
+docker run -it --rm -v"$PWD/volumes/host-keys:/opt/sshset/host-keys" img-sshset-debian-root
+```
