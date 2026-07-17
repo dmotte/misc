@@ -2,25 +2,25 @@
 
 Draft content of `/etc/ssh`:
 
-- `sshd_config` + `.d/*.conf`
-- Host keys
-- `sshrc`
-- `ssh_config` + `.d/*.conf`
-- `ssh_known_hosts`
+- (server) `sshd_config` + `.d/*.conf`
+- (server) Host keys
+- (server) `sshrc`
+- (client) `ssh_config` + `.d/*.conf`
+- (client) `ssh_known_hosts`
 
 Draft content of `~/.ssh` for unprivileged `sshd`:
 
-- `sshd_config` + `.d/*.conf`
+- (server) `sshd_config` + `.d/*.conf`
   - For the `sshd_config` file: you can copy from `/etc/ssh/sshd_config` (checking SHA-256 checksum first, which BTW will be different between Alpine and Debian) and make the required changes to make it work in unprivileged mode
-- Host keys
+- (server) Host keys
 
 Draft content of `~/.ssh` (for each user):
 
-- `authorized_keys`
-- `rc`
-- `config`
-- `known_hosts`
-- Identity keys
+- (server) `authorized_keys`
+- (server) `rc`
+- (client) `config`
+- (client) `known_hosts`
+- (client) Identity keys
 
 Draft content of `/opt/sshset`:
 
