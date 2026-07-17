@@ -3,7 +3,7 @@
 FROM docker.io/library/debian:13
 
 RUN <<'EOF' /bin/bash -e
-    apt-get update; apt-get install -y tini openssh-server
+    apt-get update; apt-get install -y tini openssh-client openssh-server
     rm -rf /var/lib/apt/lists/*
 
     rm -fv /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub
