@@ -20,10 +20,9 @@ if [ "$EUID" = 0 ]; then
 
     ############################################################################
 
-    if [ -d "$src_dir/sshd-config" ]; then
-        install -vm644 -t/etc/ssh/sshd_config.d \
-            "$src_dir/sshd-config"/*.conf 2>/dev/null || :
-    fi
+    files=$(find "$src_dir/sshd-config" -mindepth 1 -maxdepth 1 \
+        -type f -name '*.conf')
+    echo -n "$files" | xargs -rd\\n install -vm644 -t/etc/ssh/sshd_config.d
 
     ############################################################################
 
@@ -57,12 +56,10 @@ else
 
     ############################################################################
 
-    if [ -d "$src_dir/sshd-config" ]; then
-        install -dv ~/.ssh/sshd_config.d
-
-        install -vm644 -t ~/.ssh/sshd_config.d \
-            "$src_dir/sshd-config"/*.conf 2>/dev/null || :
-    fi
+    files=$(find "$src_dir/sshd-config" -mindepth 1 -maxdepth 1 \
+        -type f -name '*.conf')
+    [ -z "$files" ] || install -dv ~/.ssh/sshd_config.d
+    echo -n "$files" | xargs -rd\\n install -vm644 -t ~/.ssh/sshd_config.d
 
     ############################################################################
 
