@@ -37,10 +37,6 @@ else
 
     ############################################################################
 
-    # TODO not sure, because it works only with specific Debian version
-    echo f1805313ad346bdb80dff4a560a080edfca9a998f620b64da2a1aba6bcf6782e \
-        /etc/ssh/sshd_config | sha256sum -c >/dev/null
-
     echo 'Generating ~/.ssh/sshd_config'
     sed -E /etc/ssh/sshd_config \
         -e 's|^(Include)[ \t]+/etc/ssh/(.+)$|\1 ~/.ssh/\2|' \
