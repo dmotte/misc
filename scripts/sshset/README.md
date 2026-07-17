@@ -9,9 +9,10 @@ done
 ```
 
 ```bash
-mkdir -pv volumes/host-keys
+mkdir -pv volumes/{sshd-config,host-keys}
 
 docker run -it --rm \
+    -v"$PWD/volumes/sshd-config:/opt/sshset/sshd-config" \
     -v"$PWD/volumes/host-keys:/opt/sshset/host-keys" \
     img-sshset-debian-root
 ```

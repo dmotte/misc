@@ -10,10 +10,20 @@ readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 # TODO consider switch to toggle host keys generation (because it's not needed
 # for the SSH client). Or maybe even have two separate scripts
 
+# TODO avoid using "|| :" as it hides permissions issues (e.g. unable to read a
+# private key file)
+
 ################################################################################
 
 if [ "$EUID" = 0 ]; then
     readonly ssh_sys_dir=/etc/ssh # TODO check usage
+
+    ############################################################################
+
+    if [ -d "$src_dir/sshd-config" ]; then
+        install -vm644 -t/etc/ssh/sshd_config.d \
+            "$src_dir/sshd-config"/*.conf 2>/dev/null || :
+    fi
 
     ############################################################################
 
@@ -47,6 +57,15 @@ else
 
     ############################################################################
 
+    if [ -d "$src_dir/sshd-config" ]; then
+        install -dv ~/.ssh/sshd_config.d
+
+        install -vm644 -t ~/.ssh/sshd_config.d \
+            "$src_dir/sshd-config"/*.conf 2>/dev/null || :
+    fi
+
+    ############################################################################
+
     # Create the temporary directory for host keys generation
     mkdir -pv ~/.ssh/etc/ssh
 
@@ -68,4 +87,6 @@ else
     cp -nvt"$src_dir/host-keys" ~/.ssh/ssh_host_*_key.pub 2>/dev/null || :
 fi
 
-# TODO copy sshd_config.d files
+# TODO rc + users
+
+# TODO users authkeys
