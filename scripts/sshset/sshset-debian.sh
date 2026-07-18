@@ -10,6 +10,9 @@ readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 # TODO consider switch to toggle host keys generation (because it's not needed
 # for the SSH client). Or maybe even have two separate scripts
 
+# TODO consider "mode" variable that can be "system" (ssh_sys_dir=/etc/ssh),
+# "user" (ssh_sys_dir=~/.ssh), "auto" (default, based on EUID)
+
 # TODO avoid using "|| :" as it hides permissions issues (e.g. unable to read a
 # private key file)
 
