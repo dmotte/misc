@@ -26,19 +26,22 @@ if [ "$EUID" = 0 ]; then
 
     ############################################################################
 
-    # Get host keys from the volume
-    rm -fv /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub
-    install -vm600 -t/etc/ssh \
-        "$src_dir/host-keys"/ssh_host_*_key 2>/dev/null || :
-    install -vm644 -t/etc/ssh \
-        "$src_dir/host-keys"/ssh_host_*_key.pub 2>/dev/null || :
+    find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
+        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+        -printf 'Removing existing %p\n' -delete
 
-    # Generate the missing host keys
-    ssh-keygen -A
+    find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
+        -type f -name 'ssh_host_*_key' \
+        -exec install -vm600 -t/etc/ssh {} +
+    find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
+        -type f -name 'ssh_host_*_key.pub' \
+        -exec install -vm644 -t/etc/ssh {} +
 
-    # Copy the (previously missing) generated host keys to the volume
-    cp -nvt"$src_dir/host-keys" /etc/ssh/ssh_host_*_key 2>/dev/null || :
-    cp -nvt"$src_dir/host-keys" /etc/ssh/ssh_host_*_key.pub 2>/dev/null || :
+    ssh-keygen -A # Generate the missing host keys
+
+    find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
+        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+        -exec cp -nvt"$src_dir/host-keys" {} + || :
 else
     readonly ssh_sys_dir=~/.ssh # TODO check usage
 
@@ -63,7 +66,7 @@ else
     ############################################################################
 
     # Create the temporary directory for host keys generation
-    mkdir -pv ~/.ssh/etc/ssh
+    mkdir -pv ~/.ssh/etc/ssh # TODO use mktemp
 
     # Get host keys from the volume
     install -vm600 -t ~/.ssh/etc/ssh \
@@ -71,8 +74,7 @@ else
     install -vm644 -t ~/.ssh/etc/ssh \
         "$src_dir/host-keys"/ssh_host_*_key.pub 2>/dev/null || :
 
-    # Generate the missing host keys
-    ssh-keygen -Af ~/.ssh
+    ssh-keygen -Af ~/.ssh # Generate the missing host keys
 
     # Move the host keys out of the temporary directory
     mv -vt ~/.ssh ~/.ssh/etc/ssh/*
