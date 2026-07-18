@@ -68,8 +68,8 @@ else
 
     ############################################################################
 
-    # Create the temporary directory for host keys generation
-    mkdir -pv ~/.ssh/etc/ssh # TODO use mktemp
+    rm -rv ~/.ssh/etc
+    mkdir -pv ~/.ssh/etc/ssh # Temp dir for host keys generation
 
     # Get host keys from the volume
     install -vm600 -t ~/.ssh/etc/ssh \
