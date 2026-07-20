@@ -4,6 +4,7 @@ set -e
 
 readonly src_dir=${SSHSET_SRC_DIR:-/opt/sshset}
 
+readonly gen_hostkeys=${SSHSET_GEN_HOSTKEYS:-true}
 readonly gen_authkey=${SSHSET_GEN_AUTHKEY:-false}
 readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 
@@ -37,11 +38,13 @@ if [ "$EUID" = 0 ]; then
         -type f -name 'ssh_host_*_key.pub' \
         -exec install -vm644 -t/etc/ssh {} +
 
-    ssh-keygen -A # Generate the missing host keys
+    if [ "$gen_hostkeys" = true ]; then
+        ssh-keygen -A # Generate the missing host keys
 
-    find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
-        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-        -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
+        find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
+            \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+            -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
+    fi
 else
     readonly ssh_sys_dir=~/.ssh # TODO check usage
 
@@ -69,27 +72,36 @@ else
         \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
         -printf 'Removing existing %p\n' -delete
 
-    rm -frv ~/.ssh/etc
-    mkdir -pv ~/.ssh/etc/ssh # Temp dir for host keys generation
+    if [ "$gen_hostkeys" = true ]; then
+        rm -frv ~/.ssh/etc
+        mkdir -pv ~/.ssh/etc/ssh # Temp dir for host keys generation
 
-    find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
-        -type f -name 'ssh_host_*_key' \
-        -exec install -vm600 -t ~/.ssh/etc/ssh {} +
-    find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
-        -type f -name 'ssh_host_*_key.pub' \
-        -exec install -vm644 -t ~/.ssh/etc/ssh {} +
+        find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
+            -type f -name 'ssh_host_*_key' \
+            -exec install -vm600 -t ~/.ssh/etc/ssh {} +
+        find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
+            -type f -name 'ssh_host_*_key.pub' \
+            -exec install -vm644 -t ~/.ssh/etc/ssh {} +
 
-    ssh-keygen -Af ~/.ssh # Generate the missing host keys
+        ssh-keygen -Af ~/.ssh # Generate the missing host keys
 
-    find ~/.ssh/etc/ssh -mindepth 1 -maxdepth 1 -type f \
-        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-        -exec mv -vt ~/.ssh {} +
+        find ~/.ssh/etc/ssh -mindepth 1 -maxdepth 1 -type f \
+            \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+            -exec mv -vt ~/.ssh {} +
 
-    rm -rv ~/.ssh/etc
+        rm -rv ~/.ssh/etc
 
-    find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
-        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-        -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
+        find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
+            \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+            -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
+    else
+        find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
+            -type f -name 'ssh_host_*_key' \
+            -exec install -vm600 -t ~/.ssh {} +
+        find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
+            -type f -name 'ssh_host_*_key.pub' \
+            -exec install -vm644 -t ~/.ssh {} +
+    fi
 fi
 
 # TODO rc + users
