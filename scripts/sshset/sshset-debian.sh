@@ -13,9 +13,6 @@ readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 # TODO consider "mode" variable that can be "system" (ssh_sys_dir=/etc/ssh),
 # "user" (ssh_sys_dir=~/.ssh), "auto" (default, based on EUID)
 
-# TODO avoid using "|| :" as it hides permissions issues (e.g. unable to read a
-# private key file)
-
 ################################################################################
 
 if [ "$EUID" = 0 ]; then
@@ -44,7 +41,7 @@ if [ "$EUID" = 0 ]; then
 
     find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
         \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-        -exec cp -nvt"$src_dir/host-keys" {} + || :
+        -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
 else
     readonly ssh_sys_dir=~/.ssh # TODO check usage
 
@@ -68,24 +65,31 @@ else
 
     ############################################################################
 
-    rm -rv ~/.ssh/etc
+    find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
+        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+        -printf 'Removing existing %p\n' -delete
+
+    rm -frv ~/.ssh/etc
     mkdir -pv ~/.ssh/etc/ssh # Temp dir for host keys generation
 
-    # Get host keys from the volume
-    install -vm600 -t ~/.ssh/etc/ssh \
-        "$src_dir/host-keys"/ssh_host_*_key 2>/dev/null || :
-    install -vm644 -t ~/.ssh/etc/ssh \
-        "$src_dir/host-keys"/ssh_host_*_key.pub 2>/dev/null || :
+    find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
+        -type f -name 'ssh_host_*_key' \
+        -exec install -vm600 -t ~/.ssh/etc/ssh {} +
+    find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
+        -type f -name 'ssh_host_*_key.pub' \
+        -exec install -vm644 -t ~/.ssh/etc/ssh {} +
 
     ssh-keygen -Af ~/.ssh # Generate the missing host keys
 
-    # Move the host keys out of the temporary directory
-    mv -vt ~/.ssh ~/.ssh/etc/ssh/*
+    find ~/.ssh/etc/ssh -mindepth 1 -maxdepth 1 -type f \
+        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+        -exec mv -vt ~/.ssh {} +
+
     rm -rv ~/.ssh/etc
 
-    # Copy the (previously missing) generated host keys to the volume
-    cp -nvt"$src_dir/host-keys" ~/.ssh/ssh_host_*_key 2>/dev/null || :
-    cp -nvt"$src_dir/host-keys" ~/.ssh/ssh_host_*_key.pub 2>/dev/null || :
+    find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
+        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+        -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
 fi
 
 # TODO rc + users
