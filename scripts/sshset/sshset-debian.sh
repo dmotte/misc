@@ -45,6 +45,15 @@ if [ "$EUID" = 0 ]; then
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
             -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
     fi
+
+    ############################################################################
+
+    files=$(find "$src_dir/rc" -mindepth 1 -maxdepth 1 -type f -name '*.sh')
+    if [ -n "$files" ]; then
+        files=$(echo -n "$files" | LC_ALL=C sort)
+        content=$(echo -n "$files" | xargs -rd\\n cat)
+        echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/sshrc
+    fi
 else
     readonly ssh_sys_dir=~/.ssh # TODO check usage
 
@@ -104,6 +113,6 @@ else
     fi
 fi
 
-# TODO rc + users
+# TODO rc for each user
 
 # TODO users authkeys
