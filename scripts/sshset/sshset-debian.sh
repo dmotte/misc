@@ -102,22 +102,24 @@ else
         -printf 'Removing existing %p\n' -delete
 
     if [ "$gen_hostkeys" = true ]; then
-        rm -frv ~/.ssh/etc
-        mkdir -pv ~/.ssh/etc/ssh # Temp dir for host keys generation
+        tmpdir=~/.ssh/tmp-sshset-gen-hostkeys
+
+        rm -frv "$tmpdir"
+        mkdir -pv "$tmpdir/etc/ssh"
 
         find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
             \( -path "$src_dir/host-keys/ssh_host_*_key" \
-                -exec install -vm600 -t ~/.ssh/etc/ssh {} + \) \
+                -exec install -vm600 -t"$tmpdir/etc/ssh" {} + \) \
             -o \( -path "$src_dir/host-keys/ssh_host_*_key.pub" \
-                -exec install -vm644 -t ~/.ssh/etc/ssh {} + \)
+                -exec install -vm644 -t"$tmpdir/etc/ssh" {} + \)
 
-        ssh-keygen -Af ~/.ssh # Generate the missing host keys
+        ssh-keygen -Af "$tmpdir" # Generate the missing host keys
 
-        find ~/.ssh/etc/ssh -mindepth 1 -maxdepth 1 -type f \
+        find "$tmpdir/etc/ssh" -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
             -exec mv -vt ~/.ssh {} +
 
-        rm -rv ~/.ssh/etc
+        rm -rv "$tmpdir"
 
         find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
