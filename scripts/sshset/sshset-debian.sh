@@ -62,6 +62,18 @@ if [ "$EUID" = 0 ]; then
     find "$src_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$src_dir/ssh-config/*.conf" \
         -exec install -Dvm644 -t/etc/ssh/ssh_config.d {} +
+
+    ############################################################################
+
+    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/known-hosts/*")
+    if [ -n "$files" ]; then
+        files=$(echo -n "$files" | LC_ALL=C sort)
+        # We use "awk 1" instead of "cat" because it automatically appends a
+        # trailing newline at the end of files that are missing it
+        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/ssh_known_hosts
+    fi
 else
     readonly ssh_sys_dir=~/.ssh # TODO check usage
 
