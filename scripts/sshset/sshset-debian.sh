@@ -23,7 +23,7 @@ if [ "$EUID" = 0 ]; then
 
     find "$src_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$src_dir/sshd-config/*.conf" \
-        -exec install -vm644 -t/etc/ssh/sshd_config.d {} +
+        -exec install -Dvm644 -t/etc/ssh/sshd_config.d {} +
 
     ############################################################################
 
@@ -56,6 +56,12 @@ if [ "$EUID" = 0 ]; then
         content=$(echo -n "$files" | xargs -rd\\n awk 1)
         echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/sshrc
     fi
+
+    ############################################################################
+
+    find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/ssh-config/*.conf" \
+        -exec install -Dvm644 -t/etc/ssh/ssh_config.d {} +
 else
     readonly ssh_sys_dir=~/.ssh # TODO check usage
 
@@ -112,7 +118,3 @@ else
                 -exec install -vm644 -t ~/.ssh {} + \)
     fi
 fi
-
-# TODO sshrc for each user
-
-# TODO users authkeys
