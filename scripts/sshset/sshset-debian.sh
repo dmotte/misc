@@ -31,12 +31,11 @@ if [ "$EUID" = 0 ]; then
         \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
         -printf 'Removing existing %p\n' -delete
 
-    find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/host-keys/ssh_host_*_key" \
-        -exec install -vm600 -t/etc/ssh {} +
-    find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/host-keys/ssh_host_*_key.pub" \
-        -exec install -vm644 -t/etc/ssh {} +
+    find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
+        \( -path "$src_dir/host-keys/ssh_host_*_key" \
+            -exec install -vm600 -t/etc/ssh {} + \) \
+        -o \( -path "$src_dir/host-keys/ssh_host_*_key.pub" \
+            -exec install -vm644 -t/etc/ssh {} + \)
 
     if [ "$gen_hostkeys" = true ]; then
         ssh-keygen -A # Generate the missing host keys
@@ -86,12 +85,11 @@ else
         rm -frv ~/.ssh/etc
         mkdir -pv ~/.ssh/etc/ssh # Temp dir for host keys generation
 
-        find "$src_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$src_dir/host-keys/ssh_host_*_key" \
-            -exec install -vm600 -t ~/.ssh/etc/ssh {} +
-        find "$src_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$src_dir/host-keys/ssh_host_*_key.pub" \
-            -exec install -vm644 -t ~/.ssh/etc/ssh {} +
+        find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
+            \( -path "$src_dir/host-keys/ssh_host_*_key" \
+                -exec install -vm600 -t ~/.ssh/etc/ssh {} + \) \
+            -o \( -path "$src_dir/host-keys/ssh_host_*_key.pub" \
+                -exec install -vm644 -t ~/.ssh/etc/ssh {} + \)
 
         ssh-keygen -Af ~/.ssh # Generate the missing host keys
 
@@ -105,12 +103,11 @@ else
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
             -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
     else
-        find "$src_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$src_dir/host-keys/ssh_host_*_key" \
-            -exec install -vm600 -t ~/.ssh {} +
-        find "$src_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$src_dir/host-keys/ssh_host_*_key.pub" \
-            -exec install -vm644 -t ~/.ssh {} +
+        find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
+            \( -path "$src_dir/host-keys/ssh_host_*_key" \
+                -exec install -vm600 -t ~/.ssh {} + \) \
+            -o \( -path "$src_dir/host-keys/ssh_host_*_key.pub" \
+                -exec install -vm644 -t ~/.ssh {} + \)
     fi
 fi
 
