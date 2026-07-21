@@ -17,7 +17,7 @@ readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 ################################################################################
 
 if [ "$EUID" = 0 ]; then
-    readonly ssh_sys_dir=/etc/ssh # TODO check usage
+    # readonly ssh_sys_dir=/etc/ssh # TODO needed?
 
     ############################################################################
 
@@ -75,7 +75,7 @@ if [ "$EUID" = 0 ]; then
         echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/ssh_known_hosts
     fi
 else
-    readonly ssh_sys_dir=~/.ssh # TODO check usage
+    # readonly ssh_sys_dir=~/.ssh # TODO needed?
 
     install -dvm700 ~/.ssh
 
