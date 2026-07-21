@@ -64,3 +64,5 @@ No need to use `userngo` in this project, I guess.
 Use `volumes` dir for volumes.
 
 In images like `portfwd-server`, for user creation, you could add a `user.cfg` file (externally managed) for each user, with directives like `uid=1000` and `gid=1000` for example.
+
+In README, write the suggested file extensions somehow. For example `.sh` for `sshrc/*` files, `.txt` for `known-hosts/*` files, etc.
