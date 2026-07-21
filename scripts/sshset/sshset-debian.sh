@@ -51,7 +51,9 @@ if [ "$EUID" = 0 ]; then
         -type f -path "$src_dir/sshrc/*.sh")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
-        content=$(echo -n "$files" | xargs -rd\\n cat)
+        # We use "awk 1" instead of "cat" because it automatically appends a
+        # trailing newline at the end of files that are missing it
+        content=$(echo -n "$files" | xargs -rd\\n awk 1)
         echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/sshrc
     fi
 else
