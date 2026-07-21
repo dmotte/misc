@@ -22,7 +22,7 @@ if [ "$EUID" = 0 ]; then
     ############################################################################
 
     find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/sshd-config/*.conf" \
+        -type f -path "$src_dir/sshd-config/*" \
         -exec install -Dvm644 -t/etc/ssh/sshd_config.d {} +
 
     ############################################################################
@@ -48,7 +48,7 @@ if [ "$EUID" = 0 ]; then
     ############################################################################
 
     files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/sshrc/*.sh")
+        -type f -path "$src_dir/sshrc/*")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         # We use "awk 1" instead of "cat" because it automatically appends a
@@ -60,7 +60,7 @@ if [ "$EUID" = 0 ]; then
     ############################################################################
 
     find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/ssh-config/*.conf" \
+        -type f -path "$src_dir/ssh-config/*" \
         -exec install -Dvm644 -t/etc/ssh/ssh_config.d {} +
 
     ############################################################################
@@ -92,7 +92,7 @@ else
     ############################################################################
 
     find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/sshd-config/*.conf" \
+        -type f -path "$src_dir/sshd-config/*" \
         -exec install -Dvm644 -t ~/.ssh/sshd_config.d {} +
 
     ############################################################################
