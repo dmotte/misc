@@ -21,8 +21,8 @@ if [ "$EUID" = 0 ]; then
 
     ############################################################################
 
-    find "$src_dir/sshd-config" -mindepth 1 -maxdepth 1 \
-        -type f -name '*.conf' \
+    find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/sshd-config/*.conf" \
         -exec install -vm644 -t/etc/ssh/sshd_config.d {} +
 
     ############################################################################
@@ -31,11 +31,11 @@ if [ "$EUID" = 0 ]; then
         \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
         -printf 'Removing existing %p\n' -delete
 
-    find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
-        -type f -name 'ssh_host_*_key' \
+    find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/host-keys/ssh_host_*_key" \
         -exec install -vm600 -t/etc/ssh {} +
-    find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
-        -type f -name 'ssh_host_*_key.pub' \
+    find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/host-keys/ssh_host_*_key.pub" \
         -exec install -vm644 -t/etc/ssh {} +
 
     if [ "$gen_hostkeys" = true ]; then
@@ -48,7 +48,8 @@ if [ "$EUID" = 0 ]; then
 
     ############################################################################
 
-    files=$(find "$src_dir/rc" -mindepth 1 -maxdepth 1 -type f -name '*.sh')
+    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/rc/*.sh")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         content=$(echo -n "$files" | xargs -rd\\n cat)
@@ -71,8 +72,8 @@ else
 
     ############################################################################
 
-    find "$src_dir/sshd-config" -mindepth 1 -maxdepth 1 \
-        -type f -name '*.conf' \
+    find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/sshd-config/*.conf" \
         -exec install -Dvm644 -t ~/.ssh/sshd_config.d {} +
 
     ############################################################################
@@ -85,11 +86,11 @@ else
         rm -frv ~/.ssh/etc
         mkdir -pv ~/.ssh/etc/ssh # Temp dir for host keys generation
 
-        find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
-            -type f -name 'ssh_host_*_key' \
+        find "$src_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$src_dir/host-keys/ssh_host_*_key" \
             -exec install -vm600 -t ~/.ssh/etc/ssh {} +
-        find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
-            -type f -name 'ssh_host_*_key.pub' \
+        find "$src_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$src_dir/host-keys/ssh_host_*_key.pub" \
             -exec install -vm644 -t ~/.ssh/etc/ssh {} +
 
         ssh-keygen -Af ~/.ssh # Generate the missing host keys
@@ -104,11 +105,11 @@ else
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
             -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
     else
-        find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
-            -type f -name 'ssh_host_*_key' \
+        find "$src_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$src_dir/host-keys/ssh_host_*_key" \
             -exec install -vm600 -t ~/.ssh {} +
-        find "$src_dir/host-keys" -mindepth 1 -maxdepth 1 \
-            -type f -name 'ssh_host_*_key.pub' \
+        find "$src_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$src_dir/host-keys/ssh_host_*_key.pub" \
             -exec install -vm644 -t ~/.ssh {} +
     fi
 fi
