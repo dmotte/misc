@@ -48,7 +48,7 @@ if [ "$EUID" = 0 ]; then
     ############################################################################
 
     files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/rc/*.sh")
+        -type f -path "$src_dir/sshrc/*.sh")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         content=$(echo -n "$files" | xargs -rd\\n cat)
@@ -111,6 +111,6 @@ else
     fi
 fi
 
-# TODO rc for each user
+# TODO sshrc for each user
 
 # TODO users authkeys
