@@ -22,25 +22,29 @@ Draft content of `~/.ssh` (for each user):
 - (client) `known_hosts`
 - (client) Identity keys
 
-Draft content of `/opt/sshset`:
+Draft content of `/opt/sshset` for when running as `root`:
 
-- `main.sh`
-- `sshd-config/*.conf`
-- `host-keys/`
-- `rc/`
-- `ssh-config/*.conf`
-- `known-hosts/`
-- `user/`
-  - `authorized-keys/`
-  - `rc/`
-  - `config/*.conf`
-  - `known-hosts/`
-  - `identity-keys/`
+- (server) `sshd-config/*.conf`
+- (server) `host-keys/`
+- (server) `sshrc/`
+- (client) `ssh-config/*.conf`
+- (client) `known-hosts/`
 - `users/*/`
-  - Content like `user/`
-  - `user.cfg` (?) (for user creation) (managed externally by `portfwd-server`)
-    - `uid=1000`
-    - `gid=1000`
+  - (server) `authorized-keys/`
+  - (server) `sshrc/`
+  - (client) `ssh-config/*.conf`
+  - (client) `known-hosts/`
+  - (client) `identity-keys/`
+
+Draft content of `/opt/sshset` for when running as unprivileged user:
+
+- (server) `sshd-config/*.conf`
+- (server) `host-keys/`
+- (server) `authorized-keys/`
+- (server) `sshrc/`
+- (client) `ssh-config/*.conf`
+- (client) `known-hosts/`
+- (client) `identity-keys/`
 
 Take inspiration from `userngo`.
 
@@ -51,10 +55,12 @@ Supported env vars:
 - `SSHSET_GEN_AUTHKEY=true`: generate an authorized key for users that don't have any
 - `SSHSET_GEN_IDKEY=true`: generate an identity key for users that don't have any
 
-Always overwrite destination files (e.g. `/opt/sshset/rc/` &rarr; `/etc/ssh/sshrc`) on script run, as they may change from one run to another.
+Always overwrite destination files (e.g. `/opt/sshset/sshrc/` &rarr; `/etc/ssh/sshrc`) on script run, as they may change from one run to another.
 
 Configurable source dir (default `/opt/sshset`).
 
 No need to use `userngo` in this project, I guess.
 
 Use `volumes` dir for volumes.
+
+In images like `portfwd-server`, for user creation, you could add a `user.cfg` file (externally managed) for each user, with directives like `uid=1000` and `gid=1000` for example.
