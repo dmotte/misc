@@ -91,9 +91,38 @@ if [ "$EUID" = 0 ]; then
     while IFS= read -r user || [ -n "$user" ]; do
         user_dir=$data_dir/users/$user
 
+        user_group=$(id -gn "$user")
+        user_home=$(getent passwd "$user" | cut -d: -f6)
+
         ########################################################################
 
-        echo "${user@Q} ${user_dir@Q}"
+        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$user_dir/authorized-keys/*.pub")
+        if [ -n "$files" ]; then
+            files=$(echo -n "$files" | LC_ALL=C sort)
+            # We use "awk 1" instead of "cat" because it automatically appends a
+            # trailing newline at the end of files that are missing it
+            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
+                /dev/stdin "$user_home/.ssh/authorized_keys"
+        elif [ "$gen_authkey" = true ]; then
+            [ -d "$user_dir/authorized-keys" ] || install \
+                -o"$user" -g"$user_group" -dvm700 "$user_dir/authorized-keys"
+
+            # We need the space between the "-C" flag and its value because it
+            # can be an empty string
+            ssh-keygen -ted25519 -C "$gen_authkey_comment" -N '' \
+                -f"$user_dir/authorized-keys/id_ed25519"
+            chown -v "$user:$user_group" \
+                "$user_dir"/authorized-keys/id_ed25519{,.pub}
+
+            install -o"$user" -g"$user_group" -Tvm600 \
+                "$user_dir/authorized-keys/id_ed25519.pub" \
+                "$user_home/.ssh/authorized_keys"
+        fi
+
+        ########################################################################
+
         # TODO
     done < <(printf '%s' "$users")
 else
