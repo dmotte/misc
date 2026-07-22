@@ -200,5 +200,22 @@ else
 
     ############################################################################
 
-    # TODO identity keys
+    files_pub=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/identity-keys/*.pub")
+    if [ -n "$files_pub" ]; then
+        files=$(echo -n "$files_pub" | sed 's/\.pub$//')
+
+        echo -n "$files" | xargs -rd\\n install -vm600 -t ~/.ssh
+        echo -n "$files_pub" | xargs -rd\\n install -vm644 -t ~/.ssh
+    elif [ "$gen_idkey" = true ]; then
+        mkdir -pv "$src_dir/identity-keys"
+
+        # We need the space between the "-C" flag and its value because it
+        # can be an empty string
+        ssh-keygen -ted25519 -C "$gen_idkey_comment" -N '' \
+            -f"$src_dir/identity-keys/id_ed25519"
+
+        install -vm600 -t ~/.ssh "$src_dir/identity-keys/id_ed25519"
+        install -vm644 -t ~/.ssh "$src_dir/identity-keys/id_ed25519.pub"
+    fi
 fi
