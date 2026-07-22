@@ -61,7 +61,7 @@ if [ "$service_manager" = auto ]; then
 fi
 
 readonly service_name=portmap-$name_suffix
-running_user_home=$(eval "echo ~$running_user")
+running_user_home=$(getent passwd "$running_user" | cut -d: -f6)
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
 if [ -n "$supervisor_priority" ]
