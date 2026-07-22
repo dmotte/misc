@@ -16,6 +16,10 @@ readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 
 ################################################################################
 
+[ -d "$src_dir" ] || { echo "Dir $src_dir not found" >&2; exit 1; }
+
+################################################################################
+
 if [ "$EUID" = 0 ]; then
     # readonly ssh_sys_dir=/etc/ssh # TODO needed?
 
