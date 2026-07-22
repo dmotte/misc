@@ -161,4 +161,44 @@ else
         install -Tvm600 "$src_dir/authorized-keys/id_ed25519.pub" \
             ~/.ssh/authorized_keys
     fi
+
+    ############################################################################
+
+    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/sshrc/*")
+    if [ -n "$files" ]; then
+        files=$(echo -n "$files" | LC_ALL=C sort)
+        # We use "awk 1" instead of "cat" because it automatically appends a
+        # trailing newline at the end of files that are missing it
+        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/rc
+    fi
+
+    ############################################################################
+
+    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/ssh-config/*")
+    if [ -n "$files" ]; then
+        files=$(echo -n "$files" | LC_ALL=C sort)
+        # We use "awk 1" instead of "cat" because it automatically appends a
+        # trailing newline at the end of files that are missing it
+        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        echo "$content" | install -Tvm644 /dev/stdin ~/.ssh/config
+    fi
+
+    ############################################################################
+
+    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/known-hosts/*")
+    if [ -n "$files" ]; then
+        files=$(echo -n "$files" | LC_ALL=C sort)
+        # We use "awk 1" instead of "cat" because it automatically appends a
+        # trailing newline at the end of files that are missing it
+        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/known_hosts
+    fi
+
+    ############################################################################
+
+    # TODO identity keys
 fi
