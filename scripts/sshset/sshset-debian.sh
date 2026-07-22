@@ -48,7 +48,7 @@ if [ "$EUID" = 0 ]; then
     if [ "$gen_hostkeys" = true ]; then
         ssh-keygen -A # Generate the missing host keys
 
-        mkdir -pv "$src_dir/host-keys"
+        [ -d "$src_dir/host-keys" ] || install -dvm700 "$src_dir/host-keys"
         find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
             -exec cp -nvt"$src_dir/host-keys" {} +
@@ -128,7 +128,7 @@ else
 
         rm -rv "$tmpdir"
 
-        mkdir -pv "$src_dir/host-keys"
+        [ -d "$src_dir/host-keys" ] || install -dvm700 "$src_dir/host-keys"
         find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
             -exec cp -nvt"$src_dir/host-keys" {} +
@@ -151,7 +151,8 @@ else
         content=$(echo -n "$files" | xargs -rd\\n awk 1)
         echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/authorized_keys
     elif [ "$gen_authkey" = true ]; then
-        mkdir -pv "$src_dir/authorized-keys"
+        [ -d "$src_dir/authorized-keys" ] ||
+            install -dvm700 "$src_dir/authorized-keys"
 
         # We need the space between the "-C" flag and its value because it
         # can be an empty string
@@ -209,7 +210,8 @@ else
             -type f -path "$src_dir/identity-keys/*.pub" \
             -exec install -vm644 -t ~/.ssh {} +
     elif [ "$gen_idkey" = true ]; then
-        mkdir -pv "$src_dir/identity-keys"
+        [ -d "$src_dir/identity-keys" ] ||
+            install -dvm700 "$src_dir/identity-keys"
 
         # We need the space between the "-C" flag and its value because it
         # can be an empty string
