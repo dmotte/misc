@@ -200,13 +200,14 @@ else
 
     ############################################################################
 
-    files_pub=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/identity-keys/*.pub")
-    if [ -n "$files_pub" ]; then
-        files=$(echo -n "$files_pub" | sed 's/\.pub$//')
+    files_prv=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/identity-keys/*" \! -name '*.pub')
+    if [ -n "$files_prv" ]; then
+        echo -n "$files_prv" | xargs -rd\\n install -vm600 -t ~/.ssh
 
-        echo -n "$files" | xargs -rd\\n install -vm600 -t ~/.ssh
-        echo -n "$files_pub" | xargs -rd\\n install -vm644 -t ~/.ssh
+        find "$src_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$src_dir/identity-keys/*.pub" \
+            -exec install -vm644 -t ~/.ssh {} +
     elif [ "$gen_idkey" = true ]; then
         mkdir -pv "$src_dir/identity-keys"
 
