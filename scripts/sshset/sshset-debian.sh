@@ -6,13 +6,17 @@ readonly src_dir=${SSHSET_SRC_DIR:-/opt/sshset}
 
 readonly gen_hostkeys=${SSHSET_GEN_HOSTKEYS:-true}
 readonly gen_authkey=${SSHSET_GEN_AUTHKEY:-false}
+readonly gen_authkey_comment=$SSHSET_GEN_AUTHKEY_COMMENT
 readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
+readonly gen_idkey_comment=$SSHSET_GEN_IDKEY_COMMENT
 
 # TODO consider switch to toggle host keys generation (because it's not needed
 # for the SSH client). Or maybe even have two separate scripts
 
 # TODO consider "mode" variable that can be "system" (ssh_sys_dir=/etc/ssh),
 # "user" (ssh_sys_dir=~/.ssh), "auto" (default, based on EUID)
+
+# TODO test this script thoroughly
 
 ################################################################################
 
@@ -134,5 +138,27 @@ else
                 -exec install -vm600 -t ~/.ssh {} + \) \
             -o \( -path "$src_dir/host-keys/ssh_host_*_key.pub" \
                 -exec install -vm644 -t ~/.ssh {} + \)
+    fi
+
+    ############################################################################
+
+    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$src_dir/authorized-keys/*.pub")
+    if [ -n "$files" ]; then
+        files=$(echo -n "$files" | LC_ALL=C sort)
+        # We use "awk 1" instead of "cat" because it automatically appends a
+        # trailing newline at the end of files that are missing it
+        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/authorized_keys
+    elif [ "$gen_authkey" = true ]; then
+        mkdir -pv "$src_dir/authorized-keys"
+
+        # We need the space between the "-C" flag and its value because it
+        # can be an empty string
+        ssh-keygen -ted25519 -C "$gen_authkey_comment" -N '' \
+            -f"$src_dir/authorized-keys/id_ed25519"
+
+        install -Tvm600 "$src_dir/authorized-keys/id_ed25519.pub" \
+            ~/.ssh/authorized_keys
     fi
 fi
