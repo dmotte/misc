@@ -111,7 +111,7 @@ else
         -printf 'Removing existing %p\n' -delete
 
     if [ "$gen_hostkeys" = true ]; then
-        tmpdir=~/.ssh/tmp-sshset-gen-hostkeys
+        tmpdir=~/.ssh/sshset-tmp-gen-host-keys
         rm -frv "$tmpdir"; mkdir -pv "$tmpdir/etc/ssh"
 
         find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
