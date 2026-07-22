@@ -8,7 +8,7 @@ RUN <<'EOF' /bin/bash -e
 
     rm -fv /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub
 
-    install -dvm755 /opt/sshset
+    install -dvm755 /opt/sshset{,/data}
 
     useradd -Ums/bin/bash user
 EOF

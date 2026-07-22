@@ -6,7 +6,7 @@ FROM docker.io/library/alpine:latest
 RUN <<'EOF' /bin/sh -e
     apk add --no-cache tini bash openssh-client openssh-server
 
-    install -dvm755 /opt/sshset
+    install -dvm755 /opt/sshset{,/data}
 
     adduser -Ds/bin/bash user
 EOF

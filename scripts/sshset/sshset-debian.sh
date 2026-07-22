@@ -2,7 +2,7 @@
 
 set -e
 
-readonly src_dir=${SSHSET_SRC_DIR:-/opt/sshset}
+readonly src_dir=${SSHSET_SRC_DIR:-/opt/sshset/data}
 
 readonly gen_hostkeys=${SSHSET_GEN_HOSTKEYS:-true}
 readonly gen_authkey=${SSHSET_GEN_AUTHKEY:-false}
