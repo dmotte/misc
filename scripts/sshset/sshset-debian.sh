@@ -2,7 +2,7 @@
 
 set -e
 
-readonly src_dir=${SSHSET_SRC_DIR:-/opt/sshset/data}
+readonly data_dir=${SSHSET_DATA_DIR:-/opt/sshset/data}
 
 readonly gen_hostkeys=${SSHSET_GEN_HOSTKEYS:-true}
 readonly gen_authkey=${SSHSET_GEN_AUTHKEY:-false}
@@ -20,7 +20,7 @@ readonly gen_idkey_comment=$SSHSET_GEN_IDKEY_COMMENT
 
 ################################################################################
 
-[ -d "$src_dir" ] || { echo "Dir $src_dir not found" >&2; exit 1; }
+[ -d "$data_dir" ] || { echo "Dir $data_dir not found" >&2; exit 1; }
 
 ################################################################################
 
@@ -29,8 +29,8 @@ if [ "$EUID" = 0 ]; then
 
     ############################################################################
 
-    find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/sshd-config/*" \
+    find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/sshd-config/*" \
         -exec install -Dvm644 -t/etc/ssh/sshd_config.d {} +
 
     ############################################################################
@@ -39,25 +39,25 @@ if [ "$EUID" = 0 ]; then
         \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
         -printf 'Removing existing %p\n' -delete
 
-    find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
-        \( -path "$src_dir/host-keys/ssh_host_*_key" \
+    find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
+        \( -path "$data_dir/host-keys/ssh_host_*_key" \
             -exec install -vm600 -t/etc/ssh {} + \) \
-        -o \( -path "$src_dir/host-keys/ssh_host_*_key.pub" \
+        -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
             -exec install -vm644 -t/etc/ssh {} + \)
 
     if [ "$gen_hostkeys" = true ]; then
         ssh-keygen -A # Generate the missing host keys
 
-        [ -d "$src_dir/host-keys" ] || install -dvm700 "$src_dir/host-keys"
+        [ -d "$data_dir/host-keys" ] || install -dvm700 "$data_dir/host-keys"
         find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-            -exec cp -nvt"$src_dir/host-keys" {} +
+            -exec cp -nvt"$data_dir/host-keys" {} +
     fi
 
     ############################################################################
 
-    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/sshrc/*")
+    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/sshrc/*")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         # We use "awk 1" instead of "cat" because it automatically appends a
@@ -68,14 +68,14 @@ if [ "$EUID" = 0 ]; then
 
     ############################################################################
 
-    find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/ssh-config/*" \
+    find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/ssh-config/*" \
         -exec install -Dvm644 -t/etc/ssh/ssh_config.d {} +
 
     ############################################################################
 
-    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/known-hosts/*")
+    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/known-hosts/*")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         # We use "awk 1" instead of "cat" because it automatically appends a
@@ -100,8 +100,8 @@ else
 
     ############################################################################
 
-    find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/sshd-config/*" \
+    find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/sshd-config/*" \
         -exec install -Dvm644 -t ~/.ssh/sshd_config.d {} +
 
     ############################################################################
@@ -114,10 +114,10 @@ else
         tmpdir=~/.ssh/sshset-tmp-gen-host-keys
         rm -frv "$tmpdir"; mkdir -pv "$tmpdir/etc/ssh"
 
-        find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
-            \( -path "$src_dir/host-keys/ssh_host_*_key" \
+        find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
+            \( -path "$data_dir/host-keys/ssh_host_*_key" \
                 -exec install -vm600 -t"$tmpdir/etc/ssh" {} + \) \
-            -o \( -path "$src_dir/host-keys/ssh_host_*_key.pub" \
+            -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
                 -exec install -vm644 -t"$tmpdir/etc/ssh" {} + \)
 
         ssh-keygen -Af "$tmpdir" # Generate the missing host keys
@@ -128,22 +128,22 @@ else
 
         rm -rv "$tmpdir"
 
-        [ -d "$src_dir/host-keys" ] || install -dvm700 "$src_dir/host-keys"
+        [ -d "$data_dir/host-keys" ] || install -dvm700 "$data_dir/host-keys"
         find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-            -exec cp -nvt"$src_dir/host-keys" {} +
+            -exec cp -nvt"$data_dir/host-keys" {} +
     else
-        find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
-            \( -path "$src_dir/host-keys/ssh_host_*_key" \
+        find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
+            \( -path "$data_dir/host-keys/ssh_host_*_key" \
                 -exec install -vm600 -t ~/.ssh {} + \) \
-            -o \( -path "$src_dir/host-keys/ssh_host_*_key.pub" \
+            -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
                 -exec install -vm644 -t ~/.ssh {} + \)
     fi
 
     ############################################################################
 
-    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/authorized-keys/*.pub")
+    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/authorized-keys/*.pub")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         # We use "awk 1" instead of "cat" because it automatically appends a
@@ -151,22 +151,22 @@ else
         content=$(echo -n "$files" | xargs -rd\\n awk 1)
         echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/authorized_keys
     elif [ "$gen_authkey" = true ]; then
-        [ -d "$src_dir/authorized-keys" ] ||
-            install -dvm700 "$src_dir/authorized-keys"
+        [ -d "$data_dir/authorized-keys" ] ||
+            install -dvm700 "$data_dir/authorized-keys"
 
         # We need the space between the "-C" flag and its value because it
         # can be an empty string
         ssh-keygen -ted25519 -C "$gen_authkey_comment" -N '' \
-            -f"$src_dir/authorized-keys/id_ed25519"
+            -f"$data_dir/authorized-keys/id_ed25519"
 
-        install -Tvm600 "$src_dir/authorized-keys/id_ed25519.pub" \
+        install -Tvm600 "$data_dir/authorized-keys/id_ed25519.pub" \
             ~/.ssh/authorized_keys
     fi
 
     ############################################################################
 
-    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/sshrc/*")
+    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/sshrc/*")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         # We use "awk 1" instead of "cat" because it automatically appends a
@@ -177,8 +177,8 @@ else
 
     ############################################################################
 
-    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/ssh-config/*")
+    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/ssh-config/*")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         # We use "awk 1" instead of "cat" because it automatically appends a
@@ -189,8 +189,8 @@ else
 
     ############################################################################
 
-    files=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/known-hosts/*")
+    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/known-hosts/*")
     if [ -n "$files" ]; then
         files=$(echo -n "$files" | LC_ALL=C sort)
         # We use "awk 1" instead of "cat" because it automatically appends a
@@ -201,24 +201,24 @@ else
 
     ############################################################################
 
-    files_prv=$(find "$src_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$src_dir/identity-keys/*" \! -name '*.pub')
+    files_prv=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type f -path "$data_dir/identity-keys/*" \! -name '*.pub')
     if [ -n "$files_prv" ]; then
         echo -n "$files_prv" | xargs -rd\\n install -vm600 -t ~/.ssh
 
-        find "$src_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$src_dir/identity-keys/*.pub" \
+        find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/identity-keys/*.pub" \
             -exec install -vm644 -t ~/.ssh {} +
     elif [ "$gen_idkey" = true ]; then
-        [ -d "$src_dir/identity-keys" ] ||
-            install -dvm700 "$src_dir/identity-keys"
+        [ -d "$data_dir/identity-keys" ] ||
+            install -dvm700 "$data_dir/identity-keys"
 
         # We need the space between the "-C" flag and its value because it
         # can be an empty string
         ssh-keygen -ted25519 -C "$gen_idkey_comment" -N '' \
-            -f"$src_dir/identity-keys/id_ed25519"
+            -f"$data_dir/identity-keys/id_ed25519"
 
-        install -vm600 -t ~/.ssh "$src_dir/identity-keys/id_ed25519"
-        install -vm644 -t ~/.ssh "$src_dir/identity-keys/id_ed25519.pub"
+        install -vm600 -t ~/.ssh "$data_dir/identity-keys/id_ed25519"
+        install -vm644 -t ~/.ssh "$data_dir/identity-keys/id_ed25519.pub"
     fi
 fi
