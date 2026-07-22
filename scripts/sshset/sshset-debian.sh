@@ -103,9 +103,7 @@ else
 
     if [ "$gen_hostkeys" = true ]; then
         tmpdir=~/.ssh/tmp-sshset-gen-hostkeys
-
-        rm -frv "$tmpdir"
-        mkdir -pv "$tmpdir/etc/ssh"
+        rm -frv "$tmpdir"; mkdir -pv "$tmpdir/etc/ssh"
 
         find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
             \( -path "$src_dir/host-keys/ssh_host_*_key" \
