@@ -40,9 +40,10 @@ if [ "$EUID" = 0 ]; then
     if [ "$gen_hostkeys" = true ]; then
         ssh-keygen -A # Generate the missing host keys
 
+        mkdir -pv "$src_dir/host-keys"
         find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-            -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
+            -exec cp -nvt"$src_dir/host-keys" {} +
     fi
 
     ############################################################################
@@ -119,9 +120,10 @@ else
 
         rm -rv "$tmpdir"
 
+        mkdir -pv "$src_dir/host-keys"
         find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-            -exec cp -nvt"$src_dir/host-keys" {} + || : # No quit on errors
+            -exec cp -nvt"$src_dir/host-keys" {} +
     else
         find "$src_dir" -mindepth 2 -maxdepth 2 -type f \
             \( -path "$src_dir/host-keys/ssh_host_*_key" \
