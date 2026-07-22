@@ -83,6 +83,19 @@ if [ "$EUID" = 0 ]; then
         content=$(echo -n "$files" | xargs -rd\\n awk 1)
         echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/ssh_known_hosts
     fi
+
+    ############################################################################
+
+    users=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+        -type d -path "$data_dir/users/*" -printf '%f\n')
+    while IFS= read -r user || [ -n "$user" ]; do
+        user_dir=$data_dir/users/$user
+
+        ########################################################################
+
+        echo "${user@Q} ${user_dir@Q}"
+        # TODO
+    done < <(printf '%s' "$users")
 else
     # readonly ssh_sys_dir=~/.ssh # TODO needed?
 
