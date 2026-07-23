@@ -123,6 +123,45 @@ if [ "$EUID" = 0 ]; then
 
         ########################################################################
 
+        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$user_dir/sshrc/*")
+        if [ -n "$files" ]; then
+            files=$(echo -n "$files" | LC_ALL=C sort)
+            # We use "awk 1" instead of "cat" because it automatically appends a
+            # trailing newline at the end of files that are missing it
+            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
+                /dev/stdin "$user_home/.ssh/rc"
+        fi
+
+        ########################################################################
+
+        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$user_dir/ssh-config/*")
+        if [ -n "$files" ]; then
+            files=$(echo -n "$files" | LC_ALL=C sort)
+            # We use "awk 1" instead of "cat" because it automatically appends a
+            # trailing newline at the end of files that are missing it
+            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            echo "$content" | install -o"$user" -g"$user_group" -Tvm644 \
+                /dev/stdin "$user_home/.ssh/config"
+        fi
+
+        ########################################################################
+
+        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$user_dir/known-hosts/*")
+        if [ -n "$files" ]; then
+            files=$(echo -n "$files" | LC_ALL=C sort)
+            # We use "awk 1" instead of "cat" because it automatically appends a
+            # trailing newline at the end of files that are missing it
+            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
+                /dev/stdin "$user_home/.ssh/known_hosts"
+        fi
+
+        ########################################################################
+
         # TODO
     done < <(printf '%s' "$users")
 else
