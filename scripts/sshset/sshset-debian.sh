@@ -152,9 +152,13 @@ if [ "$EUID" = 0 ]; then
         files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
             -type f -path "$user_dir/identity-keys/*" \! -name '*.pub')
         if [ -n "$files" ]; then
-            content=$(set -e; echo -n "$files" | sortcat)
-            echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
-                /dev/stdin "$user_home/.ssh/identity_keys"
+            echo -n "$files" | xargs -rd\\n install \
+                -o"$user" -g"$user_group" -vm600 -t"$user_home/.ssh"
+
+            find "$user_dir" -mindepth 2 -maxdepth 2 \
+                -type f -path "$user_dir/identity-keys/*.pub" \
+                -exec install -o"$user" -g"$user_group" -vm644 \
+                -t"$user_home/.ssh" {} +
         elif [ "$gen_idkey" = true ]; then
             [ -d "$user_dir/identity-keys" ] || install \
                 -o"$user" -g"$user_group" -dvm700 "$user_dir/identity-keys"
