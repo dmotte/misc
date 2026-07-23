@@ -282,10 +282,10 @@ else
 
     ############################################################################
 
-    files_prv=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$data_dir/identity-keys/*" \! -name '*.pub')
-    if [ -n "$files_prv" ]; then
-        echo -n "$files_prv" | xargs -rd\\n install -vm600 -t ~/.ssh
+    if [ -n "$files" ]; then
+        echo -n "$files" | xargs -rd\\n install -vm600 -t ~/.ssh
 
         find "$data_dir" -mindepth 2 -maxdepth 2 \
             -type f -path "$data_dir/identity-keys/*.pub" \
