@@ -17,8 +17,6 @@ readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 readonly gen_idkey_comment=$SSHSET_GEN_IDKEY_COMMENT
 readonly gen_idkey_pass=$SSHSET_GEN_IDKEY_PASS
 
-# TODO test this script thoroughly
-
 ################################################################################
 
 [ -d "$data_dir" ] || { echo "Dir $data_dir not found" >&2; exit 1; }
