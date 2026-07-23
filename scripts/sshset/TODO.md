@@ -22,39 +22,32 @@ Draft content of `~/.ssh` (for each user):
 - (client) `known_hosts`
 - (client) Identity keys
 
-Draft content of `/opt/sshset/data` for when running as `root`:
+Supported content of the **data directory** when running as `root`:
 
-- (server) `sshd-config/*.conf`
-- (server) `host-keys/`
-- (server) `sshrc/`
-- (client) `ssh-config/*.conf`
-- (client) `known-hosts/`
-- `users/*/`
-  - (server) `authorized-keys/`
-  - (server) `sshrc/`
-  - (client) `ssh-config/*.conf`
-  - (client) `known-hosts/`
-  - (client) `identity-keys/`
+| Path                       | Category | Files extensions                           |
+| -------------------------- | -------- | ------------------------------------------ |
+| `sshd-config/`             | Server   | `*.conf` (suggestion)                      |
+| `host-keys/`               | Server   | private keys: _none_, public keys: `*.pub` |
+| `sshrc/`                   | Server   | `*.sh` (suggestion)                        |
+| `ssh-config/`              | Client   | `*.conf` (suggestion)                      |
+| `known-hosts/`             | Client   | `*.txt` (suggestion)                       |
+| `users/*/authorized-keys/` | Server   | private keys: _none_, public keys: `*.pub` |
+| `users/*/sshrc/`           | Server   | `*.sh` (suggestion)                        |
+| `users/*/ssh-config/`      | Client   | `*.conf` (suggestion)                      |
+| `users/*/known-hosts/`     | Client   | `*.txt` (suggestion)                       |
+| `users/*/identity-keys/`   | Client   | private keys: _none_, public keys: `*.pub` |
 
-Draft content of `/opt/sshset/data` for when running as unprivileged user:
+Supported content of the **data directory** when running as unprivileged user:
 
-- (server) `sshd-config/*.conf`
-- (server) `host-keys/`
-- (server) `authorized-keys/`
-- (server) `sshrc/`
-- (client) `ssh-config/*.conf`
-- (client) `known-hosts/`
-- (client) `identity-keys/`
-
-Take inspiration from `userngo`.
-
-Always overwrite destination files (e.g. `/opt/sshset/data/sshrc/` &rarr; `/etc/ssh/sshrc`) on script run, as they may change from one run to another.
-
-No need to use `userngo` in this project, I guess.
-
-In images like `portfwd-server`, for user creation, you could add a `user.cfg` file (externally managed) for each user, with directives like `uid=1000` and `gid=1000` for example.
-
-In README, write the suggested file extensions somehow. For example `.sh` for `sshrc/*` files, `.txt` for `known-hosts/*` files, etc.
+| Path               | Category | Files extensions                           |
+| ------------------ | -------- | ------------------------------------------ |
+| `sshd-config/`     | Server   | `*.conf` (suggestion)                      |
+| `host-keys/`       | Server   | private keys: _none_, public keys: `*.pub` |
+| `authorized-keys/` | Server   | private keys: _none_, public keys: `*.pub` |
+| `sshrc/`           | Server   | `*.sh` (suggestion)                        |
+| `ssh-config/`      | Client   | `*.conf` (suggestion)                      |
+| `known-hosts/`     | Client   | `*.txt` (suggestion)                       |
+| `identity-keys/`   | Client   | private keys: _none_, public keys: `*.pub` |
 
 In README, write to see the supported env vars at the top of the scripts themselves.
 
