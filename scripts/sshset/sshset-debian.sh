@@ -103,7 +103,7 @@ if [ "$EUID" = 0 ]; then
     while IFS= read -r user || [ -n "$user" ]; do
         user_dir=$data_dir/users/$user
 
-        user_group=$(id -gn "$user")
+        user_group=$(id -gn "$user") # This fails if the user doesn't exist
         user_home=$(getent passwd "$user" | cut -d: -f6)
 
         ########################################################################
