@@ -162,7 +162,31 @@ if [ "$EUID" = 0 ]; then
 
         ########################################################################
 
-        # TODO
+        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$user_dir/identity-keys/*" \! -name '*.pub')
+        if [ -n "$files" ]; then
+            files=$(echo -n "$files" | LC_ALL=C sort)
+            # We use "awk 1" instead of "cat" because it automatically appends a
+            # trailing newline at the end of files that are missing it
+            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
+                /dev/stdin "$user_home/.ssh/identity_keys"
+        elif [ "$gen_idkey" = true ]; then
+            [ -d "$user_dir/identity-keys" ] || install \
+                -o"$user" -g"$user_group" -dvm700 "$user_dir/identity-keys"
+
+            # We need the space between the "-C" flag and its value because it
+            # can be an empty string
+            ssh-keygen -ted25519 -C "$gen_idkey_comment" -N '' \
+                -f"$user_dir/identity-keys/id_ed25519"
+            chown -v "$user:$user_group" \
+                "$user_dir"/identity-keys/id_ed25519{,.pub}
+
+            install -o"$user" -g"$user_group" -vm600 -t"$user_home/.ssh" \
+                "$user_dir/identity-keys/id_ed25519"
+            install -o"$user" -g"$user_group" -vm644 -t"$user_home/.ssh" \
+                "$user_dir/identity-keys/id_ed25519.pub"
+        fi
     done < <(printf '%s' "$users")
 else
     # readonly ssh_sys_dir=~/.ssh # TODO needed?
