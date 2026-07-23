@@ -1,26 +1,5 @@
 # TODO
 
-Draft content of `/etc/ssh`:
-
-- (server) `sshd_config` + `.d/*.conf`
-- (server) Host keys
-- (server) `sshrc`
-- (client) `ssh_config` + `.d/*.conf`
-- (client) `ssh_known_hosts`
-
-Draft content of `~/.ssh` for unprivileged `sshd`:
-
-- (server) `sshd_config` + `.d/*.conf`
-- (server) Host keys
-
-Draft content of `~/.ssh` (for each user):
-
-- (server) `authorized_keys`
-- (server) `rc`
-- (client) `config`
-- (client) `known_hosts`
-- (client) Identity keys
-
 Supported content of the **data directory** when running as **`root`**:
 
 | Path                       | Category | Files extensions                           | Configures                               |
