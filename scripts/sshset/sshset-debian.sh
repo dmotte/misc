@@ -24,11 +24,16 @@ readonly gen_idkey_comment=$SSHSET_GEN_IDKEY_COMMENT
 
 ################################################################################
 
+sortcat() {
+    local files; files=$(LC_ALL=C sort)
+    # We use "awk 1" instead of "cat" because it automatically appends a
+    # trailing newline at the end of files that are missing it
+    echo -n "$files" | xargs -rd\\n awk 1
+}
+
+################################################################################
+
 if [ "$EUID" = 0 ]; then
-    # readonly ssh_sys_dir=/etc/ssh # TODO needed?
-
-    ############################################################################
-
     find "$data_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$data_dir/sshd-config/*" \
         -exec install -Dvm644 -t/etc/ssh/sshd_config.d {} +
@@ -59,10 +64,7 @@ if [ "$EUID" = 0 ]; then
     files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$data_dir/sshrc/*")
     if [ -n "$files" ]; then
-        files=$(echo -n "$files" | LC_ALL=C sort)
-        # We use "awk 1" instead of "cat" because it automatically appends a
-        # trailing newline at the end of files that are missing it
-        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        content=$(set -e; echo -n "$files" | sortcat)
         echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/sshrc
     fi
 
@@ -77,10 +79,7 @@ if [ "$EUID" = 0 ]; then
     files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$data_dir/known-hosts/*")
     if [ -n "$files" ]; then
-        files=$(echo -n "$files" | LC_ALL=C sort)
-        # We use "awk 1" instead of "cat" because it automatically appends a
-        # trailing newline at the end of files that are missing it
-        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        content=$(set -e; echo -n "$files" | sortcat)
         echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/ssh_known_hosts
     fi
 
@@ -99,10 +98,7 @@ if [ "$EUID" = 0 ]; then
         files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
             -type f -path "$user_dir/authorized-keys/*.pub")
         if [ -n "$files" ]; then
-            files=$(echo -n "$files" | LC_ALL=C sort)
-            # We use "awk 1" instead of "cat" because it automatically appends a
-            # trailing newline at the end of files that are missing it
-            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            content=$(set -e; echo -n "$files" | sortcat)
             echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
                 /dev/stdin "$user_home/.ssh/authorized_keys"
         elif [ "$gen_authkey" = true ]; then
@@ -126,10 +122,7 @@ if [ "$EUID" = 0 ]; then
         files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
             -type f -path "$user_dir/sshrc/*")
         if [ -n "$files" ]; then
-            files=$(echo -n "$files" | LC_ALL=C sort)
-            # We use "awk 1" instead of "cat" because it automatically appends a
-            # trailing newline at the end of files that are missing it
-            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            content=$(set -e; echo -n "$files" | sortcat)
             echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
                 /dev/stdin "$user_home/.ssh/rc"
         fi
@@ -139,10 +132,7 @@ if [ "$EUID" = 0 ]; then
         files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
             -type f -path "$user_dir/ssh-config/*")
         if [ -n "$files" ]; then
-            files=$(echo -n "$files" | LC_ALL=C sort)
-            # We use "awk 1" instead of "cat" because it automatically appends a
-            # trailing newline at the end of files that are missing it
-            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            content=$(set -e; echo -n "$files" | sortcat)
             echo "$content" | install -o"$user" -g"$user_group" -Tvm644 \
                 /dev/stdin "$user_home/.ssh/config"
         fi
@@ -152,10 +142,7 @@ if [ "$EUID" = 0 ]; then
         files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
             -type f -path "$user_dir/known-hosts/*")
         if [ -n "$files" ]; then
-            files=$(echo -n "$files" | LC_ALL=C sort)
-            # We use "awk 1" instead of "cat" because it automatically appends a
-            # trailing newline at the end of files that are missing it
-            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            content=$(set -e; echo -n "$files" | sortcat)
             echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
                 /dev/stdin "$user_home/.ssh/known_hosts"
         fi
@@ -165,10 +152,7 @@ if [ "$EUID" = 0 ]; then
         files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
             -type f -path "$user_dir/identity-keys/*" \! -name '*.pub')
         if [ -n "$files" ]; then
-            files=$(echo -n "$files" | LC_ALL=C sort)
-            # We use "awk 1" instead of "cat" because it automatically appends a
-            # trailing newline at the end of files that are missing it
-            content=$(echo -n "$files" | xargs -rd\\n awk 1)
+            content=$(set -e; echo -n "$files" | sortcat)
             echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
                 /dev/stdin "$user_home/.ssh/identity_keys"
         elif [ "$gen_idkey" = true ]; then
@@ -189,8 +173,6 @@ if [ "$EUID" = 0 ]; then
         fi
     done < <(printf '%s' "$users")
 else
-    # readonly ssh_sys_dir=~/.ssh # TODO needed?
-
     install -dvm700 ~/.ssh
 
     ############################################################################
@@ -250,10 +232,7 @@ else
     files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$data_dir/authorized-keys/*.pub")
     if [ -n "$files" ]; then
-        files=$(echo -n "$files" | LC_ALL=C sort)
-        # We use "awk 1" instead of "cat" because it automatically appends a
-        # trailing newline at the end of files that are missing it
-        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        content=$(set -e; echo -n "$files" | sortcat)
         echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/authorized_keys
     elif [ "$gen_authkey" = true ]; then
         [ -d "$data_dir/authorized-keys" ] ||
@@ -273,10 +252,7 @@ else
     files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$data_dir/sshrc/*")
     if [ -n "$files" ]; then
-        files=$(echo -n "$files" | LC_ALL=C sort)
-        # We use "awk 1" instead of "cat" because it automatically appends a
-        # trailing newline at the end of files that are missing it
-        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        content=$(set -e; echo -n "$files" | sortcat)
         echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/rc
     fi
 
@@ -285,10 +261,7 @@ else
     files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$data_dir/ssh-config/*")
     if [ -n "$files" ]; then
-        files=$(echo -n "$files" | LC_ALL=C sort)
-        # We use "awk 1" instead of "cat" because it automatically appends a
-        # trailing newline at the end of files that are missing it
-        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        content=$(set -e; echo -n "$files" | sortcat)
         echo "$content" | install -Tvm644 /dev/stdin ~/.ssh/config
     fi
 
@@ -297,10 +270,7 @@ else
     files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
         -type f -path "$data_dir/known-hosts/*")
     if [ -n "$files" ]; then
-        files=$(echo -n "$files" | LC_ALL=C sort)
-        # We use "awk 1" instead of "cat" because it automatically appends a
-        # trailing newline at the end of files that are missing it
-        content=$(echo -n "$files" | xargs -rd\\n awk 1)
+        content=$(set -e; echo -n "$files" | sortcat)
         echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/known_hosts
     fi
 
