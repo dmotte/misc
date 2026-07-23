@@ -4,6 +4,12 @@ set -e
 
 readonly data_dir=${SSHSET_DATA_DIR:-/opt/sshset/data}
 
+# Set up stuff for the OpenSSH Server ("sshd")
+readonly setup_server=${SSHSET_SETUP_SERVER:-false}
+readonly setup_server_rc=${SSHSET_SETUP_SERVER_RC:-false}
+# Set up stuff for the OpenSSH Client ("ssh")
+readonly setup_client=${SSHSET_SETUP_CLIENT:-false}
+
 # Generate missing host keys
 readonly gen_hostkeys=${SSHSET_GEN_HOSTKEYS:-true}
 
@@ -33,53 +39,61 @@ sortcat() {
 ################################################################################
 
 if [ "$EUID" = 0 ]; then
-    find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/sshd-config/*" \
-        -exec install -Dvm644 -t/etc/ssh/sshd_config.d {} +
+    if [ "$setup_server" = true ]; then
+        find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/sshd-config/*" \
+            -exec install -Dvm644 -t/etc/ssh/sshd_config.d {} +
 
-    ############################################################################
+        ########################################################################
 
-    find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
-        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-        -printf 'Removing existing %p\n' -delete
-
-    find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
-        \( -path "$data_dir/host-keys/ssh_host_*_key" \
-            -exec install -vm600 -t/etc/ssh {} + \) \
-        -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
-            -exec install -vm644 -t/etc/ssh {} + \)
-
-    if [ "$gen_hostkeys" = true ]; then
-        ssh-keygen -A # Generate the missing host keys
-
-        [ -d "$data_dir/host-keys" ] || install -dvm700 "$data_dir/host-keys"
         find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
             \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-            -exec cp -nvt"$data_dir/host-keys" {} +
+            -printf 'Removing existing %p\n' -delete
+
+        find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
+            \( -path "$data_dir/host-keys/ssh_host_*_key" \
+                -exec install -vm600 -t/etc/ssh {} + \) \
+            -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
+                -exec install -vm644 -t/etc/ssh {} + \)
+
+        if [ "$gen_hostkeys" = true ]; then
+            ssh-keygen -A # Generate the missing host keys
+
+            [ -d "$data_dir/host-keys" ] ||
+                install -dvm700 "$data_dir/host-keys"
+            find /etc/ssh -mindepth 1 -maxdepth 1 -type f \
+                \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+                -exec cp -nvt"$data_dir/host-keys" {} +
+        fi
+
+        ########################################################################
+
+        if [ "$setup_server_rc" = true ]; then
+            files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+                -type f -path "$data_dir/sshrc/*")
+            if [ -n "$files" ]; then
+                content=$(set -e; echo -n "$files" | sortcat)
+                echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/sshrc
+            fi
+        fi
     fi
 
     ############################################################################
 
-    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/sshrc/*")
-    if [ -n "$files" ]; then
-        content=$(set -e; echo -n "$files" | sortcat)
-        echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/sshrc
-    fi
+    if [ "$setup_client" = true ]; then
+        find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/ssh-config/*" \
+            -exec install -Dvm644 -t/etc/ssh/ssh_config.d {} +
 
-    ############################################################################
+        ########################################################################
 
-    find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/ssh-config/*" \
-        -exec install -Dvm644 -t/etc/ssh/ssh_config.d {} +
-
-    ############################################################################
-
-    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/known-hosts/*")
-    if [ -n "$files" ]; then
-        content=$(set -e; echo -n "$files" | sortcat)
-        echo "$content" | install -Tvm644 /dev/stdin /etc/ssh/ssh_known_hosts
+        files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/known-hosts/*")
+        if [ -n "$files" ]; then
+            content=$(set -e; echo -n "$files" | sortcat)
+            echo "$content" |
+                install -Tvm644 /dev/stdin /etc/ssh/ssh_known_hosts
+        fi
     fi
 
     ############################################################################
@@ -94,209 +108,226 @@ if [ "$EUID" = 0 ]; then
 
         ########################################################################
 
-        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$user_dir/authorized-keys/*.pub")
+        if [ "$setup_server" = true ]; then
+            files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+                -type f -path "$user_dir/authorized-keys/*.pub")
+            if [ -n "$files" ]; then
+                content=$(set -e; echo -n "$files" | sortcat)
+                echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
+                    /dev/stdin "$user_home/.ssh/authorized_keys"
+            elif [ "$gen_authkey" = true ]; then
+                [ -d "$user_dir/authorized-keys" ] || install \
+                    -o"$user" -g"$user_group" -dvm700 \
+                    "$user_dir/authorized-keys"
+
+                # We need spaces between the "-C" and "-N" flags and
+                # their values because they may be empty strings
+                ssh-keygen -ted25519 \
+                    -C "$gen_authkey_comment" -N "$gen_authkey_pass" \
+                    -f"$user_dir/authorized-keys/id_ed25519"
+                chown -v "$user:$user_group" \
+                    "$user_dir"/authorized-keys/id_ed25519{,.pub}
+
+                install -o"$user" -g"$user_group" -Tvm600 \
+                    "$user_dir/authorized-keys/id_ed25519.pub" \
+                    "$user_home/.ssh/authorized_keys"
+            fi
+
+            ####################################################################
+
+            if [ "$setup_server_rc" = true ]; then
+                files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+                    -type f -path "$user_dir/sshrc/*")
+                if [ -n "$files" ]; then
+                    content=$(set -e; echo -n "$files" | sortcat)
+                    echo "$content" | install -o"$user" -g"$user_group" \
+                        -Tvm600 /dev/stdin "$user_home/.ssh/rc"
+                fi
+            fi
+        fi
+
+        ########################################################################
+
+        if [ "$setup_client" = true ]; then
+            files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+                -type f -path "$user_dir/ssh-config/*")
+            if [ -n "$files" ]; then
+                content=$(set -e; echo -n "$files" | sortcat)
+                echo "$content" | install -o"$user" -g"$user_group" -Tvm644 \
+                    /dev/stdin "$user_home/.ssh/config"
+            fi
+
+            ####################################################################
+
+            files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+                -type f -path "$user_dir/known-hosts/*")
+            if [ -n "$files" ]; then
+                content=$(set -e; echo -n "$files" | sortcat)
+                echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
+                    /dev/stdin "$user_home/.ssh/known_hosts"
+            fi
+
+            ####################################################################
+
+            files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
+                -type f -path "$user_dir/identity-keys/*" \! -name '*.pub')
+            if [ -n "$files" ]; then
+                echo -n "$files" | xargs -rd\\n install \
+                    -o"$user" -g"$user_group" -vm600 -t"$user_home/.ssh"
+
+                find "$user_dir" -mindepth 2 -maxdepth 2 \
+                    -type f -path "$user_dir/identity-keys/*.pub" \
+                    -exec install -o"$user" -g"$user_group" -vm644 \
+                    -t"$user_home/.ssh" {} +
+            elif [ "$gen_idkey" = true ]; then
+                [ -d "$user_dir/identity-keys" ] || install \
+                    -o"$user" -g"$user_group" -dvm700 "$user_dir/identity-keys"
+
+                # We need spaces between the "-C" and "-N" flags and
+                # their values because they may be empty strings
+                ssh-keygen -ted25519 -C "$gen_idkey_comment" \
+                    -N "$gen_idkey_pass" -f"$user_dir/identity-keys/id_ed25519"
+                chown -v "$user:$user_group" \
+                    "$user_dir"/identity-keys/id_ed25519{,.pub}
+
+                install -o"$user" -g"$user_group" -vm600 -t"$user_home/.ssh" \
+                    "$user_dir/identity-keys/id_ed25519"
+                install -o"$user" -g"$user_group" -vm644 -t"$user_home/.ssh" \
+                    "$user_dir/identity-keys/id_ed25519.pub"
+            fi
+        fi
+    done < <(printf '%s' "$users")
+else
+    if [ "$setup_server" = true ] || [ "$setup_client" = true ]; then
+        install -dvm700 ~/.ssh
+    fi
+
+    ############################################################################
+
+    if [ "$setup_server" = true ]; then
+        echo 'Generating ~/.ssh/sshd_config'
+        sed -E /etc/ssh/sshd_config \
+            -e 's|^(Include)[ \t]+/etc/ssh/(.+)$|\1 ~/.ssh/\2|' \
+            -e 's/^#?(Port)[ \t].*$/\1 2222/' \
+            -e 's|^#?(HostKey)[ \t]+/etc/ssh/(.+)$|\1 ~/.ssh/\2|' \
+            -e 's|^#?(PidFile)[ \t].*$|\1 ~/.ssh/sshd.pid|' \
+            > ~/.ssh/sshd_config
+
+        ########################################################################
+
+        find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/sshd-config/*" \
+            -exec install -Dvm644 -t ~/.ssh/sshd_config.d {} +
+
+        ########################################################################
+
+        find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
+            \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+            -printf 'Removing existing %p\n' -delete
+
+        if [ "$gen_hostkeys" = true ]; then
+            tmpdir=~/.ssh/sshset-tmp-gen-host-keys
+            rm -frv "$tmpdir"; mkdir -pv "$tmpdir/etc/ssh"
+
+            find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
+                \( -path "$data_dir/host-keys/ssh_host_*_key" \
+                    -exec install -vm600 -t"$tmpdir/etc/ssh" {} + \) \
+                -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
+                    -exec install -vm644 -t"$tmpdir/etc/ssh" {} + \)
+
+            ssh-keygen -Af "$tmpdir" # Generate the missing host keys
+
+            find "$tmpdir/etc/ssh" -mindepth 1 -maxdepth 1 -type f \
+                \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+                -exec mv -vt ~/.ssh {} +
+
+            rm -rv "$tmpdir"
+
+            [ -d "$data_dir/host-keys" ] ||
+                install -dvm700 "$data_dir/host-keys"
+            find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
+                \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
+                -exec cp -nvt"$data_dir/host-keys" {} +
+        else
+            find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
+                \( -path "$data_dir/host-keys/ssh_host_*_key" \
+                    -exec install -vm600 -t ~/.ssh {} + \) \
+                -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
+                    -exec install -vm644 -t ~/.ssh {} + \)
+        fi
+
+        ########################################################################
+
+        files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/authorized-keys/*.pub")
         if [ -n "$files" ]; then
             content=$(set -e; echo -n "$files" | sortcat)
-            echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
-                /dev/stdin "$user_home/.ssh/authorized_keys"
+            echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/authorized_keys
         elif [ "$gen_authkey" = true ]; then
-            [ -d "$user_dir/authorized-keys" ] || install \
-                -o"$user" -g"$user_group" -dvm700 "$user_dir/authorized-keys"
+            [ -d "$data_dir/authorized-keys" ] ||
+                install -dvm700 "$data_dir/authorized-keys"
 
             # We need spaces between the "-C" and "-N" flags and
             # their values because they may be empty strings
             ssh-keygen -ted25519 -C "$gen_authkey_comment" \
-                -N "$gen_authkey_pass" -f"$user_dir/authorized-keys/id_ed25519"
-            chown -v "$user:$user_group" \
-                "$user_dir"/authorized-keys/id_ed25519{,.pub}
+                -N "$gen_authkey_pass" -f"$data_dir/authorized-keys/id_ed25519"
 
-            install -o"$user" -g"$user_group" -Tvm600 \
-                "$user_dir/authorized-keys/id_ed25519.pub" \
-                "$user_home/.ssh/authorized_keys"
+            install -Tvm600 "$data_dir/authorized-keys/id_ed25519.pub" \
+                ~/.ssh/authorized_keys
         fi
 
         ########################################################################
 
-        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$user_dir/sshrc/*")
+        if [ "$setup_server_rc" = true ]; then
+            files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+                -type f -path "$data_dir/sshrc/*")
+            if [ -n "$files" ]; then
+                content=$(set -e; echo -n "$files" | sortcat)
+                echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/rc
+            fi
+        fi
+    fi
+
+    ############################################################################
+
+    if [ "$setup_client" = true ]; then
+        files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/ssh-config/*")
         if [ -n "$files" ]; then
             content=$(set -e; echo -n "$files" | sortcat)
-            echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
-                /dev/stdin "$user_home/.ssh/rc"
+            echo "$content" | install -Tvm644 /dev/stdin ~/.ssh/config
         fi
 
         ########################################################################
 
-        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$user_dir/ssh-config/*")
+        files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/known-hosts/*")
         if [ -n "$files" ]; then
             content=$(set -e; echo -n "$files" | sortcat)
-            echo "$content" | install -o"$user" -g"$user_group" -Tvm644 \
-                /dev/stdin "$user_home/.ssh/config"
+            echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/known_hosts
         fi
 
         ########################################################################
 
-        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$user_dir/known-hosts/*")
+        files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
+            -type f -path "$data_dir/identity-keys/*" \! -name '*.pub')
         if [ -n "$files" ]; then
-            content=$(set -e; echo -n "$files" | sortcat)
-            echo "$content" | install -o"$user" -g"$user_group" -Tvm600 \
-                /dev/stdin "$user_home/.ssh/known_hosts"
-        fi
+            echo -n "$files" | xargs -rd\\n install -vm600 -t ~/.ssh
 
-        ########################################################################
-
-        files=$(find "$user_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$user_dir/identity-keys/*" \! -name '*.pub')
-        if [ -n "$files" ]; then
-            echo -n "$files" | xargs -rd\\n install \
-                -o"$user" -g"$user_group" -vm600 -t"$user_home/.ssh"
-
-            find "$user_dir" -mindepth 2 -maxdepth 2 \
-                -type f -path "$user_dir/identity-keys/*.pub" \
-                -exec install -o"$user" -g"$user_group" -vm644 \
-                -t"$user_home/.ssh" {} +
+            find "$data_dir" -mindepth 2 -maxdepth 2 \
+                -type f -path "$data_dir/identity-keys/*.pub" \
+                -exec install -vm644 -t ~/.ssh {} +
         elif [ "$gen_idkey" = true ]; then
-            [ -d "$user_dir/identity-keys" ] || install \
-                -o"$user" -g"$user_group" -dvm700 "$user_dir/identity-keys"
+            [ -d "$data_dir/identity-keys" ] ||
+                install -dvm700 "$data_dir/identity-keys"
 
             # We need spaces between the "-C" and "-N" flags and
             # their values because they may be empty strings
             ssh-keygen -ted25519 -C "$gen_idkey_comment" \
-                -N "$gen_idkey_pass" -f"$user_dir/identity-keys/id_ed25519"
-            chown -v "$user:$user_group" \
-                "$user_dir"/identity-keys/id_ed25519{,.pub}
+                -N "$gen_idkey_pass" -f"$data_dir/identity-keys/id_ed25519"
 
-            install -o"$user" -g"$user_group" -vm600 -t"$user_home/.ssh" \
-                "$user_dir/identity-keys/id_ed25519"
-            install -o"$user" -g"$user_group" -vm644 -t"$user_home/.ssh" \
-                "$user_dir/identity-keys/id_ed25519.pub"
+            install -vm600 -t ~/.ssh "$data_dir/identity-keys/id_ed25519"
+            install -vm644 -t ~/.ssh "$data_dir/identity-keys/id_ed25519.pub"
         fi
-    done < <(printf '%s' "$users")
-else
-    install -dvm700 ~/.ssh
-
-    ############################################################################
-
-    echo 'Generating ~/.ssh/sshd_config'
-    sed -E /etc/ssh/sshd_config \
-        -e 's|^(Include)[ \t]+/etc/ssh/(.+)$|\1 ~/.ssh/\2|' \
-        -e 's/^#?(Port)[ \t].*$/\1 2222/' \
-        -e 's|^#?(HostKey)[ \t]+/etc/ssh/(.+)$|\1 ~/.ssh/\2|' \
-        -e 's|^#?(PidFile)[ \t].*$|\1 ~/.ssh/sshd.pid|' \
-        > ~/.ssh/sshd_config
-
-    ############################################################################
-
-    find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/sshd-config/*" \
-        -exec install -Dvm644 -t ~/.ssh/sshd_config.d {} +
-
-    ############################################################################
-
-    find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
-        \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-        -printf 'Removing existing %p\n' -delete
-
-    if [ "$gen_hostkeys" = true ]; then
-        tmpdir=~/.ssh/sshset-tmp-gen-host-keys
-        rm -frv "$tmpdir"; mkdir -pv "$tmpdir/etc/ssh"
-
-        find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
-            \( -path "$data_dir/host-keys/ssh_host_*_key" \
-                -exec install -vm600 -t"$tmpdir/etc/ssh" {} + \) \
-            -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
-                -exec install -vm644 -t"$tmpdir/etc/ssh" {} + \)
-
-        ssh-keygen -Af "$tmpdir" # Generate the missing host keys
-
-        find "$tmpdir/etc/ssh" -mindepth 1 -maxdepth 1 -type f \
-            \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-            -exec mv -vt ~/.ssh {} +
-
-        rm -rv "$tmpdir"
-
-        [ -d "$data_dir/host-keys" ] || install -dvm700 "$data_dir/host-keys"
-        find ~/.ssh -mindepth 1 -maxdepth 1 -type f \
-            \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
-            -exec cp -nvt"$data_dir/host-keys" {} +
-    else
-        find "$data_dir" -mindepth 2 -maxdepth 2 -type f \
-            \( -path "$data_dir/host-keys/ssh_host_*_key" \
-                -exec install -vm600 -t ~/.ssh {} + \) \
-            -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
-                -exec install -vm644 -t ~/.ssh {} + \)
-    fi
-
-    ############################################################################
-
-    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/authorized-keys/*.pub")
-    if [ -n "$files" ]; then
-        content=$(set -e; echo -n "$files" | sortcat)
-        echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/authorized_keys
-    elif [ "$gen_authkey" = true ]; then
-        [ -d "$data_dir/authorized-keys" ] ||
-            install -dvm700 "$data_dir/authorized-keys"
-
-        # We need spaces between the "-C" and "-N" flags and
-        # their values because they may be empty strings
-        ssh-keygen -ted25519 -C "$gen_authkey_comment" \
-            -N "$gen_authkey_pass" -f"$data_dir/authorized-keys/id_ed25519"
-
-        install -Tvm600 "$data_dir/authorized-keys/id_ed25519.pub" \
-            ~/.ssh/authorized_keys
-    fi
-
-    ############################################################################
-
-    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/sshrc/*")
-    if [ -n "$files" ]; then
-        content=$(set -e; echo -n "$files" | sortcat)
-        echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/rc
-    fi
-
-    ############################################################################
-
-    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/ssh-config/*")
-    if [ -n "$files" ]; then
-        content=$(set -e; echo -n "$files" | sortcat)
-        echo "$content" | install -Tvm644 /dev/stdin ~/.ssh/config
-    fi
-
-    ############################################################################
-
-    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/known-hosts/*")
-    if [ -n "$files" ]; then
-        content=$(set -e; echo -n "$files" | sortcat)
-        echo "$content" | install -Tvm600 /dev/stdin ~/.ssh/known_hosts
-    fi
-
-    ############################################################################
-
-    files=$(find "$data_dir" -mindepth 2 -maxdepth 2 \
-        -type f -path "$data_dir/identity-keys/*" \! -name '*.pub')
-    if [ -n "$files" ]; then
-        echo -n "$files" | xargs -rd\\n install -vm600 -t ~/.ssh
-
-        find "$data_dir" -mindepth 2 -maxdepth 2 \
-            -type f -path "$data_dir/identity-keys/*.pub" \
-            -exec install -vm644 -t ~/.ssh {} +
-    elif [ "$gen_idkey" = true ]; then
-        [ -d "$data_dir/identity-keys" ] ||
-            install -dvm700 "$data_dir/identity-keys"
-
-        # We need spaces between the "-C" and "-N" flags and
-        # their values because they may be empty strings
-        ssh-keygen -ted25519 -C "$gen_idkey_comment" \
-            -N "$gen_idkey_pass" -f"$data_dir/identity-keys/id_ed25519"
-
-        install -vm600 -t ~/.ssh "$data_dir/identity-keys/id_ed25519"
-        install -vm644 -t ~/.ssh "$data_dir/identity-keys/id_ed25519.pub"
     fi
 fi
