@@ -7,8 +7,10 @@ readonly data_dir=${SSHSET_DATA_DIR:-/opt/sshset/data}
 readonly gen_hostkeys=${SSHSET_GEN_HOSTKEYS:-true}
 readonly gen_authkey=${SSHSET_GEN_AUTHKEY:-false}
 readonly gen_authkey_comment=$SSHSET_GEN_AUTHKEY_COMMENT
+readonly gen_authkey_pass=$SSHSET_GEN_AUTHKEY_PASS
 readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 readonly gen_idkey_comment=$SSHSET_GEN_IDKEY_COMMENT
+readonly gen_idkey_pass=$SSHSET_GEN_IDKEY_PASS
 
 # TODO consider switch to toggle host keys generation (because it's not needed
 # for the SSH client). Or maybe even have two separate scripts
@@ -105,10 +107,10 @@ if [ "$EUID" = 0 ]; then
             [ -d "$user_dir/authorized-keys" ] || install \
                 -o"$user" -g"$user_group" -dvm700 "$user_dir/authorized-keys"
 
-            # We need the space between the "-C" flag and its value because it
-            # can be an empty string
-            ssh-keygen -ted25519 -C "$gen_authkey_comment" -N '' \
-                -f"$user_dir/authorized-keys/id_ed25519"
+            # We need spaces between the "-C" and "-N" flags and
+            # their values because they may be empty strings
+            ssh-keygen -ted25519 -C "$gen_authkey_comment" \
+                -N "$gen_authkey_pass" -f"$user_dir/authorized-keys/id_ed25519"
             chown -v "$user:$user_group" \
                 "$user_dir"/authorized-keys/id_ed25519{,.pub}
 
@@ -163,10 +165,10 @@ if [ "$EUID" = 0 ]; then
             [ -d "$user_dir/identity-keys" ] || install \
                 -o"$user" -g"$user_group" -dvm700 "$user_dir/identity-keys"
 
-            # We need the space between the "-C" flag and its value because it
-            # can be an empty string
-            ssh-keygen -ted25519 -C "$gen_idkey_comment" -N '' \
-                -f"$user_dir/identity-keys/id_ed25519"
+            # We need spaces between the "-C" and "-N" flags and
+            # their values because they may be empty strings
+            ssh-keygen -ted25519 -C "$gen_idkey_comment" \
+                -N "$gen_idkey_pass" -f"$user_dir/identity-keys/id_ed25519"
             chown -v "$user:$user_group" \
                 "$user_dir"/identity-keys/id_ed25519{,.pub}
 
@@ -242,10 +244,10 @@ else
         [ -d "$data_dir/authorized-keys" ] ||
             install -dvm700 "$data_dir/authorized-keys"
 
-        # We need the space between the "-C" flag and its value because it
-        # can be an empty string
-        ssh-keygen -ted25519 -C "$gen_authkey_comment" -N '' \
-            -f"$data_dir/authorized-keys/id_ed25519"
+        # We need spaces between the "-C" and "-N" flags and
+        # their values because they may be empty strings
+        ssh-keygen -ted25519 -C "$gen_authkey_comment" \
+            -N "$gen_authkey_pass" -f"$data_dir/authorized-keys/id_ed25519"
 
         install -Tvm600 "$data_dir/authorized-keys/id_ed25519.pub" \
             ~/.ssh/authorized_keys
@@ -292,10 +294,10 @@ else
         [ -d "$data_dir/identity-keys" ] ||
             install -dvm700 "$data_dir/identity-keys"
 
-        # We need the space between the "-C" flag and its value because it
-        # can be an empty string
-        ssh-keygen -ted25519 -C "$gen_idkey_comment" -N '' \
-            -f"$data_dir/identity-keys/id_ed25519"
+        # We need spaces between the "-C" and "-N" flags and
+        # their values because they may be empty strings
+        ssh-keygen -ted25519 -C "$gen_idkey_comment" \
+            -N "$gen_idkey_pass" -f"$data_dir/identity-keys/id_ed25519"
 
         install -vm600 -t ~/.ssh "$data_dir/identity-keys/id_ed25519"
         install -vm644 -t ~/.ssh "$data_dir/identity-keys/id_ed25519.pub"
