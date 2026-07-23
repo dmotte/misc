@@ -4,19 +4,18 @@ set -e
 
 readonly data_dir=${SSHSET_DATA_DIR:-/opt/sshset/data}
 
+# Generate missing host keys
 readonly gen_hostkeys=${SSHSET_GEN_HOSTKEYS:-true}
+
+# Generate an authorized key if there are none
 readonly gen_authkey=${SSHSET_GEN_AUTHKEY:-false}
 readonly gen_authkey_comment=$SSHSET_GEN_AUTHKEY_COMMENT
 readonly gen_authkey_pass=$SSHSET_GEN_AUTHKEY_PASS
+
+# Generate an identity key if there are none
 readonly gen_idkey=${SSHSET_GEN_IDKEY:-false}
 readonly gen_idkey_comment=$SSHSET_GEN_IDKEY_COMMENT
 readonly gen_idkey_pass=$SSHSET_GEN_IDKEY_PASS
-
-# TODO consider switch to toggle host keys generation (because it's not needed
-# for the SSH client). Or maybe even have two separate scripts
-
-# TODO consider "mode" variable that can be "system" (ssh_sys_dir=/etc/ssh),
-# "user" (ssh_sys_dir=~/.ssh), "auto" (default, based on EUID)
 
 # TODO test this script thoroughly
 
