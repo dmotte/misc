@@ -29,6 +29,7 @@ Some pieces of code I find useful for some reason.
 - `tig`, `tig blame myfile.txt`
 - `type python3`
 - `unset HISTFILE`
+- `unset -- "${!MYAPP_@}"`
 - `tar -cvzf myarchive.tar.gz mydir`, `tar -xvzf myarchive.tar.gz`
 - `tar -cvzf myarchive.tar.gz -g snapshot.snar -C mydir .`, `tar -xvzf myarchive.tar.gz -g snapshot.snar -C mydir`
 - `curl -fsSL https://httpbin.org/base64/Zm9vYmFy`, `wget -qO- https://httpbin.org/base64/Zm9vYmFy`
