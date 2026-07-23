@@ -21,7 +21,7 @@ Draft content of `~/.ssh` (for each user):
 - (client) `known_hosts`
 - (client) Identity keys
 
-Supported content of the **data directory** when running as `root`:
+Supported content of the **data directory** when running as **`root`**:
 
 | Path                       | Category | Files extensions                           | Configures                               |
 | -------------------------- | -------- | ------------------------------------------ | ---------------------------------------- |
@@ -36,7 +36,9 @@ Supported content of the **data directory** when running as `root`:
 | `users/*/known-hosts/`     | Client   | `*.txt` (suggestion)                       | `~/.ssh/known_hosts` for each user       |
 | `users/*/identity-keys/`   | Client   | private keys: _none_, public keys: `*.pub` | Identity keys in `~/.ssh/` for each user |
 
-Supported content of the **data directory** when running as unprivileged user:
+> **Note**: the `/etc/ssh/ssh_config` and `/etc/ssh/sshd_config` files are not touched ad all.
+
+Supported content of the **data directory** when running as **unprivileged user**:
 
 | Path               | Category | Files extensions                           | Configures                 |
 | ------------------ | -------- | ------------------------------------------ | -------------------------- |
@@ -47,6 +49,8 @@ Supported content of the **data directory** when running as unprivileged user:
 | `ssh-config/`      | Client   | `*.conf` (suggestion)                      | `~/.ssh/config`            |
 | `known-hosts/`     | Client   | `*.txt` (suggestion)                       | `~/.ssh/known_hosts`       |
 | `identity-keys/`   | Client   | private keys: _none_, public keys: `*.pub` | Identity keys in `~/.ssh/` |
+
+> **Note**: when setting up the SSH server as unprivileged user, an `~/.ssh/sshd_config` file is created automatically, which can then be used with the `-f` option of the `sshd` command.
 
 In README, write to see the supported env vars at the top of the scripts themselves.
 
