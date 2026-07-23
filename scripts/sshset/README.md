@@ -52,5 +52,5 @@ Then you can **run** them like this:
 ```bash
 mkdir -pv data
 
-docker run -it --rm -v"$PWD/data:/opt/sshset/data" img-sshset-debian-root
+docker run -it --rm -v"$PWD/data:/opt/sshset/data" -eSSHSET_{SETUP_{SERVER,CLIENT}=true,GEN_{HOSTKEYS,AUTHKEY,IDKEY}=true} img-sshset-debian-root
 ```
