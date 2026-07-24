@@ -7,7 +7,7 @@ RUN <<'EOF' /bin/sh -e
     apk add --no-cache tini bash coreutils findutils \
         openssh-client openssh-server
 
-    install -dvm755 /opt/sshset{,/data}
+    install -dvm755 /opt/sshset /opt/sshset/data
 EOF
 
 # ADD --chown=root:root --chmod=755 \
