@@ -1,6 +1,6 @@
 # sshset
 
-These are simple Bash scripts [`sshset-alpine.sh`](sshset-alpine.sh) and [`sshset-debian.sh`](sshset-debian.sh) that can be used to set up stuff needed for **OpenSSH Server and Client** (such as configuration files, keys, etc.) starting from a (configurable) **data directory** and some **environment variables**.
+This is a simple Bash script [`sshset.sh`](sshset.sh) that can be used to set up stuff needed for **OpenSSH Server and Client** (such as configuration files, keys, etc.) starting from a (configurable) **data directory** and some **environment variables**.
 
 Supported content of the **data directory** when running as **`root`**:
 
@@ -33,7 +33,7 @@ Supported content of the **data directory** when running as **unprivileged user*
 
 > **Note**: when setting up the SSH server as unprivileged user, an `~/.ssh/sshd_config` file is created automatically, which can then be used with the `-f` option of the `sshd` command.
 
-For a list of the **supported environment variables**, see the top of the scripts themselves.
+For a list of the **supported environment variables**, see the top section of the script itself.
 
 ## Examples
 

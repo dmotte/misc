@@ -4,16 +4,17 @@
 FROM docker.io/library/alpine:latest
 
 RUN <<'EOF' /bin/sh -e
-    apk add --no-cache tini bash openssh-client openssh-server
+    apk add --no-cache tini bash coreutils findutils \
+        openssh-client openssh-server
 
     install -dvm755 /opt/sshset{,/data}
 EOF
 
 # ADD --chown=root:root --chmod=755 \
 #     --checksum=sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 \
-#     https://raw.githubusercontent.com/dmotte/misc/refs/heads/main/scripts/sshset/sshset-alpine.sh \
+#     https://raw.githubusercontent.com/dmotte/misc/refs/heads/main/scripts/sshset/sshset.sh \
 #     /opt/sshset/main.sh
-COPY --chown=root:root --chmod=755 sshset-alpine.sh /opt/sshset/main.sh
+COPY --chown=root:root --chmod=755 sshset.sh /opt/sshset/main.sh
 
 COPY --chown=root:root --chmod=755 app.sh /opt/app.sh
 

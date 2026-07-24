@@ -30,6 +30,17 @@ readonly gen_idkey_pass=$SSHSET_GEN_IDKEY_PASS
 
 [ -d "$data_dir" ] || { echo "Dir $data_dir not found" >&2; exit 1; }
 
+version_install=$(install --version)
+echo "$version_install" | head -n1 |
+    grep '^install (GNU coreutils) ' >/dev/null ||
+    { echo 'Non-GNU "install" command detected' >&2; exit 1; }
+
+# shellcheck disable=SC2185
+version_find=$(find --version)
+echo "$version_find" | head -n1 |
+    grep '^find (GNU findutils) ' >/dev/null ||
+    { echo 'Non-GNU "find" command detected' >&2; exit 1; }
+
 ################################################################################
 
 sortcat() {
