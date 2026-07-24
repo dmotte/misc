@@ -54,7 +54,9 @@ done
 Then you can **run** them like this:
 
 ```bash
-mkdir -pv data
+mkdir -pv data-root data-unpriv
 
-docker run -it --rm -v"$PWD/data:/opt/sshset/data" -eSSHSET_{SETUP_{SERVER,CLIENT}=true,GEN_{HOSTKEYS,AUTHKEY,IDKEY}=true} img-sshset-debian-root
+docker run -it --rm -p2222:22 -v"$PWD/data-root:/opt/sshset/data" -eSSHSET_{SETUP_{SERVER,CLIENT}=true,GEN_{HOSTKEYS,AUTHKEY,IDKEY}=true} img-sshset-debian-root
+
+docker run -it --rm -p2222:2222 -v"$PWD/data-unpriv:/opt/sshset/data" -eSSHSET_{SETUP_{SERVER,CLIENT}=true,GEN_{HOSTKEYS,AUTHKEY,IDKEY}=true} img-sshset-debian-unpriv
 ```
