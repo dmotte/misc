@@ -25,6 +25,9 @@ readonly gen_idkey_pass=$SSHSET_GEN_IDKEY_PASS
 
 ################################################################################
 
+[ "$setup_server" = true ] || [ "$setup_client" = true ] ||
+    { echo 'Not setting up anything' >&2; exit 1; }
+
 [ -d "$data_dir" ] || { echo "Dir $data_dir not found" >&2; exit 1; }
 
 ################################################################################
@@ -198,9 +201,7 @@ if [ "$EUID" = 0 ]; then
         fi
     done < <(printf '%s' "$users")
 else
-    if [ "$setup_server" = true ] || [ "$setup_client" = true ]; then
-        install -dvm700 ~/.ssh
-    fi
+    install -dvm700 ~/.ssh
 
     ############################################################################
 
