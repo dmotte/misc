@@ -35,6 +35,8 @@ Supported content of the **data directory** when running as **unprivileged user*
 
 > **Note**: when setting up the SSH server as unprivileged user, an `~/.ssh/sshd_config` file is created automatically, which can then be used with the `-f` option of the `sshd` command.
 
+:bulb: **Tip**: in general, where files processing order matters, it is recommended to **prefix filenames with numbers** (e.g. `50-myfile.conf`).
+
 For a list of the **supported environment variables**, see the top section of the script itself.
 
 ## Examples
