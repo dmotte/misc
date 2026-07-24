@@ -113,6 +113,8 @@ if [ "$EUID" = 0 ]; then
         user_group=$(id -gn "$user") # This fails if the user doesn't exist
         user_home=$(getent passwd "$user" | cut -d: -f6)
 
+        install -dvm700 "$user_home/.ssh"
+
         ########################################################################
 
         if [ "$setup_server" = true ]; then
