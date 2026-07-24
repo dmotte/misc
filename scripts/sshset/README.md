@@ -2,6 +2,8 @@
 
 This is a simple Bash script [`sshset.sh`](sshset.sh) that can be used to set up stuff needed for **OpenSSH Server and Client** (such as configuration files, keys, etc.) starting from a (configurable) **data directory** and some **environment variables**.
 
+:warning: **Warning**: this tool assumes the data directory and the environment variables are **trusted**! It is NOT suitable for use in environments with untrusted input.
+
 Supported content of the **data directory** when running as **`root`**:
 
 | Path                       | Category | Files extensions                           | Configures                               |
