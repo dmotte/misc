@@ -8,6 +8,13 @@ RUN <<'EOF' /bin/sh -e
         openssh-client openssh-server
 
     install -dvm755 /opt/sshset /opt/sshset/data
+
+    adduser -Ds/bin/sh alice
+    adduser -Ds/bin/sh bob
+    # Needed because the OpenSSH Server does not use PAM by default on
+    # Alpine Linux, so users with the password field set to "!" in /etc/shadow
+    # are considered disabled
+    printf '%s\n' 'alice:*' 'bob:*' | chpasswd -e
 EOF
 
 # ADD --chown=root:root --chmod=755 \
