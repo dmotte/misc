@@ -32,7 +32,7 @@ To **extend the images** and run as **unprivileged user**:
 ```bash
 docker build -t img-userngo-alpine-unpriv:latest - << 'EOF'
 FROM img-userngo-alpine
-RUN adduser -Ds/bin/bash user
+RUN adduser -Ds/bin/sh user
 USER user
 ENV USER=user HOME=/home/user
 WORKDIR /home/user
