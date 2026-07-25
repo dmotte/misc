@@ -9,7 +9,7 @@ RUN <<'EOF' /bin/sh -e
 
     install -dvm755 /opt/sshset /opt/sshset/data
 
-    adduser -Ds/bin/bash user
+    adduser -Ds/bin/sh user
 EOF
 
 # ADD --chown=root:root --chmod=755 \
