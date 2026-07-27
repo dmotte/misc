@@ -65,6 +65,7 @@ Some pieces of code I find useful for some reason.
 - `ss -tulpn`
 - `ip neigh`, `cat /proc/net/arp`
 - `ip route get 1.1.1.1 | sed -En 's/^.+ dev ([^ ]+) .+$/\1/p'`
+- `rfkill list`, `rfkill unblock 0`
 - `df -h`
 - `free -htvw`
 - `du -sh`
