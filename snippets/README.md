@@ -101,7 +101,8 @@ Some pieces of code I find useful for some reason.
 - `ssh-keygen -ted25519 -Cmydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -trsa -b4096 -Cmydevice -f ~/.ssh/id_rsa`
 - `ssh-keygen -yf ~/.ssh/id_ed25519`
 - `ssh-copy-id myuser@192.168.0.123`
-- `ssh-keygen -R [myserver.example.com]:2222`
+- `ssh-keyscan -p2222 192.168.0.123`
+- `ssh-keygen -R '[myserver.example.com]:2222'`
 - `ssh-keygen -lf <(cat /etc/ssh/ssh_host_*_key.pub)`, `ssh-keygen -lF '[192.168.0.123]:2222'`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
 - `while IFS= read -r line || [ -n "$line" ]; do echo "line: ${line@Q}"; done < <(printf '%s' "$content")`
