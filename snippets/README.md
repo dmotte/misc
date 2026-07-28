@@ -204,7 +204,7 @@ Some pieces of code I find useful for some reason.
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dst-dir`
 - `rclone --config= sync -Mvn --create-empty-src-dirs --files-from=mylist.txt ./src-dir ./dst-dir`
 - `export RCLONE_FTP_PASS=$(IFS= read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
-- `rclone --config= sync -vn --create-empty-src-dirs . :sftp,host=192.168.0.123,port=2222,user=myuser:mydir`
+- `rclone --config= sync -vn --create-empty-src-dirs . :sftp,known_hosts_file=~/.ssh/known_hosts,host=192.168.0.123,port=2222,user=myuser:mydir`
 - `rclone check -v --size-only myremote:/remote-src-dir ./local-dst-dir`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass --read-only .`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --addr=0.0.0.0:2022 --user=myuser --authorized-keys=<(echo 'ssh-ed25519 AAAAC3Nza...') .`
