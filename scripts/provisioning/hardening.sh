@@ -79,10 +79,10 @@ rcp_pam_umask_nousergroups () {
 
 recipes_all+=(kernel-ipv6-disable)
 rcp_kernel_ipv6_disable () {
-    local varname=GRUB_CMDLINE_LINUX_DEFAULT
     # Disable IPv6 via kernel boot parameter
-    echo "$varname=\"\$$varname ipv6.disable=1\"" |
-        install -Tvm644 /dev/stdin /etc/default/grub.d/disable-ipv6.cfg
+    # shellcheck disable=SC2016
+    echo 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT ipv6.disable=1"' |
+        install -Tvm644 /dev/stdin /etc/default/grub.d/50-disable-ipv6.cfg
     update-grub
 }
 
