@@ -559,6 +559,7 @@ EOF
 - `termux-open myimage.jpg`
 - `termux-open-url https://example.com/`
 - `termux-setup-storage`
+- `ifconfig | sed -En '/^\s*inet 127\./d;s/^\s*inet ([0-9.]+).*/\1/p'`
 
 ## Python
 
