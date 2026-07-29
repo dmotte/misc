@@ -104,11 +104,15 @@ ensure_value_ok(
     fn($x) => preg_match('/\A[0-9A-Za-z\/_-]+\z/', $x) === 1,
 );
 
-if (!isset($data['disk'])) diemsg('Missing disk');
+$data['disk'] ??= '';
+if (str_ends_with($data['disk'], '!')) {
+    $data['disk-confirm'] = true;
+    $data['disk'] = substr($data['disk'], 0, -1);
+} else $data['disk-confirm'] = false;
 ensure_value_ok(
     'disk',
     $data['disk'],
-    fn($x) => preg_match('/\A[0-9A-Za-z\/_-]+\z/', $x) === 1,
+    fn($x) => preg_match('/\A[0-9A-Za-z\/_-]*\z/', $x) === 1,
 );
 $data['luks'] = isset($data['luks']) && $data['luks'] === 'true';
 
@@ -200,23 +204,28 @@ echo 'd-i clock-setup/utc boolean true', PHP_EOL;
 echo 'd-i time/zone string ', $data['timezone'], PHP_EOL;
 echo PHP_EOL;
 
-echo 'd-i partman-auto/init_automatically_partition select ',
-'Guided - use entire disk', PHP_EOL;
-echo 'd-i partman-auto/disk string ', $data['disk'], PHP_EOL;
-if ($data['luks']) {
-    echo 'd-i partman-auto/method string crypto', PHP_EOL;
-    echo 'd-i partman-lvm/confirm boolean true', PHP_EOL;
-    echo 'd-i partman-lvm/confirm_nooverwrite boolean true', PHP_EOL;
-} else
-    echo 'd-i partman-auto/method string regular', PHP_EOL;
-echo 'd-i partman-auto/choose_recipe select atomic', PHP_EOL;
-echo 'd-i partman-partitioning/confirm_write_new_label boolean true', PHP_EOL;
-echo 'd-i partman/choose_partition select finish', PHP_EOL;
-echo 'd-i partman/confirm boolean true', PHP_EOL;
-echo 'd-i partman/confirm_nooverwrite boolean true', PHP_EOL;
-if ($data['luks'])
-    echo 'd-i partman-auto-crypto/erase_disks boolean false', PHP_EOL;
-echo PHP_EOL;
+if ($data['disk'] !== '') {
+    echo 'd-i partman-auto/init_automatically_partition select ',
+    'Guided - use entire disk', PHP_EOL;
+    echo 'd-i partman-auto/disk string ', $data['disk'], PHP_EOL;
+    if ($data['luks']) {
+        echo 'd-i partman-auto/method string crypto', PHP_EOL;
+        echo 'd-i partman-lvm/confirm boolean true', PHP_EOL;
+        echo 'd-i partman-lvm/confirm_nooverwrite boolean true', PHP_EOL;
+    } else
+        echo 'd-i partman-auto/method string regular', PHP_EOL;
+    echo 'd-i partman-auto/choose_recipe select atomic', PHP_EOL;
+    if ($data['disk-confirm']) {
+        echo 'd-i partman-partitioning/confirm_write_new_label boolean true',
+        PHP_EOL;
+        echo 'd-i partman/choose_partition select finish', PHP_EOL;
+        echo 'd-i partman/confirm boolean true', PHP_EOL;
+        echo 'd-i partman/confirm_nooverwrite boolean true', PHP_EOL;
+    }
+    if ($data['luks'])
+        echo 'd-i partman-auto-crypto/erase_disks boolean false', PHP_EOL;
+    echo PHP_EOL;
+}
 
 if (count($data['tasksel']) === 0)
     echo 'tasksel tasksel/first multiselect', PHP_EOL;

@@ -15,7 +15,7 @@ Based on the [official Preseed example for Debian 13 (trixie)](https://www.debia
 First of all, generate your _Debian Preseed_ configuration using the [`preseed-gen.php`](preseed-gen.php) script. Some examples:
 
 ```bash
-php preseed-gen.php --country=IT --hostname=myhostname --disk=/dev/sda
+php preseed-gen.php --country=IT --hostname=myhostname
 
 curl -fsSL 'http://localhost:8080/preseed-gen.php?country=IT&hostname=myhostname&disk=/dev/sda'
 
@@ -23,7 +23,7 @@ curl -fsSL 'http://localhost:8080/preseed-gen.php' \
     --url-query country=IT \
     --url-query hostname=myhostname \
     --url-query password=changeme \
-    --url-query disk=/dev/sda \
+    --url-query disk='/dev/sda!' \
     --url-query tasksel=ssh-server \
     --url-query pkgs=python3 \
     --url-query sshd-port=2222 \
