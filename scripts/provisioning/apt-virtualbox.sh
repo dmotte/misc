@@ -16,7 +16,8 @@ set -e
 
 # Note: if your host loads KVM kernel modules automatically at boot, you need
 # to disable them to make VirtualBox work. You can use a command like this:
-#   printf 'blacklist %s\n' kvm kvm_intel > /etc/modprobe.d/blacklist-kvm.conf
+#   printf 'blacklist %s\n' kvm kvm_intel \
+#     > /etc/modprobe.d/50-blacklist-kvm.conf
 
 # Note: to upgrade the package you just need to re-run the script with a newer
 # version, and the old package will be removed automatically. This works
