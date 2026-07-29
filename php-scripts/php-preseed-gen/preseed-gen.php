@@ -210,8 +210,10 @@ if ($data['disk'] !== '') {
     echo 'd-i partman-auto/disk string ', $data['disk'], PHP_EOL;
     if ($data['luks']) {
         echo 'd-i partman-auto/method string crypto', PHP_EOL;
-        echo 'd-i partman-lvm/confirm boolean true', PHP_EOL;
-        echo 'd-i partman-lvm/confirm_nooverwrite boolean true', PHP_EOL;
+        if ($data['disk-confirm']) {
+            echo 'd-i partman-lvm/confirm boolean true', PHP_EOL;
+            echo 'd-i partman-lvm/confirm_nooverwrite boolean true', PHP_EOL;
+        }
     } else
         echo 'd-i partman-auto/method string regular', PHP_EOL;
     echo 'd-i partman-auto/choose_recipe select atomic', PHP_EOL;
