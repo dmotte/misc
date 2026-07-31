@@ -211,10 +211,10 @@ Some pieces of code I find useful for some reason.
 - `rclone --config= serve -v webdav --dir-cache-time=0 --disable-dir-list --addr=unix:///tmp/my.sock .`
 - `rclone --config= serve -Lv http --dir-cache-time=0 --disable-zip --read-only --addr=0.0.0.0:8443 --cert=server.crt --key=server.key .`
 - `curl -fsSL -H'X-GitHub-Api-Version: 2026-03-10' https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
-- `ssh -i~/.ssh/myid_ed25519 -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvR0.0.0.0:8080:api.ipify.org:80`
 - `ssh -i~/.ssh/myid_ed25519 -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvL127.0.0.1:8080:api.ipify.org:80`
-- `ssh -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
+- `ssh -i~/.ssh/myid_ed25519 -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvR0.0.0.0:8080:api.ipify.org:80`
 - `ssh -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvL/tmp/my.sock:127.0.0.1:8080`
+- `ssh -oServerAliveInterval=30 -oExitOnForwardFailure=yes myuser@192.168.0.123 -p2222 -NvR80:/tmp/my.sock`
 - `ssh -oServerAliveInterval=30 -NvMS~/.ssh/cm-%C myuser@192.168.0.123`, `ssh -S~/.ssh/cm-%C myuser@192.168.0.123`
 - `ssh -oServerAliveInterval=30 -NfMS~/.ssh/cm-%C myuser@192.168.0.123`, `ssh -S~/.ssh/cm-%C myuser@192.168.0.123 -Oexit`
 - `ssh -GS~/.ssh/cm-%C myuser@192.168.0.123 | sed -En 's/^ControlPath\s+(.+)$/\1/Ip'`
