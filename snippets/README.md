@@ -203,7 +203,6 @@ Some pieces of code I find useful for some reason.
 - `rclone --config= lsf -R --format=pst --time-format=unixnano . | sed -E 's/\/;-1;[^;]+$/\/;-1;DIR/' | LC_ALL=C sort -t\; -k1,1`
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dst-dir`
 - `rclone --config= sync -Mvn --create-empty-src-dirs --files-from=mylist.txt ./src-dir ./dst-dir`
-- `rclone bisync -Mvn --create-empty-src-dirs --compare=size,modtime,checksum --slow-hash-sync-only --check-access --check-filename=README.md --resync-mode=newer ./dir01 ./dir02`, `rclone bisync -Mvn --create-empty-src-dirs --compare=size,modtime,checksum --slow-hash-sync-only --check-access --check-filename=README.md --track-renames --conflict-resolve=newer ./dir01 ./dir02`
 - `export RCLONE_FTP_PASS=$(IFS= read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `rclone --config= sync -vn --create-empty-src-dirs . :sftp,known_hosts_file=~/.ssh/known_hosts,host=192.168.0.123,port=2222,user=myuser:mydir`
 - `rclone check -v --size-only myremote:/remote-src-dir ./local-dst-dir`
@@ -420,6 +419,17 @@ coproc XWL01 { Xwayland -decorate -noreset -displayfd 1 -byteswappedclients; }
 read -ru"${XWL01[0]}" display
 export DISPLAY=":$display"
 xterm
+```
+
+```bash
+rclone bisync -Mvn --create-empty-src-dirs \
+    --compare=size,modtime,checksum --slow-hash-sync-only \
+    --check-access --check-filename=README.md \
+    --resync-mode=newer ./dir01 ./dir02
+rclone bisync -Mvn --create-empty-src-dirs \
+    --compare=size,modtime,checksum --slow-hash-sync-only \
+    --check-access --check-filename=README.md \
+    --track-renames --conflict-resolve=newer ./dir01 ./dir02
 ```
 
 ## Shell snippets for Docker
