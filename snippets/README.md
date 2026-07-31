@@ -364,7 +364,7 @@ echo '/swapfile-additional none swap sw 0 0' | sudo tee -a /etc/fstab
 ```bash
 # Inspired by https://wiki.debian.org/DebianUnstable#Installation
 
-sudo cp -Tv /etc/apt/sources.list{,.old-$(date +%Y-%m-%d-%H%M%S)}
+sudo cp -Tv /etc/apt/sources.list{,.old-$(date -u +%Y-%m-%d-%H%M%S)}
 
 sudo tee /etc/apt/sources.list << 'EOF'
 deb http://deb.debian.org/debian/ unstable main non-free-firmware
