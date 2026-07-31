@@ -425,10 +425,14 @@ xterm
 rclone bisync -Mvn --create-empty-src-dirs \
     --compare=size,modtime,checksum --slow-hash-sync-only \
     --check-access --check-filename=README.md \
+    --backup-dir1=./dir01-bak --backup-dir2=./dir02-bak \
+    --suffix="$(date -u +-%Y-%m-%d-%H%M%S)" --suffix-keep-extension \
     --resync-mode=newer ./dir01 ./dir02
 rclone bisync -Mvn --create-empty-src-dirs \
     --compare=size,modtime,checksum --slow-hash-sync-only \
     --check-access --check-filename=README.md \
+    --backup-dir1=./dir01-bak --backup-dir2=./dir02-bak \
+    --suffix="$(date -u +-%Y-%m-%d-%H%M%S)" --suffix-keep-extension \
     --track-renames --conflict-resolve=newer ./dir01 ./dir02
 ```
 
