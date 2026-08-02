@@ -151,7 +151,7 @@ Some pieces of code I find useful for some reason.
 - `bind -x '"\e": mycommand'`
 - `sudo iptables -nvL`
 - `sudo iptables -t nat -F OUTPUT`
-- `curl https://api.ipify.org/`
+- `curl -fsS https://api.ipify.org/`
 - `ping my.dns.domain.10-0-0-1.nip.io`, `ping my.dns.domain.lvh.me`
 - `socat TCP4-LISTEN:9000,fork,reuseaddr /dev/null`, `dd if=/dev/zero bs=1M count=1024 status=progress | socat - TCP:192.168.0.2:9000`
 - `curl -fLo ~/.local/bin/proot https://proot.gitlab.io/proot/bin/proot && chmod -v +x ~/.local/bin/proot`
