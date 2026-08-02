@@ -219,9 +219,12 @@ else
     ############################################################################
 
     if [ "$setup_server" = true ]; then
+        # We need to specify the full path in the "Include" directive as it
+        # doesn't support "~"
+        readonly ssh_dir=~/.ssh
         echo 'Generating ~/.ssh/sshd_config'
         sed -E /etc/ssh/sshd_config \
-            -e 's|^(Include)[ \t]+/etc/ssh/(.+)$|\1 ~/.ssh/\2|' \
+            -e "s|^(Include)[ \t]+/etc/ssh/(.+)$|\1 $ssh_dir/\2|" \
             -e 's/^#?(Port)[ \t].*$/\1 2222/' \
             -e 's|^#?(HostKey)[ \t]+/etc/ssh/(.+)$|\1 ~/.ssh/\2|' \
             -e 's|^#?(PidFile)[ \t].*$|\1 ~/.ssh/sshd.pid|' \
