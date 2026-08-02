@@ -19,7 +19,7 @@ Supported content of the **data directory** when running as **`root`**:
 | `users/*/known-hosts/`     | Client   | `*.txt` (suggestion)                       | `~/.ssh/known_hosts` for each user       |
 | `users/*/identity-keys/`   | Client   | private keys: _none_, public keys: `*.pub` | Identity keys in `~/.ssh/` for each user |
 
-> **Note**: the `/etc/ssh/ssh_config` and `/etc/ssh/sshd_config` files are not touched ad all.
+> **Note**: the `/etc/ssh/ssh_config` and `/etc/ssh/sshd_config` files are not touched at all.
 
 Supported content of the **data directory** when running as **unprivileged user**:
 
