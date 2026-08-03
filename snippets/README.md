@@ -269,6 +269,7 @@ Some pieces of code I find useful for some reason.
 - `shellinaboxd --localhost-only -tp4200 -ushellinabox -gshellinabox --user-css='White on Black:+/etc/shellinabox/options-enabled/00_White On Black.css;Color Terminal:+/etc/shellinabox/options-enabled/01+Color Terminal.css' -s'/:AUTH:HOME:tmux new-session -As0'`
 - `chordsketch myfile.cho`, `chordsketch fmt myfile.cho`, `chordsketch -fhtml myfile.cho -o myfile.html`
 - `cmds_add=$(grep -Fxvf ~/.bash_history mycommands.txt) && echo "$cmds_add" | tee -a ~/.bash_history`
+- `history -d-1`, `history -d-2`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
