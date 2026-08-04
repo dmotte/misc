@@ -263,6 +263,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **esptool** - Python-based, open-source, platform-independent serial utility for flashing, provisioning, and interacting with Espressif SoCs: [apt](https://packages.debian.org/stable/esptool) [docs](https://docs.espressif.com/projects/esptool/en/latest/esp32/) [github](https://github.com/espressif/esptool) [pypi](https://pypi.org/project/esptool/)
 - **ffmpeg** - record, convert and stream audio and video: [apt](https://packages.debian.org/stable/ffmpeg) [choco](https://community.chocolatey.org/packages/ffmpeg) [website](https://www.ffmpeg.org/)
 - **flog** - fake log generator: [docker](https://hub.docker.com/r/mingrammer/flog) [github](https://github.com/mingrammer/flog)
+- **hey** - HTTP load generator, ApacheBench (ab) replacement: [apt](https://packages.debian.org/stable/hey) [github](https://github.com/rakyll/hey)
 - **jq** - command-line JSON processor: [apt](https://packages.debian.org/stable/jq) [choco](https://community.chocolatey.org/packages/jq) [github](https://github.com/jqlang/jq) [website](https://jqlang.org/)
 - **json-server** - full fake REST API with zero coding, backed by a JSON file: [github](https://github.com/typicode/json-server) [npm](https://www.npmjs.com/package/json-server)
 - **kind** - tool for running local Kubernetes clusters using Docker containers as nodes: [github](https://github.com/kubernetes-sigs/kind) [website](https://kind.sigs.k8s.io/)
