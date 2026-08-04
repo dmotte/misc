@@ -1,6 +1,9 @@
 ---
 services:
   traefik:
+    # Tested with docker.io/library/traefik:v3.0.4
+    # Note: when upgrading between different Traefik minor versions, see
+    # https://doc.traefik.io/traefik/migrate/v3/
     image: docker.io/library/traefik:v3.0
     restart: always
     ports:
