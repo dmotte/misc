@@ -15,6 +15,12 @@
 # Allow all incoming packets for already established connections
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
+# Limit incoming TCP connection requests (SYN packets) per source IP
+-A INPUT -p tcp --syn -m hashlimit --hashlimit-name limit-syn --hashlimit-mode srcip --hashlimit-above 10/sec --hashlimit-burst 30 -j DROP
+
+# Limit concurrent TCP connections per source IP
+-A INPUT -p tcp --syn -m connlimit --connlimit-above 50 -j DROP
+
 # Very trivial port knocking.
 # Warning: these configurations accept a knock sequence even if other (wrong)
 # ports are accessed in between! Not suitable for production
