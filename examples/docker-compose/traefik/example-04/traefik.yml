@@ -15,5 +15,9 @@ providers:
 entryPoints:
   web:
     address: ":80"
+    http:
+      middlewares: [ratelimit-main@file]
   dashboard:
     address: ":8080"
+    http:
+      middlewares: [ratelimit-main@file]

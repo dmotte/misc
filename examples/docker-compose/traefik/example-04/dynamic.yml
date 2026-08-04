@@ -5,3 +5,14 @@ http:
       entryPoints: [dashboard] # As you can see, the dashboard has its own entrypoint
       rule: PathPrefix(`/`) # Match everything
       service: api@internal
+
+  middlewares:
+    ratelimit-main:
+      rateLimit:
+        # The default sourceCriterion is to use the request's remote address
+        # field to group requests as originating from a common source. See
+        # https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/ratelimit/
+        # for more details.
+        average: 5 # Bucket refill speed (tokens / period)
+        period: 1s
+        burst: 20 # Bucket size (volume)

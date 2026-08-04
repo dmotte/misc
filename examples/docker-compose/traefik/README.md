@@ -71,6 +71,7 @@ Similar to [example-01](#example-01), but:
 - Container **labels** are used as dynamic configuration provider for Traefik
 - The Traefik **dashboard** is served on **port 8080**, which is bound to **localhost only** in the `docker-compose.yml` file
 - The Traefik **dashboard** is accessible **without authentication**
+- A [`rateLimit` middleware](https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/ratelimit/) is configured on all the `entryPoint`s
 
 ## Additional tips
 
