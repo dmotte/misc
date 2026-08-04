@@ -37,6 +37,7 @@ Some pieces of code I find useful for some reason.
 - `curl -I https://example.com/`, `curl -i https://example.com/`
 - `curl -I --rate 1/s 'http://192.168.0.123/req[00-99]'`
 - `curl -Z --parallel-max 5 --limit-rate 1K -o/dev/null 'http://192.168.0.123/image.png?req=[00-99]'`
+- `hey -n 100 -c 1 -q 20 -o csv 'http://192.168.0.123/'`
 - `top` and then press `xcV`. Then `W` to save the config
 - `cd "$(dirname "$0")"` or `basedir=$(dirname "$0")`, useful in a _Bash_ script
 - `lsblk -S`, `lsblk -N`, `lsblk -a`, `lsblk -af`, `lsblk -JOa`
