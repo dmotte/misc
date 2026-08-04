@@ -18,7 +18,7 @@ entryPoints:
     http:
       redirections:
         # Global HTTP to HTTPS redirection
-        entrypoint: { to: websecure, scheme: https }
+        entryPoint: { to: websecure, scheme: https }
   websecure:
     address: ":443"
     http:
