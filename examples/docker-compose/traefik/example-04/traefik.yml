@@ -3,7 +3,9 @@
 api: {}
 
 # Enable access logging to stdout
-accessLog: { addInternals: true }
+accessLog: { format: json, addInternals: true }
+
+log: { format: json, level: INFO }
 
 providers:
   # Use the dynamic.yml file as dynamic configuration provider
