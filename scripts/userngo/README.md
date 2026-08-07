@@ -48,3 +48,5 @@ WORKDIR /home/user
 EOF
 docker run -it --rm img-userngo-debian-unpriv
 ```
+
+> :bulb: **Tip**: even if a Docker container is running entirely as unprivileged user, you can still use `docker exec -ituroot mycontainer bash` to run commands as `root` inside it.
