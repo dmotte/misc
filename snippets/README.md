@@ -449,6 +449,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `docker run -d --name=mydeb01 docker.io/library/debian:13 sleep infinity`, `docker exec -it mydeb01 bash`, `docker rm -f mydeb01`
 - `docker ps -a --format {{.Names}}`
 - `docker rm -fv mycontainer`
+- `docker volume create myvol`, `docker run --rm -v myvol:/v docker.io/library/busybox chown -v 1000:1000 /v`
 - `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox tar -cvzC/v . > mybackup.tar.gz`
 - `docker run --rm -v myvolume:/v -i docker.io/library/busybox tar -xvzC/v < mybackup.tar.gz`
 - `docker create --name=tmp01 docker.io/library/busybox`
