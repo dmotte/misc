@@ -513,7 +513,7 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 - `echo -e "{\"main\":\"$(base64 -w0 mykey.pem)\"}" | podman secret create mykey -`
 - `podman image ls -a`, `podman image prune -af`
 - `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always --net=pasta:--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 -p8080:80 docker.io/library/nginx:latest`
-- `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/alpine:latest sh -ec 'date > /dev/ttyUSB0'`
+- `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/busybox sh -ec 'date > /dev/ttyUSB0'`
 - `podman run --rm -uroot -v "$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
 
 ## Shell snippets for Kubernetes
