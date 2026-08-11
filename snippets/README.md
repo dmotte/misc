@@ -418,7 +418,7 @@ waypipe -s/tmp/waypipe-client.sock client
 ssh -R/tmp/waypipe-server.sock:/tmp/waypipe-client.sock myuser@192.168.0.123 '
     export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
     install -dvm700 "$XDG_RUNTIME_DIR"
-    export LC_ALL=C.UTF-8 # To avoid warnings about non-UTF-8 locale
+    export LC_ALL=C.UTF-8 # Force UTF-8 to avoid encoding warnings from some tools (e.g. Perl)
     waypipe -ns/tmp/waypipe-server.sock --unlink-socket server -- foot'
 
 # If you need to run an X11 app:
