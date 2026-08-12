@@ -62,7 +62,7 @@ Some pieces of code I find useful for some reason.
 - `find . \( \( -type d \! -perm 755 \) -o \( -type f \! -perm 644 \) \) -exec ls -dl {} +`
 - `find . \( -type d -perm 775 -exec chmod -v 755 {} \; \) -o \( -type f -perm 664 -exec chmod -v 644 {} \; \)`
 - `git ls-files --full-name '*pattern*'`
-- `git ls-files | xargs -rd\\n sha256sum`
+- `files=$(git ls-files) && echo "$files" && echo && echo "$files" | xargs -rd\\n head -n1000`
 - `cp -Rvt/media/destdisk /media/sourcedisk/mydir`
 - `cp -RTipv mydir mydir-copy`
 - `ss -tulpn`
