@@ -19,8 +19,8 @@ The `debian01` container is just a sample _Debian_ container.
 To make this work with _Podman_ you'll need to:
 
 - Enable and start the **Podman socket** with `systemctl enable --now podman.socket`
-- In the [`docker-compose.yml`](docker-compose.yml) file, prepend `docker.io/` to the image names (e.g. `docker.io/portainer/portainer-ce`)
-- In the [`docker-compose.yml`](docker-compose.yml) file, change the `docker.sock` volume mount line to point to the _Podman_ socket on the host. You can use the `systemctl status podman.socket | grep 'Listen:'` command to get the right socket path
+- In the [`docker-compose.yml`](docker-compose.yml) file, make sure each image is specified using its **FQIN** (_Fully Qualified Image Name_), such as `docker.io/portainer/portainer-ce:...`
+- In the [`docker-compose.yml`](docker-compose.yml) file, change the **`docker.sock` volume mount** line to point to the _Podman_ socket on the host. You can use the `systemctl status podman.socket | grep 'Listen:'` command to get the right socket path
 
 If you want to run the _Podman_ socket as **non-root** user, add the `--user` switch to the `systemctl` commands above.
 
