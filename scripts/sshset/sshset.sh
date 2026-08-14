@@ -252,7 +252,7 @@ else
                 -o \( -path "$data_dir/host-keys/ssh_host_*_key.pub" \
                     -exec install -vm644 -t"$tmpdir/etc/ssh" {} + \)
 
-            ssh-keygen -Af "$tmpdir" # Generate the missing host keys
+            ssh-keygen -Af"$tmpdir" # Generate the missing host keys
 
             find "$tmpdir/etc/ssh" -mindepth 1 -maxdepth 1 -type f \
                 \( -name 'ssh_host_*_key' -o -name 'ssh_host_*_key.pub' \) \
