@@ -15,7 +15,7 @@ RUN <<'EOF' /bin/bash -e
 EOF
 
 # ADD --chown=root:root --chmod=755 \
-#     --checksum=sha256:977ab60310f3882f34874a828413b5711f7632b229226668b2bb5b45ff0783e8 \
+#     --checksum=sha256:373fd70b06f37bdf92d1cd70eda4a91894a62b43427d0ff4705bbd02a67d4ef1 \
 #     https://raw.githubusercontent.com/dmotte/misc/refs/heads/main/scripts/sshset/sshset.sh \
 #     /opt/sshset/main.sh
 COPY --chown=root:root --chmod=755 sshset.sh /opt/sshset/main.sh
