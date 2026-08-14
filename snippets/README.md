@@ -468,8 +468,7 @@ docker build -t img-sshsrv01:latest - << 'EOF'
 FROM docker.io/library/debian:13
 RUN apt-get update && \
     apt-get install -y sudo openssh-server && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /run/sshd
+    rm -rf /var/lib/apt/lists/*
 # Warning: leaving the generated host keys in place!
 EXPOSE 22
 RUN useradd -UGsudo -ms/bin/bash mainuser && \
