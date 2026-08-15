@@ -76,7 +76,8 @@ if command -v gnome-session-inhibit >/dev/null; then
     gnome-session-inhibit --app-id org.gnome.Terminal.desktop \
         --reason 'Restsync is running' --inhibit logout:suspend \
         --inhibit-only >/dev/null &
-    trap 'jobs -p | xargs -rd\\n kill; wait' EXIT
+    # We don't use "xargs" here because we want to use Bash's builtin "kill"
+    trap 'builtin kill $(jobs -p) 2>/dev/null || :; wait' EXIT
 
     # We don't use "exec" here because we may have jobs running in the
     # background and we want the EXIT trap to run before exiting
