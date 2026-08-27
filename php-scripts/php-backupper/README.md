@@ -18,7 +18,7 @@ curl -fLo backup.tar.gz http://admin:changeme@localhost:8080/backupper.php?actio
 curl http://admin:changeme@localhost:8080/backupper.php?action=maint-off
 ```
 
-I have decided to split the behaviour into three different invocations so the user can control better what he is doing and check the logs in case of errors.
+I have decided to split the behavior into three different invocations so the user can control better what he is doing and check the logs in case of errors.
 
 When you enable the maintenance mode, the script creates a `maintenance.php` file and an `.htaccess` file to redirect all the requests to it. If you want to know more about how the script works, just read it. It should be pretty straightforward.
 
