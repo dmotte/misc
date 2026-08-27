@@ -200,8 +200,8 @@ Some pieces of code I find useful for some reason.
   - `GPG_TTY=$(tty) restic --password-command='gpg -dq encrypted.asc' snapshots` (to make `pinentry-curses` work)
 - `RCLONE_CONFIG=rclone.conf rclone config`, `rclone config --config=rclone.conf`
 - `RCLONE_CONFIG= rclone config file`, `rclone --config= config file`
-- `echo -e '[mygdrive]\ntype = drive\nscope = drive\nroot_folder_id = ...' > ~/.config/rclone/rclone.conf`, `rclone config reconnect mygdrive:`
-- `echo -e "[mycrypt]\ntype = crypt\nremote = mygdrive\npassword = $(echo mypass | rclone obscure -)" >> ~/.config/rclone/rclone.conf`
+- `printf '%s\n' '[mygdrive]' 'type = drive' 'scope = drive' 'root_folder_id = ...' > ~/.config/rclone/rclone.conf`, `rclone config reconnect mygdrive:`
+- `printf '%s\n' '[mycrypt]' 'type = crypt' 'remote = mygdrive' "password = $(echo mypass | rclone obscure -)" >> ~/.config/rclone/rclone.conf`
 - `rclone lsf myremote:`
 - `rclone --config= lsf -R --format=pst --time-format=unixnano . | sed -E 's/\/;-1;[^;]+$/\/;-1;DIR/' | LC_ALL=C sort -t\; -k1,1`
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dst-dir`
