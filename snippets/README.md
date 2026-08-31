@@ -274,6 +274,7 @@ Some pieces of code I find useful for some reason.
 - `chordsketch myfile.cho`, `chordsketch fmt myfile.cho`, `chordsketch -fhtml myfile.cho -o myfile.html`
 - `cmds_add=$(grep -Fxvf ~/.bash_history mycommands.txt) && echo "$cmds_add" | tee -a ~/.bash_history`
 - `history -d-1`, `history -d-2`
+- `exec {lockfd}>"$(dirname "$0")/.run.lock"; flock -n "$lockfd" || { echo "Another $0 instance is already running" >&2; exit 1; }`
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
