@@ -86,7 +86,7 @@ $data['nameservers'] = $data['nameservers'] === ''
 if (!isset($data['hostname'])) diemsg('Missing hostname');
 ensure_value_ok('hostname', $data['hostname'], 'is_alnum_3');
 
-$data['username'] ??= 'mainuser';
+$data['username'] ??= 'user';
 ensure_value_ok('username', $data['username'], 'is_alnum_3');
 $data['userfullname'] ??= $data['username'];
 ensure_value_ok('userfullname', $data['userfullname'], 'is_alnum_3');
