@@ -472,10 +472,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 # Warning: leaving the generated host keys in place!
 EXPOSE 22
-RUN useradd -UGsudo -ms/bin/bash mainuser && \
-    echo 'mainuser ALL=(ALL) NOPASSWD: ALL' | \
-        install -Tvm440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
-    echo mainuser:changeme | chpasswd # Warning: very bad password!
+RUN useradd -UGsudo -ms/bin/bash myuser && \
+    echo 'myuser ALL=(ALL) NOPASSWD: ALL' | \
+        install -Tvm440 /dev/stdin /etc/sudoers.d/myuser-nopassword && \
+    echo myuser:changeme | chpasswd # Warning: very bad password!
 ENTRYPOINT ["/usr/sbin/sshd", "-De"]
 EOF
 
@@ -490,13 +490,13 @@ RUN apt-get update && \
         git nano tmux tree wget zip curl socat procps jq \
         iputils-ping iproute2 && \
     rm -rf /var/lib/apt/lists/*
-RUN useradd -UGsudo -ms/bin/bash mainuser && \
-    echo 'mainuser ALL=(ALL) NOPASSWD: ALL' | \
-        install -Tvm440 /dev/stdin /etc/sudoers.d/mainuser-nopassword && \
-    echo mainuser:changeme | chpasswd # Warning: very bad password!
-USER mainuser
-ENV USER=mainuser HOME=/home/mainuser
-WORKDIR /home/mainuser
+RUN useradd -UGsudo -ms/bin/bash myuser && \
+    echo 'myuser ALL=(ALL) NOPASSWD: ALL' | \
+        install -Tvm440 /dev/stdin /etc/sudoers.d/myuser-nopassword && \
+    echo myuser:changeme | chpasswd # Warning: very bad password!
+USER myuser
+ENV USER=myuser HOME=/home/myuser
+WORKDIR /home/myuser
 EOF
 
 docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
