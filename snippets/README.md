@@ -476,6 +476,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `(IFS= read -rsp 'Password: ' && echo -e "{\"main\":\"$(echo -n "$REPLY" | base64 -w0)\"}") | podman secret create mypassword -`
 - `echo -e "{\"main\":\"$(base64 -w0 mykey.pem)\"}" | podman secret create mykey -`
 - `podman image ls -a`, `podman image prune -af`
+- `podman system df`, `podman system prune -a --build --volumes --filter=until=2020-01-01`
 - `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always --net=pasta:--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 -p8080:80 docker.io/library/nginx:latest`
 - `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/busybox sh -ec 'date > /dev/ttyUSB0'`
 - `podman run --rm -uroot -v "$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
