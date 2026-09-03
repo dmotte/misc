@@ -1,16 +1,21 @@
 # latex-europasscv
 
-This is an example of how to create a **Europass CV** with **LaTeX** (_TeX Live_) running in a **Docker** container.
+This is an example of how to create a **Europass CV** with **LaTeX** (_TeX Live_) running in a **Podman** container.
 
-First of all, we need to build a _Docker_ image with **TeX Live Full** installed:
+First of all, we need to build a _Podman_ image with **TeX Live Full** installed:
 
 ```bash
-docker build -t img-texlive - << 'EOF'
-FROM docker.io/library/debian:12
-RUN apt-get update && \
-    apt-get install -y texlive-full && \
+podman build -t img-debian-texlive:latest - << 'EOF'
+# syntax=docker/dockerfile:1
+
+FROM docker.io/library/debian:13
+
+RUN <<'EOF2' /bin/bash -e
+    apt-get update
+    apt-get install -y texlive-full
     rm -rf /var/lib/apt/lists/*
-VOLUME /v
+EOF2
+
 WORKDIR /v
 EOF
 ```
@@ -20,7 +25,7 @@ EOF
 Then download the [Europass CV](https://www.overleaf.com/latex/templates/europass-cv/kpcsxfcfvxhx) template, customize it and convert it to **PDF**:
 
 ```bash
-docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" img-texlive pdflatex main.tex
+podman run --rm -v.:/v img-debian-texlive pdflatex europasscv_en.tex
 ```
 
 ## Tips
