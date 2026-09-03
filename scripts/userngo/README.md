@@ -31,7 +31,8 @@ To **extend the images** and run as **unprivileged user**:
 
 ```bash
 docker build -t img-userngo-alpine-unpriv:latest - << 'EOF'
-FROM img-userngo-alpine
+# syntax=docker/dockerfile:1
+FROM img-userngo-alpine:latest
 RUN adduser -Ds/bin/sh user
 USER user
 ENV USER=user HOME=/home/user
@@ -40,7 +41,8 @@ EOF
 docker run -it --rm img-userngo-alpine-unpriv
 
 docker build -t img-userngo-debian-unpriv:latest - << 'EOF'
-FROM img-userngo-debian
+# syntax=docker/dockerfile:1
+FROM img-userngo-debian:latest
 RUN useradd -Ums/bin/bash user
 USER user
 ENV USER=user HOME=/home/user
