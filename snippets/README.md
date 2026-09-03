@@ -484,7 +484,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 podman build -t img-svcbox-util-01:latest - << 'EOF'
 # syntax=docker/dockerfile:1
 
-# Tested with docker.io/dmotte/svcbox:v2026.08.27.1522
+# Tested with docker.io/dmotte/svcbox:v2026.09.03.1115
 FROM docker.io/dmotte/svcbox:latest
 
 RUN <<'EOF2' /bin/bash -e
