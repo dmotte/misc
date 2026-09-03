@@ -6,19 +6,16 @@ This guide explains how to set up **[Joplin](https://joplinapp.org/)** **end-to-
 
 It's recommended to use **Joplin Desktop** to **create your initial data** (notes, attachments, notebooks, etc.) because, unlike _Joplin Mobile_, it makes it easy to start **from scratch**, i.e. without unwanted default notes and attachments.
 
-You can run _Joplin Desktop_ in a Docker container using [`dmotte/docker-xfwd`](https://github.com/dmotte/docker-xfwd):
+> **Tip**: you can run _Joplin Desktop_ in a Docker container, using [`dmotte/guifwd`](https://github.com/dmotte/docker-images/tree/main/guifwd).
+
+> **Important**: this has been tested on **Debian 13** (_trixie_).
 
 ```bash
-docker build -t img-joplin01:latest - << 'EOF'
-FROM docker.io/dmotte/xfwd:latest
-RUN apt-get update && apt-get install -y curl libasound2 && \
-    curl -fLo /joplin.deb https://github.com/laurent22/joplin/releases/latest/download/Joplin-3.2.13.deb && \
-    apt-get install -y /joplin.deb && rm -v /joplin.deb && rm -rf /var/lib/apt/lists/*
-EOF
+sudo apt update && sudo apt install -y curl libasound2
+curl -fLo joplin.deb https://github.com/laurent22/joplin/releases/latest/download/Joplin-3.2.13.deb
+sudo apt install -y ./joplin.deb
 
-docker run -d --name=joplin01 -v/tmp/.X11-unix/X0:/opt/xfwd/host.sock:ro -v"${XAUTHORITY:?}:/opt/xfwd/host.xauth:ro" img-joplin01:latest
-
-docker exec -it -{u,eUSER=}mainuser -{eHOME=,w}/home/mainuser joplin01 joplin --no-sandbox
+joplin --no-sandbox
 ```
 
 Once the application opens, you will notice that some **default data** is already present:
@@ -103,10 +100,10 @@ First of all, **extract** the contents of the zip archive to some directory on y
 unzip -q Joplin.zip -d ~/mynotes
 ```
 
-Then start _Joplin Desktop_ in a Docker container like we did in the [Upload initial data to Dropbox](#upload-initial-data-to-dropbox) section, but with an additional `-v` flag to the `docker run` command like the following, to **mount the extracted directory** in the container:
+Then start _Joplin Desktop_ in a Docker container as suggested in the [Upload initial data to Dropbox](#upload-initial-data-to-dropbox) section, but with an additional `-v` flag to the `docker run` command like the following, to **mount the extracted directory** in the container:
 
 ```bash
-docker run ... -v"$HOME/mynotes:/mynotes" img-joplin01:latest
+docker run ... -v"$HOME/mynotes:/mynotes" ...
 ```
 
 Once the application opens, go to `Tools` &rarr; `Options` &rarr; `Synchronization`, set the `Synchronization target` to `File system` and enter the full path of the **directory that contains the extracted content** (as seen from inside the container):
