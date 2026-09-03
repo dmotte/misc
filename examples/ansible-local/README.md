@@ -1,16 +1,20 @@
 # ansible-local
 
-This is an example of how to **test an Ansible playbook locally** (without any remote host) using a **Debian Docker container**.
+This is an example of how to **test an Ansible playbook locally** (without any remote host) using an **Alpine Podman container**.
 
 ```bash
-docker build -t img-debian-ansible - << 'EOF'
-FROM docker.io/library/debian:12
-RUN apt-get update && \
-    apt-get install -y ansible && \
-    rm -rf /var/lib/apt/lists/*
-VOLUME /v
+podman build -t img-alpine-ansible:latest - << 'EOF'
+# syntax=docker/dockerfile:1
+
+# Tested with docker.io/library/alpine:3.24.1
+FROM docker.io/library/alpine:latest
+
+RUN <<'EOF2' /bin/sh -e
+    apk add --no-cache ansible
+EOF2
+
 WORKDIR /v
 EOF
 
-docker run -it --rm -v "$PWD:/v" img-debian-ansible ansible-playbook playbook.yml
+podman run -it --rm -v.:/v img-alpine-ansible ansible-playbook playbook.yml
 ```
