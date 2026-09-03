@@ -464,44 +464,6 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S0.0.0.0:8080 -t/v`
 - `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
-```bash
-docker build -t img-sshsrv01:latest - << 'EOF'
-FROM docker.io/library/debian:13
-RUN apt-get update && \
-    apt-get install -y sudo openssh-server && \
-    rm -rf /var/lib/apt/lists/*
-# Warning: leaving the generated host keys in place!
-EXPOSE 22
-RUN useradd -UGsudo -ms/bin/bash myuser && \
-    echo 'myuser ALL=(ALL) NOPASSWD: ALL' | \
-        install -Tvm440 /dev/stdin /etc/sudoers.d/myuser-nopassword && \
-    echo myuser:changeme | chpasswd # Warning: very bad password!
-ENTRYPOINT ["/usr/sbin/sshd", "-De"]
-EOF
-
-docker run -d --name=sshsrv01 -p2222:22 img-sshsrv01:latest
-```
-
-```bash
-docker build -t img-unpriv01:latest - << 'EOF'
-FROM docker.io/library/debian:13
-RUN apt-get update && \
-    apt-get install -y sudo \
-        git nano tmux tree wget zip curl socat procps jq \
-        iputils-ping iproute2 && \
-    rm -rf /var/lib/apt/lists/*
-RUN useradd -UGsudo -ms/bin/bash myuser && \
-    echo 'myuser ALL=(ALL) NOPASSWD: ALL' | \
-        install -Tvm440 /dev/stdin /etc/sudoers.d/myuser-nopassword && \
-    echo myuser:changeme | chpasswd # Warning: very bad password!
-USER myuser
-ENV USER=myuser HOME=/home/myuser
-WORKDIR /home/myuser
-EOF
-
-docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
-```
-
 ## Shell snippets for Podman
 
 - `sudo XDG_RUNTIME_DIR=/run/user/1001 -iu myuser`
@@ -517,6 +479,41 @@ docker run -d --name=unpriv01 img-unpriv01:latest sleep infinity
 - `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always --net=pasta:--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 -p8080:80 docker.io/library/nginx:latest`
 - `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/busybox sh -ec 'date > /dev/ttyUSB0'`
 - `podman run --rm -uroot -v "$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
+
+```bash
+podman build -t img-svcbox-util-01:latest - << 'EOF'
+# syntax=docker/dockerfile:1
+
+# Tested with docker.io/dmotte/svcbox:v2026.08.27.1522
+FROM docker.io/dmotte/svcbox:latest
+
+RUN <<'EOF2' /bin/bash -e
+    useradd -UGsudo -ms/bin/bash myuser
+    echo myuser:mypassword | chpasswd # Warning: very bad password!
+    echo 'myuser ALL=(ALL) NOPASSWD: ALL' |
+        install -Tvm440 /dev/stdin /etc/sudoers.d/myuser-nopasswd
+EOF2
+EOF
+
+podman run -d --name=svcbox-util-01 -p2222:22 -eSVCBOX_SUPERVISORCTL=true img-svcbox-util-01:latest
+```
+
+```bash
+podman build -t img-guifwd-util-01:latest - << 'EOF'
+# syntax=docker/dockerfile:1
+
+# Tested with docker.io/dmotte/guifwd:v2026.08.27.1523
+FROM docker.io/dmotte/guifwd:latest
+
+RUN <<'EOF2' /bin/bash -e
+    apt-get update
+    apt-get install -y curl git iproute2 iputils-ping jq nano procps socat tmux tree wget zip
+    rm -rf /var/lib/apt/lists/*
+EOF2
+EOF
+
+podman run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{SUDOER,NOPASSWD}=true} img-guifwd-util-01:latest
+```
 
 ## Shell snippets for Kubernetes
 
