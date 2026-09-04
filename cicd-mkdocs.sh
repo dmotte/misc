@@ -4,7 +4,6 @@ set -e
 
 # This script should be run automatically by the CI/CD
 
-# Ensure that some variables are defined
 : "${MISC_SCRIPTS_DIR:?}"
 
 cd "$(dirname "$0")"
