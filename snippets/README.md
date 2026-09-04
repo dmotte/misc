@@ -121,8 +121,8 @@ Some pieces of code I find useful for some reason.
 - `socat - TCP:example.com:80`
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=666,fork,unlink-early -`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
 - `export XDG_RUNTIME_DIR=/run/user/$UID` to use `systemctl --user` as a linger-enabled user
-- `nano -Sav filename`, `vim -R filename`
-- `nano -AEJ80 -ST4 -ailmq filename`
+- `nano -Sav myfile.txt`, `nano -PSacv mybook.txt`, `vim -R myfile.txt`
+- `nano -AEJ80 -ST4 -ailmq myfile.txt`
 - `vboxmanage startvm myvm --type=headless`
 - `vboxmanage controlvm myvm acpipowerbutton`
 - `vboxmanage modifyvm myvm --natpf1 HTTP,tcp,127.0.0.1,8080,,80` (if VM is powered off), `vboxmanage controlvm myvm natpf1 HTTP,tcp,127.0.0.1,8080,,80` (if VM is running)
