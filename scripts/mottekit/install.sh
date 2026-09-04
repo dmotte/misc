@@ -2,7 +2,7 @@
 
 set -e
 
-repos_dir=$(realpath -m "${1:-$HOME/.ghdmotte}")
+repos_dir=${1:-~/.ghdmotte}; repos_dir=$(realpath -m "$repos_dir")
 
 # Note: jq is required by github-bak-all-repos.sh
 for i in curl git jq; do
