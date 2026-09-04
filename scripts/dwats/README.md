@@ -38,7 +38,7 @@ cd ~/my/custom/dwats/data
 Alternatively, you can invoke the script from anywhere you want, and specify the Watson data directory via the **`WATSON_DIR` environment variable**:
 
 ```bash
-WATSON_DIR="$HOME/my/custom/dwats/data" "$dwats" report -Gac
+WATSON_DIR=~/my/custom/dwats/data "$dwats" report -Gac
 ```
 
 Or even create an **`lwats.sh`** (**L**ocal **Wats**on) script that always invokes `dwats.sh` with the same data directory:
