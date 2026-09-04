@@ -38,7 +38,7 @@ done
 
 readonly version=${1:?}
 
-[ -n "$install_dir" ] || install_dir=$HOME/apps/go$version
+[ -n "$install_dir" ] || install_dir=~/apps/go$version
 
 ################################################################################
 

@@ -19,7 +19,7 @@ eval "set -- $options"
 
 arch=x86_64
 checksum=''
-install_dir="$HOME/apps/reaper"
+install_dir=~/apps/reaper
 update=n
 launcher=''
 

@@ -21,7 +21,7 @@ eval "set -- $options"
 
 os=''
 checksum=''
-install_dir="$HOME/apps/freepiano"
+install_dir=~/apps/freepiano
 launcher=''
 
 while :; do

@@ -13,7 +13,7 @@ set -e
 # Usage example:
 #   bash yabridge.sh -p 5.1.1
 # Then you can close and reopen your terminal, and you can run:
-#   yabridgectl add "$HOME/.wine/drive_c/Program Files/Steinberg/VSTPlugins"
+#   yabridgectl add ~/.wine/drive_c/'Program Files/Steinberg/VSTPlugins'
 #   yabridgectl sync
 
 options=$(getopt -o +c:p -l checksum: -l add-to-path -- "$@")

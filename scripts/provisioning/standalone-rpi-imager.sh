@@ -19,7 +19,7 @@ options=$(getopt -o +c:d:l: -l checksum: -l install-dir: -l launcher: -- "$@")
 eval "set -- $options"
 
 checksum=''
-install_dir="$HOME/apps/rpi-imager"
+install_dir=~/apps/rpi-imager
 launcher=''
 
 while :; do
