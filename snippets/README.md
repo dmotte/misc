@@ -258,7 +258,7 @@ Some pieces of code I find useful for some reason.
 - `echo -e '\\n \\4 \\l\n' | tee /etc/issue`
 - `minify -o index.min.html index.html`, `minify --type=html < index.html > index.min.html`
 - `fluidsynth -in mysoundfont.sf2 mysong.mid`
-- `ls -la /dev/ttyACM* /dev/ttyUSB*`, `sudo usermod -aG dialout "$USER"`, `stty -F /dev/ttyUSB0 speed`, `stty -F /dev/ttyUSB0 115200 && socat - /dev/ttyUSB0,rawer`, `echo 'Hello, World!' > /dev/ttyUSB0`
+- `ls -la /dev/ttyACM* /dev/ttyUSB*`, `sudo usermod -aG dialout "${USER:?}"`, `stty -F /dev/ttyUSB0 speed`, `stty -F /dev/ttyUSB0 115200 && socat - /dev/ttyUSB0,rawer`, `echo 'Hello, World!' > /dev/ttyUSB0`
 - `minicom -D/dev/ttyS0 -b38400`
 - `esptool image-info firmware.bin`
 - `esptool -p/dev/ttyUSB0 flash-id`
@@ -417,7 +417,7 @@ done
 waypipe -s/tmp/waypipe-client.sock client
 
 ssh -R/tmp/waypipe-server.sock:/tmp/waypipe-client.sock myuser@192.168.0.123 '
-    export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
+    export XDG_RUNTIME_DIR="/tmp/runtime-${USER:?}"
     install -dvm700 "$XDG_RUNTIME_DIR"
     export LC_ALL=C.UTF-8 # Force UTF-8 to avoid encoding warnings from some tools (e.g. Perl)
     waypipe -ns/tmp/waypipe-server.sock --unlink-socket server -- foot'
