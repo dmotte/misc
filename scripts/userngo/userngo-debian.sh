@@ -61,8 +61,8 @@ if ! getent passwd "$name_user" >/dev/null; then
 
     if [ "$nopasswd" = true ]; then
         echo "userngo: enabling sudo without password for user $name_user"
-        install -Tm440 <(echo "$name_user ALL=(ALL) NOPASSWD: ALL") \
-            "/etc/sudoers.d/$name_user-nopasswd"
+        install -Tm440 <(echo "$name_user ALL=(ALL:ALL) NOPASSWD: ALL") \
+            "/etc/sudoers.d/50_${name_user}_nopasswd"
     fi
 fi
 
