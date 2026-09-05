@@ -491,8 +491,8 @@ FROM docker.io/dmotte/svcbox:latest
 RUN <<'EOF2' /bin/bash -e
     useradd -UGsudo -ms/bin/bash myuser
     echo myuser:mypassword | chpasswd # Warning: very bad password!
-    echo 'myuser ALL=(ALL) NOPASSWD: ALL' |
-        install -Tvm440 /dev/stdin /etc/sudoers.d/myuser-nopasswd
+    echo 'myuser ALL=(ALL:ALL) NOPASSWD: ALL' |
+        install -Tvm440 /dev/stdin /etc/sudoers.d/50_myuser_nopasswd
 EOF2
 EOF
 
