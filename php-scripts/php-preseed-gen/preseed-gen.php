@@ -262,8 +262,8 @@ if (
 
     if ($data['sudo-nopasswd']) {
         echo '    install -Tvm440 <(echo "', $data['username'],
-        ' ALL=(ALL) NOPASSWD: ALL") \\', PHP_EOL;
-        echo '        /etc/sudoers.d/', $data['username'], '-nopasswd; \\',
+        ' ALL=(ALL:ALL) NOPASSWD: ALL") \\', PHP_EOL;
+        echo '        /etc/sudoers.d/50_', $data['username'], '_nopasswd; \\',
         PHP_EOL;
     }
 
