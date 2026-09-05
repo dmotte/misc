@@ -124,7 +124,7 @@ fi
 
 if [ "$mode" = system ] && [ -n "$unprivileged_port_start" ]; then
     echo "net.ipv4.ip_unprivileged_port_start=$unprivileged_port_start" |
-        tee /etc/sysctl.d/99-unprivileged-port-start.conf
+        tee /etc/sysctl.d/50-unprivileged-port-start.conf
 fi
 
 ################################################################################
