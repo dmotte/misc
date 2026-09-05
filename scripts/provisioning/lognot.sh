@@ -107,7 +107,7 @@ exec curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
 EOF
 
 if [ "$service_manager" = supervisor ]; then
-    cat << EOF > /etc/supervisor/conf.d/lognot.conf
+    cat << EOF > /etc/supervisor/conf.d/50-lognot.conf
 [program:lognot]
 command=/bin/bash -ec '$source_cmd |
     /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -- \\

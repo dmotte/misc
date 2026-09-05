@@ -72,9 +72,9 @@ if [ -n "$supervisor_priority" ]
 echo "Creating $service_name service files"
 
 if [ "$service_manager" = supervisor ]; then
-    [ -e "/etc/supervisor/conf.d/$service_name.conf" ] || changing=y
+    [ -e "/etc/supervisor/conf.d/50-$service_name.conf" ] || changing=y
 
-    cat << EOF > "/etc/supervisor/conf.d/$service_name.conf"
+    cat << EOF > "/etc/supervisor/conf.d/50-$service_name.conf"
 [program:$service_name]
 command=/bin/bash -ec '$ssh_command \\
     || result=\$?; sleep $restart_interval; exit "\${result:-0}"'
