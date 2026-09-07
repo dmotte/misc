@@ -245,7 +245,7 @@ Some pieces of code I find useful for some reason.
 - `fdo_notify() { gdbus call --session --dest=org.freedesktop.Notifications --object-path=/org/freedesktop/Notifications --method=org.freedesktop.Notifications.Notify -- "$1" 0 "$2" "$3" "$4" '[]' '{}' -1; }` (see https://specifications.freedesktop.org/notification-spec/1.3/protocol.html#command-notify), `fdo_notify MyApp folder-open MyTitle MyText`, `fdo_notify MyApp ~/myicon.png MyTitle MyText`
 - `zenity --title='Open file' --file-selection`, `zenity --title='Select color' --color-selection`
 - `wine reg add 'HKLM\SOFTWARE\MyApp' /v MyValue /t REG_SZ /d MyData /f /reg:64` (the `/reg:64` part is required for Wine, otherwise the value would be created under `HKLM\SOFTWARE\Wow6432Node\...`)
-- `inkscape --export-filename=myimage.png --export-type=png myimage.svg`
+- `inkscape -w 256 -h 256 --export-filename=myimage.png --export-type=png myimage.svg`, `magick favicon.png -define icon:auto-resize=16,24,32,48,64,128,256 favicon.ico`
 - `convert -verbose scan-page{01,02,03}.jpg output.pdf`
 - `qpdf --empty --pages file01.pdf file02.pdf 1-3 -- output.pdf`, `qpdf file01.pdf output.pdf --rotate=+90`
 - `printf '%s\n' GRUB_TIMEOUT_STYLE=countdown GRUB_TIMEOUT=3 | install -Tvm644 /dev/stdin /etc/default/grub.d/50-timeout.cfg && update-grub`
