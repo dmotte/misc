@@ -496,10 +496,10 @@ RUN <<'EOF2' /bin/bash -e
     echo 'myuser ALL=(ALL:ALL) NOPASSWD: ALL' |
         install -Tvm440 /dev/stdin /etc/sudoers.d/50_myuser_nopasswd
 
-    install -omyuser -gmyuser -dvm700 ~mainuser/.ssh
+    install -omyuser -gmyuser -dvm700 ~myuser/.ssh
     echo 'ssh-ed25519 AAAAC3Nza...' |
         install -omyuser -gmyuser -Tvm600 /dev/stdin \
-            ~mainuser/.ssh/authorized_keys
+            ~myuser/.ssh/authorized_keys
 EOF2
 EOF
 
