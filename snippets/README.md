@@ -489,21 +489,20 @@ podman build -t img-svcbox-util-01:latest - << 'EOF'
 FROM docker.io/dmotte/svcbox:latest
 
 RUN <<'EOF2' /bin/bash -e
-    # ssh-keygen -A # Warning: not recommended!
-
     useradd -UGsudo -ms/bin/bash myuser
     echo myuser:mypassword | chpasswd # Warning: very bad password!
     echo 'myuser ALL=(ALL:ALL) NOPASSWD: ALL' |
         install -Tvm440 /dev/stdin /etc/sudoers.d/50_myuser_nopasswd
-
-    install -omyuser -gmyuser -dvm700 ~myuser/.ssh
-    echo 'ssh-ed25519 AAAAC3Nza...' |
-        install -omyuser -gmyuser -Tvm600 /dev/stdin \
-            ~myuser/.ssh/authorized_keys
 EOF2
 EOF
 
-podman run -d --name=svcbox-util-01 -p2222:22 -eSVCBOX_SUPERVISORCTL=true img-svcbox-util-01:latest
+podman run -d --name=svcbox-util-01 -p2222:22 -vsvcbox-util-01-sshset:/opt/sshset/data -eSVCBOX_SUPERVISORCTL=true img-svcbox-util-01:latest
+
+podman exec -it svcbox-util-01 bash -ec 'ssh-keygen -lf<(cat /etc/ssh/ssh_host_*_key.pub)'
+
+echo 'ssh-ed25519 AAAAC3Nza...' | podman exec -i svcbox-util-01 bash -ec '
+    install -dvm700 /opt/sshset/data/users{,/myuser{,/authorized-keys}}
+    install -Tvm644 /dev/stdin /opt/sshset/data/users/myuser/authorized-keys/50-myuser.pub'
 ```
 
 ```bash
