@@ -489,10 +489,17 @@ podman build -t img-svcbox-util-01:latest - << 'EOF'
 FROM docker.io/dmotte/svcbox:latest
 
 RUN <<'EOF2' /bin/bash -e
+    # ssh-keygen -A # Warning: not recommended!
+
     useradd -UGsudo -ms/bin/bash myuser
     echo myuser:mypassword | chpasswd # Warning: very bad password!
     echo 'myuser ALL=(ALL:ALL) NOPASSWD: ALL' |
         install -Tvm440 /dev/stdin /etc/sudoers.d/50_myuser_nopasswd
+
+    install -omyuser -gmyuser -dvm700 ~mainuser/.ssh
+    echo 'ssh-ed25519 AAAAC3Nza...' |
+        install -omyuser -gmyuser -Tvm600 /dev/stdin \
+            ~mainuser/.ssh/authorized_keys
 EOF2
 EOF
 
