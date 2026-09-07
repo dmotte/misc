@@ -496,7 +496,7 @@ RUN <<'EOF2' /bin/bash -e
 EOF2
 EOF
 
-podman run -d --name=svcbox-util-01 -p2222:22 -vsvcbox-util-01-sshset:/opt/sshset/data -eSVCBOX_SUPERVISORCTL=true img-svcbox-util-01:latest
+podman run -d --name=svcbox-util-01 -p2201:22 -vsvcbox-util-01-sshset:/opt/sshset/data -eSVCBOX_SUPERVISORCTL=true img-svcbox-util-01:latest
 
 podman exec -it svcbox-util-01 bash -ec 'ssh-keygen -lf<(cat /etc/ssh/ssh_host_*_key.pub)'
 
@@ -504,7 +504,7 @@ echo 'ssh-ed25519 AAAAC3Nza...' | podman exec -i svcbox-util-01 bash -ec '
     install -dvm700 /opt/sshset/data/users{,/myuser{,/authorized-keys}}
     install -Tvm644 /dev/stdin /opt/sshset/data/users/myuser/authorized-keys/50-myuser.pub'
 
-ssh myuser@127.0.0.1 -p2222
+ssh myuser@127.0.0.1 -p2201
 ```
 
 ```bash
