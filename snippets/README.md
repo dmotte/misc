@@ -467,7 +467,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 ## Shell snippets for Podman
 
 - `sudo XDG_RUNTIME_DIR=/run/user/1001 -iu myuser`
-- `podman ps -ap`
+- `podman ps -apw2`
 - `podman ps -qfname=mycontainer; echo $?`
 - `podman unshare chown -v 1000:1000 mydir`
 - `systemctl --user status podman-kube@$(systemd-escape ~/kube.yaml)`
