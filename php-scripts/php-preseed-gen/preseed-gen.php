@@ -257,8 +257,8 @@ if (
     echo 'd-i preseed/late_command string in-target bash -ec \'\\', PHP_EOL;
 
     if ($data['sshd-port'] > 0)
-        echo '    sed -Ei "s/^#?Port[ \t].*$/Port ', $data['sshd-port'],
-        '/" /etc/ssh/sshd_config; \\', PHP_EOL;
+        echo '    install -Tvm644 <(echo "Port ', $data['sshd-port'],
+        '") /etc/ssh/sshd_config.d/50-port.conf; \\', PHP_EOL;
 
     if ($data['sudo-nopasswd']) {
         echo '    install -Tvm440 <(echo "', $data['username'],
