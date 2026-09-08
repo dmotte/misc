@@ -208,41 +208,36 @@ rcp_timesyncd_dhcp_ntp_disable () {
 
 recipes_all+=(sshd-rootlogin-no)
 rcp_sshd_rootlogin_no () {
-    echo 'Setting PermitRootLogin to no in /etc/ssh/sshd_config'
-    sed -Ei 's/^#?(PermitRootLogin\s+).*$/\1no/' \
-        /etc/ssh/sshd_config
+    echo 'PermitRootLogin no' | install -Tvm644 /dev/stdin \
+        /etc/ssh/sshd_config.d/10-permitrootlogin-no.conf
     changed_sshd=y
 }
 
 recipes_all+=(sshd-hostbasedauth-no)
 rcp_sshd_hostbasedauth_no () {
-    echo 'Setting HostbasedAuthentication to no in /etc/ssh/sshd_config'
-    sed -Ei 's/^#?(HostbasedAuthentication\s+).*$/\1no/' \
-        /etc/ssh/sshd_config
+    echo 'HostbasedAuthentication no' | install -Tvm644 /dev/stdin \
+        /etc/ssh/sshd_config.d/10-hostbasedauthentication-no.conf
     changed_sshd=y
 }
 
 recipes_all+=(sshd-emptypsws-no)
 rcp_sshd_emptypsws_no () {
-    echo 'Setting PermitEmptyPasswords to no in /etc/ssh/sshd_config'
-    sed -Ei 's/^#?(PermitEmptyPasswords\s+).*$/\1no/' \
-        /etc/ssh/sshd_config
+    echo 'PermitEmptyPasswords no' | install -Tvm644 /dev/stdin \
+        /etc/ssh/sshd_config.d/10-permitemptypasswords-no.conf
     changed_sshd=y
 }
 
 recipes_all+=(sshd-addressfamily-inet)
 rcp_sshd_addressfamily_inet () {
-    echo 'Setting AddressFamily to inet in /etc/ssh/sshd_config'
-    sed -Ei 's/^#?(AddressFamily\s+).*$/\1inet/' \
-        /etc/ssh/sshd_config
+    echo 'AddressFamily inet' | install -Tvm644 /dev/stdin \
+        /etc/ssh/sshd_config.d/10-addressfamily-inet.conf
     changed_sshd=y
 }
 
 recipes_all+=(sshd-pswauth-no)
 rcp_sshd_pswauth_no () {
-    echo 'Setting PasswordAuthentication to no in /etc/ssh/sshd_config'
-    sed -Ei 's/^#?(PasswordAuthentication\s+).*$/\1no/' \
-        /etc/ssh/sshd_config
+    echo 'PasswordAuthentication no' | install -Tvm644 /dev/stdin \
+        /etc/ssh/sshd_config.d/10-passwordauthentication-no.conf
     changed_sshd=y
 }
 
