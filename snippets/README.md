@@ -285,7 +285,7 @@ install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="usb",' \
     /etc/udev/rules.d/90-disable-usb-example.rules
 udevadm trigger -vcadd -susb -aidVendor=1a2b -aidProduct=3c4d
 
-install -Tvm600 /dev/stdin /etc/udev/rules.d/10-eth-altnames.rules << EOF
+install -Tvm600 /dev/stdin /etc/udev/rules.d/10-eth-altnames.rules <<EOF
 ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="aa:bb:cc:00:00:00", \
     RUN+="/usr/bin/ip link property add dev \$name altname eth0"
 ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="aa:bb:cc:00:00:01", \
@@ -327,7 +327,7 @@ fusermount -u ~/myimage
 ```bash
 gpg --full-gen-key
 
-gpg --batch --gen-key << 'EOF'
+gpg --batch --gen-key <<'EOF'
 Key-Type: EDDSA
 Key-Curve: ed25519
 Key-Usage: sign
@@ -374,7 +374,7 @@ echo '/swapfile-additional none swap sw 0 0' | sudo tee -a /etc/fstab
 
 sudo cp -Tv /etc/apt/sources.list{,.old-$(date -u +%Y-%m-%d-%H%M%S)}
 
-sudo tee /etc/apt/sources.list << 'EOF'
+sudo tee /etc/apt/sources.list <<'EOF'
 deb http://deb.debian.org/debian/ unstable main non-free-firmware
 deb-src http://deb.debian.org/debian/ unstable main non-free-firmware
 EOF
@@ -387,7 +387,7 @@ sudo apt update && sudo apt full-upgrade
 hash_pbkdf2=$({ echo mypassword; echo mypassword; } | grub-mkpasswd-pbkdf2)
 hash_pbkdf2=$(echo "$hash_pbkdf2" | grep -o 'grub\.pbkdf2\..*')
 
-sudo install -Tvm700 /dev/stdin /etc/grub.d/01_psw << EOF
+sudo install -Tvm700 /dev/stdin /etc/grub.d/01_psw <<EOF
 #!/bin/sh
 exec tail -n+3 "\$0"
 set superusers="root"
@@ -482,7 +482,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `podman run --rm -uroot -v "$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
 
 ```bash
-podman build -t img-svcbox-util-01:latest - << 'EOF'
+podman build -t img-svcbox-util-01:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 
 # Tested with docker.io/dmotte/svcbox:v2026.09.03.1115
@@ -508,7 +508,7 @@ ssh myuser@127.0.0.1 -p2201
 ```
 
 ```bash
-podman build -t img-guifwd-util-01:latest - << 'EOF'
+podman build -t img-guifwd-util-01:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 
 # Tested with docker.io/dmotte/guifwd:v2026.08.27.1523
@@ -541,7 +541,7 @@ podman run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{SUDOER,NOPASSWD}=true
 - `helm --kube-context mycontext -n mynamespace list`, `helm list -Aa`
 
 ```bash
-kubectl apply -f- << 'EOF'
+kubectl apply -f- <<'EOF'
 ---
 apiVersion: v1
 kind: Pod

@@ -41,7 +41,7 @@ echo "$cert" | gpg --dearmor --yes -o /usr/share/keyrings/trivy.gpg
 
 [ -e /etc/apt/sources.list.d/trivy.sources ] || changing=y
 
-tee /etc/apt/sources.list.d/trivy.sources << 'EOF'
+tee /etc/apt/sources.list.d/trivy.sources <<'EOF'
 Types: deb
 URIs: https://aquasecurity.github.io/trivy-repo/deb
 Suites: generic

@@ -94,7 +94,7 @@ fi
 
 echo 'Creating lognot service files'
 
-install -Tm700 /dev/stdin /opt/lognot/tg.sh << EOF
+install -Tm700 /dev/stdin /opt/lognot/tg.sh <<EOF
 #!/bin/bash
 
 set -e
@@ -107,7 +107,7 @@ exec curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
 EOF
 
 if [ "$service_manager" = supervisor ]; then
-    cat << EOF > /etc/supervisor/conf.d/50-lognot.conf
+    cat <<EOF > /etc/supervisor/conf.d/50-lognot.conf
 [program:lognot]
 command=/bin/bash -ec '$source_cmd |
     /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -- \\
@@ -116,7 +116,7 @@ $line_priority
 directory=/opt/lognot
 EOF
 elif [ "$service_manager" = systemd ]; then
-    cat << EOF > /etc/systemd/system/lognot.service
+    cat <<EOF > /etc/systemd/system/lognot.service
 [Unit]
 Description=lognot
 

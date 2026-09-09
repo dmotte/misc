@@ -43,7 +43,7 @@ install -okioskuser -gkioskuser -dvm700 \
     ~kioskuser/.config{,/xkb{,/symbols,/rules}}
 
 install -okioskuser -gkioskuser -Tvm644 /dev/stdin \
-    ~kioskuser/.config/xkb/symbols/kiosk << EOF
+    ~kioskuser/.config/xkb/symbols/kiosk <<EOF
 default partial alphanumeric_keys
 xkb_symbols "basic" {
     // Overwrite the left and right "Ctrl" keys to do nothing
@@ -87,14 +87,14 @@ xkb_symbols "basic" {
 EOF
 
 install -okioskuser -gkioskuser -Tvm644 /dev/stdin \
-    ~kioskuser/.config/xkb/rules/evdev << EOF
+    ~kioskuser/.config/xkb/rules/evdev <<EOF
 ! option = symbols
   kiosk = +kiosk
 
 ! include %S/evdev
 EOF
 
-install -okioskuser -gkioskuser -Tvm644 /dev/stdin ~kioskuser/kiosk.sh << EOF
+install -okioskuser -gkioskuser -Tvm644 /dev/stdin ~kioskuser/kiosk.sh <<EOF
 #!/bin/bash
 
 set -e
@@ -120,7 +120,7 @@ cage -d -- chromium --kiosk \\
     ${webkiosk_url@Q}
 EOF
 
-install -Tvm644 /dev/stdin /etc/systemd/system/kiosk.service << 'EOF'
+install -Tvm644 /dev/stdin /etc/systemd/system/kiosk.service <<'EOF'
 [Unit]
 Description=kiosk
 

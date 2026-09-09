@@ -84,7 +84,7 @@ if [ -n "$launcher" ]; then
         echo 863ade08a081f847764b155c0f77c4be6f74f34cea5c4161c83e55344eca5b65 \
             "$app_dir/icon.png" | sha256sum -c
 
-        install -Tm644 /dev/stdin "$launcher" << EOF
+        install -Tm644 /dev/stdin "$launcher" <<EOF
 [Desktop Entry]
 Type=Application
 Name=FreePiano

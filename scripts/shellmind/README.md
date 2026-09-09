@@ -9,7 +9,7 @@ Here is an example of how to set up the script to remind yourself to **perform s
 ```bash
 install -DTv <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/shellmind/main.sh) ~/.shellmind/main.sh
 
-cat << 'EOF' >> ~/.shellmind/message.txt
+cat <<'EOF' >> ~/.shellmind/message.txt
 Kind reminder to keep your system up-to-date! Please do the following:
 - Run "sudo apt update && sudo apt full-upgrade" (or do the equivalent via the system UI)
 - Run "touch ~/.shellmind/main.sh" (to reschedule this reminder)

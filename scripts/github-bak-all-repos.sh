@@ -36,7 +36,7 @@ repo_url_fmt="https://github.com/\$i.git"
 # because this script could be changed by a "git pull" in case it's part
 # of one of the repos
 
-{ IFS= read -rd '' script || [ -n "$script" ]; } << EOF
+{ IFS= read -rd '' script || [ -n "$script" ]; } <<EOF
 printf '%s' ${repos@Q} | while IFS= read -r i || [ -n "\$i" ]; do
     repo_name=\${i#$owner_name/}
     echo "Processing repo \$repo_name"

@@ -22,7 +22,7 @@ services:
       # Note: not using install's "-T" flag as it's not supported by BusyBox
       - |
         install -Dm644 /dev/stdin \
-          /etc/grafana/provisioning/datasources/prometheus.yml << 'EOF'
+          /etc/grafana/provisioning/datasources/prometheus.yml <<'EOF'
         ---
         apiVersion: 1
         datasources:

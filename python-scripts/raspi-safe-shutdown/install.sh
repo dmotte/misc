@@ -25,7 +25,7 @@ echo 'Creating raspi-safe-shutdown service files'
 
 install -Tm700 raspi-safe-shutdown.py /opt/raspi-safe-shutdown/main.py
 
-cat << EOF > /etc/systemd/system/raspi-safe-shutdown.service
+cat <<EOF > /etc/systemd/system/raspi-safe-shutdown.service
 [Unit]
 Description=raspi-safe-shutdown
 

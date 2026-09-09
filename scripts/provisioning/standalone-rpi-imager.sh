@@ -64,7 +64,7 @@ if [ -n "$launcher" ]; then
     echo 5ef45ade3239f9710ee3f4d5e0c65d03b40621898f2ff35ecfdf6025b223a753 \
         "$install_dir/icon.svg" | sha256sum -c
 
-    install -Tm644 /dev/stdin "$launcher" << EOF
+    install -Tm644 /dev/stdin "$launcher" <<EOF
 [Desktop Entry]
 Type=Application
 Name=Raspberry Pi Imager

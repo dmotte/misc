@@ -30,7 +30,7 @@ docker run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{SUDOER,NOPASSWD}=true
 To **extend the images** and run as **unprivileged user**:
 
 ```bash
-docker build -t img-userngo-alpine-unpriv:latest - << 'EOF'
+docker build -t img-userngo-alpine-unpriv:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 FROM img-userngo-alpine:latest
 RUN adduser -Ds/bin/sh user
@@ -40,7 +40,7 @@ WORKDIR /home/user
 EOF
 docker run -it --rm img-userngo-alpine-unpriv
 
-docker build -t img-userngo-debian-unpriv:latest - << 'EOF'
+docker build -t img-userngo-debian-unpriv:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 FROM img-userngo-debian:latest
 RUN useradd -Ums/bin/bash user

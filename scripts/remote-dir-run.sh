@@ -61,14 +61,14 @@ fi
 
 ################################################################################
 
-{ IFS= read -rd '' script1 || [ -n "$script1" ]; } << EOF
+{ IFS= read -rd '' script1 || [ -n "$script1" ]; } <<EOF
 set $remote_shell_options
 rm -rf $remote_dir
 mkdir $remote_dir
 tar -xzC$remote_dir --no-same-owner $RDR_REMOTE_TAR_OPTIONS
 EOF
 
-{ IFS= read -rd '' script2 || [ -n "$script2" ]; } << EOF
+{ IFS= read -rd '' script2 || [ -n "$script2" ]; } <<EOF
 set $remote_shell_options
 cd $remote_dir
 $remote_cmd || result=\$?

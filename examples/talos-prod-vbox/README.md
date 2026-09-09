@@ -78,7 +78,7 @@ while read -r name cpus mem || [ -n "$name" ]; do
         -c"$cpus" -m"$mem" -d102400 -i metal-amd64.iso
 
     vboxmanage modifyvm "$name" --nic1 natnetwork --nat-network1 mynat01
-done << 'EOF'
+done <<'EOF'
 TalosCtrl11   4   2048
 TalosCtrl12   4   2048
 TalosCtrl13   4   2048

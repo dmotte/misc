@@ -14,7 +14,7 @@ unzip chromedriver-linux64.zip
 python3 -mvenv myvenv
 myvenv/bin/python3 -mpip install 'selenium==4.*'
 
-myvenv/bin/python3 - << 'EOF'
+myvenv/bin/python3 - <<'EOF'
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 

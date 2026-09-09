@@ -49,7 +49,7 @@ dpkg -s unattended-upgrades >/dev/null 2>&1 ||
     { apt_update_if_old; apt-get install -y unattended-upgrades; }
 
 { sed '/^\s*$/d;/^\/\//d' | install -DTm644 /dev/stdin \
-    /etc/apt/apt.conf.d/50unattended-upgrades; } << EOF
+    /etc/apt/apt.conf.d/50unattended-upgrades; } <<EOF
 Unattended-Upgrade::Origins-Pattern { "origin=*"; };
 Unattended-Upgrade::Package-Blacklist {};
 
@@ -85,7 +85,7 @@ EOF
 if [ -n "$timer_update" ]; then
     echo 'Setting event expression for the apt-daily.timer unit'
     install -DTm644 /dev/stdin \
-        /etc/systemd/system/apt-daily.timer.d/50-schedule.conf << EOF
+        /etc/systemd/system/apt-daily.timer.d/50-schedule.conf <<EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
 OnCalendar=
@@ -97,7 +97,7 @@ fi
 if [ -n "$timer_upgrade" ]; then
     echo 'Setting event expression for the apt-daily-upgrade.timer unit'
     install -DTm644 /dev/stdin \
-        /etc/systemd/system/apt-daily-upgrade.timer.d/50-schedule.conf << EOF
+        /etc/systemd/system/apt-daily-upgrade.timer.d/50-schedule.conf <<EOF
 [Timer]
 # The empty "OnCalendar=" line is needed to reset the default value
 OnCalendar=

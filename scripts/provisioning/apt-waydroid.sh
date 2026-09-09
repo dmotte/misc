@@ -58,7 +58,7 @@ install -Tm644 "$tmp_waydroid_gpg" "$waydroid_gpg_path"
 
 [ -e /etc/apt/sources.list.d/waydroid.sources ] || changing=y
 
-tee /etc/apt/sources.list.d/waydroid.sources << EOF
+tee /etc/apt/sources.list.d/waydroid.sources <<EOF
 Types: deb
 URIs: https://repo.waydro.id/
 Suites: $codename

@@ -44,7 +44,7 @@ echo "$cert" |
 
 [ -e /etc/apt/sources.list.d/hashicorp.sources ] || changing=y
 
-tee /etc/apt/sources.list.d/hashicorp.sources << EOF
+tee /etc/apt/sources.list.d/hashicorp.sources <<EOF
 Types: deb
 URIs: https://apt.releases.hashicorp.com
 Suites: $codename

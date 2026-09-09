@@ -88,7 +88,7 @@ rcp_kernel_ipv6_disable () {
 
 recipes_all+=(sysctl-hardening-ipv4)
 rcp_sysctl_hardening_ipv4 () {
-    install -Tvm644 /dev/stdin /etc/sysctl.d/50-hardening-ipv4.conf << 'EOF'
+    install -Tvm644 /dev/stdin /etc/sysctl.d/50-hardening-ipv4.conf <<'EOF'
 net.ipv4.conf.all.send_redirects=0
 net.ipv4.conf.default.send_redirects=0
 net.ipv4.conf.all.accept_source_route=0
@@ -106,7 +106,7 @@ EOF
 
 recipes_all+=(sysctl-hardening-ipv6)
 rcp_sysctl_hardening_ipv6 () {
-    install -Tvm644 /dev/stdin /etc/sysctl.d/50-hardening-ipv6.conf << 'EOF'
+    install -Tvm644 /dev/stdin /etc/sysctl.d/50-hardening-ipv6.conf <<'EOF'
 net.ipv6.conf.all.accept_ra=0
 net.ipv6.conf.default.accept_ra=0
 net.ipv6.conf.all.accept_redirects=0
@@ -117,7 +117,7 @@ EOF
 
 recipes_all+=(sysctl-ipv6-disable)
 rcp_sysctl_ipv6_disable () {
-    install -Tvm644 /dev/stdin /etc/sysctl.d/90-disable-ipv6.conf << 'EOF'
+    install -Tvm644 /dev/stdin /etc/sysctl.d/90-disable-ipv6.conf <<'EOF'
 net.ipv6.conf.all.disable_ipv6=1
 net.ipv6.conf.default.disable_ipv6=1
 net.ipv6.conf.lo.disable_ipv6=1
@@ -140,7 +140,7 @@ rcp_hosts_127011 () {
 recipes_all+=(nm-mac-rand)
 rcp_nm_mac_rand () {
     install -Tvm644 /dev/stdin \
-        /etc/NetworkManager/conf.d/50-mac-rand.conf << 'EOF'
+        /etc/NetworkManager/conf.d/50-mac-rand.conf <<'EOF'
 [device]
 wifi.scan-rand-mac-address=true
 
@@ -154,7 +154,7 @@ EOF
 recipes_all+=(nm-ipv6-disable)
 rcp_nm_ipv6_disable () {
     install -Tv /dev/stdin \
-        /etc/NetworkManager/dispatcher.d/pre-up.d/10-disable-ipv6.sh << 'EOF'
+        /etc/NetworkManager/dispatcher.d/pre-up.d/10-disable-ipv6.sh <<'EOF'
 #!/bin/bash
 
 set -e
@@ -174,7 +174,7 @@ EOF
 recipes_all+=(nm-hostname-mode-none)
 rcp_nm_hostname_mode_none () {
     install -Tvm644 /dev/stdin \
-        /etc/NetworkManager/conf.d/50-hostname-mode-none.conf << 'EOF'
+        /etc/NetworkManager/conf.d/50-hostname-mode-none.conf <<'EOF'
 [main]
 hostname-mode=none
 EOF
@@ -184,7 +184,7 @@ EOF
 recipes_all+=(nm-dhcp-send-hostname-false)
 rcp_nm_dhcp_send_hostname_false () {
     install -Tv /dev/stdin \
-        /etc/NetworkManager/dispatcher.d/pre-up.d/50-dhcp-send-hostname-false.sh << 'EOF'
+        /etc/NetworkManager/dispatcher.d/pre-up.d/50-dhcp-send-hostname-false.sh <<'EOF'
 #!/bin/bash
 
 set -e

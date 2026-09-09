@@ -74,7 +74,7 @@ echo "Creating $service_name service files"
 if [ "$service_manager" = supervisor ]; then
     [ -e "/etc/supervisor/conf.d/50-$service_name.conf" ] || changing=y
 
-    cat << EOF > "/etc/supervisor/conf.d/50-$service_name.conf"
+    cat <<EOF > "/etc/supervisor/conf.d/50-$service_name.conf"
 [program:$service_name]
 command=/bin/bash -ec '$ssh_command \\
     || result=\$?; sleep $restart_interval; exit "\${result:-0}"'
@@ -86,7 +86,7 @@ EOF
 elif [ "$service_manager" = systemd ]; then
     [ -e "/etc/systemd/system/$service_name.service" ] || changing=y
 
-    cat << EOF > "/etc/systemd/system/$service_name.service"
+    cat <<EOF > "/etc/systemd/system/$service_name.service"
 [Unit]
 Description=$service_name
 

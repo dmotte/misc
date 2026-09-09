@@ -20,7 +20,7 @@ for i in "${path_dirs[@]}"; do
 done
 
 [ -n "$entrypoint" ] || {
-    cat << EOF >&2
+    cat <<EOF >&2
 Cannot find a location in PATH suitable for installing the MotteKit \
 entrypoint. You must have one of the following directories in your PATH:
 ${path_dirs[*]@Q}
@@ -36,7 +36,7 @@ EOF
 }
 
 if [ "$MOTTEKIT_INSTALL_OVERWRITE" != true ] && [ -e "$entrypoint" ]; then
-    cat << EOF >&2
+    cat <<EOF >&2
 The entrypoint $entrypoint already exists.
 This may mean that MotteKit is already installed. If so, you can use \
 "mottekit update" to update it.

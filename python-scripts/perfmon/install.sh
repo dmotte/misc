@@ -46,7 +46,7 @@ echo 'Creating perfmon service files'
 install -o"$running_user" -g"$running_user" -Tm700 \
     perfmon.py /opt/perfmon/main.py
 
-cat << EOF > /etc/systemd/system/perfmon.service
+cat <<EOF > /etc/systemd/system/perfmon.service
 [Unit]
 Description=perfmon
 

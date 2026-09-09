@@ -59,7 +59,7 @@ echo "$cert" |
 
 [ -e /etc/apt/sources.list.d/virtualbox.sources ] || changing=y
 
-tee /etc/apt/sources.list.d/virtualbox.sources << EOF
+tee /etc/apt/sources.list.d/virtualbox.sources <<EOF
 Types: deb
 URIs: https://download.virtualbox.org/virtualbox/debian
 Suites: $codename
