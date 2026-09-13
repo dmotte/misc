@@ -3,8 +3,9 @@
 set -e
 
 # This script can be used to set up a TCP port-forwarding SSH tunnel. It's
-# basically the equivalent of https://github.com/dmotte/docker-portmap-client
-# but as a system service
+# basically the equivalent of
+# https://github.com/dmotte/docker-images/tree/main/portfwd-client but as a
+# system service
 
 # Tested on Debian 13 (trixie)
 
@@ -118,8 +119,17 @@ if [ "$PORTMAP_RELOAD" = always ] || {
     [ "$PORTMAP_RELOAD" = when-changed ] && [ "$changing" = y ]
 }; then
     if [ "$service_manager" = supervisor ]; then
-        echo 'Running supervisorctl update'
-        supervisorctl update
+        if [ "$PORTMAP_RELOAD_MODE" = pid1-sighup ]; then
+            echo 'Sending SIGHUP to PID 1'
+            kill -sHUP 1
+        elif [ "$PORTMAP_RELOAD_MODE" = pid1-sigterm ]; then
+            echo 'Sending SIGTERM to PID 1'
+            # The container will restart if its restart policy is set that way
+            kill 1
+        else
+            echo 'Running supervisorctl update'
+            supervisorctl update
+        fi
     elif [ "$service_manager" = systemd ]; then
         echo "Restarting $service_name service"
         systemctl restart "$service_name"
