@@ -85,8 +85,8 @@ scoped_systemctl daemon-reload; scoped_systemctl enable "$name.timer"
 
 ################################################################################
 
-if [ "$SYSTEMD_TIMER_RESTART" = always ] || {
-    [ "$SYSTEMD_TIMER_RESTART" = when-changed ] && [ "$changing" = y ]
+if [ "$SYSTEMD_CRON_RESTART" = always ] || {
+    [ "$SYSTEMD_CRON_RESTART" = when-changed ] && [ "$changing" = y ]
 }; then
     echo "Restarting $name timer"
     scoped_systemctl restart "$name.timer"
