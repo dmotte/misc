@@ -117,6 +117,7 @@ Some pieces of code I find useful for some reason.
 - `systemctl is-active -q myunit; echo $?`
 - `systemctl list-timers`
 - `systemd-analyze calendar '*-*-* 6,18:00' --iterations 10`
+- `logger -tmytag -p4 'Some warning'`, `echo '<3>Some error' | logger -stmytag --prio-prefix`
 - `: "${myvar:=myvalue}"`, `export MY_ENV_VAR="${MY_ENV_VAR:-myvalue}"`, `: "${MY_ENV_VAR:?}"`
 - `socat - TCP:example.com:80`
 - `socat UNIX-LISTEN:/tmp/my.sock,mode=666,fork,unlink-early -`, `date | socat - UNIX-CONNECT:/tmp/my.sock`
