@@ -483,32 +483,6 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `podman run --rm -uroot -v "$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
 
 ```bash
-podman build -t img-svcbox-util-01:latest - <<'EOF'
-# syntax=docker/dockerfile:1
-
-# Tested with docker.io/dmotte/svcbox:v2026.09.03.1115
-FROM docker.io/dmotte/svcbox:latest
-
-RUN <<'EOF2' /bin/bash -e
-    useradd -UGsudo -ms/bin/bash myuser
-    echo myuser:mypassword | chpasswd # Warning: very bad password!
-    echo 'myuser ALL=(ALL:ALL) NOPASSWD: ALL' |
-        install -Tvm440 /dev/stdin /etc/sudoers.d/50_myuser_nopasswd
-EOF2
-EOF
-
-podman run -d --name=svcbox-util-01 -p2201:22 -vsvcbox-util-01-sshset:/opt/sshset/data -eSVCBOX_SUPERVISORCTL=true img-svcbox-util-01:latest
-
-podman exec -it svcbox-util-01 bash -ec 'ssh-keygen -lf<(cat /etc/ssh/ssh_host_*_key.pub)'
-
-echo 'ssh-ed25519 AAAAC3Nza...' | podman exec -i svcbox-util-01 bash -ec '
-    install -dvm700 /opt/sshset/data/users{,/myuser{,/authorized-keys}}
-    install -Tvm644 /dev/stdin /opt/sshset/data/users/myuser/authorized-keys/50-myuser.pub'
-
-ssh myuser@127.0.0.1 -p2201
-```
-
-```bash
 podman build -t img-guifwd-util-01:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 
