@@ -30,6 +30,8 @@ readonly shell=${USERNGO_SHELL:-/bin/bash}
 readonly sudoer=$USERNGO_SUDOER
 readonly nopasswd=$USERNGO_NOPASSWD
 
+readonly aux=$USERNGO_AUX
+
 if ! getent passwd "$name_user" >/dev/null; then
     args_pre_user=()
 
@@ -65,6 +67,9 @@ if ! getent passwd "$name_user" >/dev/null; then
             "/etc/sudoers.d/50_${name_user}_nopasswd"
     fi
 fi
+
+if [ "$aux" = true ]
+    then echo 'userngo: running main app as root'; exec "$@"; fi
 
 echo "userngo: running main app as $name_user"
 # We don't use the "UID:GID" syntax because we want it to run with
