@@ -13,7 +13,7 @@ RUN <<'EOF' /bin/sh -e
 EOF
 
 # ADD --chown=root:root --chmod=755 \
-#     --checksum=sha256:ac8a2f8871dcca6e356f20507ab54ca62acf2d1163684aa824dec755c156bc1a \
+#     --checksum=sha256:8575aee5f1fa387ce870cade5cba02a063beb910fc2d17ab50d11a81182b3fde \
 #     https://raw.githubusercontent.com/dmotte/misc/refs/heads/main/scripts/userngo/userngo-alpine.sh \
 #     /opt/userngo/main.sh
 COPY --chown=root:root --chmod=755 userngo-alpine.sh /opt/userngo/main.sh
