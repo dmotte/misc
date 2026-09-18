@@ -459,11 +459,11 @@ rclone bisync -Mvn --create-empty-src-dirs \
   - `docker cp tmp01:/bin/sh - | tar -xv`
   - `docker rm -v tmp01`
 - `docker run -d --name=mydind01 --privileged docker.io/library/docker:dind`
-- `docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock --log-driver=none docker.io/wagoodman/dive docker.io/library/python:3`
+- `docker run -it --rm -v/var/run/docker.sock:/var/run/docker.sock --log-driver=none docker.io/wagoodman/dive docker.io/library/python:3`
 - `docker-compose down -v && docker-compose up -d --build && docker-compose logs -ft`
 - `docker-compose exec mycontainer bash`
-- `docker run -it --rm -p8080:8080 -v "$PWD:/v" php:8 -S0.0.0.0:8080 -t/v`
-- `docker run --rm -v "$PWD:/v" -u "$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
+- `docker run -it --rm -p8080:8080 -v"$PWD:/v" php:8 -S0.0.0.0:8080 -t/v`
+- `docker run --rm -v"$PWD:/v" -u"$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
 
 ## Shell snippets for Podman
 
@@ -480,7 +480,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `podman system df`, `podman system prune -a --build --volumes --filter=until=2020-01-01`
 - `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always --net=pasta:--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 -p8080:80 docker.io/library/nginx:latest`
 - `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/busybox sh -ec 'date > /dev/ttyUSB0'`
-- `podman run --rm -uroot -v "$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
+- `podman run --rm -uroot -v"$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
 
 ```bash
 podman build -t img-guifwd-util-01:latest - <<'EOF'
