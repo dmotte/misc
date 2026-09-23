@@ -486,6 +486,15 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `podman run -it --rm --net=pasta:-p/tmp/mycapture.pcap docker.io/library/alpine:latest`
 
 ```bash
+# Note: Podman network isolation is enabled by default starting with v6.0.0, so
+# the "-oisolate=strict" option is required only for earlier versions. See
+# https://github.com/podman-container-tools/podman/releases/tag/v6.0.0
+podman network create mynet -oisolate=strict
+podman run -it --rm --name=myctr01 --net=mynet --network-alias=myctr01.internal docker.io/library/alpine:latest
+podman run -it --rm --name=myctr02 --net=mynet --network-alias=myctr02.internal docker.io/library/alpine:latest
+```
+
+```bash
 podman build -t img-guifwd-util-01:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 
