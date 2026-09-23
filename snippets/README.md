@@ -482,7 +482,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always -p8080:80 docker.io/library/nginx:latest`
 - `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/busybox sh -ec 'date > /dev/ttyUSB0'`
 - `podman run --rm -uroot -v"$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
-- `podman run -it --rm --net=pasta:-Itap0,--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 docker.io/library/alpine:latest`
+- `podman run -it --rm --net=pasta:-I,tap0,--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 docker.io/library/alpine:latest`
 - `podman run -it --rm --net=pasta:-p/tmp/mycapture.pcap docker.io/library/alpine:latest`
 
 ```bash
