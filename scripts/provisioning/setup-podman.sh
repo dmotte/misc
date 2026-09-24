@@ -8,7 +8,7 @@ set -e
 # Tested on Debian 13 (trixie)
 
 # Usage example:
-#   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -cs0 -anever -gp80
+#   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -cgs0 -anever -p80
 #   sudo useradd -Ums/bin/bash alice
 #   sudo loginctl enable-linger alice
 #   sudo XDG_RUNTIME_DIR=/run/user/$(id -u alice) -ualice \
