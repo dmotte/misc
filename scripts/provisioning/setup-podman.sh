@@ -39,7 +39,7 @@ options=$(getopt -o +cs:a:gk:p: -l compose -l socket: -l auto-update: \
     -l unpriv-port-start: -- "$@")
 eval "set -- $options"
 
-flag_compose=n
+compose=n
 socket=$SETUP_PODMAN_SOCKET
 auto_update=$SETUP_PODMAN_AUTO_UPDATE
 pasta_map_guest_addr_none=n
@@ -48,7 +48,7 @@ unpriv_port_start=''
 
 while :; do
     case $1 in
-        -c|--compose) flag_compose=y;;
+        -c|--compose) compose=y;;
         -s|--socket) shift; socket=$1;;
         -a|--auto-update) shift; auto_update=$1;;
         -g|--pasta-map-guest-addr-none) pasta_map_guest_addr_none=y;;
@@ -71,7 +71,7 @@ if [ "$mode" = system ]; then
     dpkg -s podman >/dev/null 2>&1 ||
         { apt_update_if_old; apt-get install -y podman; changing=y; }
 
-    if [ "$flag_compose" = y ]; then
+    if [ "$compose" = y ]; then
         dpkg -s podman-compose >/dev/null 2>&1 ||
             { apt_update_if_old; apt-get install -y podman-compose; }
     fi
