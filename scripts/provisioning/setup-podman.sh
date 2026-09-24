@@ -8,7 +8,7 @@ set -e
 # Tested on Debian 13 (trixie)
 
 # Usage example:
-#   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -cs0 -anever -p80
+#   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -cs0 -anever -gp80
 #   sudo useradd -Ums/bin/bash alice
 #   sudo loginctl enable-linger alice
 #   sudo XDG_RUNTIME_DIR=/run/user/$(id -u alice) -ualice \
@@ -25,20 +25,24 @@ if [ "$mode" = system ]; then
         { echo 'Must run as root if mode=system is used' >&2; exit 1; }
     scoped_systemctl() { systemctl "$@"; }
     readonly systemd_units_dir=/etc/systemd/system
+    readonly containers_cfg_dir=/etc/containers
 elif [ "$mode" = user ]; then
     [ "$EUID" != 0 ] ||
         { echo 'Must run as a regular user if mode=user is used' >&2; exit 1; }
     scoped_systemctl() { systemctl --user "$@"; }
     readonly systemd_units_dir=~/.config/systemd/user
+    readonly containers_cfg_dir=~/.config/containers
 else echo 'Invalid mode' >&2; exit 1; fi
 
-options=$(getopt -o +cs:a:k:p: -l compose -l socket: -l auto-update: \
-    -l kube-extra-args: -l unpriv-port-start: -- "$@")
+options=$(getopt -o +cs:a:gk:p: -l compose -l socket: -l auto-update: \
+    -l pasta-map-guest-addr-none -l kube-extra-args: \
+    -l unpriv-port-start: -- "$@")
 eval "set -- $options"
 
 flag_compose=n
 socket=$SETUP_PODMAN_SOCKET
 auto_update=$SETUP_PODMAN_AUTO_UPDATE
+pasta_map_guest_addr_none=n
 kube_extra_args=$SETUP_PODMAN_KUBE_EXTRA_ARGS
 unpriv_port_start=''
 
@@ -47,6 +51,7 @@ while :; do
         -c|--compose) flag_compose=y;;
         -s|--socket) shift; socket=$1;;
         -a|--auto-update) shift; auto_update=$1;;
+        -g|--pasta-map-guest-addr-none) pasta_map_guest_addr_none=y;;
         -k|--kube-extra-args) shift; kube_extra_args=$1;;
         -p|--unpriv-port-start) shift; unpriv_port_start=$1;;
         --) shift; break;;
@@ -107,6 +112,12 @@ EOF
     scoped_systemctl daemon-reload
     scoped_systemctl enable podman-auto-update.timer
     scoped_systemctl restart podman-auto-update.timer
+fi
+
+if [ "$pasta_map_guest_addr_none" = y ]; then
+    printf '%s\n' '[network]' 'pasta_options = ["--map-guest-addr", "none"]' |
+        install -DTvm644 /dev/stdin \
+            "$containers_cfg_dir/containers.conf.d/50-pasta-map-guest-addr-none.conf"
 fi
 
 if [ -n "$kube_extra_args" ]; then
