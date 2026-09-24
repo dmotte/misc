@@ -110,8 +110,7 @@ EOF
 fi
 
 if [ -n "$kube_extra_args" ]; then
-    echo 'Setting Podman kube extra args'
-    install -DTm644 /dev/stdin \
+    install -DTvm644 /dev/stdin \
         "$systemd_units_dir/podman-kube@.service.d/50-extra-args.conf" <<EOF
 [Service]
 # The empty "ExecStart=" line is needed to reset the default value
