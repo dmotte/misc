@@ -33,14 +33,14 @@ elif [ "$mode" = user ]; then
 else echo 'Invalid mode' >&2; exit 1; fi
 
 options=$(getopt -o +cs:a:k:p: -l compose -l socket: -l auto-update: \
-    -l kube-extra-args: -l unprivileged-port-start: -- "$@")
+    -l kube-extra-args: -l unpriv-port-start: -- "$@")
 eval "set -- $options"
 
 flag_compose=n
 socket=$SETUP_PODMAN_SOCKET
 auto_update=$SETUP_PODMAN_AUTO_UPDATE
 kube_extra_args=$SETUP_PODMAN_KUBE_EXTRA_ARGS
-unprivileged_port_start=''
+unpriv_port_start=''
 
 while :; do
     case $1 in
@@ -48,7 +48,7 @@ while :; do
         -s|--socket) shift; socket=$1;;
         -a|--auto-update) shift; auto_update=$1;;
         -k|--kube-extra-args) shift; kube_extra_args=$1;;
-        -p|--unprivileged-port-start) shift; unprivileged_port_start=$1;;
+        -p|--unpriv-port-start) shift; unpriv_port_start=$1;;
         --) shift; break;;
     esac
     shift
@@ -121,9 +121,9 @@ EOF
     scoped_systemctl daemon-reload
 fi
 
-if [ "$mode" = system ] && [ -n "$unprivileged_port_start" ]; then
-    echo "net.ipv4.ip_unprivileged_port_start=$unprivileged_port_start" |
-        tee /etc/sysctl.d/50-unprivileged-port-start.conf
+if [ "$mode" = system ] && [ -n "$unpriv_port_start" ]; then
+    echo "net.ipv4.ip_unprivileged_port_start=$unpriv_port_start" |
+        install -Tvm644 /dev/stdin /etc/sysctl.d/50-unpriv-port-start.conf
 fi
 
 ################################################################################
