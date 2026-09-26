@@ -452,19 +452,19 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `docker run -d --name=mydeb01 docker.io/library/debian:13 sleep infinity`, `docker exec -it mydeb01 bash`, `docker rm -f mydeb01`
 - `docker ps -a --format {{.Names}}`
 - `docker rm -fv mycontainer`
-- `docker volume create myvol`, `docker run --rm -v myvol:/v docker.io/library/busybox chown -v 1000:1000 /v`
-- `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox tar -cvzC/v . > mybackup.tar.gz`
-- `docker run --rm -v myvolume:/v -i docker.io/library/busybox tar -xvzC/v < mybackup.tar.gz`
-- `docker create --name=tmp01 docker.io/library/busybox`
+- `docker volume create myvol`, `docker run --rm -v myvol:/v docker.io/library/busybox:latest chown -v 1000:1000 /v`
+- `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox:latest tar -cvzC/v . > mybackup.tar.gz`
+- `docker run --rm -v myvolume:/v -i docker.io/library/busybox:latest tar -xvzC/v < mybackup.tar.gz`
+- `docker create --name=tmp01 docker.io/library/busybox:latest`
   - `docker cp tmp01:/bin - | gzip -c > mybin.tar.gz`
   - `docker cp tmp01:/bin/sh - | tar -xv`
   - `docker rm -v tmp01`
 - `docker run -d --name=mydind01 --privileged docker.io/library/docker:dind`
-- `docker run -it --rm -v/var/run/docker.sock:/var/run/docker.sock --log-driver=none docker.io/wagoodman/dive docker.io/library/python:3`
+- `docker run -it --rm -v/var/run/docker.sock:/var/run/docker.sock --log-driver=none docker.io/wagoodman/dive:latest docker.io/library/python:3`
 - `docker-compose down -v && docker-compose up -d --build && docker-compose logs -ft`
 - `docker-compose exec mycontainer bash`
-- `docker run -it --rm -p8080:8080 -v"$PWD:/v" php:8 -S0.0.0.0:8080 -t/v`
-- `docker run --rm -v"$PWD:/v" -u"$(id -u):$(id -g)" ghcr.io/plantuml/plantuml -tsvg /v`
+- `docker run -it --rm -p8080:8080 -v"$PWD:/v" docker.io/library/php:8 -S0.0.0.0:8080 -t/v`
+- `docker run --rm -v"$PWD:/v" -u"$(id -u):$(id -g)" ghcr.io/plantuml/plantuml:latest -tsvg /v`
 
 ## Shell snippets for Podman
 
@@ -479,9 +479,9 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `echo -e "{\"main\":\"$(base64 -w0 mykey.pem)\"}" | podman secret create mykey -`
 - `podman image ls -a`, `podman image prune -af`
 - `podman system df`, `podman system prune -a --build --volumes --filter=until=2020-01-01`
-- `podman run --rm --log-driver=none ghcr.io/containers/podlet -i podman run -l io.containers.autoupdate=registry --restart=always -p8080:80 docker.io/library/nginx:latest`
-- `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/busybox sh -ec 'date > /dev/ttyUSB0'`
-- `podman run --rm -uroot -v"$PWD:/v" -w/v ghcr.io/koedame/chordsketch myfile.cho`
+- `podman run --rm --log-driver=none ghcr.io/containers/podlet:latest -i podman run -l io.containers.autoupdate=registry --restart=always -p8080:80 docker.io/library/nginx:latest`
+- `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/busybox:latest sh -ec 'date > /dev/ttyUSB0'`
+- `podman run --rm -uroot -v"$PWD:/v" -w/v ghcr.io/koedame/chordsketch:latest myfile.cho`
 - `podman run -it --rm --net=pasta:-I,tap0,--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 docker.io/library/alpine:latest`
 - `podman run -it --rm --net=pasta:--map-host-loopback,169.254.1.3 docker.io/library/alpine:latest`
 - `podman run -it --rm --add-host=foo:host-gateway docker.io/library/alpine:latest` (will fail with an error if Podman cannot determine the `host-gateway` address)
@@ -510,7 +510,7 @@ RUN <<'EOF2' /bin/bash -e
 EOF2
 EOF
 
-podman run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{SUDOER,NOPASSWD}=true} img-guifwd-util-01:latest
+podman run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{SUDOER,NOPASSWD}=true} localhost/img-guifwd-util-01:latest
 ```
 
 ## Shell snippets for Kubernetes
