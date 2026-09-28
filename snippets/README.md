@@ -453,8 +453,8 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `docker ps -a --format {{.Names}}`
 - `docker rm -fv mycontainer`
 - `docker volume create myvol`, `docker run --rm -v myvol:/v docker.io/library/busybox:latest chown -v 1000:1000 /v`
-- `docker run --rm -v myvolume:/v --log-driver=none docker.io/library/busybox:latest tar -cvzC/v . > mybackup.tar.gz`
-- `docker run --rm -v myvolume:/v -i docker.io/library/busybox:latest tar -xvzC/v < mybackup.tar.gz`
+- `docker run --rm -v myvol:/v --log-driver=none docker.io/library/busybox:latest tar -cvzC/v . > mybackup.tar.gz`
+- `docker run --rm -v myvol:/v -i docker.io/library/busybox:latest tar -xvzC/v < mybackup.tar.gz`
 - `docker create --name=tmp01 docker.io/library/busybox:latest`
   - `docker cp tmp01:/bin - | gzip -c > mybin.tar.gz`
   - `docker cp tmp01:/bin/sh - | tar -xv`
