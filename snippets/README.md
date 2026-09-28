@@ -463,8 +463,8 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `docker run -it --rm -v/var/run/docker.sock:/var/run/docker.sock --log-driver=none docker.io/wagoodman/dive:latest docker.io/library/python:3`
 - `docker-compose down -v && docker-compose up -d --build && docker-compose logs -ft`
 - `docker-compose exec mycontainer bash`
-- `docker run -it --rm -p8080:8080 -v"$PWD:/v" docker.io/library/php:8 -S0.0.0.0:8080 -t/v`
-- `docker run --rm -v"$PWD:/v" -u"$(id -u):$(id -g)" ghcr.io/plantuml/plantuml:latest -tsvg /v`
+- `docker run -it --rm -p8080:8080 -v.:/v docker.io/library/php:8 -S0.0.0.0:8080 -t/v`
+- `docker run --rm -v.:/v -u"$(id -u):$(id -g)" ghcr.io/plantuml/plantuml:latest -tsvg /v`
 
 ## Shell snippets for Podman
 
@@ -481,7 +481,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `podman system df`, `podman system prune -a --build --volumes --filter=until=2020-01-01`
 - `podman run --rm --log-driver=none ghcr.io/containers/podlet:latest -i podman run -l io.containers.autoupdate=registry --restart=always -p8080:80 docker.io/library/nginx:latest`
 - `podman run --rm --device=/dev/ttyUSB0 --group-add=keep-groups docker.io/library/busybox:latest sh -ec 'date > /dev/ttyUSB0'`
-- `podman run --rm -uroot -v"$PWD:/v" -w/v ghcr.io/koedame/chordsketch:latest myfile.cho`
+- `podman run --rm -uroot -v.:/v -w/v ghcr.io/koedame/chordsketch:latest myfile.cho`
 - `podman run -it --rm --net=pasta:-I,tap0,--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 docker.io/library/alpine:latest`
 - `podman run -it --rm --net=pasta:--map-host-loopback,169.254.1.3 docker.io/library/alpine:latest`
 - `podman run -it --rm --add-host=foo:host-gateway docker.io/library/alpine:latest` (will fail with an error if Podman cannot determine the `host-gateway` address)
