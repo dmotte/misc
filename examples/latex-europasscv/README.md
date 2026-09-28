@@ -11,12 +11,9 @@ podman build -tlocalhost/img-debian-texlive:latest - <<'EOF'
 FROM docker.io/library/debian:13
 
 RUN <<'EOF2' /bin/bash -e
-    apt-get update
-    apt-get install -y texlive-full
+    apt-get update; apt-get install -y texlive-full
     rm -rf /var/lib/apt/lists/*
 EOF2
-
-WORKDIR /v
 EOF
 ```
 
@@ -25,7 +22,7 @@ EOF
 Then download the [Europass CV](https://www.overleaf.com/latex/templates/europass-cv/kpcsxfcfvxhx) template, customize it and convert it to **PDF**:
 
 ```bash
-podman run --rm -v.:/v localhost/img-debian-texlive:latest pdflatex europasscv_en.tex
+podman run --rm -v.:/v -w/v localhost/img-debian-texlive:latest pdflatex europasscv_en.tex
 ```
 
 ## Tips

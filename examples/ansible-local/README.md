@@ -12,9 +12,7 @@ FROM docker.io/library/alpine:latest
 RUN <<'EOF2' /bin/sh -e
     apk add --no-cache ansible
 EOF2
-
-WORKDIR /v
 EOF
 
-podman run -it --rm -v.:/v localhost/img-alpine-ansible:latest ansible-playbook playbook.yml
+podman run -it --rm -v.:/v -w/v localhost/img-alpine-ansible:latest ansible-playbook playbook.yml
 ```
