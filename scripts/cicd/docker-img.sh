@@ -59,7 +59,7 @@ echo "::group::$0: Project metadata"
 echo '::endgroup::'
 
 echo "::group::$0: Preliminary build"
-    docker build -t "$tmp_img" build/
+    docker build -t"$tmp_img" build/
 echo '::endgroup::'
 
 echo "::group::$0: Version"
