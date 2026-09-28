@@ -498,7 +498,7 @@ podman run -it --rm --name=myctr02 --net=mynet --network-alias=myctr02.internal 
 ```
 
 ```bash
-podman build -t img-guifwd-util-01:latest - <<'EOF'
+podman build -tlocalhost/img-guifwd-util-01:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 
 # Tested with docker.io/dmotte/guifwd:v2026.08.27.1523

@@ -3,7 +3,7 @@
 This is an example of how to **test an Ansible playbook locally** (without any remote host) using an **Alpine Podman container**.
 
 ```bash
-podman build -t img-alpine-ansible:latest - <<'EOF'
+podman build -tlocalhost/img-alpine-ansible:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 
 # Tested with docker.io/library/alpine:3.24.1
@@ -16,5 +16,5 @@ EOF2
 WORKDIR /v
 EOF
 
-podman run -it --rm -v.:/v img-alpine-ansible ansible-playbook playbook.yml
+podman run -it --rm -v.:/v localhost/img-alpine-ansible:latest ansible-playbook playbook.yml
 ```

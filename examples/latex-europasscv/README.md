@@ -5,7 +5,7 @@ This is an example of how to create a **Europass CV** with **LaTeX** (_TeX Live_
 First of all, we need to build a _Podman_ image with **TeX Live Full** installed:
 
 ```bash
-podman build -t img-debian-texlive:latest - <<'EOF'
+podman build -tlocalhost/img-debian-texlive:latest - <<'EOF'
 # syntax=docker/dockerfile:1
 
 FROM docker.io/library/debian:13
@@ -25,7 +25,7 @@ EOF
 Then download the [Europass CV](https://www.overleaf.com/latex/templates/europass-cv/kpcsxfcfvxhx) template, customize it and convert it to **PDF**:
 
 ```bash
-podman run --rm -v.:/v img-debian-texlive pdflatex europasscv_en.tex
+podman run --rm -v.:/v localhost/img-debian-texlive:latest pdflatex europasscv_en.tex
 ```
 
 ## Tips
