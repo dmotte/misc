@@ -86,7 +86,7 @@ Some pieces of code I find useful for some reason.
 - `last`, `lastb`, `lastlog`, `who -Ha /var/log/wtmp`
 - `IFS= read -rsp 'Password: ' MYPASSWORD && export MYPASSWORD`, `set -o ignoreeof; exit() { echo 'Use "builtin exit" to exit'; }`
 - `read -rsp 'Press ENTER to continue...'; echo`
-- `diff <(ls -l) <(ls -la)`
+- `diff -s --color <(ls -l) <(ls -la)`
 - `ps -aux --sort -pcpu | head -n10`
 - `strings /proc/1234/environ | grep -i MY_ENV_VAR`
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`

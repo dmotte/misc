@@ -26,7 +26,7 @@ run_test() {
         echo "result: $result"
     )
 
-    diff <(echo "$expected") <(echo "$actual")
+    diff -s --color <(echo "$expected") <(echo "$actual")
 }
 
 case_id=0
