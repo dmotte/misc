@@ -448,8 +448,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 
 ## Shell snippets for Docker
 
-- `docker run -it --rm --log-driver=none docker.io/library/debian:13`
-- `docker run -it --rm -u"$(id -u):$(id -g)" -v.:/v -w/v docker.io/library/alpine:latest`
+- `docker run -it --rm -u"$(id -u):$(id -g)" --log-driver=none -v.:/v -w/v docker.io/library/alpine:latest`
 - `docker run -d --name=mydeb01 docker.io/library/debian:13 sleep infinity`, `docker exec -it mydeb01 bash`, `docker rm -f mydeb01`
 - `docker ps -a --format {{.Names}}`
 - `docker rm -fv mycontainer`
