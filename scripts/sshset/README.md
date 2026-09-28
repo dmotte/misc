@@ -49,7 +49,7 @@ To **build** the example images:
 
 ```bash
 for i in {alpine,debian}-{root,unpriv}; do
-    docker build -t "img-sshset-$i" -f "test-$i.Dockerfile" .
+    docker build -t"img-sshset-$i:latest" -f"test-$i.Dockerfile" .
 done
 ```
 
@@ -58,7 +58,7 @@ Then you can **run** them like this:
 ```bash
 mkdir -pv data-root data-unpriv
 
-docker run -it --rm -p2222:22 -v./data-root:/opt/sshset/data -eSSHSET_{SETUP_{SERVER,CLIENT}=true,GEN_{HOSTKEYS,AUTHKEY,IDKEY}=true} img-sshset-debian-root
+docker run -it --rm -p2222:22 -v./data-root:/opt/sshset/data -eSSHSET_{SETUP_{SERVER,CLIENT}=true,GEN_{HOSTKEYS,AUTHKEY,IDKEY}=true} img-sshset-debian-root:latest
 
-docker run -it --rm -p2222:2222 -v./data-unpriv:/opt/sshset/data -eSSHSET_{SETUP_{SERVER,CLIENT}=true,GEN_{HOSTKEYS,AUTHKEY,IDKEY}=true} img-sshset-debian-unpriv
+docker run -it --rm -p2222:2222 -v./data-unpriv:/opt/sshset/data -eSSHSET_{SETUP_{SERVER,CLIENT}=true,GEN_{HOSTKEYS,AUTHKEY,IDKEY}=true} img-sshset-debian-unpriv:latest
 ```

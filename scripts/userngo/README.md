@@ -9,22 +9,22 @@ These scripts are meant to be used in a `Dockerfile`. See [`test-alpine.Dockerfi
 To **build** the example images:
 
 ```bash
-docker build -t img-userngo-alpine -f test-alpine.Dockerfile .
-docker build -t img-userngo-debian -f test-debian.Dockerfile .
+docker build -t img-userngo-alpine:latest -f test-alpine.Dockerfile .
+docker build -t img-userngo-debian:latest -f test-debian.Dockerfile .
 ```
 
 To run as **`root` user**:
 
 ```bash
-docker run -it --rm img-userngo-alpine
-docker run -it --rm img-userngo-debian
+docker run -it --rm img-userngo-alpine:latest
+docker run -it --rm img-userngo-debian:latest
 ```
 
 To run as **custom user** created "on the go":
 
 ```bash
-docker run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{WHEEL,NOPASS}=true} img-userngo-alpine
-docker run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{SUDOER,NOPASSWD}=true} img-userngo-debian
+docker run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{WHEEL,NOPASS}=true} img-userngo-alpine:latest
+docker run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{SUDOER,NOPASSWD}=true} img-userngo-debian:latest
 ```
 
 To **extend the images** and run as **unprivileged user**:
@@ -38,7 +38,7 @@ USER user
 ENV USER=user HOME=/home/user
 WORKDIR /home/user
 EOF
-docker run -it --rm img-userngo-alpine-unpriv
+docker run -it --rm img-userngo-alpine-unpriv:latest
 
 docker build -t img-userngo-debian-unpriv:latest - <<'EOF'
 # syntax=docker/dockerfile:1
@@ -48,7 +48,7 @@ USER user
 ENV USER=user HOME=/home/user
 WORKDIR /home/user
 EOF
-docker run -it --rm img-userngo-debian-unpriv
+docker run -it --rm img-userngo-debian-unpriv:latest
 ```
 
 > :bulb: **Tip**: even if a Docker container is running entirely as unprivileged user, you can still use `docker exec -ituroot mycontainer bash` to run commands as `root` inside it.
