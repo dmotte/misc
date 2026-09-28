@@ -21,10 +21,10 @@ Or you can take a look at the `input-*.json` files inside this directory.
 python3 main.py < input.json > output.html
 ```
 
-Or with _Docker_:
+Or with _Podman_:
 
 ```bash
-docker run -i --rm -v.:/v -u"$(id -u):$(id -g)" --log-driver=none python:3 python3 /v/main.py < input.json > output.html
+podman run -i --rm --log-driver=none -v.:/v docker.io/library/python:3 python3 /v/main.py < input.json > output.html
 ```
 
 If you want to run the script without downloading it:
