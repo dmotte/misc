@@ -9,7 +9,7 @@ Then you can visit the _Portainer_ **Web UI** at https://localhost:9443/. Login 
 To generate the hash value for the `--admin-password` CLI argument I used the following command:
 
 ```bash
-docker run --rm httpd:2.4-alpine htpasswd -nbB admin changeme
+podman run --rm docker.io/library/httpd:2.4-alpine htpasswd -nbB admin changeme
 ```
 
 The `debian01` container is just a sample _Debian_ container.
