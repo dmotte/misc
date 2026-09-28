@@ -10,7 +10,7 @@ Create a copy of one of them and simply name it `docker-compose.yml`.
 Then generate a client **identity** (private key) and place it into the `ZEROTIER_IDENTITY_SECRET` environment variable section:
 
 ```bash
-docker run -it --rm --entrypoint=/usr/sbin/zerotier-idtool zerotier/zerotier generate
+docker run --rm --entrypoint=/usr/sbin/zerotier-idtool docker.io/zerotier/zerotier:latest generate
 ```
 
 Write the **network ID** of the network you want to join into the `command` section of the Zerotier service.
