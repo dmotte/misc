@@ -30,7 +30,7 @@ Some pieces of code I find useful for some reason.
 - `type python3`
 - `unset HISTFILE`
 - `unset -- "${!MYAPP_@}"`
-- `tar -cvzf myarchive.tar.gz mydir`, `tar -xvzf myarchive.tar.gz`
+- `tar -cvzf myarchive.tar.gz mydir`, `tar -xvzf myarchive.tar.gz`, `tar -tvzf myarchive.tar.gz`
 - `tar -cvzf myarchive.tar.gz -g snapshot.snar -C mydir .`, `tar -xvzf myarchive.tar.gz -g snapshot.snar -C mydir`
 - `curl -fsSL https://httpbin.org/base64/Zm9vYmFy`, `wget -qO- https://httpbin.org/base64/Zm9vYmFy`
 - `curl --skip-existing -fLO https://...`, `curl -fLo target.zip https://...`
@@ -75,7 +75,7 @@ Some pieces of code I find useful for some reason.
 - `od -An -vtx1 /etc/os-release`, `od -Ax -tx1z /etc/os-release`
 - `file -b --mime-type myfile.txt`, `xdg-mime query filetype myfile.txt`
 - `stat -c%Y myfile.txt`, `stat -c%s myfile.txt`
-- `(cd mydir && zip -r myarchive.zip mysubdir)`, `(cd mydir && zip -r myarchive.zip .)`, `unzip -oq myarchive.zip -d mydir`
+- `(cd mydir && zip -r myarchive.zip mysubdir)`, `(cd mydir && zip -r myarchive.zip .)`, `unzip -oq myarchive.zip -d mydir`, `unzip -l myarchive.zip`
 - `7z a myarchive.7z mydir`, `7z a myarchive.zip mydir`, `7z a dummy -tzip -so mydir > myarchive.zip`
 - `7z e myarchive.7z mydir/myfile.txt -so`, `7z e myarchive.7z -aoa -osomedir 'mydir/*.txt'`
 - `7z l myarchive.7z`
