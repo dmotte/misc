@@ -90,7 +90,7 @@ Some pieces of code I find useful for some reason.
 - `ps -aux --sort -pcpu | head -n10`
 - `strings /proc/1234/environ | grep -i MY_ENV_VAR`
 - `export SSH_AUTH_SOCK=/run/user/$UID/keyring/ssh`
-- `SSH_AUTH_SOCK= ssh myuser@192.168.0.123`
+- `SSH_AUTH_SOCK= ssh myuser@192.168.0.123` (then you can press `Enter ~ .` to disconnect)
 - `python3 -mhttp.server`
 - `php -S127.0.0.1:8080`, `php -S127.0.0.1:8080 -tmydir`
 - `php -a`

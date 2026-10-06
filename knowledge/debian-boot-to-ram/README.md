@@ -14,7 +14,7 @@ From the boot menu, make sure the `Live system` option (the first one) is select
 
 ![](img/screen02-toram.png)
 
-Then press `F10` (UEFI) or `ENTER` (BIOS) to boot.
+Then press `F10` (UEFI) or `Enter` (BIOS) to boot.
 
 > :warning: **Warning**: make sure the PC has **enough RAM** to store the full Debian OS image, otherwise the `toram` option will simply be ignored. In my case (with the aforementioned ISO file) more than 4 GB were needed, so I used a PC with 8 GB of RAM.
 

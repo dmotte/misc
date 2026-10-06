@@ -20,7 +20,7 @@ If you want to persist this change:
 echo 'setw -g mouse on' >> ~/.tmux.conf
 ```
 
-When tmux mouse mode is on, you can hold the `SHIFT` key to **select and copy/paste text** from/to the terminal window to other applications normally (i.e. as you would do if the mouse mode was off).
+When tmux mouse mode is on, you can hold the `Shift` key to **select and copy/paste text** from/to the terminal window to other applications normally (i.e. as you would do if the mouse mode was off).
 
 ## Links
 
