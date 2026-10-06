@@ -66,7 +66,7 @@ if [ "$add_to_path" = y ]; then
     if grep -Fx "$line" ~/.bashrc >/dev/null 2>&1; then
         echo 'Skipping PATH addition to ~/.bashrc as it seems already present'
     else
-        echo "Adding $line to ~/.bashrc"
+        echo "Adding $line to" ~/.bashrc
         echo "$line" >> ~/.bashrc
         echo 'You may have to close and reopen your terminal for it to take' \
             'effect'

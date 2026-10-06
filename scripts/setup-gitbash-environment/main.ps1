@@ -37,7 +37,7 @@ set -e
 if grep 'HISTCONTROL=' ~/.bashrc >/dev/null 2>&1; then
     echo 'Skipping HISTCONTROL setting in ~/.bashrc as it seems already present'
 else
-    echo 'Adding HISTCONTROL setting to ~/.bashrc'
+    echo 'Adding HISTCONTROL setting to' ~/.bashrc
     test -f ~/.bashrc || echo '#!/bin/bash' > ~/.bashrc
     echo HISTCONTROL=ignoreboth >> ~/.bashrc
 fi
