@@ -36,6 +36,8 @@ function downloadMSEStream(chunks) {
 }
 
 try {
+  console.info("Starting MSE chunks capture");
+
   const chunks = [];
 
   const originalAppendBuffer = SourceBuffer.prototype.appendBuffer;
