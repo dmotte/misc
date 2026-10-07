@@ -36,16 +36,27 @@ function downloadMSEStream(chunks) {
 }
 
 try {
-  alert("Starting MSE chunks capture. Please open the browser console now");
-  console.info("Starting MSE chunks capture");
+  if (
+    typeof window.__capture_from_appendbuffer_chunksBySrcBuf !== "undefined"
+  ) {
+    alert("Detected MSE chunks capture already running");
+    return;
+  }
 
-  const chunks = [];
+  window.__capture_from_appendbuffer_chunksBySrcBuf = new WeakMap();
+  const chunksBySrcBuf = window.__capture_from_appendbuffer_chunksBySrcBuf;
 
-  const originalAppendBuffer = SourceBuffer.prototype.appendBuffer;
-  SourceBuffer.prototype.appendBuffer = function (data) {
-    const bytes = ArrayBuffer.isView(data)
-      ? new Uint8Array(data.buffer, data.byteOffset, data.byteLength)
-      : new Uint8Array(data);
+  console.info("Starting MSE chunks capture with WeakMap %O", chunksBySrcBuf);
+
+  function interceptAppendBuffer(sourceBuffer, data) {
+    const bytes = (
+      ArrayBuffer.isView(data)
+        ? new Uint8Array(data.buffer, data.byteOffset, data.byteLength)
+        : new Uint8Array(data)
+    ).slice(); // We call ".slice()" to create a clone here
+
+    if (!chunksBySrcBuf.has(sourceBuffer)) chunksBySrcBuf.set(sourceBuffer, []);
+    const chunks = chunksBySrcBuf.get(sourceBuffer);
 
     if (
       chunks.length > 0 &&
@@ -53,28 +64,34 @@ try {
       getBoxType(bytes) === "ftyp"
     ) {
       console.info(
-        "Chunk with box type ftyp detected after a " +
-          "non-ftyp chunk. Stopping capture",
+        "SourceBuffer %O: ftyp chunk %O detected after a non-ftyp chunk. " +
+          "Resetting and starting download of captured MSE stream %O",
+        sourceBuffer,
+        bytes,
+        chunks,
       );
-      SourceBuffer.prototype.appendBuffer = originalAppendBuffer;
-
-      console.info("Starting download of captured MSE stream");
+      chunksBySrcBuf.set(sourceBuffer, []);
       downloadMSEStream(chunks);
-    } else {
-      console.info(
-        "Capturing MSE chunk with len %o and start %o",
-        bytes.byteLength,
-        [...bytes.subarray(0, 32)]
-          .map((x) => x.toString(16).padStart(2, "0"))
-          .join(" "),
-      );
 
-      // We call ".slice()" here to create a clone
-      chunks.push(bytes.slice());
+      return;
     }
 
+    console.info(
+      "SourceBuffer %O: capturing MSE chunk %O with box type %o",
+      sourceBuffer,
+      bytes,
+      getBoxType(bytes),
+    );
+    chunks.push(bytes);
+  }
+
+  const originalAppendBuffer = SourceBuffer.prototype.appendBuffer;
+  SourceBuffer.prototype.appendBuffer = function (data) {
+    interceptAppendBuffer(this, data);
     return originalAppendBuffer.call(this, data);
   };
+
+  alert("Started MSE chunks capture. Please open the browser console now");
 
   // querySelectorOrErr("button#btnPlay").click();
   // querySelectorOrErr("audio#mymedia").playbackRate = 10;
