@@ -72,8 +72,6 @@ try {
       );
       chunksBySrcBuf.set(sourceBuffer, []);
       downloadMSEStream(chunks);
-
-      return;
     }
 
     console.info(
