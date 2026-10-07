@@ -10,6 +10,11 @@ set -e
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-vscode.sh) -ulauto
 
+# Note: this script could also be adapted to install VSCodium instead. It
+# should be enough to use the URL of a VSCodium archive file, e.g.
+# https://github.com/VSCodium/vscodium/releases/latest/download/VSCodium-linux-x64-1.135.06055.tar.gz,
+# plus some minor adjustments to the script
+
 options=$(getopt -o +b:o:a:c:d:uDl: -l build: -l os: -l arch: -l checksum: \
     -l install-dir: -l update -l create-data -l launcher: -- "$@")
 eval "set -- $options"
