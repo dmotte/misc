@@ -8,4 +8,8 @@ text=$(rustup check 2>&1); echo "$text"
 
 text=$(echo "$text" | grep -i 'Update available' || :)
 
-[ -z "$text" ] || exit 1
+if [ -z "$text" ]
+    then echo 'OK'
+    else echo 'ERROR: some updates are available. Run "rustup update" to' \
+        'update' >&2; exit 1
+fi

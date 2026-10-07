@@ -11,6 +11,6 @@ text=$("$venv/bin/python3" -mpip install -Ur"$venv/requirements.txt" \
 text=$(echo "$text" | grep '^Would install ' || :)
 
 if [ -z "$text" ]
-    then echo "OK"
+    then echo 'OK'
     else echo "$text" >&2; exit 1
 fi
