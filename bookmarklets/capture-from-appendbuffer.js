@@ -36,6 +36,7 @@ function downloadMSEStream(chunks) {
 }
 
 try {
+  alert("Starting MSE chunks capture. Please open the browser console now");
   console.info("Starting MSE chunks capture");
 
   const chunks = [];
