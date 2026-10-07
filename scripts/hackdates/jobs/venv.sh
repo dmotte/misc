@@ -8,7 +8,7 @@ echo "Checking venv $venv pip upgrade dry-run"
 
 text=$("$venv/bin/python3" -mpip install -Ur"$venv/requirements.txt" \
     --progress-bar=off --dry-run)
-text=$(echo "$text" | grep '^Would install ' || :)
+text=$(echo "$text" | grep -i '^Would install ' || :)
 
 if [ -z "$text" ]
     then echo 'OK'
