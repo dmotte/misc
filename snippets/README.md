@@ -721,6 +721,24 @@ function shuffle(arr) {
 }
 ```
 
+## Rust
+
+```rust
+fn escape_ascii(bytes: &[u8]) -> String {
+    // Pre-allocate space for at least the length of the input bytes
+    let mut result = String::with_capacity(bytes.len());
+
+    result.extend(
+        bytes
+            .iter()
+            .flat_map(|&b| std::ascii::escape_default(b))
+            .map(|b| b as char),
+    );
+
+    result
+}
+```
+
 ## PHP
 
 ```php
