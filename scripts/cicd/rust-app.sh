@@ -70,12 +70,11 @@ echo "::group::$0: Unit tests (cargo test)"
     cargo test --workspace
 echo '::endgroup::'
 
-echo "::group::$0: End-to-end tests (test/main.sh)"
-    if [ -e test/main.sh ]; then
-        bash test/main.sh
-    else
-        echo 'Not running end-to-end tests because test/main.sh does not exist'
-    fi
+echo "::group::$0: End-to-end tests (test/*.sh)"
+    scripts=$(find . -mindepth 2 -maxdepth 2 -type f -path './test/*.sh')
+    while IFS= read -r i || [ -n "$i" ]; do
+        echo "Running $i"; bash "$i"
+    done < <(printf '%s' "$scripts")
 echo '::endgroup::'
 
 echo "::group::$0: Set the right version"
