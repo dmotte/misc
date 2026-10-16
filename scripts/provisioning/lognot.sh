@@ -103,6 +103,7 @@ readonly bot_token=${bot_token@Q}
 readonly chat_id=${chat_id@Q}
 
 exec curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
+    --data-urlencode 'link_preview_options={"is_disabled":true}' \\
     -dchat_id="\$chat_id" --data-urlencode text@- --fail-with-body -w'\n'
 EOF
 
