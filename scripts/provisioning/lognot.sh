@@ -18,7 +18,7 @@ eval "set -- $options"
 
 service_manager=auto
 msgbuf_url=${MSGBUF_URL:-https://github.com/dmotte/msgbuf/releases/latest/download/msgbuf-$(uname -m)-unknown-linux-gnu}
-msgbuf_checksum=${MSGBUF_CHECKSUM:-9819d40df68be4df94adc47692f83f24ce9b6e9481b525194b5c661d5d8ac94c} # The default value is the checksum for v1.0.3 x86_64
+msgbuf_checksum=${MSGBUF_CHECKSUM:-f04eab84ecabde00b1c69971ce54add10699542a89e28c6e076365fb4593d850} # The default value is the checksum for v2.0.0 x86_64
 msgbuf_interval=10 # seconds
 msgbuf_max_msg_len=2048 # bytes
 bot_token='' # Telegram bot token
