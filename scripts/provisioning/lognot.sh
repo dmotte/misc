@@ -19,8 +19,8 @@ eval "set -- $options"
 service_manager=auto
 msgbuf_url=${MSGBUF_URL:-https://github.com/dmotte/msgbuf/releases/latest/download/msgbuf-$(uname -m)-unknown-linux-gnu}
 msgbuf_checksum=${MSGBUF_CHECKSUM:-f04eab84ecabde00b1c69971ce54add10699542a89e28c6e076365fb4593d850} # The default value is the checksum for v2.0.0 x86_64
-msgbuf_interval=10 # seconds
-msgbuf_max_msg_len=2048 # bytes
+msgbuf_interval=10000 # milliseconds
+msgbuf_max_msg_len=4000 # bytes
 bot_token='' # Telegram bot token
 chat_id='' # Telegram chat ID of the recipient
 supervisor_priority=''
@@ -111,7 +111,7 @@ if [ "$service_manager" = supervisor ]; then
     cat <<EOF > /etc/supervisor/conf.d/50-lognot.conf
 [program:lognot]
 command=/bin/bash -ec '$source_cmd |
-    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -- \\
+    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -s10 -- \\
         /bin/bash /opt/lognot/tg.sh'
 $line_priority
 directory=/opt/lognot
@@ -129,7 +129,7 @@ Type=simple
 
 WorkingDirectory=/opt/lognot
 ExecStart=/bin/bash -ec '$source_cmd | \\
-    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -- \\
+    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -s10 -- \\
         /bin/bash /opt/lognot/tg.sh'
 
 Restart=always
