@@ -135,7 +135,7 @@ Some pieces of code I find useful for some reason.
 - `bash <(curl -fsSL https://sh.rustup.rs/) -y && . ~/.cargo/env`, `rustup update`, `cargo install rust-script`
 - `export RUSTUP_HOME=~/my-portable-rust/rustup CARGO_HOME=~/my-portable-rust/cargo`, `bash <(curl -fsSL https://sh.rustup.rs/) -y --no-modify-path`, `~/my-portable-rust/cargo/bin/cargo run`
 - `mkfifo mypipe; while :; do date | tee mypipe; done`
-- `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" -dchat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
+- `date | curl -sSXPOST "https://api.telegram.org/bot${1#bot}/sendMessage" --data-urlencode 'link_preview_options={"is_disabled":true}' -dchat_id="$2" --data-urlencode text@- --fail-with-body -w'\n'`
 - `for i in 192.168.0.1{01..19}; do ping "$i" & done | grep -i 'bytes from .*: icmp_seq='`
 - `for i in var_01 VAR_02; do IFS= read -rsp "$i: " "${i?}"; if [[ "$i" = [[:upper:]]* ]]; then export "${i?}"; fi; done`
 - `shuf -en1 Alice Bob Carl`, `shuf -i1-10 -n1`
