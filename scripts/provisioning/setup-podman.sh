@@ -8,7 +8,7 @@ set -e
 # Tested on Debian 13 (trixie)
 
 # Usage example:
-#   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -cgs0 -anever -p80
+#   sudo SYSCTL_RELOAD=always bash setup-podman.sh system -clgs0 -anever -p80
 #   sudo useradd -Ums/bin/bash alice
 #   sudo loginctl enable-linger alice
 #   sudo XDG_RUNTIME_DIR=/run/user/$(id -u alice) -ualice \
@@ -34,14 +34,15 @@ elif [ "$mode" = user ]; then
     readonly containers_cfg_dir=~/.config/containers
 else echo 'Invalid mode' >&2; exit 1; fi
 
-options=$(getopt -o +cs:a:gk:p: -l compose -l socket: -l auto-update: \
-    -l pasta-map-guest-addr-none -l kube-extra-args: \
+options=$(getopt -o +cs:a:lgk:p: -l compose -l socket: -l auto-update: \
+    -l log-driver-none -l pasta-map-guest-addr-none -l kube-extra-args: \
     -l unpriv-port-start: -- "$@")
 eval "set -- $options"
 
 compose=n
 socket=$SETUP_PODMAN_SOCKET
 auto_update=$SETUP_PODMAN_AUTO_UPDATE
+log_driver_none=n
 pasta_map_guest_addr_none=n
 kube_extra_args=$SETUP_PODMAN_KUBE_EXTRA_ARGS
 unpriv_port_start=''
@@ -51,6 +52,7 @@ while :; do
         -c|--compose) compose=y;;
         -s|--socket) shift; socket=$1;;
         -a|--auto-update) shift; auto_update=$1;;
+        -l|--log-driver-none) log_driver_none=y;;
         -g|--pasta-map-guest-addr-none) pasta_map_guest_addr_none=y;;
         -k|--kube-extra-args) shift; kube_extra_args=$1;;
         -p|--unpriv-port-start) shift; unpriv_port_start=$1;;
@@ -112,6 +114,12 @@ EOF
     scoped_systemctl daemon-reload
     scoped_systemctl enable podman-auto-update.timer
     scoped_systemctl restart podman-auto-update.timer
+fi
+
+if [ "$log_driver_none" = y ]; then
+    printf '%s\n' '[containers]' 'log_driver = "none"' |
+        install -DTvm644 /dev/stdin \
+            "$containers_cfg_dir/containers.conf.d/50-log-driver-none.conf"
 fi
 
 if [ "$pasta_map_guest_addr_none" = y ]; then
