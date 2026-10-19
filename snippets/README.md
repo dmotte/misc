@@ -481,6 +481,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `podman run --rm -p8080:8080 -v.:/v docker.io/library/php:8 -S0.0.0.0:8080 -t/v`
 - `podman run --rm -uroot -v.:/v ghcr.io/plantuml/plantuml:latest -tsvg /v`
 - `podman run --rm -uroot -v.:/v -w/v ghcr.io/koedame/chordsketch:latest myfile.cho`
+- `podman run --rm docker.io/library/httpd:2.4-alpine htpasswd -Bbn myuser changeme > data/.htpasswd`, `podman run --rm -p8000:8000 -v./data:/data -eOPTIONS='--append-only --log=-' docker.io/restic/rest-server:0.14.0`
 - `podman run -it --rm --net=pasta:-I,tap0,--map-guest-addr,none,--outbound-if4,eth0,--outbound-if6,eth0 docker.io/library/alpine:latest`
 - `podman run -it --rm --net=pasta:--map-host-loopback,169.254.1.3 docker.io/library/alpine:latest`
 - `podman run -it --rm --add-host=foo:host-gateway docker.io/library/alpine:latest` (will fail with an error if Podman cannot determine the `host-gateway` address)
