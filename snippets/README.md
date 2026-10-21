@@ -177,7 +177,7 @@ Some pieces of code I find useful for some reason.
 - `gzip -tv myfile.txt.gz`
 - `dpkg -s python3`, `dpkg -l | grep -Fi pyth`
 - `comm --nocheck-order --total <(echo -e 'common\nonlyleft') <(echo -e 'common\nonlyright')`
-- `yt-dlp -Sres:720 --embed-metadata -o'myvid.%(ext)s' "$myurl"`
+- `yt-dlp -Sres:720 --embed-metadata -o'myvid.%(ext)s' "$myurl"`, `yt-dlp -f'ba[acodec^=mp3]/ba/b' -x --audio-format=mp3 --embed-metadata -o'mysong.%(ext)s' "$myurl"`
 - `install -DTv <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') .venv/bin/python3`
 - `shred -u myfile.txt`
 - `gpg -ac --cipher-algo=AES256 --no-symkey-cache -o encrypted.asc <(date)`, `gpg -d --no-symkey-cache encrypted.asc`
