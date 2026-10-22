@@ -205,6 +205,7 @@ Some pieces of code I find useful for some reason.
 - `rclone lsf myremote:`
 - `rclone --config= lsf -R --format=pst --time-format=unixnano . | sed -E 's/\/;-1;[^;]+$/\/;-1;DIR/' | LC_ALL=C sort -t\; -k1,1`
 - `rclone sync -vn --create-empty-src-dirs myremote:/remote-src-dir ./local-dst-dir`
+- `rclone --config= sync -vn --create-empty-src-dirs --modify-window=2s ./local-src-dir /media/myuser/MYFAT32`, `rclone --config= sync -vn --create-empty-src-dirs --no-update-{,dir-}modtime ./local-src-dir /media/myuser/MYFAT32`
 - `rclone --config= sync -Mvn --create-empty-src-dirs --files-from=mylist.txt ./src-dir ./dst-dir`
 - `export RCLONE_FTP_PASS=$(IFS= read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `ssh-keyscan -qp2222 192.168.0.123 >> ~/.ssh/known_hosts`, `rclone --config= sync -vn --create-empty-src-dirs . :sftp,known_hosts_file=~/.ssh/known_hosts,host=192.168.0.123,port=2222,user=myuser:mydir`
