@@ -1,31 +1,13 @@
 #!/usr/bin/env python3
 
-import requests
 import sys
 
-from collections.abc import Callable
 from flask import Flask, jsonify, send_file, redirect
 from flask.typing import ResponseReturnValue
-from requests import Response
+from werkzeug.exceptions import HTTPException, InternalServerError
 
 from lib import codespaces_api
-from lib.config import Config, get_config
-
-
-def codespaces_api_request(
-        app: Flask, cfg: Config, id: str, method: str, url_suffix: str,
-        callback: Callable[[Response], ResponseReturnValue],
-) -> ResponseReturnValue:
-    if id not in cfg.codespaces:
-        return jsonify({'message': 'Codespace not found'}), 404
-
-    try:
-        resp = codespaces_api.request(method, cfg.codespaces[id].name,
-                                      cfg.codespaces[id].token, url_suffix)
-        return callback(resp)
-    except requests.exceptions.HTTPError as e:
-        app.logger.error('HTTPError during GitHub API request: %s', e)
-        return jsonify({'message': 'Server error'}), 500
+from lib.config import get_config
 
 
 def create_app() -> Flask:
@@ -45,33 +27,52 @@ def create_app() -> Flask:
 
     app.logger.debug('Configuration: %s', cfg)
 
+    @app.errorhandler(Exception)
+    def handle_exception(e: Exception) -> ResponseReturnValue:
+        if isinstance(e, HTTPException):
+            return e
+        app.logger.error('Unhandled Exception: %s', e)
+        return InternalServerError(original_exception=e)
+
     @app.route('/list', endpoint='list')
     def route_list() -> ResponseReturnValue:
         return jsonify({'codespaces': list(cfg.codespaces.keys())}), 200
 
     @app.route('/state/<id>', endpoint='state')
     def route_state(id: str) -> ResponseReturnValue:
-        return codespaces_api_request(
-            app, cfg, id, 'get', '',
-            lambda resp: (jsonify({
-                'id': id,
-                'state': resp.json()['state'],
-            }), 200)
-        )
+        try:
+            codespace = cfg.codespaces[id]
+        except KeyError:
+            return jsonify({'message': 'Codespace not found'}), 404
+
+        resp = codespaces_api.request(
+            'get', codespace.name, codespace.token, '')
+
+        return jsonify({'id': id, 'state': resp.json()['state']}), 200
 
     @app.route('/start/<id>', methods=['POST'], endpoint='start')
     def route_start(id: str) -> ResponseReturnValue:
-        return codespaces_api_request(
-            app, cfg, id, 'post', '/start',
-            lambda resp: (jsonify({'message': 'OK'}), 200)
-        )
+        try:
+            codespace = cfg.codespaces[id]
+        except KeyError:
+            return jsonify({'message': 'Codespace not found'}), 404
+
+        codespaces_api.request(
+            'post', codespace.name, codespace.token, '/start')
+
+        return jsonify({'message': 'OK'}), 200
 
     @app.route('/stop/<id>', methods=['POST'], endpoint='stop')
     def route_stop(id: str) -> ResponseReturnValue:
-        return codespaces_api_request(
-            app, cfg, id, 'post', '/stop',
-            lambda resp: (jsonify({'message': 'OK'}), 200)
-        )
+        try:
+            codespace = cfg.codespaces[id]
+        except KeyError:
+            return jsonify({'message': 'Codespace not found'}), 404
+
+        codespaces_api.request(
+            'post', codespace.name, codespace.token, '/stop')
+
+        return jsonify({'message': 'OK'}), 200
 
     return app
 
