@@ -1,8 +1,11 @@
 # cslcmgr
 
-**C**ode**S**pace **L**ife**C**ycle **M**ana**g**e**r**: a **Web API server** (with optional **Web UI frontend**) that can be used to **start and stop GitHub Codespaces**.
+**C**ode**S**pace **L**ife**C**ycle **M**ana**g**e**r**: a tool that can be used to **start and stop GitHub Codespaces** using a **GitHub PAT** (_Personal Access Token_).
 
-This is meant to be run locally on your PC, or behind a reverse proxy with **authentication**.
+This can be used in two ways:
+
+- [`app.py`](app.py): **Web API server** (with optional **Web UI frontend**), meant to be run locally on your PC, or behind a reverse proxy with **authentication**
+- [`main.py`](main.py): **CLI** application
 
 ## Usage
 
@@ -33,7 +36,7 @@ export CSLCMGR_UI=true \
 
 > **Note**: for more details about the supported environment variables, see code in the [`lib/config.py`](lib/config.py) file.
 
-Then you can run the app either in a **development** or **production** configuration.
+Then you can run the web app either in a **development** or **production** configuration.
 
 **Development**:
 
@@ -48,3 +51,9 @@ CSLCMGR_LOG_LEVEL=DEBUG .venv/bin/python3 app.py
 ```
 
 > **Note**: for more information about running a _Flask_ application with _Gunicorn_, see https://flask.palletsprojects.com/en/stable/deploying/gunicorn/
+
+If you want to use the **CLI app** instead, please refer to its help message:
+
+```bash
+python3 main.py --help
+```
