@@ -31,7 +31,7 @@ export CSLCMGR_UI=true \
     CSLCMGR_TOKENS=github_pat_XXXXX,github_pat_XXXXX
 ```
 
-> **Note**: for more details about the supported environment variables, see the [`lib/config.py`](lib/config.py) file.
+> **Note**: for more details about the supported environment variables, see code in the [`lib/config.py`](lib/config.py) file.
 
 Then you can run the app either in a **development** or **production** configuration.
 
