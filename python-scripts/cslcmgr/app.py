@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import os
-import re
 import requests
 import sys
 
@@ -9,85 +7,21 @@ from collections.abc import Callable
 from flask import Flask, jsonify, send_file, redirect
 from flask.typing import ResponseReturnValue
 from requests import Response
-from types import SimpleNamespace
 
-GITHUB_API_VERSION = '2026-03-10'
-
-CODESPACE_ID_REGEX = re.compile(r'\A[0-9A-Za-z-]+\Z')
+from lib import codespaces_api
+from lib.config import Config, get_config
 
 
-def get_config() -> SimpleNamespace:
-    cfg_lists = {
-        k: [] if v is None else v.split(',')
-        for k, v in {
-            # Custom internal IDs of the codespaces. You can freely choose
-            # these, but they have to be unique
-            'ids': os.getenv('CSLCMGR_IDS', None),
-            # Names of the codespaces
-            'names': os.getenv('CSLCMGR_NAMES', None),
-            # Tokens for each codespace
-            'tokens': os.getenv('CSLCMGR_TOKENS', None),
-        }.items()
-    }
-
-    len_ids = len(cfg_lists['ids'])
-    len_tokens = len(cfg_lists['tokens'])
-
-    if len_ids <= 0:
-        raise ValueError('No codespaces defined')
-    if len(cfg_lists['names']) != len_ids:
-        raise ValueError('IDs and names lists length mismatch')
-    if len_tokens <= 0:
-        raise ValueError('No tokens defined')
-    if len_tokens > len_ids:
-        raise ValueError('Too many tokens defined')
-
-    if cfg_lists['tokens'][0] == '':
-        raise ValueError('The first token cannot be empty')
-
-    for i, id in enumerate(cfg_lists['ids']):
-        if not CODESPACE_ID_REGEX.fullmatch(id):
-            raise ValueError('Invalid codespace ID: ' + id)
-
-        if i >= len_tokens:
-            cfg_lists['tokens'].append(cfg_lists['tokens'][-1])
-        elif cfg_lists['tokens'][i] == '':
-            cfg_lists['tokens'][i] = cfg_lists['tokens'][i - 1]
-
-    return SimpleNamespace(
-        # Logging level
-        log_level=os.getenv('CSLCMGR_LOG_LEVEL', 'INFO'),
-        # Whether or not to enable the Web UI (frontend)
-        ui=os.getenv('CSLCMGR_UI', 'false') == 'true',
-
-        codespaces={
-            id: SimpleNamespace(
-                name=cfg_lists['names'][i],
-                token=cfg_lists['tokens'][i],
-            )
-            for i, id in enumerate(cfg_lists['ids'])
-        },
-    )
-
-
-def github_api_call(
-    cfg: SimpleNamespace, app: Flask, req_method: Callable[..., Response],
-    url_suffix: str, id: str,
-    callback: Callable[[Response], ResponseReturnValue],
+def codespaces_api_request(
+        app: Flask, cfg: Config, id: str, method: str, url_suffix: str,
+        callback: Callable[[Response], ResponseReturnValue],
 ) -> ResponseReturnValue:
     if id not in cfg.codespaces:
         return jsonify({'message': 'Codespace not found'}), 404
 
-    resp = req_method(
-        f'https://api.github.com/user/codespaces/{cfg.codespaces[id].name}{url_suffix}',
-        headers={
-            'Accept': 'application/vnd.github+json',
-            'Authorization': f'Bearer {cfg.codespaces[id].token}',
-            'X-GitHub-Api-Version': GITHUB_API_VERSION,
-        })
-
     try:
-        resp.raise_for_status()
+        resp = codespaces_api.request(method, cfg.codespaces[id].name,
+                                      cfg.codespaces[id].token, url_suffix)
         return callback(resp)
     except requests.exceptions.HTTPError as e:
         app.logger.error('HTTPError during GitHub API request: %s', e)
@@ -117,8 +51,8 @@ def create_app() -> Flask:
 
     @app.route('/state/<id>', endpoint='state')
     def route_state(id: str) -> ResponseReturnValue:
-        return github_api_call(
-            cfg, app, requests.get, '', id,
+        return codespaces_api_request(
+            app, cfg, id, 'get', '',
             lambda resp: (jsonify({
                 'id': id,
                 'state': resp.json()['state'],
@@ -127,15 +61,15 @@ def create_app() -> Flask:
 
     @app.route('/start/<id>', methods=['POST'], endpoint='start')
     def route_start(id: str) -> ResponseReturnValue:
-        return github_api_call(
-            cfg, app, requests.post, '/start', id,
+        return codespaces_api_request(
+            app, cfg, id, 'post', '/start',
             lambda resp: (jsonify({'message': 'OK'}), 200)
         )
 
     @app.route('/stop/<id>', methods=['POST'], endpoint='stop')
     def route_stop(id: str) -> ResponseReturnValue:
-        return github_api_call(
-            cfg, app, requests.post, '/stop', id,
+        return codespaces_api_request(
+            app, cfg, id, 'post', '/stop',
             lambda resp: (jsonify({'message': 'OK'}), 200)
         )
 

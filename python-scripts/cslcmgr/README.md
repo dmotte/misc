@@ -31,7 +31,7 @@ export CSLCMGR_UI=true \
     CSLCMGR_TOKENS=github_pat_XXXXX,github_pat_XXXXX
 ```
 
-> **Note**: for more details about the supported environment variables, see the `get_config` function [in the code](app.py).
+> **Note**: for more details about the supported environment variables, see the [`lib/config.py`](lib/config.py) file.
 
 Then you can run the app either in a **development** or **production** configuration.
 
@@ -47,4 +47,4 @@ CSLCMGR_LOG_LEVEL=DEBUG .venv/bin/python3 app.py
 .venv/bin/python3 -mgunicorn --access-logfile=- -w4 -b127.0.0.1:8000 'app:create_app()'
 ```
 
-> **Note**: for more information about running a _Flask_ application with _Gunicorn_, see https://flask.palletsprojects.com/en/3.0.x/deploying/gunicorn/
+> **Note**: for more information about running a _Flask_ application with _Gunicorn_, see https://flask.palletsprojects.com/en/stable/deploying/gunicorn/
