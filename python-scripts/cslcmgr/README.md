@@ -47,7 +47,7 @@ CSLCMGR_LOG_LEVEL=DEBUG .venv/bin/python3 app.py
 **Production**:
 
 ```bash
-.venv/bin/python3 -mgunicorn --access-logfile=- -w4 -b127.0.0.1:8000 'app:create_app()'
+.venv/bin/python3 -mgunicorn --access-logfile=- --no-control-socket -w4 -b127.0.0.1:8000 'app:create_app()'
 ```
 
 > **Note**: for more information about running a _Flask_ application with _Gunicorn_, see https://flask.palletsprojects.com/en/stable/deploying/gunicorn/
