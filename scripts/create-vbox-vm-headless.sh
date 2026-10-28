@@ -11,9 +11,9 @@ set -e
 #   bash create-vbox-vm-headless.sh -nMyVM -m2048 -d20480,102400 \
 #     -fSSH,tcp,127.0.0.1,2201,,22 -fHTTP,tcp,127.0.0.1,8001,,80 -sheadless
 
-options=$(getopt -o +n:o:D:c:m:d:i:f:s: -l name: -l os: -l desc: \
-    -l cpus: -l mem: -l disks: -l iso: -l fwd: \
-    -l snap-name: -l snap-desc: -l start: -- "$@")
+options=$(getopt -o +n:o:D:c:m:d:i:f:s: -l name:,os:,desc: \
+    -l cpus:,mem:,disks:,iso:,fwd: \
+    -l snap-name:,snap-desc:,start: -- "$@")
 eval "set -- $options"
 
 name=
