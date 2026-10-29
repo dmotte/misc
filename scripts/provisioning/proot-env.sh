@@ -19,8 +19,8 @@ set -e
 # - https://wiki.termux.com/wiki/PRoot
 # - https://github.com/termux/proot-distro/blob/master/proot-distro.sh
 
-options=$(getopt -o + -l tarball-url: -l tarball-checksum: \
-    -l tarball-top-dir: -l cwd: -- "$@")
+options=$(getopt -o + -l tarball-url:,tarball-checksum: \
+    -l tarball-top-dir:,cwd: -- "$@")
 eval "set -- $options"
 
 tarball_url=https://github.com/termux/proot-distro/releases/download/v4.7.0/debian-bookworm-x86_64-pd-v4.7.0.tar.xz
