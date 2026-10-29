@@ -14,8 +14,8 @@ set -e
 # multiple Go environments installed):
 # ln -Tfsv ~/apps/go1.20.7/go ~/go
 
-options=$(getopt -o +a:c:d:sp -l arch: -l checksum: -l install-dir: \
-    -l symlink -l symlink-to-path -- "$@")
+options=$(getopt -o +a:c:d:sp -l arch:,checksum:,install-dir: \
+    -l symlink,symlink-to-path -- "$@")
 eval "set -- $options"
 
 arch=amd64
