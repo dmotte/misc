@@ -15,8 +15,7 @@ set -e
 # You can also add a custom keymap with a command like the following one:
 # curl -fLo ~/apps/freepiano/freepiano/keymap/dmotte-intuitive.map https://raw.githubusercontent.com/dmotte/misc/main/configs/freepiano-keymaps/dmotte-intuitive.map
 
-options=$(getopt -o +o:c:d:l: -l os: -l checksum: -l install-dir: \
-    -l launcher: -- "$@")
+options=$(getopt -o +o:c:d:l: -l os:,checksum:,install-dir:,launcher: -- "$@")
 eval "set -- $options"
 
 os=''
