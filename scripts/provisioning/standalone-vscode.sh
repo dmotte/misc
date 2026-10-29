@@ -15,8 +15,8 @@ set -e
 # https://github.com/VSCodium/vscodium/releases/latest/download/VSCodium-linux-x64-1.135.06055.tar.gz,
 # plus some minor adjustments to the script
 
-options=$(getopt -o +b:o:a:c:d:uDl: -l build: -l os: -l arch: -l checksum: \
-    -l install-dir: -l update -l create-data -l launcher: -- "$@")
+options=$(getopt -o +b:o:a:c:d:uDl: -l build:,os:,arch:,checksum: \
+    -l install-dir:,update,create-data,launcher: -- "$@")
 eval "set -- $options"
 
 build=stable
