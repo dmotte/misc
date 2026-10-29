@@ -13,8 +13,8 @@ set -e
 # To run this script without downloading it:
 # bash <(curl -fsSL https://raw.githubusercontent.com/dmotte/misc/main/scripts/provisioning/standalone-reaper.sh) -ulauto 7.34
 
-options=$(getopt -o +a:c:d:ul: -l arch: -l checksum: -l install-dir: \
-    -l update -l launcher: -- "$@")
+options=$(getopt -o +a:c:d:ul: -l arch:,checksum:,install-dir: \
+    -l update,launcher: -- "$@")
 eval "set -- $options"
 
 arch=x86_64
