@@ -34,8 +34,8 @@ elif [ "$mode" = user ]; then
     readonly containers_cfg_dir=~/.config/containers
 else echo 'Invalid mode' >&2; exit 1; fi
 
-options=$(getopt -o +cs:a:lgk:p: -l compose -l socket: -l auto-update: \
-    -l log-driver-none -l pasta-map-guest-addr-none -l kube-extra-args: \
+options=$(getopt -o +cs:a:lgk:p: -l compose,socket:,auto-update: \
+    -l log-driver-none,pasta-map-guest-addr-none,kube-extra-args: \
     -l unpriv-port-start: -- "$@")
 eval "set -- $options"
 
