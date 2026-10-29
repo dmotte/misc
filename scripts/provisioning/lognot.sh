@@ -72,9 +72,7 @@ if [ ! -e /opt/lognot/msgbuf ]; then
     chmod -v 700 /opt/lognot/msgbuf
 fi
 
-echo 'Creating lognot service files'
-
-install -Tm700 /dev/stdin /opt/lognot/tg.sh <<EOF
+install -Tvm700 /dev/stdin /opt/lognot/tg.sh <<EOF
 #!/bin/bash
 
 set -e
@@ -87,7 +85,7 @@ exec curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
     -dchat_id="\$chat_id" --data-urlencode text@- --fail-with-body -w'\n'
 EOF
 
-cat <<EOF > /etc/systemd/system/lognot.service
+install -Tvm644 /dev/stdin /etc/systemd/system/lognot.service <<EOF
 [Unit]
 Description=lognot
 
