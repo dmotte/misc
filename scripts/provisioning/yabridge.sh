@@ -16,7 +16,7 @@ set -e
 #   yabridgectl add ~/.wine/drive_c/'Program Files/Steinberg/VSTPlugins'
 #   yabridgectl sync
 
-options=$(getopt -o +c:p -l checksum: -l add-to-path -- "$@")
+options=$(getopt -o +c:p -l checksum:,add-to-path -- "$@")
 eval "set -- $options"
 
 checksum=''
