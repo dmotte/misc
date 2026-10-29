@@ -15,7 +15,7 @@ set -e
 # https://github.com/raspberrypi/rpi-imager/blob/e44ba7007432086b456e8759a7d3dee757f90ec6/debian/com.raspberrypi.rpi-imager.policy
 # for more information on how this works
 
-options=$(getopt -o +c:d:l: -l checksum: -l install-dir: -l launcher: -- "$@")
+options=$(getopt -o +c:d:l: -l checksum:,install-dir:,launcher: -- "$@")
 eval "set -- $options"
 
 checksum=''
