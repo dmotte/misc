@@ -41,12 +41,10 @@ dpkg -s python3-psutil >/dev/null 2>&1 ||
 
 install -o"$running_user" -g"$running_user" -dvm700 /opt/perfmon
 
-echo 'Creating perfmon service files'
-
-install -o"$running_user" -g"$running_user" -Tm700 \
+install -o"$running_user" -g"$running_user" -Tvm700 \
     perfmon.py /opt/perfmon/main.py
 
-cat <<EOF > /etc/systemd/system/perfmon.service
+install -Tvm644 /dev/stdin /etc/systemd/system/perfmon.service <<EOF
 [Unit]
 Description=perfmon
 
