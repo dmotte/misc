@@ -37,8 +37,6 @@ if ! id kioskuser >/dev/null 2>&1; then
     useradd -Ums/bin/bash kioskuser
 fi
 
-echo 'Creating kiosk service files'
-
 install -okioskuser -gkioskuser -dvm700 \
     ~kioskuser/.config{,/xkb{,/symbols,/rules}}
 

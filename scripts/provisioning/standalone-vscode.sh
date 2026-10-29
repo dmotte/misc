@@ -123,7 +123,7 @@ fi
 # https://code.visualstudio.com/docs/editor/portable
 if [ "$create_data" = y ] && [ ! -d "$data_dir" ]; then
     echo "Creating data dir $data_dir"
-    mkdir "$data_dir"
+    mkdir -v "$data_dir"
 fi
 
 if [ -n "$launcher" ]; then
@@ -131,7 +131,7 @@ if [ -n "$launcher" ]; then
     if [ "$os" = win32 ]; then
         create-shortcut "$app_dir/Code.exe" "$launcher"
     else
-        install -Tm644 /dev/stdin "$launcher" <<EOF
+        install -Tvm644 /dev/stdin "$launcher" <<EOF
 [Desktop Entry]
 Type=Application
 Name=Visual Studio Code
