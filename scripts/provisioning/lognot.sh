@@ -10,33 +10,28 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o +i:m:b:c: -l service-manager: \
-    -l msgbuf-url:,msgbuf-checksum: \
+options=$(getopt -o +i:m:b:c: -l msgbuf-url:,msgbuf-checksum: \
     -l msgbuf-interval:,msgbuf-max-msg-len:,bot-token:,chat-id: \
-    -l supervisor-priority:,systemd-restartsec:,systemd-wantedby: -- "$@")
+    -l systemd-restartsec:,systemd-wantedby: -- "$@")
 eval "set -- $options"
 
-service_manager=auto
 msgbuf_url=${MSGBUF_URL:-https://github.com/dmotte/msgbuf/releases/latest/download/msgbuf-$(uname -m)-unknown-linux-gnu}
 msgbuf_checksum=${MSGBUF_CHECKSUM:-f04eab84ecabde00b1c69971ce54add10699542a89e28c6e076365fb4593d850} # The default value is the checksum for v2.0.0 x86_64
 msgbuf_interval=10000 # milliseconds
 msgbuf_max_msg_len=4000 # bytes
 bot_token='' # Telegram bot token
 chat_id='' # Telegram chat ID of the recipient
-supervisor_priority=''
 systemd_restartsec=30
 systemd_wantedby=multi-user.target
 
 while :; do
     case $1 in
-        --service-manager) shift; service_manager=$1;;
         --msgbuf-url) shift; msgbuf_url=$1;;
         --msgbuf-checksum) shift; msgbuf_checksum=$1;;
         -i|--msgbuf-interval) shift; msgbuf_interval=$1;;
         -m|--msgbuf-max-msg-len) shift; msgbuf_max_msg_len=$1;;
         -b|--bot-token) shift; bot_token=$1;;
         -c|--chat-id) shift; chat_id=$1;;
-        --supervisor-priority) shift; supervisor_priority=$1;;
         --systemd-restartsec) shift; systemd_restartsec=$1;;
         --systemd-wantedby) shift; systemd_wantedby=$1;;
         --) shift; break;;
@@ -45,9 +40,6 @@ while :; do
 done
 
 source_cmd=$* # Warning: some characters are forbidden. See the code below
-
-[[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] ||
-    { echo "Unsupported service manager: $service_manager" >&2; exit 1; }
 
 [ -n "$source_cmd" ] || { echo 'Source command cannot be empty' >&2; exit 1; }
 { [[ "$source_cmd" != *\'* ]] && [[ "$source_cmd" != *$'\n'* ]]; } ||
@@ -64,19 +56,7 @@ apt_update_if_old() {
 
 ################################################################################
 
-if [ "$service_manager" = auto ]; then
-    if command -v supervisord >/dev/null; then service_manager=supervisor
-    else service_manager=systemd; fi
-
-    echo "Detected service manager: $service_manager"
-fi
-
 bot_token=${bot_token#bot}
-
-if [ -n "$supervisor_priority" ]
-    then line_priority=priority=$supervisor_priority; fi
-
-################################################################################
 
 [ -e /opt/lognot ] || changing=y
 
@@ -107,17 +87,7 @@ exec curl -sSXPOST "https://api.telegram.org/bot\$bot_token/sendMessage" \\
     -dchat_id="\$chat_id" --data-urlencode text@- --fail-with-body -w'\n'
 EOF
 
-if [ "$service_manager" = supervisor ]; then
-    cat <<EOF > /etc/supervisor/conf.d/50-lognot.conf
-[program:lognot]
-command=/bin/bash -ec '$source_cmd |
-    /opt/lognot/msgbuf -i$msgbuf_interval -m$msgbuf_max_msg_len -s10 -- \\
-        /bin/bash /opt/lognot/tg.sh'
-$line_priority
-directory=/opt/lognot
-EOF
-elif [ "$service_manager" = systemd ]; then
-    cat <<EOF > /etc/systemd/system/lognot.service
+cat <<EOF > /etc/systemd/system/lognot.service
 [Unit]
 Description=lognot
 
@@ -138,20 +108,15 @@ RestartSec=$systemd_restartsec
 [Install]
 WantedBy=$systemd_wantedby
 EOF
-    echo 'Reloading systemd config and enabling lognot service'
-    systemctl daemon-reload; systemctl enable lognot
-fi
+
+echo 'Reloading systemd config and enabling lognot service'
+systemctl daemon-reload; systemctl enable lognot
 
 ################################################################################
 
 if [ "$LOGNOT_RELOAD" = always ] || {
     [ "$LOGNOT_RELOAD" = when-changed ] && [ "$changing" = y ]
 }; then
-    if [ "$service_manager" = supervisor ]; then
-        echo 'Running supervisorctl update'
-        supervisorctl update
-    elif [ "$service_manager" = systemd ]; then
-        echo 'Restarting lognot'
-        systemctl restart lognot
-    fi
+    echo 'Restarting lognot'
+    systemctl restart lognot
 fi
