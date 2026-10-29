@@ -21,11 +21,9 @@ dpkg -s python3-rpi.gpio >/dev/null 2>&1 ||
 
 install -dvm700 /opt/raspi-safe-shutdown
 
-echo 'Creating raspi-safe-shutdown service files'
+install -Tvm700 raspi-safe-shutdown.py /opt/raspi-safe-shutdown/main.py
 
-install -Tm700 raspi-safe-shutdown.py /opt/raspi-safe-shutdown/main.py
-
-cat <<EOF > /etc/systemd/system/raspi-safe-shutdown.service
+install -Tvm644 /dev/stdin /etc/systemd/system/raspi-safe-shutdown.service <<EOF
 [Unit]
 Description=raspi-safe-shutdown
 
