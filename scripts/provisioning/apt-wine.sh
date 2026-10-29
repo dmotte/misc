@@ -52,7 +52,8 @@ dpkg --add-architecture i386
 
 [ -e "/etc/apt/sources.list.d/winehq-$codename.sources" ] || changing=y
 
-tee "/etc/apt/sources.list.d/winehq-$codename.sources" <<EOF
+install -Tvm644 /dev/stdin \
+    "/etc/apt/sources.list.d/winehq-$codename.sources" <<EOF
 Types: deb
 URIs: https://dl.winehq.org/wine-builds/debian
 Suites: $codename
