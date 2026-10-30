@@ -11,23 +11,23 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o +n:r: -l name-suffix: \
-    -l running-user:,keepalive-interval:,restart-interval: \
-    -l systemd-wantedby: -- "$@")
+options=$(getopt -o +n:s: -l name-suffix: \
+    -l keepalive-interval:,restart-interval: \
+    -l service:,systemd-wantedby: -- "$@")
 eval "set -- $options"
 
 name_suffix='' # Warning: some characters are forbidden. See the code below
-running_user=''
 keepalive_interval=30
 restart_interval=30
+service_lines=()
 systemd_wantedby=multi-user.target
 
 while :; do
     case $1 in
         -n|--name-suffix) shift; name_suffix=$1;;
-        -r|--running-user) shift; running_user=$1;;
         --keepalive-interval) shift; keepalive_interval=$1;;
         --restart-interval) shift; restart_interval=$1;;
+        -s|--service) shift; service_lines+=("$1");;
         --systemd-wantedby) shift; systemd_wantedby=$1;;
         --) shift; break;;
     esac
@@ -39,8 +39,6 @@ ssh_args=$* # Warning: some characters are forbidden. See the code below
 [[ "$name_suffix" =~ ^[0-9A-Za-z-]+$ ]] ||
     { echo "Invalid name suffix: $name_suffix" >&2; exit 1; }
 
-[ -n "$running_user" ] || { echo 'Running user cannot be empty' >&2; exit 1; }
-
 [ -n "$ssh_args" ] || { echo 'SSH args cannot be empty' >&2; exit 1; }
 { [[ "$ssh_args" != *\'* ]] && [[ "$ssh_args" != *$'\n'* ]]; } ||
     { echo 'The SSH args string contains invalid characters' >&2; exit 1; }
@@ -48,7 +46,7 @@ ssh_args=$* # Warning: some characters are forbidden. See the code below
 ################################################################################
 
 readonly service_name=portfwd-client-$name_suffix
-running_user_home=$(getent passwd "$running_user" | cut -d: -f6)
+
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
 ################################################################################
@@ -65,12 +63,8 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-
-User=$running_user
-
-WorkingDirectory=$running_user_home
 ExecStart=$ssh_command
-
+$(printf '%s\n' "${service_lines[@]}")
 Restart=always
 RestartSec=$restart_interval
 
