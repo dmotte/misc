@@ -7,20 +7,20 @@ set -e
 
 # Tested on Debian 13 (trixie)
 
-options=$(getopt -o +un:e:w: -l user,name:,event-expr:,workdir: -- "$@")
+options=$(getopt -o +un:e:s: -l user,name:,event-expr:,service: -- "$@")
 eval "set -- $options"
 
 user=n
 name='' # Warning: some characters are forbidden. See the code below
 event_expr=''
-workdir=''
+service_lines=()
 
 while :; do
     case $1 in
         -u|--user) user=y;;
         -n|--name) shift; name=$1;;
         -e|--event-expr) shift; event_expr=$1;;
-        -w|--workdir) shift; workdir=$1;;
+        -s|--service) shift; service_lines+=("$1");;
         --) shift; break;;
     esac
     shift
@@ -50,8 +50,6 @@ fi
 
 ################################################################################
 
-if [ -n "$workdir" ]; then line_workdir=WorkingDirectory=$workdir; fi
-
 [ -e "$systemd_units_dir/$name.service" ] || changing=y
 
 install -DTvm644 /dev/stdin "$systemd_units_dir/$name.service" <<EOF
@@ -61,9 +59,8 @@ After=network.target network-online.target systemd-networkd.service NetworkManag
 
 [Service]
 Type=oneshot
-
-$line_workdir
 ExecStart=$command
+$(printf '%s\n' "${service_lines[@]}")
 EOF
 
 install -DTvm644 /dev/stdin "$systemd_units_dir/$name.timer" <<EOF
