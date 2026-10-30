@@ -63,7 +63,7 @@ if [ "$service_manager" = auto ]; then
     echo "Detected service manager: $service_manager"
 fi
 
-readonly service_name=portmap-$name_suffix
+readonly service_name=portfwd-client-$name_suffix
 running_user_home=$(getent passwd "$running_user" | cut -d: -f6)
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
@@ -117,14 +117,14 @@ fi
 
 ################################################################################
 
-if [ "$PORTMAP_RELOAD" = always ] || {
-    [ "$PORTMAP_RELOAD" = when-changed ] && [ "$changing" = y ]
+if [ "$PORTFWD_CLIENT_RELOAD" = always ] || {
+    [ "$PORTFWD_CLIENT_RELOAD" = when-changed ] && [ "$changing" = y ]
 }; then
     if [ "$service_manager" = supervisor ]; then
-        if [ "$PORTMAP_RELOAD_MODE" = pid1-sighup ]; then
+        if [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sighup ]; then
             echo 'Sending SIGHUP to PID 1'
             kill -sHUP 1
-        elif [ "$PORTMAP_RELOAD_MODE" = pid1-sigterm ]; then
+        elif [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sigterm ]; then
             echo 'Sending SIGTERM to PID 1'
             # The container will restart if its restart policy is set that way
             kill 1
