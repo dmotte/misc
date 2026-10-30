@@ -9,8 +9,6 @@ set -e
 
 # Tested on Debian 13 (trixie)
 
-[ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
-
 options=$(getopt -o +n:c:p: -l name:,cfgfile: \
     -l keepalive-interval:,restart-interval: \
     -l program: -- "$@")
