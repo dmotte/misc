@@ -2,6 +2,8 @@
 
 set -e
 
+# TODO fix this script
+
 # This script can be used to set up a TCP port-forwarding SSH tunnel. It's
 # basically the equivalent of
 # https://github.com/dmotte/docker-images/tree/main/portfwd-client but as a
