@@ -12,7 +12,7 @@ set -e
 
 options=$(getopt -o +a:b:c: -l msgbuf-url:,msgbuf-checksum: \
     -l msgbuf-args:,bot-token:,chat-id: \
-    -l systemd-restartsec:,systemd-wantedby: -- "$@")
+    -l systemd-restartsec: -- "$@")
 eval "set -- $options"
 
 msgbuf_url=${MSGBUF_URL:-https://github.com/dmotte/msgbuf/releases/latest/download/msgbuf-$(uname -m)-unknown-linux-gnu}
@@ -21,7 +21,6 @@ msgbuf_args=''
 bot_token='' # Telegram bot token
 chat_id='' # Telegram chat ID of the recipient
 systemd_restartsec=30
-systemd_wantedby=multi-user.target
 
 while :; do
     case $1 in
@@ -31,7 +30,6 @@ while :; do
         -b|--bot-token) shift; bot_token=$1;;
         -c|--chat-id) shift; chat_id=$1;;
         --systemd-restartsec) shift; systemd_restartsec=$1;;
-        --systemd-wantedby) shift; systemd_wantedby=$1;;
         --) shift; break;;
     esac
     shift
@@ -107,7 +105,7 @@ Restart=always
 RestartSec=$systemd_restartsec
 
 [Install]
-WantedBy=$systemd_wantedby
+WantedBy=multi-user.target
 EOF
 
 echo 'Reloading systemd config and enabling lognot service'
