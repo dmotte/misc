@@ -11,19 +11,19 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o +n:p: -l name-suffix: \
+options=$(getopt -o +n:p: -l name: \
     -l keepalive-interval:,restart-interval: \
     -l program: -- "$@")
 eval "set -- $options"
 
-name_suffix='' # Warning: some characters are forbidden. See the code below
+name='' # Warning: some characters are forbidden. See the code below
 keepalive_interval=30
 restart_interval=30
 program_lines=()
 
 while :; do
     case $1 in
-        -n|--name-suffix) shift; name_suffix=$1;;
+        -n|--name) shift; name=$1;;
         --keepalive-interval) shift; keepalive_interval=$1;;
         --restart-interval) shift; restart_interval=$1;;
         -p|--program) shift; program_lines+=("$1");;
@@ -34,8 +34,8 @@ done
 
 ssh_args=$* # Warning: some characters are forbidden. See the code below
 
-[[ "$name_suffix" =~ ^[0-9A-Za-z-]+$ ]] ||
-    { echo "Invalid name suffix: $name_suffix" >&2; exit 1; }
+[[ "$name" =~ ^[0-9A-Za-z-]+$ ]] ||
+    { echo "Invalid name: $name" >&2; exit 1; }
 
 [ -n "$ssh_args" ] || { echo 'SSH args cannot be empty' >&2; exit 1; }
 { [[ "$ssh_args" != *\'* ]] && [[ "$ssh_args" != *$'\n'* ]]; } ||
@@ -43,7 +43,7 @@ ssh_args=$* # Warning: some characters are forbidden. See the code below
 
 ################################################################################
 
-readonly service_name=portfwd-client-$name_suffix
+readonly service_name=portfwd-client-$name
 
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
