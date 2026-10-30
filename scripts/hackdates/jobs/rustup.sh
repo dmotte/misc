@@ -4,10 +4,6 @@ set -e
 
 echo 'Checking for updates to Rust toolchains and rustup'
 
-text=$(rustup check 2>&1)
-text=$(echo "$text" | grep -i 'Update available' || :)
-
-if [ -z "$text" ]
-    then echo 'OK'
-    else echo "$text" >&2; exit 1 # You can run "rustup update" to update
-fi
+# This will return status code 100 if there are any updates. See
+# https://blog.rust-lang.org/2026/03/12/Rustup-1.29.0/
+exec rustup check # You can run "rustup update" to update
