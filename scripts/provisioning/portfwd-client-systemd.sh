@@ -52,8 +52,7 @@ readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oE
 
 [ -e "/etc/systemd/system/$fullname.service" ] || changing=y
 
-install -Tvm644 /dev/stdin \
-    "/etc/systemd/system/$fullname.service" <<EOF
+install -Tvm644 /dev/stdin "/etc/systemd/system/$fullname.service" <<EOF
 [Unit]
 Description=$fullname
 
