@@ -7,12 +7,14 @@ set -e
 
 # Tested on Debian 13 (trixie)
 
-options=$(getopt -o +un:e:s: -l user,name:,event-expr:,service: -- "$@")
+options=$(getopt -o +un:e:as: -l user,name: \
+    -l event-expr:,after-network,service: -- "$@")
 eval "set -- $options"
 
 user=n
 name='' # Warning: some characters are forbidden. See the code below
 event_expr=''
+after_network=n
 service_lines=()
 
 while :; do
@@ -20,6 +22,7 @@ while :; do
         -u|--user) user=y;;
         -n|--name) shift; name=$1;;
         -e|--event-expr) shift; event_expr=$1;;
+        -a|--after-network) after_network=y;;
         -s|--service) shift; service_lines+=("$1");;
         --) shift; break;;
     esac
@@ -50,12 +53,17 @@ fi
 
 ################################################################################
 
+[ "$after_network" != y ] || line_after="After=\
+network.target network-online.target \
+NetworkManager.service connman.service \
+networking.service systemd-networkd.service"
+
 [ -e "$systemd_units_dir/$name.service" ] || changing=y
 
 install -DTvm644 /dev/stdin "$systemd_units_dir/$name.service" <<EOF
 [Unit]
 Description=$name service
-After=network.target network-online.target NetworkManager.service connman.service networking.service systemd-networkd.service
+$line_after
 
 [Service]
 Type=oneshot
