@@ -13,14 +13,13 @@ set -e
 
 options=$(getopt -o +n:s: -l name: \
     -l keepalive-interval:,restart-interval: \
-    -l service:,systemd-wantedby: -- "$@")
+    -l service: -- "$@")
 eval "set -- $options"
 
 name='' # Warning: some characters are forbidden. See the code below
 keepalive_interval=30
 restart_interval=30
 service_lines=()
-systemd_wantedby=multi-user.target
 
 while :; do
     case $1 in
@@ -28,7 +27,6 @@ while :; do
         --keepalive-interval) shift; keepalive_interval=$1;;
         --restart-interval) shift; restart_interval=$1;;
         -s|--service) shift; service_lines+=("$1");;
-        --systemd-wantedby) shift; systemd_wantedby=$1;;
         --) shift; break;;
     esac
     shift
@@ -70,7 +68,7 @@ Restart=always
 RestartSec=$restart_interval
 
 [Install]
-WantedBy=$systemd_wantedby
+WantedBy=multi-user.target
 EOF
 
 echo "Reloading systemd config and enabling $fullname service"
