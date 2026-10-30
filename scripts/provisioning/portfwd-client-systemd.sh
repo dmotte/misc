@@ -55,7 +55,7 @@ readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oE
 install -Tvm644 /dev/stdin "/etc/systemd/system/$fullname.service" <<EOF
 [Unit]
 Description=$fullname
-After=network.target network-online.target NetworkManager.service connman.service systemd-networkd.service
+After=network.target network-online.target NetworkManager.service connman.service networking.service systemd-networkd.service
 
 # Disable unit start rate limiting
 StartLimitIntervalSec=0
