@@ -54,9 +54,7 @@ if [ -n "$workdir" ]; then line_workdir=WorkingDirectory=$workdir; fi
 
 [ -e "$systemd_units_dir/$name.service" ] || changing=y
 
-echo "Creating $name service and timer"
-
-install -DTm644 /dev/stdin "$systemd_units_dir/$name.service" <<EOF
+install -DTvm644 /dev/stdin "$systemd_units_dir/$name.service" <<EOF
 [Unit]
 Description=$name service
 After=network.target network-online.target systemd-networkd.service NetworkManager.service connman.service
@@ -68,7 +66,7 @@ $line_workdir
 ExecStart=$command
 EOF
 
-install -DTm644 /dev/stdin "$systemd_units_dir/$name.timer" <<EOF
+install -DTvm644 /dev/stdin "$systemd_units_dir/$name.timer" <<EOF
 [Unit]
 Description=$name timer
 
