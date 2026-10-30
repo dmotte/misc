@@ -44,18 +44,18 @@ ssh_args=$* # Warning: some characters are forbidden. See the code below
 
 ################################################################################
 
-readonly service_name=portfwd-client-$name
+readonly fullname=portfwd-client-$name
 
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
 ################################################################################
 
-[ -e "/etc/systemd/system/$service_name.service" ] || changing=y
+[ -e "/etc/systemd/system/$fullname.service" ] || changing=y
 
 install -Tvm644 /dev/stdin \
-    "/etc/systemd/system/$service_name.service" <<EOF
+    "/etc/systemd/system/$fullname.service" <<EOF
 [Unit]
-Description=$service_name
+Description=$fullname
 
 # Disable unit start rate limiting
 StartLimitIntervalSec=0
@@ -71,14 +71,14 @@ RestartSec=$restart_interval
 WantedBy=$systemd_wantedby
 EOF
 
-echo "Reloading systemd config and enabling $service_name service"
-systemctl daemon-reload; systemctl enable "$service_name"
+echo "Reloading systemd config and enabling $fullname service"
+systemctl daemon-reload; systemctl enable "$fullname"
 
 ################################################################################
 
 if [ "$PORTFWD_CLIENT_RELOAD" = always ] || {
     [ "$PORTFWD_CLIENT_RELOAD" = when-changed ] && [ "$changing" = y ]
 }; then
-    echo "Restarting $service_name service"
-    systemctl restart "$service_name"
+    echo "Restarting $fullname service"
+    systemctl restart "$fullname"
 fi

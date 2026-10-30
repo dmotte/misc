@@ -42,17 +42,17 @@ ssh_args=$* # Warning: some characters are forbidden. See the code below
 
 ################################################################################
 
-readonly service_name=portfwd-client-$name
+readonly fullname=portfwd-client-$name
 
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
 ################################################################################
 
-[ -e "/etc/supervisor/conf.d/50-$service_name.conf" ] || changing=y
+[ -e "/etc/supervisor/conf.d/50-$fullname.conf" ] || changing=y
 
 install -Tvm644 /dev/stdin \
-    "/etc/supervisor/conf.d/50-$service_name.conf" <<EOF
-[program:$service_name]
+    "/etc/supervisor/conf.d/50-$fullname.conf" <<EOF
+[program:$fullname]
 command=/bin/bash -ec '$ssh_command \\
     || result=\$?; sleep $restart_interval; exit "\${result:-0}"'
 startsecs=0
