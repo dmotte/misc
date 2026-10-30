@@ -55,7 +55,7 @@ fi
 install -DTvm644 /dev/stdin "$systemd_units_dir/$name.service" <<EOF
 [Unit]
 Description=$name service
-After=network.target network-online.target systemd-networkd.service NetworkManager.service connman.service
+After=network.target network-online.target NetworkManager.service connman.service systemd-networkd.service
 
 [Service]
 Type=oneshot
