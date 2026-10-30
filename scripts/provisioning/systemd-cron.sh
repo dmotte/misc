@@ -53,7 +53,7 @@ fi
 
 ################################################################################
 
-[ "$after_network" != y ] || line_after="After=\
+[ "$after_network" != y ] || readonly line_after="After=\
 network.target network-online.target \
 NetworkManager.service connman.service \
 networking.service systemd-networkd.service"
