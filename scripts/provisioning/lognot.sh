@@ -89,6 +89,9 @@ EOF
 install -Tvm644 /dev/stdin /etc/systemd/system/lognot.service <<EOF
 [Unit]
 Description=lognot
+After=network.target network-online.target \\
+    NetworkManager.service connman.service \\
+    networking.service systemd-networkd.service
 
 # Disable unit start rate limiting
 StartLimitIntervalSec=0
