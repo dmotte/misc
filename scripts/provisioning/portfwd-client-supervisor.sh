@@ -2,8 +2,6 @@
 
 set -e
 
-# TODO fix this script
-
 # This script can be used to set up a TCP port-forwarding SSH tunnel. It's
 # basically the equivalent of
 # https://github.com/dmotte/docker-images/tree/main/portfwd-client but as a
@@ -13,37 +11,30 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o +n:r: -l service-manager:,name-suffix: \
+options=$(getopt -o +n:r: -l name-suffix: \
     -l running-user:,keepalive-interval:,restart-interval: \
-    -l supervisor-priority:,systemd-wantedby: -- "$@")
+    -l supervisor-priority: -- "$@")
 eval "set -- $options"
 
-service_manager=auto
 name_suffix='' # Warning: some characters are forbidden. See the code below
 running_user=''
 keepalive_interval=30
 restart_interval=30
 supervisor_priority=''
-systemd_wantedby=multi-user.target
 
 while :; do
     case $1 in
-        --service-manager) shift; service_manager=$1;;
         -n|--name-suffix) shift; name_suffix=$1;;
         -r|--running-user) shift; running_user=$1;;
         --keepalive-interval) shift; keepalive_interval=$1;;
         --restart-interval) shift; restart_interval=$1;;
         --supervisor-priority) shift; supervisor_priority=$1;;
-        --systemd-wantedby) shift; systemd_wantedby=$1;;
         --) shift; break;;
     esac
     shift
 done
 
 ssh_args=$* # Warning: some characters are forbidden. See the code below
-
-[[ "$service_manager" =~ ^(auto|supervisor|systemd)$ ]] ||
-    { echo "Unsupported service manager: $service_manager" >&2; exit 1; }
 
 [[ "$name_suffix" =~ ^[0-9A-Za-z-]+$ ]] ||
     { echo "Invalid name suffix: $name_suffix" >&2; exit 1; }
@@ -56,13 +47,6 @@ ssh_args=$* # Warning: some characters are forbidden. See the code below
 
 ################################################################################
 
-if [ "$service_manager" = auto ]; then
-    if command -v supervisord >/dev/null; then service_manager=supervisor
-    else service_manager=systemd; fi
-
-    echo "Detected service manager: $service_manager"
-fi
-
 readonly service_name=portfwd-client-$name_suffix
 running_user_home=$(getent passwd "$running_user" | cut -d: -f6)
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
@@ -72,11 +56,10 @@ if [ -n "$supervisor_priority" ]
 
 ################################################################################
 
-if [ "$service_manager" = supervisor ]; then
-    [ -e "/etc/supervisor/conf.d/50-$service_name.conf" ] || changing=y
+[ -e "/etc/supervisor/conf.d/50-$service_name.conf" ] || changing=y
 
-    install -Tvm644 /dev/stdin \
-        "/etc/supervisor/conf.d/50-$service_name.conf" <<EOF
+install -Tvm644 /dev/stdin \
+    "/etc/supervisor/conf.d/50-$service_name.conf" <<EOF
 [program:$service_name]
 command=/bin/bash -ec '$ssh_command \\
     || result=\$?; sleep $restart_interval; exit "\${result:-0}"'
@@ -85,55 +68,21 @@ $line_priority
 user=$running_user
 directory=$running_user_home
 EOF
-elif [ "$service_manager" = systemd ]; then
-    [ -e "/etc/systemd/system/$service_name.service" ] || changing=y
-
-    install -Tvm644 /dev/stdin \
-        "/etc/systemd/system/$service_name.service" <<EOF
-[Unit]
-Description=$service_name
-
-# Disable unit start rate limiting
-StartLimitIntervalSec=0
-
-[Service]
-Type=simple
-
-User=$running_user
-
-WorkingDirectory=$running_user_home
-ExecStart=$ssh_command
-
-Restart=always
-RestartSec=$restart_interval
-
-[Install]
-WantedBy=$systemd_wantedby
-EOF
-
-    echo "Reloading systemd config and enabling $service_name service"
-    systemctl daemon-reload; systemctl enable "$service_name"
-fi
 
 ################################################################################
 
 if [ "$PORTFWD_CLIENT_RELOAD" = always ] || {
     [ "$PORTFWD_CLIENT_RELOAD" = when-changed ] && [ "$changing" = y ]
 }; then
-    if [ "$service_manager" = supervisor ]; then
-        if [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sighup ]; then
-            echo 'Sending SIGHUP to PID 1'
-            kill -sHUP 1
-        elif [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sigterm ]; then
-            echo 'Sending SIGTERM to PID 1'
-            # The container will restart if its restart policy is set that way
-            kill 1
-        else
-            echo 'Running supervisorctl update'
-            supervisorctl update
-        fi
-    elif [ "$service_manager" = systemd ]; then
-        echo "Restarting $service_name service"
-        systemctl restart "$service_name"
+    if [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sighup ]; then
+        echo 'Sending SIGHUP to PID 1'
+        kill -sHUP 1
+    elif [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sigterm ]; then
+        echo 'Sending SIGTERM to PID 1'
+        # The container will restart if its restart policy is set that way
+        kill 1
+    else
+        echo 'Running supervisorctl update'
+        supervisorctl update
     fi
 fi
