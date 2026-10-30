@@ -34,8 +34,7 @@ done
 
 ssh_args=$* # Warning: some characters are forbidden. See the code below
 
-[[ "$name" =~ ^[0-9A-Za-z-]+$ ]] ||
-    { echo "Invalid name: $name" >&2; exit 1; }
+[[ "$name" =~ ^[0-9A-Za-z-]+$ ]] || { echo "Invalid name: $name" >&2; exit 1; }
 
 [ -n "$ssh_args" ] || { echo 'SSH args cannot be empty' >&2; exit 1; }
 { [[ "$ssh_args" != *\'* ]] && [[ "$ssh_args" != *$'\n'* ]]; } ||
