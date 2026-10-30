@@ -11,12 +11,13 @@ set -e
 
 [ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
 
-options=$(getopt -o +n:p: -l name: \
+options=$(getopt -o +n:c:p: -l name:,cfgfile: \
     -l keepalive-interval:,restart-interval: \
     -l program: -- "$@")
 eval "set -- $options"
 
 name='' # Warning: some characters are forbidden. See the code below
+cfgfile=''
 keepalive_interval=30
 restart_interval=30
 program_lines=()
@@ -24,6 +25,7 @@ program_lines=()
 while :; do
     case $1 in
         -n|--name) shift; name=$1;;
+        -c|--cfgfile) shift; cfgfile=$1;;
         --keepalive-interval) shift; keepalive_interval=$1;;
         --restart-interval) shift; restart_interval=$1;;
         -p|--program) shift; program_lines+=("$1");;
@@ -35,6 +37,8 @@ done
 ssh_args=$* # Warning: some characters are forbidden. See the code below
 
 [[ "$name" =~ ^[0-9A-Za-z-]+$ ]] || { echo "Invalid name: $name" >&2; exit 1; }
+
+[ -n "$cfgfile" ] || { echo 'Config file path cannot be empty' >&2; exit 1; }
 
 [ -n "$ssh_args" ] || { echo 'SSH args cannot be empty' >&2; exit 1; }
 { [[ "$ssh_args" != *\'* ]] && [[ "$ssh_args" != *$'\n'* ]]; } ||
@@ -48,10 +52,9 @@ readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oE
 
 ################################################################################
 
-[ -e "/etc/supervisor/conf.d/50-$fullname.conf" ] || changing=y
+[ -e "$cfgfile" ] || changing=y
 
-install -Tvm644 /dev/stdin \
-    "/etc/supervisor/conf.d/50-$fullname.conf" <<EOF
+install -Tvm644 /dev/stdin "$cfgfile" <<EOF
 [program:$fullname]
 command=/bin/bash -ec '$ssh_command \\
     || result=\$?; sleep $restart_interval; exit "\${result:-0}"'
