@@ -79,7 +79,8 @@ if [ "$PORTFWD_CLIENT_RELOAD" = always ] || {
         kill -sHUP 1
     elif [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sigterm ]; then
         echo 'Sending SIGTERM to PID 1'
-        # The container will restart if its restart policy is set that way
+        # If running in a container, it will restart if its restart policy is
+        # set that way
         kill 1
     else
         echo 'Running supervisorctl update'
