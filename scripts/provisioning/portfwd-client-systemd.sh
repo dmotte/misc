@@ -97,6 +97,6 @@ scoped_systemctl daemon-reload; scoped_systemctl enable "$fullname"
 if [ "$PORTFWD_CLIENT_RESTART" = always ] || {
     [ "$PORTFWD_CLIENT_RESTART" = when-changed ] && [ "$changing" = y ]
 }; then
-    echo "Restarting $fullname service"
+    echo "Restarting $fullname"
     scoped_systemctl restart "$fullname"
 fi
