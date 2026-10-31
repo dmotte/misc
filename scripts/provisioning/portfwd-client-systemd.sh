@@ -58,6 +58,11 @@ readonly fullname=portfwd-client-$name
 
 readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
 
+if [ "$user" = y ]
+    then readonly systemd_wantedby=default.target
+    else readonly systemd_wantedby=multi-user.target
+fi
+
 ################################################################################
 
 [ -e "$systemd_units_dir/$fullname.service" ] || changing=y
@@ -80,7 +85,7 @@ Restart=always
 RestartSec=$restart_interval
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=$systemd_wantedby
 EOF
 
 echo "Reloading systemd config and enabling $fullname service"
