@@ -67,7 +67,7 @@ fi
 
 [ -e "$systemd_units_dir/$fullname.service" ] || changing=y
 
-install -Tvm644 /dev/stdin "$systemd_units_dir/$fullname.service" <<EOF
+install -DTvm644 /dev/stdin "$systemd_units_dir/$fullname.service" <<EOF
 [Unit]
 Description=$fullname
 After=network.target network-online.target \\
