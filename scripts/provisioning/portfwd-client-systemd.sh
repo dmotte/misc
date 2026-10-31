@@ -81,6 +81,7 @@ StartLimitIntervalSec=0
 Type=simple
 ExecStart=$ssh_command
 $(printf '%s\n' "${service_lines[@]}")
+
 Restart=always
 RestartSec=$restart_interval
 
@@ -93,8 +94,8 @@ scoped_systemctl daemon-reload; scoped_systemctl enable "$fullname"
 
 ################################################################################
 
-if [ "$PORTFWD_CLIENT_RELOAD" = always ] || {
-    [ "$PORTFWD_CLIENT_RELOAD" = when-changed ] && [ "$changing" = y ]
+if [ "$PORTFWD_CLIENT_RESTART" = always ] || {
+    [ "$PORTFWD_CLIENT_RESTART" = when-changed ] && [ "$changing" = y ]
 }; then
     echo "Restarting $fullname service"
     scoped_systemctl restart "$fullname"

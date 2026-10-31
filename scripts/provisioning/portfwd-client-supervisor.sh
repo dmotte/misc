@@ -62,13 +62,13 @@ EOF
 
 ################################################################################
 
-if [ "$PORTFWD_CLIENT_RELOAD" = always ] || {
-    [ "$PORTFWD_CLIENT_RELOAD" = when-changed ] && [ "$changing" = y ]
+if [ "$PORTFWD_CLIENT_RESTART" = always ] || {
+    [ "$PORTFWD_CLIENT_RESTART" = when-changed ] && [ "$changing" = y ]
 }; then
-    if [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sighup ]; then
+    if [ "$PORTFWD_CLIENT_RESTART_MODE" = pid1-sighup ]; then
         echo 'Sending SIGHUP to PID 1'
         kill -sHUP 1
-    elif [ "$PORTFWD_CLIENT_RELOAD_MODE" = pid1-sigterm ]; then
+    elif [ "$PORTFWD_CLIENT_RESTART_MODE" = pid1-sigterm ]; then
         echo 'Sending SIGTERM to PID 1'
         # If running in a container, it will restart if its restart policy is
         # set that way
