@@ -9,13 +9,12 @@ set -e
 
 # Tested on Debian 13 (trixie)
 
-[ "$EUID" = 0 ] || { echo 'This script must be run as root' >&2; exit 1; }
-
-options=$(getopt -o +n:s: -l name: \
+options=$(getopt -o +un:s: -l user,name: \
     -l keepalive-interval:,restart-interval: \
     -l service: -- "$@")
 eval "set -- $options"
 
+user=n
 name='' # Warning: some characters are forbidden. See the code below
 keepalive_interval=30
 restart_interval=30
@@ -23,6 +22,7 @@ service_lines=()
 
 while :; do
     case $1 in
+        -u|--user) user=y;;
         -n|--name) shift; name=$1;;
         --keepalive-interval) shift; keepalive_interval=$1;;
         --restart-interval) shift; restart_interval=$1;;
@@ -33,6 +33,18 @@ while :; do
 done
 
 ssh_args=$* # Warning: some characters are forbidden. See the code below
+
+if [ "$user" = y ]; then
+    [ "$EUID" != 0 ] ||
+        { echo 'Must run as a regular user if --user is set' >&2; exit 1; }
+    scoped_systemctl() { systemctl --user "$@"; }
+    readonly systemd_units_dir=~/.config/systemd/user
+else
+    [ "$EUID" = 0 ] ||
+        { echo 'Must run as root if --user is not set' >&2; exit 1; }
+    scoped_systemctl() { systemctl "$@"; }
+    readonly systemd_units_dir=/etc/systemd/system
+fi
 
 [[ "$name" =~ ^[0-9A-Za-z-]+$ ]] || { echo "Invalid name: $name" >&2; exit 1; }
 
@@ -48,9 +60,9 @@ readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oE
 
 ################################################################################
 
-[ -e "/etc/systemd/system/$fullname.service" ] || changing=y
+[ -e "$systemd_units_dir/$fullname.service" ] || changing=y
 
-install -Tvm644 /dev/stdin "/etc/systemd/system/$fullname.service" <<EOF
+install -Tvm644 /dev/stdin "$systemd_units_dir/$fullname.service" <<EOF
 [Unit]
 Description=$fullname
 After=network.target network-online.target \\
@@ -72,7 +84,7 @@ WantedBy=multi-user.target
 EOF
 
 echo "Reloading systemd config and enabling $fullname service"
-systemctl daemon-reload; systemctl enable "$fullname"
+scoped_systemctl daemon-reload; scoped_systemctl enable "$fullname"
 
 ################################################################################
 
@@ -80,5 +92,5 @@ if [ "$PORTFWD_CLIENT_RELOAD" = always ] || {
     [ "$PORTFWD_CLIENT_RELOAD" = when-changed ] && [ "$changing" = y ]
 }; then
     echo "Restarting $fullname service"
-    systemctl restart "$fullname"
+    scoped_systemctl restart "$fullname"
 fi
