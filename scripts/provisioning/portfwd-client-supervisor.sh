@@ -46,7 +46,9 @@ ssh_args=$* # Warning: some characters are forbidden. See the code below
 
 readonly fullname=portfwd-client-$name
 
-readonly ssh_command="/usr/bin/ssh -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes $ssh_args"
+readonly ssh_command="/usr/bin/ssh -Nv \
+-oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes \
+$ssh_args"
 
 ################################################################################
 
