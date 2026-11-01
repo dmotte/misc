@@ -25,6 +25,7 @@ Some pieces of code I find useful for some reason.
 - `git lfs track '*.mp3'`, `git lfs ls-files`
 - `reporoot=$(git rev-parse --show-toplevel)`
 - `latest_commit=$(git rev-parse HEAD)`
+- `git branch -a`, `git fetch --prune` (to delete any remote-tracking branches that no longer exist on the remote)
 - `grep -IRi --exclude-dir=.git pattern`
 - `tig`, `tig blame myfile.txt`
 - `type python3`
