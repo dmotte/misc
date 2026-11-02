@@ -38,7 +38,7 @@ done
 
 cert=$(fetch_and_check \
     https://apt.releases.hashicorp.com/gpg \
-    cafb01beac341bf2a9ba89793e6dd2468110291adfbb6c62ed11a0cde6c09029)
+    1df7d66b79352bab45388511079f74987568672a8ed6395053a050b61f6c5430)
 echo "$cert" |
     gpg --dearmor --yes -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 
