@@ -181,6 +181,8 @@ Some pieces of code I find useful for some reason.
 - `yt-dlp -Sres:720 --embed-metadata -o'myvid.%(ext)s' "$myurl"`, `yt-dlp -f'ba[acodec^=mp3]/ba/b' -x --audio-format=mp3 --embed-metadata -o'mysong.%(ext)s' "$myurl"`
 - `install -DTv <(echo -e '#!/bin/bash\nexec "$(realpath "$(dirname "$0")/../Scripts/python")" "$@"') .venv/bin/python3`
 - `shred -u myfile.txt`
+- `age -a -R ~/.ssh/id_ed25519.pub`, `age -d -i ~/.ssh/id_ed25519`
+- `age -R ~/.ssh/id_ed25519.pub -o myarchive.zip.age myarchive.zip`, `age -d -i ~/.ssh/id_ed25519 -o myarchive.zip myarchive.zip.age`
 - `gpg -ac --cipher-algo=AES256 --no-symkey-cache -o encrypted.asc <(date)`, `gpg -d --no-symkey-cache encrypted.asc`
 - `gpg -c --cipher-algo=AES256 --no-compress --no-symkey-cache -o encrypted.gpg myarchive.zip`, `gpg -d --no-symkey-cache encrypted.gpg | sha256sum`
 - `date | gpg -ac --batch --cipher-algo=AES256 --no-symkey-cache --passphrase-file=<(echo MyPassphrase) -o encrypted.asc`, `gpg -d --batch --no-symkey-cache --passphrase=MyPassphrase encrypted.asc | sha256sum`
