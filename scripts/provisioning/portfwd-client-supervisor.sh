@@ -44,8 +44,6 @@ ssh_args=$* # Warning: some characters are forbidden. See the code below
 
 ################################################################################
 
-readonly fullname=portfwd-client-$name
-
 readonly ssh_command="/usr/bin/ssh -Nv \
 -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes \
 $ssh_args"
@@ -55,7 +53,7 @@ $ssh_args"
 [ -e "$cfgfile" ] || changing=y
 
 install -Tvm644 /dev/stdin "$cfgfile" <<EOF
-[program:$fullname]
+[program:$name]
 command=/bin/bash -ec '$ssh_command \\
     || result=\$?; sleep $restart_interval; exit "\${result:-0}"'
 startsecs=0
