@@ -39,11 +39,13 @@ if [ "$user" = y ]; then
         { echo 'Must run as a regular user if --user is set' >&2; exit 1; }
     scoped_systemctl() { systemctl --user "$@"; }
     readonly systemd_units_dir=~/.config/systemd/user
+    readonly systemd_wantedby=default.target
 else
     [ "$EUID" = 0 ] ||
         { echo 'Must run as root if --user is not set' >&2; exit 1; }
     scoped_systemctl() { systemctl "$@"; }
     readonly systemd_units_dir=/etc/systemd/system
+    readonly systemd_wantedby=multi-user.target
 fi
 
 [[ "$name" =~ ^[0-9A-Za-z-]+$ ]] || { echo "Invalid name: $name" >&2; exit 1; }
@@ -59,11 +61,6 @@ readonly fullname=portfwd-client-$name
 readonly ssh_command="/usr/bin/ssh -Nv \
 -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes \
 $ssh_args"
-
-if [ "$user" = y ]
-    then readonly systemd_wantedby=default.target
-    else readonly systemd_wantedby=multi-user.target
-fi
 
 ################################################################################
 
