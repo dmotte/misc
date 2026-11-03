@@ -56,19 +56,17 @@ fi
 
 ################################################################################
 
-readonly fullname=portfwd-client-$name
-
 readonly ssh_command="/usr/bin/ssh -Nv \
 -oServerAliveInterval=$keepalive_interval -oExitOnForwardFailure=yes \
 $ssh_args"
 
 ################################################################################
 
-[ -e "$systemd_units_dir/$fullname.service" ] || changing=y
+[ -e "$systemd_units_dir/$name.service" ] || changing=y
 
-install -DTvm644 /dev/stdin "$systemd_units_dir/$fullname.service" <<EOF
+install -DTvm644 /dev/stdin "$systemd_units_dir/$name.service" <<EOF
 [Unit]
-Description=$fullname
+Description=$name
 After=network.target network-online.target \\
     NetworkManager.service connman.service \\
     networking.service systemd-networkd.service
@@ -88,14 +86,14 @@ RestartSec=$restart_interval
 WantedBy=$systemd_wantedby
 EOF
 
-echo "Reloading systemd config and enabling $fullname service"
-scoped_systemctl daemon-reload; scoped_systemctl enable "$fullname"
+echo "Reloading systemd config and enabling $name service"
+scoped_systemctl daemon-reload; scoped_systemctl enable "$name"
 
 ################################################################################
 
 if [ "$PORTFWD_CLIENT_RESTART" = always ] || {
     [ "$PORTFWD_CLIENT_RESTART" = when-changed ] && [ "$changing" = y ]
 }; then
-    echo "Restarting $fullname"
-    scoped_systemctl restart "$fullname"
+    echo "Restarting $name"
+    scoped_systemctl restart "$name"
 fi
