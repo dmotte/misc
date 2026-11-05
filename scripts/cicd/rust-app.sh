@@ -30,7 +30,7 @@ echo "::group::$0: Preparation"
         # shellcheck source=/dev/null
         . ~/.cargo/env
     fi
-    rustc --version; cargo --version
+    rustup --version; rustc --version; cargo --version
 
     echo "$CICD_SUMMARY_TITLE" | tee -a "$CICD_SUMMARY"
 echo '::endgroup::'
