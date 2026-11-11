@@ -213,8 +213,9 @@ Some pieces of code I find useful for some reason.
 - `export RCLONE_FTP_PASS=$(IFS= read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
 - `ssh-keyscan -qp2222 192.168.0.123 >> ~/.ssh/known_hosts` (always double-check retrieved host keys!), `rclone --config= sync -vn --create-empty-src-dirs . :sftp,known_hosts_file=~/.ssh/known_hosts,host=192.168.0.123,port=2222,user=myuser:mydir`
 - `rclone check -v --size-only myremote:/remote-src-dir ./local-dst-dir`
-- `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass --read-only .`
-- `rclone --config= serve -v sftp --dir-cache-time=0 --addr=0.0.0.0:2022 --user=myuser --authorized-keys=<(echo 'ssh-ed25519 AAAAC3Nza...') .`
+- `ssh-keygen -lf<(cat ~/.cache/rclone/serve-sftp/id_*.pub)`
+  - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass --read-only .`
+  - `rclone --config= serve -v sftp --dir-cache-time=0 --addr=0.0.0.0:2022 --user=myuser --authorized-keys=<(echo 'ssh-ed25519 AAAAC3Nza...') .`
 - `rclone --config= serve -v webdav --dir-cache-time=0 --disable-dir-list --addr=unix:///tmp/my.sock .`
 - `rclone --config= serve -Lv http --dir-cache-time=0 --disable-zip --read-only --addr=0.0.0.0:8443 --cert=server.crt --key=server.key .`
 - `curl -fsSL -H'X-GitHub-Api-Version: 2026-03-10' https://api.github.com/repos/OWNER/REPO/releases/latest | sed -En 's/^  "name": "([^"]+)",$/\1/p'`
