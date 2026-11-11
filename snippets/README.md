@@ -105,7 +105,7 @@ Some pieces of code I find useful for some reason.
 - `ssh-keygen -ted25519 -Cmydevice -f ~/.ssh/id_ed25519`, `ssh-keygen -trsa -b4096 -Cmydevice -f ~/.ssh/id_rsa`
 - `ssh-keygen -yf ~/.ssh/id_ed25519`
 - `ssh-copy-id myuser@192.168.0.123`
-- `ssh-keyscan -Hqted25519 -p2222 192.168.0.123`
+- `ssh-keyscan -Hqted25519 -p2222 192.168.0.123` (always double-check retrieved host keys!)
 - `ssh-keygen -R'[myserver.example.com]:2222'`
 - `ssh-keygen -lf<(cat /etc/ssh/ssh_host_*_key.pub)`, `ssh-keygen -lF'[192.168.0.123]:2222'`
 - `ansible-playbook -Kk -i hosts.yml playbook.yml -t tags --list-tasks`
@@ -211,7 +211,7 @@ Some pieces of code I find useful for some reason.
 - `rclone --config= sync -vn --create-empty-src-dirs --modify-window=2s ./local-src-dir /media/myuser/MYFAT32`, `rclone --config= sync -vn --create-empty-src-dirs --no-update-{,dir-}modtime ./local-src-dir /media/myuser/MYFAT32`
 - `rclone --config= sync -Mvn --create-empty-src-dirs --files-from=mylist.txt ./src-dir ./dst-dir`
 - `export RCLONE_FTP_PASS=$(IFS= read -rsp 'Password: ' && echo "$REPLY" | rclone obscure -)`, `rclone --config= sync -vn --create-empty-src-dirs ./www :ftp:/ --ftp-host=myserver.example.com --ftp-user=myuser --ftp-ask-password --ftp-explicit-tls --ftp-no-check-certificate --size-only`
-- `ssh-keyscan -qp2222 192.168.0.123 >> ~/.ssh/known_hosts`, `rclone --config= sync -vn --create-empty-src-dirs . :sftp,known_hosts_file=~/.ssh/known_hosts,host=192.168.0.123,port=2222,user=myuser:mydir`
+- `ssh-keyscan -qp2222 192.168.0.123 >> ~/.ssh/known_hosts` (always double-check retrieved host keys!), `rclone --config= sync -vn --create-empty-src-dirs . :sftp,known_hosts_file=~/.ssh/known_hosts,host=192.168.0.123,port=2222,user=myuser:mydir`
 - `rclone check -v --size-only myremote:/remote-src-dir ./local-dst-dir`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --user=myuser --pass=mypass --read-only .`
 - `rclone --config= serve -v sftp --dir-cache-time=0 --addr=0.0.0.0:2022 --user=myuser --authorized-keys=<(echo 'ssh-ed25519 AAAAC3Nza...') .`
