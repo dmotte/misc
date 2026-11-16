@@ -451,6 +451,7 @@ time OUTPUT_DATA=false python3 parse.py < README.md; echo $?
 - **Remote - WSL** - use any folder in the Windows Subsystem for Linux (WSL) as your development environment: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
 - **Serial Monitor** - send and receive text from serial ports: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-serial-monitor)
 - **ShellCheck** - integrate ShellCheck, a linter for shell scripts: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
+- **Tinymist Typst** - integrated language service for Typst: [github](https://github.com/Myriad-Dreamin/tinymist) [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist)
 - **Trailing Spaces** - highlight trailing spaces and delete them in a flash: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
 - **XML Tools** - XML Formatting, XQuery, and XPath Tools: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=dotjoshjohnson.xml)
 - **autopep8** - formatting support for Python files using the autopep8 formatter: [vsmarketplace](https://marketplace.visualstudio.com/items?itemName=ms-python.autopep8)
