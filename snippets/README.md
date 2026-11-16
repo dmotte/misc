@@ -492,7 +492,7 @@ rclone bisync -Mvn --create-empty-src-dirs \
 - `podman run -it --rm --net=pasta:--map-host-loopback,169.254.1.3 docker.io/library/alpine:latest`
 - `podman run -it --rm --add-host=foo:host-gateway docker.io/library/alpine:latest` (will fail with an error if Podman cannot determine the `host-gateway` address)
 - `podman run -it --rm --net=pasta:-p/tmp/mycapture.pcap docker.io/library/alpine:latest`
-- `podman run -t --rm -v.:/v -w/v ghcr.io/typst/typst:latest compile --ignore-system-fonts --font-path=fonts myfile.{typ,pdf}`
+- `podman run -t --rm -v.:/v -w/v ghcr.io/typst/typst:latest compile --ignore-system-fonts --font-path=fonts main.{typ,pdf}`
 
 ```bash
 # Note: Podman network isolation is enabled by default starting with v6.0.0, so
