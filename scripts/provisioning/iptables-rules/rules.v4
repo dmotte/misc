@@ -15,6 +15,9 @@
 # Allow all incoming packets for already established connections
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
+# Drop invalid packets early
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+
 # Limit incoming TCP connection requests (SYN packets) per source IP
 -A INPUT -p tcp --syn -m hashlimit --hashlimit-name limit-syn --hashlimit-mode srcip --hashlimit-above 10/sec --hashlimit-burst 30 -j DROP
 
@@ -54,6 +57,9 @@
 # Allow all outgoing packets for already established connections
 -A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
+# Drop invalid packets early
+-A OUTPUT -m conntrack --ctstate INVALID -j DROP
+
 # Allow packets to DHCP servers for the eth* network interfaces
 -A OUTPUT -o eth+ -p udp --dport 67 -j ACCEPT
 
@@ -92,6 +98,9 @@
 
 # Allow all packets for already established connections
 -A DOCKER-USER -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# Drop invalid packets early
+-A DOCKER-USER -m conntrack --ctstate INVALID -j DROP
 
 # Allow all packets from a specific physical device
 -A DOCKER-USER -m mac --mac-source 12:34:56:78:9A:BC -j ACCEPT
