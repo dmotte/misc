@@ -281,6 +281,7 @@ Some pieces of code I find useful for some reason.
 - `history -d-1`, `history -d-2`
 - `exec {lockfd}>"$(dirname "$0")/.run.lock"; flock -n "$lockfd" || { echo "Another $0 instance is already running" >&2; exit 1; }`
 - `compgen -G'/etc/*.conf'`
+- `~/.vscode/extensions/myriad-dreamin.tinymist-0.15.12-linux-x64/out/tinymist preview --invert-colors='{"rest":"always","image":"never"}' --ignore-system-fonts --font-path=fonts --no-open --verbose main.typ` (serves on `127.0.0.1:23635`)
 
 ```bash
 install -Tvm600 <(echo 'ACTION=="add", SUBSYSTEM=="pci",' \
