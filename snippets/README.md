@@ -522,6 +522,26 @@ EOF
 podman run -it --rm -eUSERNGO_{NAME=myuser,PSW=mypassword,{SUDOER,NOPASSWD}=true} localhost/img-guifwd-util-01:latest
 ```
 
+```bash
+podman run -it --rm docker.io/library/caddy:latest caddy hash-password
+
+cat <<'EOF' >> Caddyfile
+{
+    admin off
+}
+
+:8080 {
+    log
+    basic_auth {
+        user $2a$14$...
+    }
+    reverse_proxy 169.254.1.3:12345
+}
+EOF
+
+podman run -it --rm --net=pasta:--map-host-loopback,169.254.1.3 -p8080:8080 -v./Caddyfile:/etc/caddy/Caddyfile:ro docker.io/library/caddy:latest
+```
+
 ## Shell snippets for Kubernetes
 
 - `kubectl get all -A`, `kubectl get pod -owide`, `kubectl get pod -w`
