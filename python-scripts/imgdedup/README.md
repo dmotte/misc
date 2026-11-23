@@ -1,6 +1,6 @@
 # imgdedup
 
-Simple Python script to detect **exact and near duplicates** in an image collection, using the **[imagededup](https://idealo.github.io/imagededup/)** library. It is basically just a **wrapper** around such library.
+Simple Python script to detect **exact and near duplicates** in an image collection, using the **[imagededup](https://idealo.github.io/imagededup/)** library. It is basically just a **wrapper** around that library.
 
 Inspired by PR [idealo/imagededup#47](https://github.com/idealo/imagededup/pull/47) on 2025-05-16.
 

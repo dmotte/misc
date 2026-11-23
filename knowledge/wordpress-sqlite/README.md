@@ -52,7 +52,7 @@ https://wordpress.org/latest.zip
 
 Using _Tiny File Manager_'s "UnZip" feature, **extract** the archive content to the website root. As a result, you should get a `wordpress` folder there.
 
-**Rename** such `wordpress` folder to `website`.
+**Rename** that `wordpress` folder to `website`.
 
 **Remove** the _WordPress_ compressed archive from the website root.
 

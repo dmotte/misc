@@ -1,6 +1,6 @@
 # imgcaption
 
-Simple Python script to generate **descriptive texts** (**captions**) for images, using the **[Hugging Face Transformers](https://huggingface.co/transformers)** library with the **`Salesforce/blip-image-captioning-base`** model. It is basically just a **wrapper** around such library.
+Simple Python script to generate **descriptive texts** (**captions**) for images, using the **[Hugging Face Transformers](https://huggingface.co/transformers)** library with the **`Salesforce/blip-image-captioning-base`** model. It is basically just a **wrapper** around that library.
 
 Inspired by:
 

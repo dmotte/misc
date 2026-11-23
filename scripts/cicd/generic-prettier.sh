@@ -27,7 +27,7 @@ echo '::endgroup::'
 # https://github.com/prettier/prettier/issues/4081#issuecomment-3980455396
 # for more info.
 # We have to actually rewrite all the patterns and we cannot simply rely on
-# passing multiple "--ignore-path" options to Prettier because, in such case,
+# passing multiple "--ignore-path" options to Prettier because, in that case,
 # if a pattern like "*.json" is present in ANY of the ignore files at any
 # depth, then Prettier would ignore all such files AT ANY DEPTH, even outside
 # the directory where the ignore file was found
