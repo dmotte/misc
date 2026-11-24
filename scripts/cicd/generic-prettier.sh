@@ -16,7 +16,7 @@ echo "::group::$0: Preparation"
     fi
     npm --version
 
-    npm install -g prettier
+    # npm install -g prettier # Not actually needed
     npx prettier --version
 echo '::endgroup::'
 
